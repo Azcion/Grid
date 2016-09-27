@@ -15,7 +15,7 @@ namespace Assets.Scripts {
 		public string ActualSeed;
 
 		[UsedImplicitly]
-		[Range (1, 16)]
+		[Range (1, 32)]
 		public int YChunks = 8;
 
 		[UsedImplicitly]
