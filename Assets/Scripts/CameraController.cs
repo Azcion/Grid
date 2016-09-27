@@ -6,9 +6,9 @@ namespace Assets.Scripts {
 	public class CameraController : MonoBehaviour {
 
 		private const float DURATION = 1f;
-		private const float ZOOM_RATE = 75f;
-		private const float MIN_ZOOM = 2.25f;
-		private const float MAX_ZOOM = .75f;
+		private const float ZOOM_RATE = 35f;
+		private const float MIN_ZOOM = 1f;
+		private const float MAX_ZOOM = .2f;
 
 		private Camera _camera;
 		private Vector3 _lastPosition;
@@ -63,13 +63,16 @@ namespace Assets.Scripts {
 			}
 		}
 
+		// todo determine @magic value
 		private void InputCameraPan () {
+			const float magicSensitivity = -.00225f; // -.0043f
+
 			if (Input.GetMouseButtonDown(2)) {
 				_lastPosition = Input.mousePosition;
 			}
 
 			if (Input.GetMouseButton(2)) {
-				float sensitivity = -.0043f * _camera.orthographicSize;
+				float sensitivity = magicSensitivity * _camera.orthographicSize;
 				Vector2 delta = Input.mousePosition - _lastPosition;
 				transform.Translate(delta.x * sensitivity, delta.y * sensitivity, 0);
 				_lastPosition = Input.mousePosition;
