@@ -24,8 +24,7 @@ namespace Assets.Editor {
 
 		private void RefreshCreator () {
 			if (Application.isPlaying) {
-				_creator.FillValues();
-				_creator.FillTexture();
+				_creator.ForceUpdate();
 			}
 		}
 

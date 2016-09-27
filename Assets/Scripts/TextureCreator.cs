@@ -57,7 +57,33 @@ namespace Assets.Scripts {
 		private int _yTiles;
 		private int _yTiles2;
 
-		public void FillValues () {
+		public void ForceUpdate () {
+			transform.hasChanged = false;
+			_oldBiome = BiomeType;
+			_yTiles = YChunks * Chunk.SIZE;
+			_yTiles2 = _yTiles * FACTOR;
+			_values = new float[_yTiles, _yTiles];
+			_valuesXL = new float[_yTiles2, _yTiles2];
+
+			FillValues();
+			FillTexture();
+		}
+
+		private static int LongToInt (long value) {
+			while (true) {
+				if (value < int.MaxValue) {
+					return (int) value;
+				}
+
+				if (value < uint.MaxValue) {
+					return (int) (2L * int.MinValue + value);
+				}
+
+				value %= uint.MaxValue;
+			}
+		}
+
+		private void FillValues () {
 			Vector3 point00 = transform.TransformPoint(new Vector3(-.5f, -.5f));
 			Vector3 point10 = transform.TransformPoint(new Vector3( .5f, -.5f));
 			Vector3 point01 = transform.TransformPoint(new Vector3(-.5f,  .5f));
@@ -106,7 +132,7 @@ namespace Assets.Scripts {
 			}
 		}
 
-		public void FillTexture () {
+		private void FillTexture () {
 			for (int y = 0; y < _yTiles2; y++) {
 				for (int x = 0; x < _yTiles2; x++) {
 					_texture.SetPixel(x, y, _biome.Coloring.Evaluate(_valuesXL[y, x]));
@@ -114,21 +140,6 @@ namespace Assets.Scripts {
 			}
 
 			_texture.Apply();
-		}
-
-		private static
-			int LongToInt (long value) {
-			while (true) {
-				if (value < int.MaxValue) {
-					return (int) value;
-				}
-
-				if (value < uint.MaxValue) {
-					return (int) (2L * int.MinValue + value);
-				}
-
-				value %= uint.MaxValue;
-			}
 		}
 
 		[UsedImplicitly]
