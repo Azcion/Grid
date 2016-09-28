@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts {
 
@@ -16,6 +17,9 @@ namespace Assets.Scripts {
 		private bool _zoomInTransition;
 		private float _zoomElapsed;
 
+		private Transform _tileInfo;
+		private Text _tileInfoText;
+
 		[UsedImplicitly]
 		public void Awake () {
 			Application.targetFrameRate = 120;
@@ -27,12 +31,37 @@ namespace Assets.Scripts {
 			_camera = transform.GetComponent<Camera>();
 			_camera.orthographicSize = MIN_ZOOM;
 			_zoomElapsed = 0;
+			_tileInfo = GameObject.Find("Canvas").transform.FindChild("Tile Info");
+			_tileInfoText = _tileInfo.GetComponent<Text>();
 		}
 
 		[UsedImplicitly]
 		private void Update () {
+			InputMouseHover();
 			InputCameraZoom();
 			InputCameraPan();
+		}
+
+		private void InputMouseHover () {
+			if (_lastPosition == Input.mousePosition) {
+				return;
+			}
+
+			Vector2 position = new Vector2(
+				_camera.ScreenToWorldPoint(Input.mousePosition).x,
+				_camera.ScreenToWorldPoint(Input.mousePosition).y);
+
+			RaycastHit2D tile = Physics2D.Raycast(position, Vector2.zero, 100f);
+
+			if (tile) {
+				Tile t = tile.transform.GetComponent<TileID>().Tile;
+				_tileInfoText.text = "";
+				_tileInfoText.text += (int) (DayNightCycle.Progress * 100) + "% lit\n";
+				_tileInfoText.text += t.Chunk.GlobalID + ":" + t.LocalID + "\n";
+				_tileInfoText.text += t.Name;
+			} else {
+				_tileInfoText.text = "Void";
+			}
 		}
 
 		private void InputCameraZoom () {
