@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d9ece3ce11bbe99489c138e20fe25c3f
+guid: 120a1090ce029934eabfe7e164efe76f
 timeCreated: 1474757615
 licenseType: Free
 TextureImporter:
@@ -19,7 +19,7 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-  isReadable: 1
+  isReadable: 0
   grayScaleToAlpha: 0
   generateCubemap: 0
   cubemapConvolution: 0
@@ -47,13 +47,13 @@ TextureImporter:
   spritePixelsToUnits: 64
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 5
+  textureType: 8
   buildTargetSettings: []
   spriteSheet:
     serializedVersion: 2
     sprites: []
     outline: []
-  spritePackingTag: 
+  spritePackingTag: Tile
   userData: 
   assetBundleName: 
   assetBundleVariant: 
