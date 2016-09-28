@@ -7,7 +7,7 @@ namespace Assets.Scripts {
 
 		[UsedImplicitly]
 		private void Update () {
-			if (Input.GetButtonUp("escape")) {
+			if (Input.GetKeyUp("escape")) {
 				Application.Quit();
 			}
 		}
