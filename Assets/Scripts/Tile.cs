@@ -12,33 +12,45 @@ namespace Assets.Scripts {
 		public readonly Sprite Image;
 		public readonly TileType Type;
 		public readonly byte LocalID;
+		public readonly string Name;
+
+		private static readonly string[] TILE_NAME = {
+			Enum.GetName(typeof(TileType), TileType.None),
+			Enum.GetName(typeof(TileType), TileType.Water),
+			Enum.GetName(typeof(TileType), TileType.Sand),
+			Enum.GetName(typeof(TileType), TileType.Grass),
+			Enum.GetName(typeof(TileType), TileType.Plant),
+			Enum.GetName(typeof(TileType), TileType.Mountain),
+			Enum.GetName(typeof(TileType), TileType.Snow)
+		};
 
 		public Tile (Chunk chunk, byte id, TileType type) {
 			Chunk = chunk;
 			Type = type;
 			LocalID = id;
+			Name = TILE_NAME[(int) type];
 
 			switch (type) {
 				case TileType.Water:
-					Image = TileSprite.WATER;
+					Image = TileSprite.Water;
 					break;
 				case TileType.Sand:
-					Image = TileSprite.SAND;
+					Image = TileSprite.Sand;
 					break;
 				case TileType.Grass:
-					Image = TileSprite.GRASS;
+					Image = TileSprite.Grass;
 					break;
 				case TileType.Plant:
-					Image = TileSprite.PLANT;
+					Image = TileSprite.Plant;
 					break;
 				case TileType.Mountain:
-					Image = TileSprite.MOUNTAIN;
+					Image = TileSprite.Mountain;
 					break;
 				case TileType.Snow:
-					Image = TileSprite.SNOW;
+					Image = TileSprite.Snow;
 					break;
 				default:
-					Image = TileSprite.NONE;
+					Image = TileSprite.None;
 					break;
 			}
 
