@@ -50,7 +50,7 @@ namespace Assets.Scripts {
 		private MeshRenderer _mr;
 
 		private float[,] _values;
-		private float[,] _valuesXL;
+		private float[,] _values2;
 		private Biome _biome;
 		private Texture2D _texture;
 		private BiomeType _oldBiome;
@@ -63,7 +63,7 @@ namespace Assets.Scripts {
 			_yTiles = YChunks * Chunk.SIZE;
 			_yTiles2 = _yTiles * FACTOR;
 			_values = new float[_yTiles, _yTiles];
-			_valuesXL = new float[_yTiles2, _yTiles2];
+			_values2 = new float[_yTiles2, _yTiles2];
 
 			FillValues();
 			FillTexture();
@@ -127,7 +127,7 @@ namespace Assets.Scripts {
 						sample = sample * .64f + .5f;
 					}
 
-					_valuesXL[y, x] = sample;
+					_values2[y, x] = sample;
 				}
 			}
 		}
@@ -135,7 +135,7 @@ namespace Assets.Scripts {
 		private void FillTexture () {
 			for (int y = 0; y < _yTiles2; y++) {
 				for (int x = 0; x < _yTiles2; x++) {
-					_texture.SetPixel(x, y, _biome.Coloring.Evaluate(_valuesXL[y, x]));
+					_texture.SetPixel(x, y, _biome.Coloring.Evaluate(_values2[y, x]));
 				}
 			}
 
@@ -157,8 +157,6 @@ namespace Assets.Scripts {
 			};
 
 			_map = transform.FindChild("Map");
-			_map.Rotate(0, 0, 90f);
-			_map.localScale = new Vector3(1, -1);
 			_mr = _map.GetComponent<MeshRenderer>();
 			_mr.material.mainTexture = _texture;
 			_mr.material.shader = Shader.Find("Sprites/Default");
@@ -178,7 +176,7 @@ namespace Assets.Scripts {
 				_yTiles = YChunks * Chunk.SIZE;
 				_yTiles2 = _yTiles * FACTOR;
 				_values = new float[_yTiles, _yTiles];
-				_valuesXL = new float[_yTiles2, _yTiles2];
+				_values2 = new float[_yTiles2, _yTiles2];
 
 				FillValues();
 				FillTexture();
