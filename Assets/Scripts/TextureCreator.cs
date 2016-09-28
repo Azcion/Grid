@@ -159,7 +159,7 @@ namespace Assets.Scripts {
 			_map = transform.FindChild("Map");
 			_mr = _map.GetComponent<MeshRenderer>();
 			_mr.material.mainTexture = _texture;
-			_mr.material.shader = Shader.Find("Sprites/Default");
+			_mr.material.shader = Shader.Find("Sprites/Diffuse");
 		}
 
 		[UsedImplicitly]
