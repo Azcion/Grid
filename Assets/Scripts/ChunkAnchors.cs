@@ -12,7 +12,7 @@ namespace Assets.Scripts {
 			const float offset = -.5f;
 			float yCf = yChunks;
 			float oneDivY = 1 / yCf;
-			float yScale = oneDivY * 100 / TileSprite.NONE.rect.width;
+			float yScale = oneDivY * 100 / TileSprite.None.rect.width;
 
 			Anchors = new GameObject[yChunks, yChunks];
 			Scale = yScale;

@@ -32,6 +32,7 @@ namespace Assets.Scripts {
 			_values = values;
 
 			FillChunks();
+			Chunk.RemovePrefab();
 		}
 
 		private void FillChunks () {
@@ -39,7 +40,7 @@ namespace Assets.Scripts {
 				List<Chunk> row = new List<Chunk>();
 
 				for (int x = 0; x < XChunks; ++x) {
-					row.Add(new Chunk(this, ChunkAnchors.Anchors[y, x], MakeChunk(x, y), x, y));
+					row.Add(new Chunk(YTiles, ChunkAnchors.Anchors[y, x], MakeChunk(x, y), x, y));
 				}
 
 				Chunks.Add(row);

@@ -19,10 +19,27 @@ namespace Assets.Scripts {
 		public readonly Vector2 FirstTilePosition;
 		public readonly List<Tile> Tiles;
 
-		private readonly ChunkSystem _system;
+		private static readonly GameObject TILE_PREFAB;
+
 		private readonly TileType[] _tileTypes;
 
-		public Chunk (ChunkSystem system, GameObject anchor, TileType[] tiles, int posX, int posY) {
+		static Chunk () {
+			const float opacity = .05f;
+
+			TILE_PREFAB = new GameObject();
+			TILE_PREFAB.AddComponent<SpriteRenderer>().color = new Color(1, 1, 1, opacity);
+			TILE_PREFAB.AddComponent<TileID>();
+
+			BoxCollider2D box = TILE_PREFAB.AddComponent<BoxCollider2D>();
+			box.offset = new Vector2(.5f, .5f);
+			box.size = new Vector2(1, 1);
+		}
+
+		public Chunk (int yTiles, GameObject anchor, TileType[] tiles, int posX, int posY) {
+			const float magic = 31.2515f;  // todo: 31.2515 appears to be the height of the whole map
+			float magicScale = magic / yTiles * .32f;
+			TILE_PREFAB.transform.localScale = new Vector2(magicScale, magicScale);
+
 			X = posX;
 			Y = posY;
 
@@ -32,11 +49,14 @@ namespace Assets.Scripts {
 			FirstTilePosition = new Vector2(posX * SIZE, posY * SIZE);
 			Tiles = new List<Tile>();
 
-			_system = system;
 			_tileTypes = tiles;
 
 			MakeTiles();
 			InstantiateTiles();
+		}
+
+		public static void RemovePrefab () {
+			Object.Destroy(TILE_PREFAB.gameObject);
 		}
 
 		public Tile TileAt (int x, int y) {
@@ -59,21 +79,16 @@ namespace Assets.Scripts {
 
 		// todo determine @magic value
 		private void InstantiateTiles () {
-			const float opacity = .1f;
 			float position = 10f / YChunks / SIZE;
-			float magicScale = 31.2515f / _system.YTiles;  // todo: 31.2515 appears to be the height of the whole map
-			Vector3 scale = new Vector3(magicScale, magicScale);
-			
+
 			for (int y = 0; y < SIZE; ++y) {
 				for (int x = 0; x < SIZE; ++x) {
-					GameObject tile = new GameObject("Tile " + y + " " + x);
+					GameObject tile = Object.Instantiate(TILE_PREFAB);
+					tile.name = "Tile " + y + " " + x;
 					tile.transform.SetParent(Anchor.transform);
-					tile.SetActive(true);
 					tile.transform.localPosition = new Vector3(y * position, x * position);
-					tile.transform.localScale = scale;
-					SpriteRenderer sr = tile.AddComponent<SpriteRenderer>();
-					sr.sprite = Tiles[y * SIZE + x].Image;
-					sr.color = new Color(1, 1, 1, opacity);
+					tile.GetComponent<SpriteRenderer>().sprite = Tiles[y * SIZE + x].Image;
+					tile.GetComponent<TileID>().Tile = TileAt(x, y);
 				}
 			}
 		}
