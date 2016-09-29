@@ -160,7 +160,7 @@ namespace Assets.Scripts {
 
 			_texture = new Texture2D(_yTiles2, _yTiles2, TextureFormat.RGB24, true) {
 				wrapMode = TextureWrapMode.Clamp,
-				filterMode = FilterMode.Point
+				filterMode = FilterMode.Bilinear
 			};
 
 			_map = transform.FindChild("Map");
