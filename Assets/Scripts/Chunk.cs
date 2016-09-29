@@ -16,7 +16,6 @@ namespace Assets.Scripts {
 		public readonly GameObject Anchor;
 
 		public readonly int GlobalID;
-		public readonly Vector2 FirstTilePosition;
 		public readonly List<Tile> Tiles;
 
 		private static readonly GameObject TILE_PREFAB;
@@ -46,7 +45,6 @@ namespace Assets.Scripts {
 			Anchor = anchor;
 
 			GlobalID = posY * YChunks + posX;
-			FirstTilePosition = new Vector2(posX * SIZE, posY * SIZE);
 			Tiles = new List<Tile>();
 
 			_tileTypes = tiles;
@@ -57,17 +55,6 @@ namespace Assets.Scripts {
 
 		public static void RemovePrefab () {
 			Object.Destroy(TILE_PREFAB.gameObject);
-		}
-
-		public Tile TileAt (int x, int y) {
-			return Tiles[y * SIZE + x];
-		}
-
-		public Vector2 LocationOf (Tile tile) {
-			int x = tile.LocalID % SIZE;
-			int y = tile.LocalID / SIZE;
-
-			return new Vector2(x, y);
 		}
 
 		private void MakeTiles () {
@@ -87,8 +74,9 @@ namespace Assets.Scripts {
 					tile.name = "Tile " + y + " " + x;
 					tile.transform.SetParent(Anchor.transform);
 					tile.transform.localPosition = new Vector3(y * position, x * position);
-					tile.GetComponent<SpriteRenderer>().sprite = Tiles[y * SIZE + x].Image;
-					tile.GetComponent<TileID>().Tile = TileAt(x, y);
+					Tile t = Tiles[y * SIZE + x];
+					tile.GetComponent<SpriteRenderer>().sprite = t.Image;
+					tile.GetComponent<TileID>().Tile = t;
 				}
 			}
 		}

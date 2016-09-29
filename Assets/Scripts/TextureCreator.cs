@@ -115,6 +115,11 @@ namespace Assets.Scripts {
 				_texture.Resize(_yTiles2, _yTiles2);
 			}
 
+			if (FACTOR == 1) {
+				_values2 = _values;
+				return;
+			}
+
 			for (int y = 0; y < _yTiles2; y++) {
 				Vector3 point0 = Vector3.Lerp(point00, point01, (y + .5f) * stepSize);
 				Vector3 point1 = Vector3.Lerp(point10, point11, (y + .5f) * stepSize);

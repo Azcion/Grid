@@ -6,17 +6,11 @@ namespace Assets.Scripts {
 
 		public static GameObject[,] Anchors;
 
-		public static float Scale;
-
 		public ChunkAnchors (GameObject parent, int yChunks) {
 			const float offset = -.5f;
 			float yCf = yChunks;
-			float oneDivY = 1 / yCf;
-			float yScale = oneDivY * 100 / TileSprite.None.rect.width;
 
 			Anchors = new GameObject[yChunks, yChunks];
-			Scale = yScale;
-
 			for (int y = 0; y < yChunks; ++y) {
 				for (int x = 0; x < yChunks; ++x) {
 					GameObject chunk = new GameObject("Chunk " + y + " " + x);

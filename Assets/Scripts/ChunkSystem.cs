@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Enums;
+using UnityEngine;
 
 namespace Assets.Scripts {
 
@@ -40,7 +41,8 @@ namespace Assets.Scripts {
 				List<Chunk> row = new List<Chunk>();
 
 				for (int x = 0; x < XChunks; ++x) {
-					row.Add(new Chunk(YTiles, ChunkAnchors.Anchors[y, x], MakeChunk(x, y), x, y));
+					GameObject anchor = ChunkAnchors.Anchors[y, x];
+					row.Add(new Chunk(YTiles, anchor, MakeChunk(x, y), x, y));
 				}
 
 				Chunks.Add(row);

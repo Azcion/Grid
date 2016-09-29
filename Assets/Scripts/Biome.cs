@@ -24,13 +24,7 @@ namespace Assets.Scripts {
 
 			GetLevels();
 
-			GameObject anchorContainer = parent;
-
-			foreach (Transform child in anchorContainer.transform) {
-				Object.Destroy(child.gameObject);
-			}
-
-			ChunkAnchors = new ChunkAnchors(anchorContainer, yChunks);
+			ChunkAnchors = new ChunkAnchors(parent, yChunks);
 			ChunkSystem = new ChunkSystem(this, values, yChunks, yChunks);
 		}
 
