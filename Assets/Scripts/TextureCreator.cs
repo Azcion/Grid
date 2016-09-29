@@ -16,7 +16,7 @@ namespace Assets.Scripts {
 
 		[UsedImplicitly]
 		[Range(1, 32)]
-		public int YChunks = 8;
+		public int YChunks = 25;
 
 		[UsedImplicitly]
 		[Range(1, 32)]
