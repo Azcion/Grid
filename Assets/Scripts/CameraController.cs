@@ -56,7 +56,7 @@ namespace Assets.Scripts {
 			if (tile) {
 				Tile t = tile.transform.GetComponent<TileID>().Tile;
 				_tileInfoText.text = "";
-				_tileInfoText.text += (int) (DayNightCycle.Progress * 100) + "% lit\n";
+				_tileInfoText.text += DayNightCycle.LightLevel + "% lit\n";
 				_tileInfoText.text += t.Chunk.GlobalID + ":" + t.LocalID + "\n";
 				_tileInfoText.text += t.Name;
 			} else {

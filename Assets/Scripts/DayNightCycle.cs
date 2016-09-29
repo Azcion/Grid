@@ -1,55 +1,81 @@
-﻿using JetBrains.Annotations;
+﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts {
 
 	public class DayNightCycle : MonoBehaviour {
 
-		public static float Progress;
+		public static float Progress = .25f;
+		public static int LightLevel = 60;
 
-		[UsedImplicitly]
-		public Color ColorDay;
+		private const int L_MORNING = 60;
+		private const int L_MIDDAY = 240;
+		private const int L_EVENING = 60;
+		private const int L_MIDNIGHT = -180;
 
-		[UsedImplicitly]
-		public Color ColorNight;
+		private static readonly int[] C_MORNING = { 255, 255, 75 };
+		private static readonly int[] C_MIDDAY = { 255 * 3, 255 * 3, 255 * 3 };
+		private static readonly int[] C_EVENING = { 255, 125, 20 };
+		private static readonly int[] C_MIDNIGHT = { -255, -255, 20 };
 
-		private Light _light;
-		private bool _daytime;
-		private int _direction;
+		private Light _sun;
 
 		[UsedImplicitly]
 		private void Start () {
-			_light = GetComponent<Light>();
-			_daytime = true;
-			_direction = 1;
-			Progress = .5f;
+			_sun = GetComponent<Light>();
 		}
 
 		[UsedImplicitly]
 		private void Update () {
-			if (Toggles.DoCycle) {
-				if (_daytime) {
-					Lerp(ColorNight, ColorDay);
-				} else {
-					Lerp(ColorDay, ColorNight);
-				}
+			DoCycle();
+		}
+
+		private void DoCycle () {
+			if (!Toggles.DoCycle) {
+				return;
+			}
+
+			float t = Progress % .25f * 4;
+
+			if (Progress > .75f) {
+				LerpColor(C_EVENING, C_MIDNIGHT, t);
+				LerpLight(L_EVENING, L_MIDNIGHT, t);
+			} else if (Progress > .5f) {
+				LerpColor(C_MIDDAY, C_EVENING, t);
+				LerpLight(L_MIDDAY, L_EVENING, t);
+			} else if (Progress > .25f) {
+				LerpColor(C_MORNING, C_MIDDAY, t);
+				LerpLight(L_MORNING, L_MIDDAY, t);
+			} else {
+				LerpColor(C_MIDNIGHT, C_MORNING, t);
+				LerpLight(L_MIDNIGHT, L_MORNING, t);
 			}
 		}
 
-		private void Lerp (Color from, Color to) {
+		private void LerpColor (IList<int> from, IList<int> to, float time) {
 			const float speed = 1f / 60;
-			float r = Mathf.Lerp(from.r, to.r, Progress);
-			float g = Mathf.Lerp(from.g, to.g, Progress);
-			float b = Mathf.Lerp(from.b, to.b, Progress);
 
-			_light.color = new Color(r, g, b);
-			Progress += speed * Time.deltaTime * _direction;
+			int g = (int) Mathf.Lerp(from[1], to[1], time);
+			int b = (int) Mathf.Lerp(from[2], to[2], time);
+			int r = (int) Mathf.Lerp(from[0], to[0], time);
+			byte rb = (byte) (r < 0 ? 0 : r > 255 ? 255 : r);
+			byte gb = (byte) (g < 0 ? 0 : g > 255 ? 255 : g);
+			byte bb = (byte) (b < 0 ? 0 : b > 255 ? 255 : b);
+
+			_sun.color = new Color32(rb, gb, bb, 0);
+			Progress += speed * Time.deltaTime;
 
 			if (Progress >= 1) {
-				_direction = -1;
-			} else if (Progress <= 0) {
-				_direction = 1;
+				Progress = 0;
 			}
+		}
+
+		private void LerpLight (int from, int to, float time) {
+			int l = (int) Mathf.Lerp(from, to, time);
+			l = l < 0 ? 0 : l > 100 ? 100 : l;
+
+			LightLevel = l;
 		}
 
 	}
