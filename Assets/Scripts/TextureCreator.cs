@@ -15,8 +15,12 @@ namespace Assets.Scripts {
 		public string ActualSeed;
 
 		[UsedImplicitly]
-		[Range (1, 32)]
+		[Range(1, 32)]
 		public int YChunks = 8;
+
+		[UsedImplicitly]
+		[Range(1, 32)]
+		public int Factor = 4;
 
 		[UsedImplicitly]
 		[Range(1, 3)]
@@ -44,8 +48,6 @@ namespace Assets.Scripts {
 		[UsedImplicitly]
 		public BiomeType BiomeType = BiomeType.Highlands;
 
-		private const int FACTOR = 8;
-
 		private Transform _map;
 		private MeshRenderer _mr;
 
@@ -61,7 +63,7 @@ namespace Assets.Scripts {
 			transform.hasChanged = false;
 			_oldBiome = BiomeType;
 			_yTiles = YChunks * Chunk.SIZE;
-			_yTiles2 = _yTiles * FACTOR;
+			_yTiles2 = _yTiles * Factor;
 			_values = new float[_yTiles, _yTiles];
 			_values2 = new float[_yTiles2, _yTiles2];
 
@@ -115,7 +117,7 @@ namespace Assets.Scripts {
 				_texture.Resize(_yTiles2, _yTiles2);
 			}
 
-			if (FACTOR == 1) {
+			if (Factor == 1) {
 				_values2 = _values;
 				return;
 			}
@@ -150,7 +152,7 @@ namespace Assets.Scripts {
 		[UsedImplicitly]
 		private void OnEnable () {
 			_yTiles = YChunks * Chunk.SIZE;
-			_yTiles2 = _yTiles * FACTOR;
+			_yTiles2 = _yTiles * Factor;
 
 			if (_texture != null) {
 				return;
@@ -179,7 +181,7 @@ namespace Assets.Scripts {
 				transform.hasChanged = false;
 				_oldBiome = BiomeType;
 				_yTiles = YChunks * Chunk.SIZE;
-				_yTiles2 = _yTiles * FACTOR;
+				_yTiles2 = _yTiles * Factor;
 				_values = new float[_yTiles, _yTiles];
 				_values2 = new float[_yTiles2, _yTiles2];
 
