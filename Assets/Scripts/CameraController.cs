@@ -94,7 +94,7 @@ namespace Assets.Scripts {
 
 		// todo determine @magic value
 		private void InputCameraPan () {
-			const float magicSensitivity = -.00225f; // -.0043f
+			const float magicSensitivity = -.002f; // -.0043f
 
 			if (Input.GetMouseButtonDown(2)) {
 				_lastPosition = Input.mousePosition;
