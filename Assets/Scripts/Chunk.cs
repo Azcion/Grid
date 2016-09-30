@@ -54,7 +54,7 @@ namespace Assets.Scripts {
 		}
 
 		public static void RemovePrefab () {
-			Object.Destroy(TILE_PREFAB.gameObject);
+			TILE_PREFAB.SetActive(false);
 		}
 
 		private void MakeTiles () {
