@@ -1,16 +1,14 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿namespace Assets.Scripts.Enums {
 
-namespace Assets.Scripts.Enums {
-
-	[SuppressMessage ("ReSharper", "UnusedMember.Global")]
 	public enum TileType : byte {
 
-		None,
-		Water,
+		//None,
+		DeepWater,
+		ShallowWater,
 		Sand,
 		Grass,
-		Plant,
-		Mountain,
+		Dirt,
+		Rock,
 		Snow
 
 	}

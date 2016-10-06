@@ -1,100 +1,61 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets.Scripts {
 
 	public class CameraController : MonoBehaviour {
 
-		private const float DURATION = 1f;
-		private const float ZOOM_RATE = 35f;
-		private const float MIN_ZOOM = 1f;
-		private const float MAX_ZOOM = .2f;
+		public static GameObject TileUnderCursor;
 
+		private const float ZOOM_SPEED = 25;
+		private const int ZOOM_RATE = 25;
+		private const int MAX_SIZE = 35;
+		private const int MIN_SIZE = 5;
+		private const int INITIAL_SIZE = 13;
+
+		private float _newSize;
 		private Camera _camera;
 		private Vector3 _lastPosition;
 
-		private bool _zoomInTransition;
-		private float _zoomElapsed;
-
-		private Transform _tileInfo;
-		private Text _tileInfoText;
-
 		[UsedImplicitly]
-		public void Awake () {
-			Application.targetFrameRate = 120;
-			QualitySettings.vSyncCount = 0;
+		private void OnEnable () {
+			transform.position = new Vector3(TileMaker.HALF, TileMaker.HALF, transform.position.z);
+			_camera = GetComponent<Camera>();
+			_camera.orthographicSize = INITIAL_SIZE;
 		}
 
 		[UsedImplicitly]
 		private void Start () {
-			_camera = transform.GetComponent<Camera>();
-			_camera.orthographicSize = MIN_ZOOM;
-			_zoomElapsed = 0;
-			_tileInfo = GameObject.Find("Canvas").transform.FindChild("Tile Info");
-			_tileInfoText = _tileInfo.GetComponent<Text>();
+			_newSize = _camera.orthographicSize;
 		}
 
 		[UsedImplicitly]
-		private void Update () {
-			InputMouseHover();
-			InputCameraZoom();
-			InputCameraPan();
+		private void LateUpdate () {
+			if (ApplicationController.Ready) {
+				DoZoom();
+				DoPan();
+				DoHover();
+			}
 		}
 
-		private void InputMouseHover () {
-			if (_lastPosition == Input.mousePosition) {
+		private void DoZoom () {
+			float scroll = Input.GetAxis("Mouse ScrollWheel");
+
+			if (Math.Abs(scroll) > .0001) {
+				_newSize -= scroll * ZOOM_SPEED;
+				_newSize = Mathf.Clamp(_newSize, MIN_SIZE, MAX_SIZE);
+			} else if (Math.Abs(_camera.orthographicSize - _newSize) < .0001) {
+				_camera.orthographicSize = _newSize;
 				return;
 			}
 
-			Vector2 position = new Vector2(
-				_camera.ScreenToWorldPoint(Input.mousePosition).x,
-				_camera.ScreenToWorldPoint(Input.mousePosition).y);
-
-			RaycastHit2D tile = Physics2D.Raycast(position, Vector2.zero, 100f);
-
-			if (tile) {
-				Tile t = tile.transform.GetComponent<TileID>().Tile;
-				_tileInfoText.text = "";
-				_tileInfoText.text += DayNightCycle.LightLevel + "% lit\n";
-				_tileInfoText.text += t.Chunk.GlobalID + ":" + t.LocalID + "\n";
-				_tileInfoText.text += t.Name;
-			} else {
-				_tileInfoText.text = "Void";
-			}
+			float delta = ZOOM_RATE * Time.deltaTime;
+			_camera.orthographicSize = Mathf.MoveTowards(_camera.orthographicSize, _newSize, delta);
 		}
 
-		private void InputCameraZoom () {
-			float scrollDelta = Input.GetAxis("Mouse ScrollWheel");
-
-			if (!_zoomInTransition) {
-				if (Mathf.Abs(scrollDelta) > .0001) {
-					_zoomInTransition = true;
-					_zoomElapsed = 0f;
-				} else {
-					return;
-				}
-			}
-
-			_zoomElapsed += Time.deltaTime * DURATION;
-			float size = _camera.orthographicSize;
-			float newSize = size - ZOOM_RATE * scrollDelta;
-			_camera.orthographicSize = Mathf.Lerp(size, newSize, Time.deltaTime / DURATION);
-
-			if (_camera.orthographicSize < MAX_ZOOM) {
-				_camera.orthographicSize = MAX_ZOOM;
-			} else if (_camera.orthographicSize > MIN_ZOOM) {
-				_camera.orthographicSize = MIN_ZOOM;
-			}
-
-			if (_zoomElapsed > DURATION) {
-				_zoomInTransition = false;
-			}
-		}
-
-		// todo determine @magic value
-		private void InputCameraPan () {
-			const float magicSensitivity = -.002f; // -.0043f
+		private void DoPan () {
+			const float magicSensitivity = -.002f;
 
 			if (Input.GetMouseButtonDown(2)) {
 				_lastPosition = Input.mousePosition;
@@ -103,10 +64,23 @@ namespace Assets.Scripts {
 			if (Input.GetMouseButton(2)) {
 				float sensitivity = magicSensitivity * _camera.orthographicSize;
 				Vector2 delta = Input.mousePosition - _lastPosition;
-				transform.Translate(delta.x * sensitivity, delta.y * sensitivity, 0);
 				_lastPosition = Input.mousePosition;
+				transform.Translate(delta * sensitivity);
+
+				Vector3 p = transform.position;
+				
+				transform.position = new Vector3(
+						Mathf.Clamp(p.x, TileMaker.CHALF, TileMaker.YTILES - TileMaker.CHALF),
+						Mathf.Clamp(p.y, TileMaker.CHALF, TileMaker.YTILES - TileMaker.CHALF),
+						p.z);
 			}
 		}
+
+		private void DoHover () {
+			Vector2 pos = _camera.ScreenToWorldPoint(Input.mousePosition);
+			TileUnderCursor = TileMaker.Get((int) pos.x, (int) pos.y);
+		}
+
 	}
 
 }
