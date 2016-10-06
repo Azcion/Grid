@@ -30,9 +30,23 @@ namespace Assets.Scripts {
 
 		private const int INFO_REFRESH_FRAMES = 8;
 
+		private static bool _ready;
+
+		private static float _loadTime;
+		private static float _startTime;
+
 		private int _infoRefreshFrame;
-		private float _loadTime;
 		private Text _i;
+
+		public static void NotifyReady () {
+			_loadTime = Time.realtimeSinceStartup - _startTime;
+		}
+
+		private static IEnumerator SetReady () {
+			yield return new WaitForSeconds(2);
+
+			Ready = true;
+		}
 
 		[UsedImplicitly]
 		private void OnEnable () {
@@ -47,20 +61,20 @@ namespace Assets.Scripts {
 
 		[UsedImplicitly]
 		private void OnClick () {
-			float startTime = Time.realtimeSinceStartup;
+			_startTime = Time.realtimeSinceStartup;
 
 			Destroy(StartButton);
 			Sun.SetActive(true);
 			TileMaker.SetActive(true);
 			FloraMaker.SetActive(true);
-			
-			Ready = true;
-			_loadTime = Time.realtimeSinceStartup - startTime;
+			_ready = true;
+
+			StartCoroutine(SetReady());
 		}
 
 		[UsedImplicitly]
 		private void LateUpdate () {
-			if (!Ready) {
+			if (!_ready) {
 				return;
 			}
 
@@ -83,8 +97,7 @@ namespace Assets.Scripts {
 				_i.text += "\nVoid";
 			}
 
-			_i.text += "\nT: " + _loadTime;
-			_i.text += "\nSeed: " + Scripts.TileMaker.Seed;
+			_i.text += "\nLoad: " + _loadTime.ToString("n2") + "s";
 			_i.text += "\nSeed: " + Seed;
 		}
 

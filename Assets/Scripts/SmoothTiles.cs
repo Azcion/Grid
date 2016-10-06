@@ -432,6 +432,8 @@ namespace Assets.Scripts {
 				cornerPiece.transform.parent = transform;
 			}
 			#endregion
+
+			ApplicationController.NotifyReady();
 		}
 
 		private void GetStaticAssets () {

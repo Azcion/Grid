@@ -38,6 +38,8 @@ namespace Assets.Scripts {
 					Initialize(t);
 				}
 			}
+
+			ApplicationController.NotifyReady();
 		}
 
 		private void Initialize (Transform t) {

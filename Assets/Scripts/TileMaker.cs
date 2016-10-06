@@ -92,6 +92,7 @@ namespace Assets.Scripts {
 			}
 
 			_ready = true;
+			ApplicationController.NotifyReady();
 		}
 
 		private void InitializeTile (Transform t) {
