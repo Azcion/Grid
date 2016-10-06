@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Assets.Scripts.Enums;
 using JetBrains.Annotations;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Assets.Scripts {
 
@@ -15,8 +14,6 @@ namespace Assets.Scripts {
 		public const int YTILES = CSIZE * YCHUNKS;
 		public const int THALF = YTILES / 2;
 		public const int CENTER = YCHUNKS / 2;
-
-		public static int Seed;
 
 		// Object references
 		#region
@@ -54,6 +51,7 @@ namespace Assets.Scripts {
 		public Material DefaultMat;
 		#endregion
 
+		private static int _seed;
 		private static bool _ready;
 
 		private static List<List<GameObject>> _tiles;
@@ -68,7 +66,7 @@ namespace Assets.Scripts {
 
 		[UsedImplicitly]
 		private void Start () {
-			Seed = (int) (Random.value * 1000000);
+			_seed = ApplicationController.Seed;
 			_tiles = new List<List<GameObject>>();
 
 			for (int i = 0; i < YTILES; ++i) {
@@ -99,7 +97,7 @@ namespace Assets.Scripts {
 		private void InitializeTile (Transform t) {
 			int x = (int) t.position.x;
 			int y = (int) t.position.y;
-			float v = Noise.Sum(x + Seed, y + Seed, .01f, 6, 2, .5f);
+			float v = Noise.Sum(x + _seed, y + _seed, .01f, 6, 2, .5f);
 			TileType type;
 
 			if (v > .60) {

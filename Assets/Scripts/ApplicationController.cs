@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.Collections;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,7 @@ namespace Assets.Scripts {
 
 	public class ApplicationController : MonoBehaviour {
 
+		public static int Seed;
 		public static bool Ready;
 
 		// Object references
@@ -34,6 +36,7 @@ namespace Assets.Scripts {
 
 		[UsedImplicitly]
 		private void OnEnable () {
+			Seed = (int) (Random.value * 1000000);
 			_i = InfoBox.GetComponent<Text>();
 		}
 
@@ -82,6 +85,7 @@ namespace Assets.Scripts {
 
 			_i.text += "\nT: " + _loadTime;
 			_i.text += "\nSeed: " + Scripts.TileMaker.Seed;
+			_i.text += "\nSeed: " + Seed;
 		}
 
 	}
