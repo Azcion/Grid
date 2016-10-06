@@ -20,7 +20,7 @@ namespace Assets.Scripts {
 
 		[UsedImplicitly]
 		private void OnEnable () {
-			transform.position = new Vector3(TileMaker.HALF, TileMaker.HALF, transform.position.z);
+			transform.position = new Vector3(TileMaker.THALF, TileMaker.THALF, transform.position.z);
 			_camera = GetComponent<Camera>();
 			_camera.orthographicSize = INITIAL_SIZE;
 		}

@@ -9,11 +9,11 @@ namespace Assets.Scripts {
 
 	public class TileMaker : MonoBehaviour {
 
-		public const int YCHUNKS = 25;
 		public const int CSIZE = 8;
+		public const int YCHUNKS = 25;
 		public const int CHALF = CSIZE / 2;
 		public const int YTILES = CSIZE * YCHUNKS;
-		public const int HALF = YTILES / 2;
+		public const int THALF = YTILES / 2;
 		public const int CENTER = YCHUNKS / 2;
 
 		public static int Seed;
