@@ -7,12 +7,13 @@ namespace Assets.Scripts {
 	public class CameraController : MonoBehaviour {
 
 		public static GameObject TileUnderCursor;
+		public static float Size;
 
-		private const float ZOOM_SPEED = 25;
-		private const int ZOOM_RATE = 25;
+		private const float ZOOM_SPEED = 10;
+		private const int ZOOM_RATE = 10;
 		private const int MAX_SIZE = 35;
 		private const int MIN_SIZE = 5;
-		private const int INITIAL_SIZE = 13;
+		private const int INITIAL_SIZE = 10;
 
 		private float _newSize;
 		private Camera _camera;
@@ -36,6 +37,8 @@ namespace Assets.Scripts {
 				DoZoom();
 				DoPan();
 				DoHover();
+
+				Size = _camera.orthographicSize;
 			}
 		}
 
