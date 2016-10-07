@@ -47,7 +47,7 @@ namespace Assets.Scripts {
 			Transform container;
 			Sprite sprite;
 
-			float scale = Random.Range(.5f, 1);
+			float scale = (float) System.Math.Round(Random.Range(.5f, 1), 2);
 			Vector2 vScale = new Vector2(Random.value > .5 ? scale : -scale, scale);
 			
 
