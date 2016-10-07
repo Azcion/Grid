@@ -59,7 +59,7 @@ namespace Assets.Scripts {
 
 		[UsedImplicitly]
 		private void Update () {
-			if (!_renderer.isVisible || CameraController.Size >= 15) {
+			if (!_renderer.isVisible || CameraController.Size >= 15 || !Toggles.DoWind) {
 				return;
 			}
 
