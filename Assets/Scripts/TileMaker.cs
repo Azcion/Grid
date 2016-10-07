@@ -99,79 +99,48 @@ namespace Assets.Scripts {
 			int x = (int) t.position.x;
 			int y = (int) t.position.y;
 			float v = Noise.Sum(x + _seed, y + _seed, .01f, 6, 2, .5f);
+
 			TileType type;
-
-			if (v > .60) {
-				type = TileType.Snow;
-			} else if (v > .55) {
-				type = TileType.Rock;
-			} else if (v > .53) {
-				type = TileType.Dirt;
-			} else if (v > .48) {
-				type = TileType.Grass;
-			} else if (v > .35) {
-				type = TileType.Sand;
-			} else if (v > .30) {
-				type = TileType.Grass;
-			} else if (v > .25) {
-				type = TileType.ShallowWater;
-			} else {
-				type = TileType.DeepWater;
-			}
-
 			Material mat;
 			Color color;
 
-			switch (type) {
-				case TileType.DeepWater:
-					mat = DeepWaterMat;
-					color = TileSprites.CDeepWater;
-					break;
-				case TileType.ShallowWater:
-					mat = ShallowWaterMat;
-					color = TileSprites.CShallowWater;
-					break;
-				case TileType.Sand:
-					mat = SandMat;
-					color = TileSprites.CSand;
-					break;
-				case TileType.Grass:
-					mat = GrassMat;
-					color = TileSprites.CGrass;
-					break;
-				case TileType.Dirt:
-					mat = DirtMat;
-					color = TileSprites.CDirt;
-					break;
-				case TileType.Rock:
-					mat = RockMat;
-					color = TileSprites.CRock;
-					break;
-				case TileType.Snow:
-					mat = SnowMat;
-					color = TileSprites.CSnow;
-					break;
-				default:
-					mat = GrassMat;
-					color = TileSprites.CGrass;
-					break;
+			if (v > .60) {
+				type = TileType.Snow;
+				mat = SnowMat;
+				color = TileSprites.CSnow;
+			} else if (v > .55) {
+				type = TileType.Rock;
+				mat = RockMat;
+				color = TileSprites.CRock;
+			} else if (v > .53) {
+				type = TileType.Dirt;
+				mat = DirtMat;
+				color = TileSprites.CDirt;
+			} else if (v > .48) {
+				type = TileType.Grass;
+				mat = GrassMat;
+				color = TileSprites.CGrass;
+			} else if (v > .35) {
+				type = TileType.Sand;
+				mat = SandMat;
+				color = TileSprites.CSand;
+			} else if (v > .30) {
+				type = TileType.Grass;
+				mat = GrassMat;
+				color = TileSprites.CGrass;
+			} else if (v > .25) {
+				type = TileType.ShallowWater;
+				mat = ShallowWaterMat;
+				color = TileSprites.CShallowWater;
+			} else {
+				type = TileType.DeepWater;
+				mat = DeepWaterMat;
+				color = TileSprites.CDeepWater;
 			}
 
 			Tile tile = t.GetComponent<Tile>();
 			tile.Chunk = t.parent.gameObject;
 			tile.Type = type;
-
-			/*List<Vector2> uvs = new List<Vector2> {
-				new Vector2(x * .125f, y * .125f),
-				new Vector2((x + 1) * .125f, (y + 1) * .125f),
-				new Vector2((x + 1) * .125f, y * .125f),
-				new Vector2(x * .125f, (y + 1) * .125f)
-				};
-
-			t.GetComponent<MeshFilter>().mesh.SetUVs(0, uvs);
-
-			MeshRenderer mr = t.GetComponent<MeshRenderer>();
-			mr.material = mat;*/
 
 			SpriteRenderer sr = t.GetComponent<SpriteRenderer>();
 			sr.material = mat;
