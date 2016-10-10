@@ -9,9 +9,6 @@ namespace Assets.Scripts {
 		public static float Progress = .25f;
 		public static int LightLevel = 60;
 
-		[UsedImplicitly]
-		public Material FakeDiffuse;
-
 		private const int L_MORNING = 60;
 		private const int L_MIDDAY = 240;
 		private const int L_EVENING = 60;
@@ -21,11 +18,6 @@ namespace Assets.Scripts {
 		private static readonly int[] C_MIDDAY = { 255 * 3, 255 * 3, 255 * 3 };
 		private static readonly int[] C_EVENING = { 255, 125, 20 };
 		private static readonly int[] C_MIDNIGHT = { -255, -255, 20 };
-
-		private static readonly int[] F_MORNING = { 255, 255, 75 };
-		private static readonly int[] F_MIDDAY = { 255 * 3, 255 * 3, 255 * 3 };
-		private static readonly int[] F_EVENING = { 155, 110, 75 };
-		private static readonly int[] F_MIDNIGHT = { -195, -195, -195 };
 
 		private Light _sun;
 
@@ -49,19 +41,15 @@ namespace Assets.Scripts {
 			if (Progress > .75f) {
 				LerpColor(C_EVENING, C_MIDNIGHT, t);
 				LerpLight(L_EVENING, L_MIDNIGHT, t);
-				LerpFakeDiffuse(F_EVENING, F_MIDNIGHT, t);
 			} else if (Progress > .5f) {
 				LerpColor(C_MIDDAY, C_EVENING, t);
 				LerpLight(L_MIDDAY, L_EVENING, t);
-				LerpFakeDiffuse(F_MIDDAY, F_EVENING, t);
 			} else if (Progress > .25f) {
 				LerpColor(C_MORNING, C_MIDDAY, t);
 				LerpLight(L_MORNING, L_MIDDAY, t);
-				LerpFakeDiffuse(F_MORNING, F_MIDDAY, t);
 			} else {
 				LerpColor(C_MIDNIGHT, C_MORNING, t);
 				LerpLight(L_MIDNIGHT, L_MORNING, t);
-				LerpFakeDiffuse(F_MIDNIGHT, F_MORNING, t);
 			}
 		}
 
@@ -88,17 +76,6 @@ namespace Assets.Scripts {
 			l = l < 0 ? 0 : l > 100 ? 100 : l;
 
 			LightLevel = l;
-		}
-
-		private void LerpFakeDiffuse (IList<int> from, IList<int> to, float time) {
-			int g = (int) Mathf.Lerp(from[1], to[1], time);
-			int b = (int) Mathf.Lerp(from[2], to[2], time);
-			int r = (int) Mathf.Lerp(from[0], to[0], time);
-			byte rb = (byte) (r < 30 ? 30 : r > 255 ? 255 : r);
-			byte gb = (byte) (g < 30 ? 30 : g > 255 ? 255 : g);
-			byte bb = (byte) (b < 30 ? 30 : b > 255 ? 255 : b);
-
-			FakeDiffuse.color = new Color32(rb, gb, bb, 255);
 		}
 
 	}
