@@ -3,7 +3,9 @@
 	public enum FloraType : byte {
 		
 		Palm,
-		Agave
+		Agave,
+		Cactus,
+		Grass
 
 	}
 

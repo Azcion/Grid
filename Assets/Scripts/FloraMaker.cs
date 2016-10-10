@@ -10,12 +10,6 @@ namespace Assets.Scripts {
 		// Object references
 		#region
 		[UsedImplicitly]
-		public GameObject PlantPrefab;
-
-		[UsedImplicitly]
-		public GameObject TreePrefab;
-
-		[UsedImplicitly]
 		public GameObject ChunkContainer;
 
 		[UsedImplicitly]
@@ -43,40 +37,50 @@ namespace Assets.Scripts {
 		}
 
 		private void Initialize (Transform t) {
-			GameObject prefab;
-			Transform container;
-			Sprite sprite;
-
 			float scale = (float) System.Math.Round(Random.Range(.5f, 1), 2);
-			Vector2 vScale = new Vector2(Random.value > .5 ? scale : -scale, scale);
-			
+			Vector3 vScale = new Vector3(Random.value > .5 ? scale : -scale, scale, 1);
+
+			Transform container;
+			FloraType type;
 
 			switch (t.GetComponent<Tile>().Type) {
-				case TileType.Grass:
-					if (Random.value < .85) {
-						return;
-					}
-
-					prefab = TreePrefab;
-					container = TreeContainer.transform;
-					sprite = FloraSprites.Get(FloraType.Palm);
-					break;
-				case TileType.Dirt:
+				case TileType.Sand:
 					if (Random.value < .95) {
 						return;
 					}
 
-					prefab = PlantPrefab;
 					container = PlantContainer.transform;
-					sprite = FloraSprites.Get(FloraType.Agave);
+					type = FloraType.Cactus;
+					break;
+				case TileType.Grass:
+					if (Random.value < .75) {
+						return;
+					}
+
+					if (Random.value < .50) {
+						container = PlantContainer.transform;
+						type = FloraType.Grass;
+						break;
+					}
+
+					container = TreeContainer.transform;
+					type = FloraType.Palm;
+					break;
+				case TileType.Dirt:
+					if (Random.value < .90) {
+						return;
+					}
+
+					container = PlantContainer.transform;
+					type = FloraType.Agave;
 					break;
 				default:
 					return;
 			}
 
-			GameObject f = Instantiate(prefab, t.position, Quaternion.identity, container);
+			GameObject f = Instantiate(FloraSprites.Get(type), t.position, Quaternion.identity, container);
 			f.transform.localScale = vScale;
-			f.GetComponent<SpriteRenderer>().sprite = sprite;
+			f.GetComponent<Flora>().Type = type;
 			f.SetActive(true);
 		}
 
