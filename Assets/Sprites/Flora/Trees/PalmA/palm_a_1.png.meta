@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1ff790dd7d844d34390aaeeda5d8fec8
+guid: 47cf5b7aec0b77247abeeec68d5a0e63
 timeCreated: 1475660423
 licenseType: Free
 TextureImporter:
@@ -40,7 +40,7 @@ TextureImporter:
   alignment: 9
   spritePivot: {x: 0.5, y: 0.06}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 128
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -70,7 +70,7 @@ TextureImporter:
     serializedVersion: 2
     sprites: []
     outline: []
-  spritePackingTag: Trees
+  spritePackingTag: Flora
   userData: 
   assetBundleName: 
   assetBundleVariant: 
