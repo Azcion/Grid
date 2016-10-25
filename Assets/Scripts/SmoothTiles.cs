@@ -19,13 +19,13 @@ namespace Assets.Scripts {
 		public bool CanTransition = true;
 		public bool CanTransitionLeft = true;
 		public bool CanTransitionRight = true;
-		public bool CanTransitionTop = true;
-		public bool CanTransitionBottom = true;
+		public bool CanTransitionUp = true;
+		public bool CanTransitionDown = true;
 
-		public bool CanTransitionTopRight = true;
-		public bool CanTransitionBottomRight = true;
-		public bool CanTransitionTopLeft = true;
-		public bool CanTransitionBottomLeft = true;
+		public bool CanTransitionUpRight = true;
+		public bool CanTransitionDownRight = true;
+		public bool CanTransitionUpLeft = true;
+		public bool CanTransitionDownLeft = true;
 
 		private const float LENGTH_MULTIPLIER = .5f;
 
@@ -35,91 +35,78 @@ namespace Assets.Scripts {
 		private static Sprite _cornerSprite;
 		private static bool _gotStaticAssets;
 
-		private int _lm;
+		private int _x;
+		private int _y;
 
-		// Raycast bools
+		private int _lm;
+		
+		// Neighbor bools
 		#region
-		private bool IsTop () {
-			Vector2 t = transform.position;
-			return Physics2D.Linecast(new Vector2(t.x, t.y + .5001f), new Vector2(t.x, t.y + 1), _lm);
+		private bool IsUp () {
+			return TileMaker.Get(_x, _y + 1);
 		}
 
-		private bool IsBottom () {
-			Vector2 t = transform.position;
-			return Physics2D.Linecast(new Vector2(t.x, t.y - .5001f), new Vector2(t.x, t.y - 1), _lm);
+		private bool IsDown () {
+			return TileMaker.Get(_x, _y - 1);
 		}
 
 		private bool IsLeft () {
-			Vector2 t = transform.position;
-			return Physics2D.Linecast(new Vector2(t.x - .5001f, t.y), new Vector2(t.x - 1, t.y), _lm);
+			return TileMaker.Get(_x - 1, _y);
 		}
 
 		private bool IsRight () {
-			Vector2 t = transform.position;
-			return Physics2D.Linecast(new Vector2(t.x + .5001f, t.y), new Vector2(t.x + 1, t.y), _lm);
+			return TileMaker.Get(_x + 1, _y);
 		}
 
-		private bool IsTopRight () {
-			Vector2 t = transform.position;
-			return Physics2D.Linecast(new Vector2(t.x + .5001f, t.y + .5001f), new Vector2(t.x + 1, t.y + 1), _lm);
+		private bool IsUpLeft () {
+			return TileMaker.Get(_x - 1, _y + 1);
 		}
 
-		private bool IsTopLeft () {
-			Vector2 t = transform.position;
-			return Physics2D.Linecast(new Vector2(t.x - .5001f, t.y + .5001f), new Vector2(t.x - 1, t.y + 1), _lm);
+		private bool IsUpRight () {
+			return TileMaker.Get(_x + 1, _y + 1);
 		}
 
-		private bool IsBottomRight () {
-			Vector2 t = transform.position;
-			return Physics2D.Linecast(new Vector2(t.x + .5001f, t.y - .5001f), new Vector2(t.x + 1, t.y - 1), _lm);
+		private bool IsDownLeft () {
+			return TileMaker.Get(_x - 1, _y - 1);
 		}
 
-		private bool IsBottomLeft () {
-			Vector2 t = transform.position;
-			return Physics2D.Linecast(new Vector2(t.x - .5001f, t.y - .5001f), new Vector2(t.x - 1, t.y - 1), _lm);
+		private bool IsDownRight () {
+			return TileMaker.Get(_x + 1, _y - 1);
 		}
 		#endregion
 
-		// Raycast infos
+		// Neighbor objects
 		#region
-		private RaycastHit2D IsTopInfo () {
-			Vector2 t = transform.position;
-			return Physics2D.Linecast(new Vector2(t.x, t.y + .5001f), new Vector2(t.x, t.y + 1), _lm);
+		private GameObject IsUpInfo () {
+			return TileMaker.Get(_x, _y + 1);
 		}
 
-		private RaycastHit2D IsBottomInfo () {
-			Vector2 t = transform.position;
-			return Physics2D.Linecast(new Vector2(t.x, t.y - .5001f), new Vector2(t.x, t.y - 1), _lm);
+		private GameObject IsDownInfo () {
+			return TileMaker.Get(_x, _y - 1);
 		}
 
-		private RaycastHit2D IsLeftInfo () {
-			Vector2 t = transform.position;
-			return Physics2D.Linecast(new Vector2(t.x - .5001f, t.y), new Vector2(t.x - 1, t.y), _lm);
+		private GameObject IsLeftInfo () {
+			return TileMaker.Get(_x - 1, _y);
 		}
 
-		private RaycastHit2D IsRightInfo () {
-			Vector2 t = transform.position;
-			return Physics2D.Linecast(new Vector2(t.x + .5001f, t.y), new Vector2(t.x + 1, t.y), _lm);
+		private GameObject IsRightInfo () {
+			return TileMaker.Get(_x + 1, _y);
 		}
 
-		private RaycastHit2D IsTopRightInfo () {
-			Vector2 t = transform.position;
-			return Physics2D.Linecast(new Vector2(t.x + .5001f, t.y + .5001f), new Vector2(t.x + 1, t.y + 1), _lm);
+		private GameObject IsUpLeftInfo () {
+			return TileMaker.Get(_x - 1, _y + 1);
 		}
 
-		private RaycastHit2D IsTopLeftInfo () {
-			Vector2 t = transform.position;
-			return Physics2D.Linecast(new Vector2(t.x - .5001f, t.y + .5001f), new Vector2(t.x - 1, t.y + 1), _lm);
+		private GameObject IsUpRightInfo () {
+			return TileMaker.Get(_x + 1, _y + 1);
 		}
 
-		private RaycastHit2D IsBottomRightInfo () {
-			Vector2 t = transform.position;
-			return Physics2D.Linecast(new Vector2(t.x + .5001f, t.y - .5001f), new Vector2(t.x + 1, t.y - 1), _lm);
+		private GameObject IsDownLeftInfo () {
+			return TileMaker.Get(_x - 1, _y - 1);
 		}
 
-		private RaycastHit2D IsBottomLeftInfo () {
-			Vector2 t = transform.position;
-			return Physics2D.Linecast(new Vector2(t.x - .5001f, t.y - .5001f), new Vector2(t.x - 1, t.y - 1), _lm);
+		private GameObject IsDownRightInfo () {
+			return TileMaker.Get(_x + 1, _y - 1);
 		}
 		#endregion
 
@@ -127,6 +114,10 @@ namespace Assets.Scripts {
 		private void Start () {
 			GetStaticAssets();
 			StartCoroutine(Initialize());
+
+			Tile tile = GetComponent<Tile>();
+			_x = tile.X;
+			_y = tile.Y;
 
 			// Initiate layer
 			gameObject.layer = LayerMask.NameToLayer("Transferable");
@@ -137,181 +128,194 @@ namespace Assets.Scripts {
 			yield return new WaitForSeconds(1);
 			
 			if (!CanTransition) {
-				CanTransitionBottom = false;
-				CanTransitionBottomLeft = false;
-				CanTransitionBottomRight = false;
+				CanTransitionDown = false;
+				CanTransitionDownLeft = false;
+				CanTransitionDownRight = false;
 				CanTransitionLeft = false;
 				CanTransitionRight = false;
-				CanTransitionTop = false;
-				CanTransitionTopLeft = false;
-				CanTransitionTopRight = false;
+				CanTransitionUp = false;
+				CanTransitionUpLeft = false;
+				CanTransitionUpRight = false;
 
 				yield break;
 			}
 
 			// Test for transferability
 			#region
-			if (IsRightInfo().transform != null) {
+			GameObject u = IsUpInfo();
+			GameObject d = IsDownInfo();
+			GameObject l = IsLeftInfo();
+			GameObject r = IsRightInfo();
+			GameObject ul = IsUpLeftInfo();
+			GameObject ur = IsUpRightInfo();
+			GameObject dl = IsDownLeftInfo();
+			GameObject dr = IsDownRightInfo();
+
+			if (u != null) {
 				//Has TileTransition script
-				if (IsRightInfo().transform.gameObject.GetComponent<SmoothTiles>() == null || IsRightInfo().transform.gameObject.GetComponent<SmoothTiles>().enabled == false) {
-					CanTransitionRight = false;
+				if (u.GetComponent<SmoothTiles>() == null || u.GetComponent<SmoothTiles>().enabled == false) {
+					CanTransitionUp = false;
 				}
 				//CanTransitionWithSelf
-				if (IsRightInfo().transform.gameObject.GetComponent<Tile>().Type == GetComponent<Tile>().Type) {
-					//if(CanTransitionToSelf){}
-					//else
-					CanTransitionRight = false;
+				if (u.GetComponent<Tile>().Type == GetComponent<Tile>().Type) {
+					CanTransitionUp = false;
 				} else {
-					CanTransitionRight = true;
+					CanTransitionUp = true;
 				}
 				//Overlap 
-				if (IsRightInfo().transform.gameObject.GetComponent<SmoothTiles>().OverlapOrder >= OverlapOrder) {
-					CanTransitionRight = false;
+				if (u.GetComponent<SmoothTiles>().OverlapOrder >= OverlapOrder) {
+					CanTransitionUp = false;
 				}
 				//CanOtherSpritesTransitionToSelf
-				if (IsRightInfo().transform.gameObject.GetComponent<SmoothTiles>().CanBeTransitionedTo == false) {
-					CanTransitionRight = false;
+				if (u.GetComponent<SmoothTiles>().CanBeTransitionedTo == false) {
+					CanTransitionUp = false;
 				}
 			}
-			if (IsLeftInfo().transform != null) {
+
+			if (d != null) {
 				//Has TileTransition script
-				if (IsLeftInfo().transform.gameObject.GetComponent<SmoothTiles>() == null || IsLeftInfo().transform.gameObject.GetComponent<SmoothTiles>().enabled == false) {
+				if (d.GetComponent<SmoothTiles>() == null || d.GetComponent<SmoothTiles>().enabled == false) {
+					CanTransitionDown = false;
+				}
+				//CanTransitionWithSelf
+				if (d.GetComponent<Tile>().Type == GetComponent<Tile>().Type) {
+					CanTransitionDown = false;
+				} else {
+					CanTransitionDown = true;
+				}
+				//Overlap 
+				if (d.GetComponent<SmoothTiles>().OverlapOrder >= OverlapOrder) {
+					CanTransitionDown = false;
+				}
+				//CanOtherSpritesTransitionToSelf
+				if (d.GetComponent<SmoothTiles>().CanBeTransitionedTo == false) {
+					CanTransitionDown = false;
+				}
+			}
+
+			if (l != null) {
+				//Has TileTransition script
+				if (l.GetComponent<SmoothTiles>() == null || l.GetComponent<SmoothTiles>().enabled == false) {
 					CanTransitionLeft = false;
 				}
 				//CanTransitionWithSelf
-				if (IsLeftInfo().transform.gameObject.GetComponent<Tile>().Type == GetComponent<Tile>().Type) {
+				if (l.GetComponent<Tile>().Type == GetComponent<Tile>().Type) {
 					CanTransitionLeft = false;
 				} else {
 					CanTransitionLeft = true;
 				}
 				//Overlap 
-				if (IsLeftInfo().transform.gameObject.GetComponent<SmoothTiles>().OverlapOrder >= OverlapOrder) {
+				if (l.GetComponent<SmoothTiles>().OverlapOrder >= OverlapOrder) {
 					CanTransitionLeft = false;
 				}
 				//CanOtherSpritesTransitionToSelf
-				if (IsLeftInfo().transform.gameObject.GetComponent<SmoothTiles>().CanBeTransitionedTo == false) {
+				if (l.GetComponent<SmoothTiles>().CanBeTransitionedTo == false) {
 					CanTransitionLeft = false;
-				}
-			}
-			if (IsTopInfo().transform != null) {
-				//Has TileTransition script
-				if (IsTopInfo().transform.gameObject.GetComponent<SmoothTiles>() == null || IsTopInfo().transform.gameObject.GetComponent<SmoothTiles>().enabled == false) {
-					CanTransitionTop = false;
-				}
-				//CanTransitionWithSelf
-				if (IsTopInfo().transform.gameObject.GetComponent<Tile>().Type == GetComponent<Tile>().Type) {
-					CanTransitionTop = false;
-				} else {
-					CanTransitionTop = true;
-				}
-				//Overlap 
-				if (IsTopInfo().transform.gameObject.GetComponent<SmoothTiles>().OverlapOrder >= OverlapOrder) {
-					CanTransitionTop = false;
-				}
-				//CanOtherSpritesTransitionToSelf
-				if (IsTopInfo().transform.gameObject.GetComponent<SmoothTiles>().CanBeTransitionedTo == false) {
-					CanTransitionTop = false;
-				}
-			}
-			if (IsBottomInfo().transform != null) {
-				//Has TileTransition script
-				if (IsBottomInfo().transform.gameObject.GetComponent<SmoothTiles>() == null || IsBottomInfo().transform.gameObject.GetComponent<SmoothTiles>().enabled == false) {
-					CanTransitionBottom = false;
-				}
-				//CanTransitionWithSelf
-				if (IsBottomInfo().transform.gameObject.GetComponent<Tile>().Type == GetComponent<Tile>().Type) {
-					CanTransitionBottom = false;
-				} else {
-					CanTransitionBottom = true;
-				}
-				//Overlap 
-				if (IsBottomInfo().transform.gameObject.GetComponent<SmoothTiles>().OverlapOrder >= OverlapOrder) {
-					CanTransitionBottom = false;
-				}
-				//CanOtherSpritesTransitionToSelf
-				if (IsBottomInfo().transform.gameObject.GetComponent<SmoothTiles>().CanBeTransitionedTo == false) {
-					CanTransitionBottom = false;
 				}
 			}
 
-			if (IsBottomLeftInfo().transform != null) {
+			if (r != null) {
 				//Has TileTransition script
-				if (IsBottomLeftInfo().transform.gameObject.GetComponent<SmoothTiles>() == null || IsBottomLeftInfo().transform.gameObject.GetComponent<SmoothTiles>().enabled == false) {
-					CanTransitionBottomLeft = false;
+				if (r.GetComponent<SmoothTiles>() == null || r.GetComponent<SmoothTiles>().enabled == false) {
+					CanTransitionRight = false;
 				}
 				//CanTransitionWithSelf
-				if (IsBottomLeftInfo().transform.gameObject.GetComponent<Tile>().Type == GetComponent<Tile>().Type) {
-					CanTransitionBottomLeft = false;
+				if (r.GetComponent<Tile>().Type == GetComponent<Tile>().Type) {
+					CanTransitionRight = false;
 				} else {
-					CanTransitionBottomLeft = true;
+					CanTransitionRight = true;
 				}
 				//Overlap 
-				if (IsBottomLeftInfo().transform.gameObject.GetComponent<SmoothTiles>().OverlapOrder >= OverlapOrder) {
-					CanTransitionBottomLeft = false;
+				if (r.GetComponent<SmoothTiles>().OverlapOrder >= OverlapOrder) {
+					CanTransitionRight = false;
 				}
 				//CanOtherSpritesTransitionToSelf
-				if (IsBottomLeftInfo().transform.gameObject.GetComponent<SmoothTiles>().CanBeTransitionedTo == false) {
-					CanTransitionBottomLeft = false;
+				if (r.GetComponent<SmoothTiles>().CanBeTransitionedTo == false) {
+					CanTransitionRight = false;
 				}
 			}
-			if (IsBottomRightInfo().transform != null) {
+
+			if (ul != null) {
 				//Has TileTransition script
-				if (IsBottomRightInfo().transform.gameObject.GetComponent<SmoothTiles>() == null || IsBottomRightInfo().transform.gameObject.GetComponent<SmoothTiles>().enabled == false) {
-					CanTransitionBottomRight = false;
+				if (ul.GetComponent<SmoothTiles>() == null || ul.GetComponent<SmoothTiles>().enabled == false) {
+					CanTransitionUpLeft = false;
 				}
 				//CanTransitionWithSelf
-				if (IsBottomRightInfo().transform.gameObject.GetComponent<Tile>().Type == GetComponent<Tile>().Type) {
-					CanTransitionBottomRight = false;
+				if (ul.GetComponent<Tile>().Type == GetComponent<Tile>().Type) {
+					CanTransitionUpLeft = false;
 				} else {
-					CanTransitionBottomRight = true;
+					CanTransitionUpLeft = true;
 				}
 				//Overlap 
-				if (IsBottomRightInfo().transform.gameObject.GetComponent<SmoothTiles>().OverlapOrder >= OverlapOrder) {
-					CanTransitionBottomRight = false;
+				if (ul.GetComponent<SmoothTiles>().OverlapOrder >= OverlapOrder) {
+					CanTransitionUpLeft = false;
 				}
 				//CanOtherSpritesTransitionToSelf
-				if (IsBottomRightInfo().transform.gameObject.GetComponent<SmoothTiles>().CanBeTransitionedTo == false) {
-					CanTransitionBottomRight = false;
+				if (ul.GetComponent<SmoothTiles>().CanBeTransitionedTo == false) {
+					CanTransitionUpLeft = false;
 				}
 			}
-			if (IsTopRightInfo().transform != null) {
+
+			if (ur != null) {
 				//Has TileTransition script
-				if (IsTopRightInfo().transform.gameObject.GetComponent<SmoothTiles>() == null || IsTopRightInfo().transform.gameObject.GetComponent<SmoothTiles>().enabled == false) {
-					CanTransitionTopRight = false;
+				if (ur.GetComponent<SmoothTiles>() == null || ur.GetComponent<SmoothTiles>().enabled == false) {
+					CanTransitionUpRight = false;
 				}
 				//CanTransitionWithSelf
-				if (IsTopRightInfo().transform.gameObject.GetComponent<Tile>().Type == GetComponent<Tile>().Type) {
-					CanTransitionTopRight = false;
+				if (ur.GetComponent<Tile>().Type == GetComponent<Tile>().Type) {
+					CanTransitionUpRight = false;
 				} else {
-					CanTransitionTopRight = true;
+					CanTransitionUpRight = true;
 				}
 				//Overlap 
-				if (IsTopRightInfo().transform.gameObject.GetComponent<SmoothTiles>().OverlapOrder >= OverlapOrder) {
-					CanTransitionTopRight = false;
+				if (ur.GetComponent<SmoothTiles>().OverlapOrder >= OverlapOrder) {
+					CanTransitionUpRight = false;
 				}
 				//CanOtherSpritesTransitionToSelf
-				if (IsTopRightInfo().transform.gameObject.GetComponent<SmoothTiles>().CanBeTransitionedTo == false) {
-					CanTransitionTopRight = false;
+				if (ur.GetComponent<SmoothTiles>().CanBeTransitionedTo == false) {
+					CanTransitionUpRight = false;
 				}
 			}
-			if (IsTopLeftInfo().transform != null) {
+
+			if (dl != null) {
 				//Has TileTransition script
-				if (IsTopLeftInfo().transform.gameObject.GetComponent<SmoothTiles>() == null || IsTopLeftInfo().transform.gameObject.GetComponent<SmoothTiles>().enabled == false) {
-					CanTransitionTopLeft = false;
+				if (dl.GetComponent<SmoothTiles>() == null || dl.GetComponent<SmoothTiles>().enabled == false) {
+					CanTransitionDownLeft = false;
 				}
 				//CanTransitionWithSelf
-				if (IsTopLeftInfo().transform.gameObject.GetComponent<Tile>().Type == GetComponent<Tile>().Type) {
-					CanTransitionTopLeft = false;
+				if (dl.GetComponent<Tile>().Type == GetComponent<Tile>().Type) {
+					CanTransitionDownLeft = false;
 				} else {
-					CanTransitionTopLeft = true;
+					CanTransitionDownLeft = true;
 				}
 				//Overlap 
-				if (IsTopLeftInfo().transform.gameObject.GetComponent<SmoothTiles>().OverlapOrder >= OverlapOrder) {
-					CanTransitionTopLeft = false;
+				if (dl.GetComponent<SmoothTiles>().OverlapOrder >= OverlapOrder) {
+					CanTransitionDownLeft = false;
 				}
 				//CanOtherSpritesTransitionToSelf
-				if (IsTopLeftInfo().transform.gameObject.GetComponent<SmoothTiles>().CanBeTransitionedTo == false) {
-					CanTransitionTopLeft = false;
+				if (dl.GetComponent<SmoothTiles>().CanBeTransitionedTo == false) {
+					CanTransitionDownLeft = false;
+				}
+			}
+
+			if (dr != null) {
+				//Has TileTransition script
+				if (dr.GetComponent<SmoothTiles>() == null || dr.GetComponent<SmoothTiles>().enabled == false) {
+					CanTransitionDownRight = false;
+				}
+				//CanTransitionWithSelf
+				if (dr.GetComponent<Tile>().Type == GetComponent<Tile>().Type) {
+					CanTransitionDownRight = false;
+				} else {
+					CanTransitionDownRight = true;
+				}
+				//Overlap 
+				if (dr.GetComponent<SmoothTiles>().OverlapOrder >= OverlapOrder) {
+					CanTransitionDownRight = false;
+				}
+				//CanOtherSpritesTransitionToSelf
+				if (dr.GetComponent<SmoothTiles>().CanBeTransitionedTo == false) {
+					CanTransitionDownRight = false;
 				}
 			}
 			#endregion
@@ -348,7 +352,7 @@ namespace Assets.Scripts {
 				sidePiece.transform.parent = transform;
 			}
 
-			if (IsTop() && CanTransitionTop) {
+			if (IsUp() && CanTransitionUp) {
 				GameObject sidePiece = Instantiate(_side);
 				sidePiece.GetComponent<SpriteRenderer>().sprite = _sideSprite;
 				sidePiece.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -362,7 +366,7 @@ namespace Assets.Scripts {
 				sidePiece.transform.parent = transform;
 			}
 
-			if (IsBottom() && CanTransitionBottom) {
+			if (IsDown() && CanTransitionDown) {
 				GameObject sidePiece = Instantiate(_side);
 				sidePiece.GetComponent<SpriteRenderer>().sprite = _sideSprite;
 				sidePiece.transform.rotation = Quaternion.Euler(0, 0, 180);
@@ -376,7 +380,7 @@ namespace Assets.Scripts {
 				sidePiece.transform.parent = transform;
 			}
 
-			if (IsTopLeft() && CanTransitionTopLeft && IsLeft() && CanTransitionLeft && IsTop() && CanTransitionTop) {
+			if (IsUpLeft() && CanTransitionUpLeft && IsLeft() && CanTransitionLeft && IsUp() && CanTransitionUp) {
 				GameObject cornerPiece = Instantiate(_corner);
 				cornerPiece.GetComponent<SpriteRenderer>().sprite = _cornerSprite;
 				cornerPiece.transform.rotation = Quaternion.Euler(0, 0, 90);
@@ -390,7 +394,7 @@ namespace Assets.Scripts {
 				cornerPiece.transform.parent = transform;
 			}
 
-			if (IsBottomLeft() && CanTransitionBottomLeft && IsLeft() && CanTransitionLeft && IsBottom() && CanTransitionBottom) {
+			if (IsDownLeft() && CanTransitionDownLeft && IsLeft() && CanTransitionLeft && IsDown() && CanTransitionDown) {
 				GameObject cornerPiece = Instantiate(_corner);
 				cornerPiece.GetComponent<SpriteRenderer>().sprite = _cornerSprite;
 				cornerPiece.transform.rotation = Quaternion.Euler(0, 0, 180);
@@ -404,7 +408,7 @@ namespace Assets.Scripts {
 				cornerPiece.transform.parent = transform;
 			}
 
-			if (IsTopRight() && CanTransitionTopRight && IsRight() && CanTransitionRight && IsTop() && CanTransitionTop) {
+			if (IsUpRight() && CanTransitionUpRight && IsRight() && CanTransitionRight && IsUp() && CanTransitionUp) {
 				GameObject cornerPiece = Instantiate(_corner);
 				cornerPiece.GetComponent<SpriteRenderer>().sprite = _cornerSprite;
 				cornerPiece.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -418,7 +422,7 @@ namespace Assets.Scripts {
 				cornerPiece.transform.parent = transform;
 			}
 
-			if (IsBottomRight() && CanTransitionBottomRight && IsRight() && CanTransitionRight && IsBottom() && CanTransitionBottom) {
+			if (IsDownRight() && CanTransitionDownRight && IsRight() && CanTransitionRight && IsDown() && CanTransitionDown) {
 				GameObject cornerPiece = Instantiate(_corner);
 				cornerPiece.GetComponent<SpriteRenderer>().sprite = _cornerSprite;
 				cornerPiece.transform.rotation = Quaternion.Euler(0, 0, 270);
