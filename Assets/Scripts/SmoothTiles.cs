@@ -37,8 +37,6 @@ namespace Assets.Scripts {
 
 		private int _x;
 		private int _y;
-
-		private int _lm;
 		
 		// Neighbor bools
 		#region
@@ -118,10 +116,6 @@ namespace Assets.Scripts {
 			Tile tile = GetComponent<Tile>();
 			_x = tile.X;
 			_y = tile.Y;
-
-			// Initiate layer
-			gameObject.layer = LayerMask.NameToLayer("Transferable");
-			_lm = 1 << gameObject.layer;
 		}
 
 		private IEnumerator Initialize () {
