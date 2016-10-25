@@ -51,10 +51,10 @@ namespace Assets.Scripts {
 		public Material DefaultMat;
 		#endregion
 
+		private static List<List<GameObject>> _tiles;
+
 		private static int _seed;
 		private static bool _ready;
-
-		private static List<List<GameObject>> _tiles;
 
 		public static GameObject Get (int x, int y) {
 			if (!_ready || x < 0 || x >= YTILES || y < 0 || y >= YTILES) {
@@ -69,8 +69,14 @@ namespace Assets.Scripts {
 			_seed = ApplicationController.Seed;
 			_tiles = new List<List<GameObject>>();
 
-			for (int i = 0; i < YTILES; ++i) {
-				_tiles.Add(new List<GameObject>());
+			for (int y = 0; y < YTILES; ++y) {
+				List<GameObject> row = new List<GameObject>();
+
+				for (int x = 0; x < YTILES; ++x) {
+					row.Add(null);
+				}
+
+				_tiles.Add(row);
 			}
 
 			StartCoroutine(Create());
@@ -157,7 +163,7 @@ namespace Assets.Scripts {
 				st.Color = color;
 			}
 
-			_tiles[y].Add(t.gameObject);
+			_tiles[y][x] = t.gameObject;
 		}
 
 	}
