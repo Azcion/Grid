@@ -141,6 +141,8 @@ namespace Assets.Scripts {
 			Tile tile = t.GetComponent<Tile>();
 			tile.Chunk = t.parent.gameObject;
 			tile.Type = type;
+			tile.X = x;
+			tile.Y = y;
 
 			SpriteRenderer sr = t.GetComponent<SpriteRenderer>();
 			sr.material = mat;

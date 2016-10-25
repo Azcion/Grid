@@ -10,6 +10,9 @@ namespace Assets.Scripts {
 		public GameObject Chunk;
 		public TileType Type;
 
+		public int X;
+		public int Y;
+
 	}
 
 }
