@@ -1,7 +1,7 @@
 ﻿using System;
 using Assets.Scripts.Enums;
 
-namespace Assets.Scripts {
+namespace Assets.Scripts.Utils {
 
 	public static class EnumName {
 

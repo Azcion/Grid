@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Assets.Scripts {
+namespace Assets.Scripts.Main {
 
 	public class InputProcessor : MonoBehaviour {
 

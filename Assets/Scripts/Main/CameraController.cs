@@ -1,8 +1,9 @@
 ﻿using System;
+using Assets.Scripts.Graphics;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Assets.Scripts {
+namespace Assets.Scripts.Main {
 
 	public class CameraController : MonoBehaviour {
 

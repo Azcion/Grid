@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Assets.Scripts {
+namespace Assets.Scripts.Graphics {
 
 	public class TileSprites : MonoBehaviour {
 

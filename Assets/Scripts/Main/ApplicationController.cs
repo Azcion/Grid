@@ -1,9 +1,11 @@
 ﻿using System.Collections;
+using Assets.Scripts.Graphics;
+using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts {
+namespace Assets.Scripts.Main {
 
 	public class ApplicationController : MonoBehaviour {
 

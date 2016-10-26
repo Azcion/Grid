@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Assets.Scripts {
+namespace Assets.Scripts.Graphics {
 
 	[UsedImplicitly]
 	public class Tile : MonoBehaviour {

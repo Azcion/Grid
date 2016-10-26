@@ -2,7 +2,7 @@
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Assets.Scripts {
+namespace Assets.Scripts.Graphics {
 
 	public class FloraSprites : MonoBehaviour {
 
@@ -11,9 +11,6 @@ namespace Assets.Scripts {
 		#region Trees
 		[UsedImplicitly]
 		public GameObject[] PalmAPrefabs;
-
-		[UsedImplicitly]
-		public GameObject[] PalmBPrefabs;
 		#endregion
 
 		#region Plants
@@ -28,8 +25,7 @@ namespace Assets.Scripts {
 		#endregion
 		#endregion
 
-		private static GameObject[] _palmA;
-		private static GameObject[] _palmB;
+		private static GameObject[] _palm;
 
 		private static GameObject[] _agave;
 		private static GameObject[] _cactus;
@@ -38,7 +34,7 @@ namespace Assets.Scripts {
 		public static GameObject Get (FloraType type) {
 			switch (type) {
 				case FloraType.Palm:
-					return _palmA[Random.Range(0, _palmA.Length)];
+					return _palm[Random.Range(0, _palm.Length)];
 				case FloraType.Agave:
 					return _agave[Random.Range(0, _agave.Length)];
 				case FloraType.Cactus:
@@ -52,8 +48,7 @@ namespace Assets.Scripts {
 
 		[UsedImplicitly]
 		private void OnEnable () {
-			_palmA = PalmAPrefabs;
-			_palmB = PalmBPrefabs;
+			_palm = PalmAPrefabs;
 			_agave = AgavePrefabs;
 			_cactus = CactusPrefabs;
 			_grass = GrassPrefabs;

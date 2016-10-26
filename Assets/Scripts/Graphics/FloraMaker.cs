@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using Assets.Scripts.Enums;
+using Assets.Scripts.Main;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Assets.Scripts {
+namespace Assets.Scripts.Graphics {
 
 	public class FloraMaker : MonoBehaviour {
 
