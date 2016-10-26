@@ -156,11 +156,12 @@ namespace Assets.Scripts {
 
 			SmoothTiles st = t.GetComponent<SmoothTiles>();
 			st.OverlapOrder = TileSprites.Order[(int) type];
+			st.Color = color;
 
-			if (type == TileType.Rock || type == TileType.Grass) {
+			if (type == TileType.DeepWater) {
+				st.CanBeTransitionedTo = false;
+			} else if (type == TileType.Rock || type == TileType.Grass) {
 				st.CanTransition = false;
-			} else {
-				st.Color = color;
 			}
 
 			_tiles[y][x] = t.gameObject;
