@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Main;
+using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -40,6 +41,7 @@ namespace Assets.Scripts.Graphics {
 		private void Initialize (Transform t) {
 			float scale = (float) System.Math.Round(Random.Range(.5f, 1), 2);
 			Vector3 vScale = new Vector3(Random.value > .5 ? scale : -scale, scale, 1);
+			Vector3 position = new Vector3(t.position.x, t.position.y, Order.FLORA);
 
 			Transform container;
 			FloraType type;
@@ -79,7 +81,7 @@ namespace Assets.Scripts.Graphics {
 					return;
 			}
 
-			GameObject f = Instantiate(FloraSprites.Get(type), t.position, Quaternion.identity, container);
+			GameObject f = Instantiate(FloraSprites.Get(type), position, Quaternion.identity, container);
 			f.transform.localScale = vScale;
 			f.GetComponent<Flora>().Type = type;
 			f.SetActive(true);

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Assets.Scripts.Main;
+using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -30,7 +31,12 @@ namespace Assets.Scripts.Graphics {
 
 		private int _x;
 		private int _y;
-		
+
+		public static void GetStaticAssets (GameObject side, GameObject corner) {
+			_side = side;
+			_corner = corner;
+		}
+
 		// Neighbor bools
 		#region
 		private bool IsUp () {
@@ -100,11 +106,6 @@ namespace Assets.Scripts.Graphics {
 			return TileMaker.Get(_x + 1, _y - 1);
 		}
 		#endregion
-
-		public static void GetStaticAssets (GameObject side, GameObject corner) {
-			_side = side;
-			_corner = corner;
-		}
 
 		[UsedImplicitly]
 		private void Start () {
@@ -203,7 +204,7 @@ namespace Assets.Scripts.Graphics {
 		private void Create (int r, float x, float y, bool corner=false, bool special=false) {
 			GameObject t = Instantiate(corner ? _corner : _side, transform);
 			t.transform.rotation = Quaternion.Euler(0, 0, r);
-			t.transform.position = new Vector3(x, y, t.transform.position.z);
+			t.transform.position = new Vector3(x, y, Order.TRANSITION);
 			t.GetComponent<SpriteRenderer>().color = Color;
 
 			Vector2 size = t.GetComponent<SpriteRenderer>().bounds.size;

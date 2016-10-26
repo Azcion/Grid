@@ -89,7 +89,7 @@ namespace Assets.Scripts.Graphics {
 
 			for (int y = 0; y < YCHUNKS; ++y) {
 				for (int x = 0; x < YCHUNKS; ++x) {
-					Vector3 pos = new Vector3(CSIZE * x, CSIZE * y, ChunkPrefab.transform.position.z);
+					Vector3 pos = new Vector3(CSIZE * x, CSIZE * y, Order.GROUND);
 					GameObject c = Instantiate(ChunkPrefab, pos, Quaternion.identity, Container.transform);
 					c.name = "Chunk " + y + "y " + x + "x";
 

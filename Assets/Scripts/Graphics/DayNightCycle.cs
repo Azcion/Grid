@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Main;
+using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -21,6 +22,11 @@ namespace Assets.Scripts.Graphics {
 		private static readonly int[] C_MIDNIGHT = { -255, -255, 20 };
 
 		private Light _sun;
+
+		[UsedImplicitly]
+		private void OnEnable () {
+			transform.position = new Vector3(transform.position.x, transform.position.y, Order.SUN);
+		}
 
 		[UsedImplicitly]
 		private void Start () {

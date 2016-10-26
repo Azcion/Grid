@@ -1,5 +1,6 @@
 ﻿using System;
 using Assets.Scripts.Graphics;
+using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -22,7 +23,7 @@ namespace Assets.Scripts.Main {
 
 		[UsedImplicitly]
 		private void OnEnable () {
-			transform.position = new Vector3(TileMaker.THALF, TileMaker.THALF, transform.position.z);
+			transform.position = new Vector3(TileMaker.THALF, TileMaker.THALF, Order.CAMERA);
 			_camera = GetComponent<Camera>();
 			_camera.orthographicSize = INITIAL_SIZE;
 		}
