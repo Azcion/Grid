@@ -15,17 +15,18 @@ namespace Assets.Scripts {
 		public Color Color;
 		public float OverlapOrder;
 
-		public bool CanBeTransitionedTo = true;
 		public bool CanTransition = true;
-		public bool CanTransitionLeft = true;
-		public bool CanTransitionRight = true;
+		public bool CanBeTransitionedTo = true;
+		
 		public bool CanTransitionUp = true;
 		public bool CanTransitionDown = true;
+		public bool CanTransitionLeft = true;
+		public bool CanTransitionRight = true;
 
-		public bool CanTransitionUpRight = true;
-		public bool CanTransitionDownRight = true;
 		public bool CanTransitionUpLeft = true;
+		public bool CanTransitionUpRight = true;
 		public bool CanTransitionDownLeft = true;
+		public bool CanTransitionDownRight = true;
 
 		private const float LENGTH_MULTIPLIER = .5f;
 
