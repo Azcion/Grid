@@ -6,9 +6,6 @@ namespace Assets.Scripts {
 
 	public class TileSprites : MonoBehaviour {
 
-		public static Sprite Side;
-		public static Sprite Corner;
-
 		public static GameObject SideGo;
 		public static GameObject CornerGo;
 
@@ -28,19 +25,12 @@ namespace Assets.Scripts {
 		// Transitions
 		#region
 		[UsedImplicitly]
-		public Sprite TransitionSide;
-
-		[UsedImplicitly]
-		public Sprite TransitionCorner;
-
-		[UsedImplicitly]
 		public GameObject TransitionSidePrefab;
 
 		[UsedImplicitly]
 		public GameObject TransitionCornerPrefab;
 		#endregion
 
-		private static Sprite[] _none;
 		private static Sprite[] _water;
 		private static Sprite[] _sand;
 		private static Sprite[] _grass;
@@ -74,8 +64,6 @@ namespace Assets.Scripts {
 
 		[UsedImplicitly]
 		private void OnEnable () {
-			Side = TransitionSide;
-			Corner = TransitionCorner;
 			SideGo = TransitionSidePrefab;
 			CornerGo = TransitionCornerPrefab;
 

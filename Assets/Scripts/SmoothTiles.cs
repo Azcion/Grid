@@ -32,8 +32,6 @@ namespace Assets.Scripts {
 
 		private static GameObject _side;
 		private static GameObject _corner;
-		private static Sprite _sideSprite;
-		private static Sprite _cornerSprite;
 
 		private int _x;
 		private int _y;
@@ -110,9 +108,7 @@ namespace Assets.Scripts {
 
 		public static void GetStaticAssets () {
 			_side = TileSprites.SideGo;
-			_sideSprite = TileSprites.Side;
 			_corner = TileSprites.CornerGo;
-			_cornerSprite = TileSprites.Corner;
 		}
 
 		[UsedImplicitly]
@@ -326,7 +322,6 @@ namespace Assets.Scripts {
 
 			if (IsLeft() && CanTransitionLeft) {
 				GameObject sidePiece = Instantiate(_side);
-				sidePiece.GetComponent<SpriteRenderer>().sprite = _sideSprite;
 				sidePiece.transform.rotation = Quaternion.Euler(0, 0, 90);
 				sidePiece.transform.position = new Vector3((int) t.x, t.y, t.z);
 				//Features
@@ -340,7 +335,6 @@ namespace Assets.Scripts {
 
 			if (IsRight() && CanTransitionRight) {
 				GameObject sidePiece = Instantiate(_side);
-				sidePiece.GetComponent<SpriteRenderer>().sprite = _sideSprite;
 				sidePiece.transform.rotation = Quaternion.Euler(0, 0, 270);
 				sidePiece.transform.position = new Vector3((int) t.x + 1, t.y, t.z);
 				//Features
@@ -354,7 +348,6 @@ namespace Assets.Scripts {
 
 			if (IsUp() && CanTransitionUp) {
 				GameObject sidePiece = Instantiate(_side);
-				sidePiece.GetComponent<SpriteRenderer>().sprite = _sideSprite;
 				sidePiece.transform.rotation = Quaternion.Euler(0, 0, 0);
 				sidePiece.transform.position = new Vector3(t.x, (int) t.y + 1, t.z);
 				//Features
@@ -368,7 +361,6 @@ namespace Assets.Scripts {
 
 			if (IsDown() && CanTransitionDown) {
 				GameObject sidePiece = Instantiate(_side);
-				sidePiece.GetComponent<SpriteRenderer>().sprite = _sideSprite;
 				sidePiece.transform.rotation = Quaternion.Euler(0, 0, 180);
 				sidePiece.transform.position = new Vector3(t.x, (int) t.y, t.z);
 				//Features
@@ -382,7 +374,6 @@ namespace Assets.Scripts {
 
 			if (IsUpLeft() && CanTransitionUpLeft && IsLeft() && CanTransitionLeft && IsUp() && CanTransitionUp) {
 				GameObject cornerPiece = Instantiate(_corner);
-				cornerPiece.GetComponent<SpriteRenderer>().sprite = _cornerSprite;
 				cornerPiece.transform.rotation = Quaternion.Euler(0, 0, 90);
 				cornerPiece.transform.position = new Vector3((int) t.x, (int) t.y + 1, t.z);
 				//Features
@@ -396,7 +387,6 @@ namespace Assets.Scripts {
 
 			if (IsDownLeft() && CanTransitionDownLeft && IsLeft() && CanTransitionLeft && IsDown() && CanTransitionDown) {
 				GameObject cornerPiece = Instantiate(_corner);
-				cornerPiece.GetComponent<SpriteRenderer>().sprite = _cornerSprite;
 				cornerPiece.transform.rotation = Quaternion.Euler(0, 0, 180);
 				cornerPiece.transform.position = new Vector3((int) t.x, (int) t.y, t.z);
 				//Features
@@ -410,7 +400,6 @@ namespace Assets.Scripts {
 
 			if (IsUpRight() && CanTransitionUpRight && IsRight() && CanTransitionRight && IsUp() && CanTransitionUp) {
 				GameObject cornerPiece = Instantiate(_corner);
-				cornerPiece.GetComponent<SpriteRenderer>().sprite = _cornerSprite;
 				cornerPiece.transform.rotation = Quaternion.Euler(0, 0, 0);
 				cornerPiece.transform.position = new Vector3((int) t.x + 1, (int) t.y + 1, t.z);
 				//Features
@@ -424,7 +413,6 @@ namespace Assets.Scripts {
 
 			if (IsDownRight() && CanTransitionDownRight && IsRight() && CanTransitionRight && IsDown() && CanTransitionDown) {
 				GameObject cornerPiece = Instantiate(_corner);
-				cornerPiece.GetComponent<SpriteRenderer>().sprite = _cornerSprite;
 				cornerPiece.transform.rotation = Quaternion.Euler(0, 0, 270);
 				cornerPiece.transform.position = new Vector3((int) t.x + 1, (int) t.y, t.z);
 				//Features
