@@ -6,9 +6,6 @@ namespace Assets.Scripts {
 
 	public class TileSprites : MonoBehaviour {
 
-		public static GameObject SideGo;
-		public static GameObject CornerGo;
-
 		public static Color CDeepWater;
 		public static Color CShallowWater;
 		public static Color CSand;
@@ -22,7 +19,7 @@ namespace Assets.Scripts {
 		[UsedImplicitly]
 		public int[] TransitionOrder = new int[7];
 
-		// Transitions
+		// Object references
 		#region
 		[UsedImplicitly]
 		public GameObject TransitionSidePrefab;
@@ -64,9 +61,6 @@ namespace Assets.Scripts {
 
 		[UsedImplicitly]
 		private void OnEnable () {
-			SideGo = TransitionSidePrefab;
-			CornerGo = TransitionCornerPrefab;
-
 			_water = Resources.LoadAll<Sprite>("Tiles/Water");
 			_sand = Resources.LoadAll<Sprite>("Tiles/Sand");
 			_grass = Resources.LoadAll<Sprite>("Tiles/Grass");
@@ -84,7 +78,7 @@ namespace Assets.Scripts {
 
 			Order = TransitionOrder;
 
-			SmoothTiles.GetStaticAssets();
+			SmoothTiles.GetStaticAssets(TransitionSidePrefab, TransitionCornerPrefab);
 		}
 
 	}

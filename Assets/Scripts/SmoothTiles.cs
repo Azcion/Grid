@@ -106,9 +106,9 @@ namespace Assets.Scripts {
 		}
 		#endregion
 
-		public static void GetStaticAssets () {
-			_side = TileSprites.SideGo;
-			_corner = TileSprites.CornerGo;
+		public static void GetStaticAssets (GameObject side, GameObject corner) {
+			_side = side;
+			_corner = corner;
 		}
 
 		[UsedImplicitly]
