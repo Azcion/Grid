@@ -34,7 +34,6 @@ namespace Assets.Scripts {
 		private static GameObject _corner;
 		private static Sprite _sideSprite;
 		private static Sprite _cornerSprite;
-		private static bool _gotStaticAssets;
 
 		private int _x;
 		private int _y;
@@ -109,9 +108,15 @@ namespace Assets.Scripts {
 		}
 		#endregion
 
+		public static void GetStaticAssets () {
+			_side = TileSprites.SideGo;
+			_sideSprite = TileSprites.Side;
+			_corner = TileSprites.CornerGo;
+			_cornerSprite = TileSprites.Corner;
+		}
+
 		[UsedImplicitly]
 		private void Start () {
-			GetStaticAssets();
 			StartCoroutine(Initialize());
 
 			Tile tile = GetComponent<Tile>();
@@ -433,18 +438,6 @@ namespace Assets.Scripts {
 			#endregion
 
 			ApplicationController.NotifyReady();
-		}
-
-		private void GetStaticAssets () {
-			if (_gotStaticAssets) {
-				return;
-			}
-
-			_side = TileSprites.SideGo;
-			_sideSprite = TileSprites.Side;
-			_corner = TileSprites.CornerGo;
-			_cornerSprite = TileSprites.Corner;
-			_gotStaticAssets = true;
 		}
 
 		// todo implement update

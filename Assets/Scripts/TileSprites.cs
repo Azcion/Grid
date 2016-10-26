@@ -95,6 +95,8 @@ namespace Assets.Scripts {
 			CSnow = new Color32(188, 188, 197, 255);
 
 			Order = TransitionOrder;
+
+			SmoothTiles.GetStaticAssets();
 		}
 
 	}
