@@ -41,7 +41,7 @@ namespace Assets.Scripts.Graphics {
 		private void Initialize (Transform t) {
 			float scale = (float) System.Math.Round(Random.Range(.5f, 1), 2);
 			Vector3 vScale = new Vector3(Random.value > .5 ? scale : -scale, scale, 1);
-			Vector3 position = new Vector3(t.position.x, t.position.y, Order.FLORA);
+			Vector3 position = new Vector3(t.position.x, t.position.y, Order.THING);
 
 			Transform container;
 			FloraType type;
