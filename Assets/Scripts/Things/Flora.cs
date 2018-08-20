@@ -1,11 +1,10 @@
 ﻿using Assets.Scripts.Enums;
 using JetBrains.Annotations;
-using UnityEngine;
 
-namespace Assets.Scripts.Graphics {
+namespace Assets.Scripts.Things {
 
 	[UsedImplicitly]
-	public class Flora : MonoBehaviour {
+	public class Flora : Thing {
 
 		public FloraType Type;
 
