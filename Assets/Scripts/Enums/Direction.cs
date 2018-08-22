@@ -1,6 +1,6 @@
 ﻿namespace Assets.Scripts.Enums {
 	
-	public enum Direction {
+	public enum Direction : byte {
 		
 		Down,
 		Right,
