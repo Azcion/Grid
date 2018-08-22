@@ -73,9 +73,8 @@ namespace Assets.Scripts.Graphics {
 					return;
 			}
 
-			GameObject f = Instantiate(FloraSprites.Get(type), position, Quaternion.identity, container);
-			f.transform.localScale = vScale;
-			f.GetComponent<Flora>().Type = type;
+			GameObject f = Instantiate(FloraSprites.Get(type), position, Quaternion.identity, Container.transform);
+			f.GetComponent<Flora>().Assign(type, scale, Random.value > .5);
 			f.SetActive(true);
 		}
 
