@@ -1,9 +1,10 @@
-﻿using JetBrains.Annotations;
+﻿using Assets.Scripts.Utils;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.Main {
 
-	public class Selection : MonoBehaviour {
+	public class Selector : MonoBehaviour {
 
 		public static GameObject Instance;
 		public static Transform Target;
@@ -13,7 +14,8 @@ namespace Assets.Scripts.Main {
 		public static void Select (Transform target) {
 			Target = target;
 			_didSelect = true;
-			Instance.transform.localPosition = target.localPosition;
+			Vector2 v = target.localPosition;
+			Instance.transform.localPosition = new Vector3(v.x, (int) v.y, Order.SELECTOR);
 			Instance.SetActive(true);
 		}
 
