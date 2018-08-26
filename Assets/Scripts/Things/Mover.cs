@@ -10,7 +10,6 @@ namespace Assets.Scripts.Things {
 		private readonly Transform _transform;
 		private readonly Vector2 _target;
 		private readonly float _speed;
-		private readonly Vector2 _direction;
 
 		private readonly bool _debug;
 		private readonly PathLine _debugLine;
@@ -19,7 +18,6 @@ namespace Assets.Scripts.Things {
 			_transform = transform;
 			_target = target;
 			_speed = speed;
-			_direction = (target - (Vector2) transform.localPosition).normalized;
 			_debug = debug;
 
 			if (debug) {
@@ -49,8 +47,16 @@ namespace Assets.Scripts.Things {
 			}
 		}
 
+		public void ChangeOrigin (Vector2 origin) {
+			if (_debug) {
+				_debugLine.UpdatePos(origin, _target);
+			}
+		}
+
 		public void Destroy () {
-			_debugLine.Destroy();
+			if (_debug) {
+				_debugLine.Destroy();
+			}
 		}
 
 	}

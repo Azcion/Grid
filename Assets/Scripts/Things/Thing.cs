@@ -10,20 +10,23 @@ namespace Assets.Scripts.Things {
 	public class Thing : MonoBehaviour {
 
 		protected Transform Sprite;
-		protected SpriteRenderer Renderer;
 
-		protected bool DidStart;
+		private SpriteRenderer _renderer;
+		private bool _didStart;
 
 		protected void AssertActive () {
 			if (gameObject.activeSelf == false) {
 				gameObject.SetActive(true);
+			}
+
+			if (_didStart == false) {
 				Start();
 			}
 		}
 
 		[UsedImplicitly]
 		private void Start () {
-			if (DidStart) {
+			if (_didStart) {
 				return;
 			}
 
@@ -31,7 +34,7 @@ namespace Assets.Scripts.Things {
 
 			Vector2 v = transform.localPosition;
 			transform.localPosition = new Vector3(v.x, v.y, Order.THING);
-			DidStart = true;
+			_didStart = true;
 		}
 
 		[UsedImplicitly]
@@ -55,13 +58,13 @@ namespace Assets.Scripts.Things {
 			Sprite = new GameObject("Sprite").transform;
 			Sprite.SetParent(transform);
 			Sprite.localPosition = Vector3.zero;
-			Renderer = Sprite.gameObject.AddComponent<SpriteRenderer>();
+			_renderer = Sprite.gameObject.AddComponent<SpriteRenderer>();
 
 			SpriteRenderer sr = transform.GetComponent<SpriteRenderer>();
 
 			if (sr != null) {
-				Renderer.sprite = sr.sprite;
-				Renderer.material = AssetLoader.DiffuseMat; //sr.material;
+				_renderer.sprite = sr.sprite;
+				_renderer.material = AssetLoader.DiffuseMat;
 				Destroy(sr);
 			}
 		}

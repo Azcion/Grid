@@ -9,16 +9,18 @@ namespace Assets.Scripts.Things {
 		[UsedImplicitly]
 		public Sprite[] HumanSprites;
 
-		private Sprite _humanSprite;
 		private Direction _facing;
 		private Pathfinder _pathfinder;
 		private bool _wasAssigned;
 
 		public void Assign () {
 			AssertActive();
-			_wasAssigned = true;
 
+			_wasAssigned = true;
 			_pathfinder = new Pathfinder(transform);
+
+			Vector3 v = Sprite.localPosition;
+			Sprite.localPosition = new Vector3(v.x, (int) v.y - .3f, v.z);
 		}
 
 		[UsedImplicitly]
