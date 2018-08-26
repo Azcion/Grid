@@ -14,8 +14,8 @@ namespace Assets.Scripts.Main {
 		public static void Select (Transform target) {
 			Target = target;
 			_didSelect = true;
-			Vector2 v = target.localPosition;
-			Instance.transform.localPosition = new Vector3(v.x, (int) v.y, Order.SELECTOR);
+			Instance.transform.SetParent(Target);
+			Instance.transform.localPosition = new Vector3(0, -.5f, Order.SELECTOR);
 			Instance.SetActive(true);
 		}
 
