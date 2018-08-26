@@ -3,12 +3,11 @@ using UnityEngine;
 
 namespace Assets.Scripts.Graphics {
 
-	public class AssetLoader : MonoBehaviour {
+	public static class AssetLoader {
 
-		public static Material DiffuseMat;
+		public static readonly Material DiffuseMat;
 
-		[UsedImplicitly]
-		private void Start () {
+		static AssetLoader () {
 			DiffuseMat = Resources.Load<Material>("Materials/Diffuse");
 		}
 
