@@ -1,17 +1,43 @@
-﻿using Assets.Scripts.Enums;
+﻿using System.Collections.Generic;
 using Assets.Scripts.Graphics;
-using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.Things {
 
-	public class Grid : MonoBehaviour {
+	public class NodeGrid : MonoBehaviour {
+
+		public List<Node> Path;
 
 		private static Vector2 _gridSize;
 		private static Vector2 _center;
 
 		private Node[,] _grid;
+
+		public Node GetNodeAt (Vector2 position) {
+			return _grid[(int) position.x, (int) position.y];
+		}
+
+		public List<Node> GetNeighbors (Node node) {
+			List<Node> neighbors = new List<Node>();
+
+			for (int x = -1; x <= 1; ++x) {
+				for (int y = -1; y <= 1; ++y) {
+					if (x == 0 && y == 0) {
+						continue;
+					}
+
+					int checkX = node.X + x;
+					int checkY = node.Y + y;
+
+					if (checkX >= 0 && checkX < _gridSize.x && checkY >= 0 && checkY < _gridSize.y) {
+						neighbors.Add(_grid[checkX, checkY]);
+					}
+				}
+			}
+
+			return neighbors;
+		}
 
 		[UsedImplicitly]
 		private void Awake () {
@@ -27,8 +53,8 @@ namespace Assets.Scripts.Things {
 			for (int x = 0; x < TileMaker.YTILES; ++x) {
 				for (int y = 0; y < TileMaker.YTILES; ++y) {
 					Vector2 worldPoint = worldBottomLeft + Vector2.right * x + Vector2.up * y;
-					bool walkable = TileMaker.Get(x, y).GetComponent<Tile>().Walkable;
-					_grid[x, y] = new Node(walkable, worldPoint);
+					bool walkable = TileMaker.Get(x, y).GetComponent<Tile>()?.Walkable ?? false;
+					_grid[x, y] = new Node(walkable, worldPoint, x, y);
 				}
 			}
 		}
@@ -40,6 +66,13 @@ namespace Assets.Scripts.Things {
 			if (_grid != null) {
 				foreach (Node n in _grid) {
 					Gizmos.color = n.Walkable ? Color.white : Color.red;
+
+					if (Path != null) {
+						if (Path.Contains(n)) {
+							Gizmos.color = Color.black;
+						}
+					}
+
 					Gizmos.DrawCube(n.WorldPosition, Vector2.one * .5f);
 				}
 			}
