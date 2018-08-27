@@ -6,6 +6,8 @@ namespace Assets.Scripts.Things {
 
 	public class Human : Thing {
 
+		private const float SPRITE_OFFSET = -.3f;
+
 		[UsedImplicitly]
 		public Sprite[] HumanSprites;
 
@@ -16,11 +18,9 @@ namespace Assets.Scripts.Things {
 		public void Assign () {
 			AssertActive();
 
-			_wasAssigned = true;
+			Sprite.localPosition = new Vector2(.5f, .5f + SPRITE_OFFSET);
 			_pathfinder = new Pathfinder(transform);
-
-			Vector3 v = Sprite.localPosition;
-			Sprite.localPosition = new Vector3(v.x, (int) v.y - .3f, v.z);
+			_wasAssigned = true;
 		}
 
 		[UsedImplicitly]

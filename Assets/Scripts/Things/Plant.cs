@@ -10,6 +10,9 @@ namespace Assets.Scripts.Things {
 
 		public PlantType Type;
 
+		private const float SPRITE_OFFSET_BUSH = 0;
+		private const float SPRITE_OFFSET_TREE = -.4f;
+
 		private PlantSize _size;
 		private float _growth;
 
@@ -19,7 +22,7 @@ namespace Assets.Scripts.Things {
 			_size = SizeOf(type);
 			_growth = growth;
 
-			Sprite.localPosition = AdjustPosition(_size, Sprite.localPosition);
+			Sprite.localPosition = AdjustPosition(_size);
 			Sprite.localScale = AdjustScale(growth, flipX);
 		}
 
@@ -27,32 +30,21 @@ namespace Assets.Scripts.Things {
 			return new Vector3(flipX ? -scale : scale, scale, 1);
 		}
 
-		private static Vector3 AdjustPosition (PlantSize size, Vector3 v) {
-			float offset;
-
+		private static Vector3 AdjustPosition (PlantSize size) {
 			switch (size) {
 				case PlantSize.Tree:
-					offset = -.4f;
-					break;
-				case PlantSize.Bush:
+					return new Vector2(.5f, .5f + SPRITE_OFFSET_TREE);
 				default:
-					offset = 0;
-					break;
+					return new Vector2(.5f, .5f + SPRITE_OFFSET_BUSH);
 			}
-
-			return new Vector3(v.x, (int) v.y + offset, v.z);
 		}
 
 		private static PlantSize SizeOf (PlantType type) {
 			switch (type) {
 				case PlantType.Palm:
 					return PlantSize.Tree;
-				case PlantType.Cactus:
-				case PlantType.Agave:
-				case PlantType.Grass:
-					return PlantSize.Bush;
 				default:
-					throw new ArgumentOutOfRangeException("type", type, null);
+					return PlantSize.Bush;
 			}
 		}
 
