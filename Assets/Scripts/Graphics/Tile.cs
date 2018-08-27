@@ -13,6 +13,9 @@ namespace Assets.Scripts.Graphics {
 		public int X;
 		public int Y;
 
+		public bool Walkable;
+		public bool Buildable;
+
 	}
 
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Main;
@@ -165,10 +166,33 @@ namespace Assets.Scripts.Graphics {
 			st.OverlapOrder = TileSprites.Order[(int) type];
 			st.Color = color;
 
-			if (type == TileType.DeepWater) {
-				st.CanBeTransitionedTo = false;
-			} else if (type == TileType.Rock || type == TileType.Grass) {
-				st.CanTransition = false;
+			switch (type) {
+				case TileType.DeepWater:
+					st.CanBeTransitionedTo = false;
+					tile.Walkable = false;
+					break;
+				case TileType.Rock:
+				case TileType.Grass:
+					st.CanTransition = false;
+					tile.Walkable = true;
+					break;
+				default:
+					tile.Walkable = true;
+					break;
+			}
+
+			switch (type) {
+				case TileType.DeepWater:
+				case TileType.ShallowWater:
+					tile.Buildable = false;
+					break;
+				case TileType.Sand:
+				case TileType.Grass:
+				case TileType.Dirt:
+				case TileType.Rock:
+				case TileType.Snow:
+					tile.Buildable = true;
+					break;
 			}
 
 			_tiles[y][x] = t.gameObject;
