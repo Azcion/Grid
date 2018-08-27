@@ -37,9 +37,6 @@ namespace Assets.Scripts.Graphics {
 		}
 
 		private void Initialize (Transform t) {
-			float scale = (float) System.Math.Round(Random.Range(.5f, 1), 2);
-			Vector3 position = new Vector3(t.position.x, t.position.y, Order.THING);
-
 			PlantType type;
 
 			switch (t.GetComponent<Tile>().Type) {
@@ -73,8 +70,9 @@ namespace Assets.Scripts.Graphics {
 					return;
 			}
 
-			GameObject f = Instantiate(PlantSprites.Get(type), position, Quaternion.identity, Container.transform);
-			f.GetComponent<Plant>().Assign(type, scale, Random.value > .5);
+			Vector3 v = new Vector3((int) t.position.x, (int) t.position.y, Order.THING);
+			GameObject f = Instantiate(PlantSprites.Get(type), v, Quaternion.identity, Container.transform);
+			f.GetComponent<Plant>().Assign(type, Calc.Round(Random.Range(.5f, 1), 2), Random.value > .5);
 			f.SetActive(true);
 		}
 

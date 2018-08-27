@@ -45,7 +45,7 @@ namespace Assets.Scripts.Things {
 		private void AssertRequiredComponents () {
 			if (transform.GetComponent<BoxCollider2D>() == null) {
 				BoxCollider2D bc = gameObject.AddComponent<BoxCollider2D>();
-				bc.offset = Vector2.zero;
+				bc.offset = new Vector2(.5f, .5f);
 				bc.size = Vector2.one;
 			}
 
