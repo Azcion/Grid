@@ -24,6 +24,9 @@ namespace Assets.Scripts.Graphics {
 
 		[UsedImplicitly]
 		public GameObject Container;
+
+		[UsedImplicitly]
+		public GameObject Pathfinder;
 		#endregion
 
 		// Materials
@@ -101,6 +104,8 @@ namespace Assets.Scripts.Graphics {
 
 			_ready = true;
 			ApplicationController.NotifyReady();
+
+			Pathfinder.SetActive(true);
 		}
 
 		private void InitializeTile (Transform t) {

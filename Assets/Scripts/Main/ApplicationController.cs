@@ -33,7 +33,6 @@ namespace Assets.Scripts.Main {
 		private const int INFO_REFRESH_FRAMES = 8;
 
 		private static bool _ready;
-
 		private static float _loadTime;
 		private static float _startTime;
 
