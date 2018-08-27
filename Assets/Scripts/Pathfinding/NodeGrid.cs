@@ -3,7 +3,7 @@ using Assets.Scripts.Graphics;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Assets.Scripts.Things {
+namespace Assets.Scripts.Pathfinding {
 
 	public class NodeGrid : MonoBehaviour {
 

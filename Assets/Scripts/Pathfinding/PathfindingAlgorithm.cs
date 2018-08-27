@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Security.Cryptography;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Assets.Scripts.Things {
+namespace Assets.Scripts.Pathfinding {
 
 	public class PathfindingAlgorithm : MonoBehaviour {
 

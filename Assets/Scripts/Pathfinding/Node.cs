@@ -1,7 +1,6 @@
-﻿using JetBrains.Annotations;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Assets.Scripts.Things {
+namespace Assets.Scripts.Pathfinding {
 
 	public class Node {
 
