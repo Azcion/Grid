@@ -27,7 +27,7 @@ namespace Assets.Scripts.Things {
 			for (int x = 0; x < TileMaker.YTILES; ++x) {
 				for (int y = 0; y < TileMaker.YTILES; ++y) {
 					Vector2 worldPoint = worldBottomLeft + Vector2.right * x + Vector2.up * y;
-					bool walkable = TileMaker.Get(x, y).GetComponent<Tile>().Walkable;
+					bool walkable = TileMaker.Get(x, y).GetComponent<Tile>()?.Walkable ?? false;
 					_grid[x, y] = new Node(walkable, worldPoint);
 				}
 			}
