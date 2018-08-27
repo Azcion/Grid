@@ -1,5 +1,5 @@
-﻿using System;
-using Assets.Scripts.Enums;
+﻿using Assets.Scripts.Enums;
+using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -33,9 +33,9 @@ namespace Assets.Scripts.Things {
 		private static Vector3 AdjustPosition (PlantSize size) {
 			switch (size) {
 				case PlantSize.Tree:
-					return new Vector2(.5f, .5f + SPRITE_OFFSET_TREE);
+					return new Vector2(.5f, Calc.Round(.5f + SPRITE_OFFSET_TREE, 2));
 				default:
-					return new Vector2(.5f, .5f + SPRITE_OFFSET_BUSH);
+					return new Vector2(.5f, Calc.Round(.5f + SPRITE_OFFSET_BUSH, 2));
 			}
 		}
 

@@ -1,6 +1,8 @@
 ﻿using Assets.Scripts.Enums;
+using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Things {
 
@@ -18,7 +20,7 @@ namespace Assets.Scripts.Things {
 		public void Assign () {
 			AssertActive();
 
-			Sprite.localPosition = new Vector2(.5f, .5f + SPRITE_OFFSET);
+			Sprite.localPosition = new Vector2(.5f, Calc.Round(.5f + SPRITE_OFFSET, 2));
 			_pathfinder = new Pathfinder(transform);
 			_wasAssigned = true;
 		}
