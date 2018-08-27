@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Graphics {
 
-	public class FloraMaker : MonoBehaviour {
+	public class PlantMaker : MonoBehaviour {
 
 		// Object references
 		#region
@@ -40,7 +40,7 @@ namespace Assets.Scripts.Graphics {
 			float scale = (float) System.Math.Round(Random.Range(.5f, 1), 2);
 			Vector3 position = new Vector3(t.position.x, t.position.y, Order.THING);
 
-			FloraType type;
+			PlantType type;
 
 			switch (t.GetComponent<Tile>().Type) {
 				case TileType.Sand:
@@ -48,7 +48,7 @@ namespace Assets.Scripts.Graphics {
 						return;
 					}
 
-					type = FloraType.Cactus;
+					type = PlantType.Cactus;
 					break;
 				case TileType.Grass:
 					if (Random.value < .75) {
@@ -56,25 +56,25 @@ namespace Assets.Scripts.Graphics {
 					}
 
 					if (Random.value < .50) {
-						type = FloraType.Grass;
+						type = PlantType.Grass;
 						break;
 					}
 
-					type = FloraType.Palm;
+					type = PlantType.Palm;
 					break;
 				case TileType.Dirt:
 					if (Random.value < .90) {
 						return;
 					}
 
-					type = FloraType.Agave;
+					type = PlantType.Agave;
 					break;
 				default:
 					return;
 			}
 
-			GameObject f = Instantiate(FloraSprites.Get(type), position, Quaternion.identity, Container.transform);
-			f.GetComponent<Flora>().Assign(type, scale, Random.value > .5);
+			GameObject f = Instantiate(PlantSprites.Get(type), position, Quaternion.identity, Container.transform);
+			f.GetComponent<Plant>().Assign(type, scale, Random.value > .5);
 			f.SetActive(true);
 		}
 

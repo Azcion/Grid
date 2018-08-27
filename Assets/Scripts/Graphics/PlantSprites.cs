@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Graphics {
 
-	public class FloraSprites : MonoBehaviour {
+	public class PlantSprites : MonoBehaviour {
 
 		// Object references
 		#region
@@ -31,15 +31,15 @@ namespace Assets.Scripts.Graphics {
 		private static GameObject[] _cactus;
 		private static GameObject[] _grass;
 
-		public static GameObject Get (FloraType type) {
+		public static GameObject Get (PlantType type) {
 			switch (type) {
-				case FloraType.Palm:
+				case PlantType.Palm:
 					return _palm[Random.Range(0, _palm.Length)];
-				case FloraType.Agave:
+				case PlantType.Agave:
 					return _agave[Random.Range(0, _agave.Length)];
-				case FloraType.Cactus:
+				case PlantType.Cactus:
 					return _cactus[Random.Range(0, _cactus.Length)];
-				case FloraType.Grass:
+				case PlantType.Grass:
 					return _grass[Random.Range(0, _grass.Length)];
 			}
 

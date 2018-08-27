@@ -1,6 +1,6 @@
 ﻿namespace Assets.Scripts.Enums {
 
-	public enum FloraType : byte {
+	public enum PlantType : byte {
 
 		Palm,
 		Agave,

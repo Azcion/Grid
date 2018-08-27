@@ -6,14 +6,14 @@ using UnityEngine;
 namespace Assets.Scripts.Things {
 
 	[UsedImplicitly]
-	public class Flora : Thing {
+	public class Plant : Thing {
 
-		public FloraType Type;
+		public PlantType Type;
 
-		private FloraSize _size;
+		private PlantSize _size;
 		private float _growth;
 
-		public void Assign (FloraType type, float growth, bool flipX=false) {
+		public void Assign (PlantType type, float growth, bool flipX=false) {
 			AssertActive();
 
 			_size = SizeOf(type);
@@ -27,14 +27,14 @@ namespace Assets.Scripts.Things {
 			return new Vector3(flipX ? -scale : scale, scale, 1);
 		}
 
-		private static Vector3 AdjustPosition (FloraSize size, Vector3 v) {
+		private static Vector3 AdjustPosition (PlantSize size, Vector3 v) {
 			float offset;
 
 			switch (size) {
-				case FloraSize.Tree:
+				case PlantSize.Tree:
 					offset = -.4f;
 					break;
-				case FloraSize.Bush:
+				case PlantSize.Bush:
 				default:
 					offset = 0;
 					break;
@@ -43,14 +43,14 @@ namespace Assets.Scripts.Things {
 			return new Vector3(v.x, (int) v.y + offset, v.z);
 		}
 
-		private static FloraSize SizeOf (FloraType type) {
+		private static PlantSize SizeOf (PlantType type) {
 			switch (type) {
-				case FloraType.Palm:
-					return FloraSize.Tree;
-				case FloraType.Cactus:
-				case FloraType.Agave:
-				case FloraType.Grass:
-					return FloraSize.Bush;
+				case PlantType.Palm:
+					return PlantSize.Tree;
+				case PlantType.Cactus:
+				case PlantType.Agave:
+				case PlantType.Grass:
+					return PlantSize.Bush;
 				default:
 					throw new ArgumentOutOfRangeException("type", type, null);
 			}

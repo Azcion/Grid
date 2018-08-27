@@ -1,6 +1,6 @@
 ﻿namespace Assets.Scripts.Enums {
 
-	public enum FloraSize : byte {
+	public enum PlantSize : byte {
 		
 		Bush,
 		Tree
