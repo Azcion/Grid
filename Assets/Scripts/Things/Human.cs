@@ -1,4 +1,7 @@
-﻿using Assets.Scripts.Enums;
+﻿using System.Collections;
+using Assets.Scripts.Enums;
+using Assets.Scripts.Graphics;
+using Assets.Scripts.Pathfinding;
 using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -8,21 +11,26 @@ namespace Assets.Scripts.Things {
 
 	public class Human : Thing {
 
-		private const float SPRITE_OFFSET = -.3f;
-
 		[UsedImplicitly]
 		public Sprite[] HumanSprites;
 
+		public Transform Target;
+
+		private const float SPRITE_OFFSET = -.3f;
+
 		private Direction _facing;
-		private Pathfinder _pathfinder;
 		private bool _wasAssigned;
+
+		private Vector2[] _path;
+		private int _targetIndex;
+		private bool _moving;
 
 		public void Assign () {
 			AssertActive();
 
 			Sprite.localPosition = new Vector2(.5f, Calc.Round(.5f + SPRITE_OFFSET, 2));
-			_pathfinder = new Pathfinder(transform);
 			_wasAssigned = true;
+			_moving = false;
 		}
 
 		[UsedImplicitly]
@@ -38,11 +46,42 @@ namespace Assets.Scripts.Things {
 				return;
 			}
 
-			if (_pathfinder.Moving == false && Random.value > .98) {
-				_pathfinder.MoveByOffset(new Vector2(Random.Range(-5, 5), Random.Range(-5, 5)), true);
+			if (_moving || !(Random.value > .985f)) {
+				return;
 			}
 
-			_pathfinder.Update();
+			Vector2 v = (Vector2) transform.localPosition + new Vector2(Random.Range(-5, 5), Random.Range(-5, 5));
+			v = Calc.Clamp(v, 0, TileMaker.YTILES, 0, TileMaker.YTILES);
+			PathRequestManager.RequestPath(transform.localPosition, v, OnPathFound);
+		}
+
+		private void OnPathFound (Vector2[] path, bool success) {
+			if (success == false) {
+				return;
+			}
+
+			_path = path;
+			StopCoroutine("FollowPath");
+			StartCoroutine("FollowPath");
+		}
+
+		[UsedImplicitly]
+		private IEnumerator FollowPath () {
+			Vector2 currentWaypoint = _path[0];
+
+			while (true) {
+				if ((Vector2) transform.position == currentWaypoint) {
+					if (++_targetIndex >= _path.Length) {
+						yield break;
+					}
+
+					currentWaypoint = _path[_targetIndex];
+				}
+
+				transform.localPosition = Vector2.MoveTowards(transform.localPosition, currentWaypoint, .05f);
+
+				yield return null;
+			}
 		}
 
 	}
