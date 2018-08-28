@@ -57,7 +57,7 @@
 					int swapIndex = childIndexLeft;
 
 					if (childIndexRight < Count) {
-						if (childIndexLeft.CompareTo(childIndexRight) < 0) {
+						if (_items[childIndexLeft].CompareTo(_items[childIndexRight]) < 0) {
 							swapIndex = childIndexRight;
 						}
 					}
