@@ -4,14 +4,14 @@ namespace Assets.Scripts.Pathfinding {
 
 	public class Node : IHeapItem<Node> {
 
-		public int X;
-		public int Y;
-		public bool Walkable;
+		public readonly int X;
+		public readonly int Y;
+		public readonly bool Walkable;
+
 		public Vector2 WorldPosition;
 		public int GCost;
 		public int HCost;
 		public Node Parent;
-
 		public int HeapIndex { get; set; }
 		public int FCost => GCost + HCost;
 

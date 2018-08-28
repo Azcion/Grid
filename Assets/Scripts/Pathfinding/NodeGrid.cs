@@ -8,6 +8,7 @@ namespace Assets.Scripts.Pathfinding {
 	public class NodeGrid : MonoBehaviour {
 
 		public List<Node> Path;
+		public int MaxSize => (int) _gridSize.x * (int) _gridSize.y;
 
 		private bool _showOnlyPath = true;
 

@@ -26,27 +26,13 @@ namespace Assets.Scripts.Pathfinding {
 			Node startNode = _grid.GetNodeAt(start);
 			Node targetNode = _grid.GetNodeAt(target);
 
-			List<Node> openSet = new List<Node>();
+			Heap<Node> openSet = new Heap<Node>(_grid.MaxSize);
 			HashSet<Node> closedSet = new HashSet<Node>();
 
 			openSet.Add(startNode);
 
 			while (openSet.Count > 0) {
-				Node node = openSet[0];
-
-				for (int i = 1; i < openSet.Count; ++i) {
-					Node nextNode = openSet[i];
-					int nf = nextNode.FCost;
-					int cf = node.FCost;
-
-					if (nf < cf || nf == cf) {
-						if (nextNode.HCost < node.HCost) {
-							node = nextNode;
-						}
-					}
-				}
-
-				openSet.Remove(node);
+				Node node = openSet.RemoveFirst();
 				closedSet.Add(node);
 
 				if (node == targetNode) {
@@ -69,6 +55,8 @@ namespace Assets.Scripts.Pathfinding {
 
 						if (openSet.Contains(neighbor) == false) {
 							openSet.Add(neighbor);
+						} else {
+							openSet.UpdateItem(neighbor);
 						}
 					}
 				}
