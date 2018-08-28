@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -6,61 +7,73 @@ namespace Assets.Scripts.Pathfinding {
 
 	public class PathfindingAlgorithm : MonoBehaviour {
 
-		public Transform Seeker, Target;
-
+		private PathRequestManager _manager;
 		private NodeGrid _grid;
 		
+		public void StartFindPath (PathRequest request) {
+			StartCoroutine(FindPath(request.Start, request.End));
+		}
+
 		[UsedImplicitly]
 		private void Awake () {
+			_manager = GetComponent<PathRequestManager>();
 			_grid = GetComponent<NodeGrid>();
 		}
 
-		[UsedImplicitly]
-		private void Update () {
-			if (Input.GetButtonDown("Jump")) {
-				FindPath(Seeker.position, Target.position);
-			}
-		}
+		private IEnumerator FindPath (Vector2 start, Vector2 target) {
+			Vector2[] waypoints = new Vector2[0];
+			bool success = false;
 
-		public void FindPath (Vector2 start, Vector2 target) {
 			Node startNode = _grid.GetNodeAt(start);
 			Node targetNode = _grid.GetNodeAt(target);
 
-			Heap<Node> openSet = new Heap<Node>(_grid.MaxSize);
-			HashSet<Node> closedSet = new HashSet<Node>();
+			if (startNode.Walkable && targetNode.Walkable) {
+				Heap<Node> openSet = new Heap<Node>(NodeGrid.MaxSize);
+				HashSet<Node> closedSet = new HashSet<Node>();
+				openSet.Add(startNode);
 
-			openSet.Add(startNode);
+				while (openSet.Count > 0) {
+					Node node = openSet.RemoveFirst();
+					closedSet.Add(node);
 
-			while (openSet.Count > 0) {
-				Node node = openSet.RemoveFirst();
-				closedSet.Add(node);
+					if (node == targetNode) {
+						success = true;
 
-				if (node == targetNode) {
-					RetracePath(startNode, targetNode);
-
-					return;
-				}
-
-				foreach (Node neighbor in _grid.GetNeighbors(node)) {
-					if (neighbor.Walkable == false || closedSet.Contains(neighbor)) {
-						continue;
+						break;
 					}
 
-					int newCost = node.GCost + GetDistance(node, neighbor);
+					foreach (Node neighbor in _grid.GetNeighbors(node)) {
+						if (neighbor.Walkable == false || closedSet.Contains(neighbor)) {
+							continue;
+						}
 
-					if (newCost < neighbor.GCost || openSet.Contains(neighbor) == false) {
+						int newCost = node.GCost + GetDistance(node, neighbor);
+
+						if (newCost >= neighbor.GCost && openSet.Contains(neighbor)) {
+							continue;
+						}
+
 						neighbor.GCost = newCost;
 						neighbor.HCost = GetDistance(neighbor, targetNode);
 						neighbor.Parent = node;
 
 						if (openSet.Contains(neighbor) == false) {
 							openSet.Add(neighbor);
-						} else {
+						}
+						else {
 							openSet.UpdateItem(neighbor);
 						}
 					}
 				}
 			}
+
+			yield return null;
+
+			if (success) {
+				waypoints = RetracePath(startNode, targetNode);
+			}
+
+			_manager.FinishedProcessingPath(waypoints, success);
 		}
 
 		private static int GetDistance (Node start, Node target) {
@@ -74,18 +87,18 @@ namespace Assets.Scripts.Pathfinding {
 			return 14 * dX + 10 * (dY - dX);
 		}
 
-		private void RetracePath (Node start, Node target) {
-			List<Node> path = new List<Node>();
+		private static Vector2[] RetracePath (Node start, Node target) {
+			List<Vector2> path = new List<Vector2>();
 			Node currentNode = target;
 
 			while (currentNode != start) {
-				path.Add(currentNode);
+				path.Add(currentNode.WorldPosition);
 				currentNode = currentNode.Parent;
 			}
 
 			path.Reverse();
 
-			_grid.Path = path;
+			return path.ToArray();
 		}
 
 	}
