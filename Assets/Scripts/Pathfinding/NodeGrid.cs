@@ -9,6 +9,8 @@ namespace Assets.Scripts.Pathfinding {
 
 		public List<Node> Path;
 
+		private bool _showOnlyPath = true;
+
 		private static Vector2 _gridSize;
 		private static Vector2 _center;
 
@@ -63,7 +65,20 @@ namespace Assets.Scripts.Pathfinding {
 		private void OnDrawGizmos () {
 			Gizmos.DrawWireCube(_center, _gridSize);
 
-			if (_grid != null) {
+			if (_showOnlyPath) {
+				if (Path == null) {
+					return;
+				}
+
+				foreach (Node n in Path) {
+					Gizmos.color = Color.black;
+					Gizmos.DrawCube(n.WorldPosition, Vector2.one * .5f);
+				}
+			} else {
+				if (_grid == null) {
+					return;
+				}
+
 				foreach (Node n in _grid) {
 					Gizmos.color = n.Walkable ? Color.white : Color.red;
 
@@ -76,6 +91,8 @@ namespace Assets.Scripts.Pathfinding {
 					Gizmos.DrawCube(n.WorldPosition, Vector2.one * .5f);
 				}
 			}
+
+			
 		}
 
 	}

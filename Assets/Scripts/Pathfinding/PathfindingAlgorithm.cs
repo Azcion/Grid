@@ -9,7 +9,7 @@ namespace Assets.Scripts.Pathfinding {
 		public Transform Seeker, Target;
 
 		private NodeGrid _grid;
-
+		
 		[UsedImplicitly]
 		private void Awake () {
 			_grid = GetComponent<NodeGrid>();
@@ -17,7 +17,9 @@ namespace Assets.Scripts.Pathfinding {
 
 		[UsedImplicitly]
 		private void Update () {
-			FindPath(Seeker.position, Target.position);
+			if (Input.GetButtonDown("Jump")) {
+				FindPath(Seeker.position, Target.position);
+			}
 		}
 
 		public void FindPath (Vector2 start, Vector2 target) {
