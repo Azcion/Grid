@@ -9,12 +9,23 @@ namespace Assets.Scripts.Utils {
 			return (float) Math.Round(value, digits);
 		}
 
-		public static int Round (float value) {
-			return (int) Math.Round(value);
-		}
+		public static Vector2 Clamp (Vector2 v, int x0, int x1, int y0, int y1) {
+			int x = (int) v.x;
+			int y = (int) v.y;
 
-		public static Vector3 RoundVector (Vector3 v) {
-			return new Vector3((int) v.x, (int) v.y, (int) v.z);
+			if (x < x0) {
+				x = x0;
+			} else if (x > x1) {
+				x = x1;
+			}
+
+			if (y < y0) {
+				y = y0;
+			} else if (y > y1) {
+				y = y1;
+			}
+
+			return new Vector2(x, y);
 		}
 
 	}

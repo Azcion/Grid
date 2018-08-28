@@ -11,7 +11,7 @@ namespace Assets.Scripts.Graphics {
 	public class TileMaker : MonoBehaviour {
 
 		public const int CSIZE = 8;
-		public const int YCHUNKS = 25;
+		public const int YCHUNKS = 10;
 		public const int CHALF = CSIZE / 2;
 		public const int YTILES = CSIZE * YCHUNKS;
 		public const int THALF = YTILES / 2;
