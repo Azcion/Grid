@@ -6,24 +6,29 @@ using UnityEngine;
 namespace Assets.Scripts.Things {
 
 	[UsedImplicitly]
-	public class Plant : Thing {
+	public class Plant : Thing, IThing {
 
 		public PlantType Type;
+		public PlantSize Size;
 
 		private const float SPRITE_OFFSET_BUSH = 0;
 		private const float SPRITE_OFFSET_TREE = -.4f;
 
-		private PlantSize _size;
+		
 		private float _growth;
 
 		public void Initialize (PlantType type, float growth, bool flipX=false) {
 			InitializeThing();
 
-			_size = SizeOf(type);
+			Size = SizeOf(type);
 			_growth = growth;
 
-			Sprite.localPosition = AdjustPosition(_size);
+			Sprite.localPosition = AdjustPosition(Size);
 			Sprite.localScale = AdjustScale(growth, flipX);
+		}
+
+		public ThingType ThingType () {
+			return Enums.ThingType.Plant;
 		}
 
 		private static Vector3 AdjustScale (float scale, bool flipX) {
