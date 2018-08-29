@@ -1,8 +1,9 @@
-﻿using Assets.Scripts.Utils;
+﻿using Assets.Scripts.Main;
+using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Assets.Scripts.Main {
+namespace Assets.Scripts.Things {
 
 	public class Selector : MonoBehaviour {
 
@@ -15,7 +16,7 @@ namespace Assets.Scripts.Main {
 			Target = target;
 			_didSelect = true;
 			Instance.transform.SetParent(Target);
-			Instance.transform.localPosition = new Vector3(0, -.5f, Order.SELECTOR);
+			Instance.transform.localPosition = new Vector3(.5f, 0, Order.SELECTOR);
 			Instance.SetActive(true);
 		}
 
