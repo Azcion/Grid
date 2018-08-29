@@ -56,12 +56,16 @@ namespace Assets.Scripts.Graphics {
 		public Material DefaultMat;
 		#endregion
 
-		private static List<List<GameObject>> _tiles;
+		private static List<List<Tile>> _tiles;
 
 		private static int _seed;
 		private static bool _ready;
 
 		public static GameObject Get (int x, int y) {
+			return GetTile(x, y)?.gameObject;
+		}
+
+		public static Tile GetTile (int x, int y) {
 			if (!_ready || x < 0 || x >= YTILES || y < 0 || y >= YTILES) {
 				return null;
 			}
@@ -72,10 +76,10 @@ namespace Assets.Scripts.Graphics {
 		[UsedImplicitly]
 		private void Start () {
 			_seed = ApplicationController.Seed;
-			_tiles = new List<List<GameObject>>();
+			_tiles = new List<List<Tile>>();
 
 			for (int y = 0; y < YTILES; ++y) {
-				List<GameObject> row = new List<GameObject>();
+				List<Tile> row = new List<Tile>();
 
 				for (int x = 0; x < YTILES; ++x) {
 					row.Add(null);
@@ -190,7 +194,7 @@ namespace Assets.Scripts.Graphics {
 			}
 
 			tile.Assign(t.parent.gameObject, x, y, type, walkable, buildable, penalty);
-			_tiles[y][x] = t.gameObject;
+			_tiles[y][x] = tile;
 		}
 
 	}

@@ -70,9 +70,16 @@ namespace Assets.Scripts.Graphics {
 					return;
 			}
 
-			Vector3 v = new Vector3((int) t.position.x, (int) t.position.y, Order.THING);
+			int x = (int) t.position.x;
+			int y = (int) t.position.y;
+			Vector3 v = new Vector3(x, y, Order.THING);
 			GameObject f = Instantiate(PlantSprites.Get(type), v, Quaternion.identity, Container.transform);
-			f.GetComponent<Plant>().Initialize(type, Calc.Round(Random.Range(.5f, 1), 2), Random.value > .5);
+			Plant plant = f.GetComponent<Plant>();
+			plant.Initialize(type, Calc.Round(Random.Range(.5f, 1), 2), Random.value > .5);
+
+			if (TileMaker.GetTile(x, y).TryAddThing(plant) == false) {
+				Debug.Log($"Tried to add plant to occupied tile. {x}, {y}");
+			}
 		}
 
 	}

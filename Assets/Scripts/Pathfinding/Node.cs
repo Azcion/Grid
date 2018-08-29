@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Graphics;
+using UnityEngine;
 
 namespace Assets.Scripts.Pathfinding {
 
@@ -6,8 +7,10 @@ namespace Assets.Scripts.Pathfinding {
 
 		public readonly int X;
 		public readonly int Y;
-		public readonly bool Walkable;
-		public readonly int Penalty;
+		public readonly Tile Tile;
+
+		public bool Walkable => Tile.Walkable;
+		public int Penalty => Tile.Penalty;
 
 		public Vector2 WorldPosition;
 		public int GCost;
@@ -15,13 +18,12 @@ namespace Assets.Scripts.Pathfinding {
 		public Node Parent;
 		public int HeapIndex { get; set; }
 		public int FCost => GCost + HCost;
-
-		public Node (int x, int y, bool walkable, int penalty) {
+		
+		public Node (int x, int y, Tile tile) {
 			X = x;
 			Y = y;
+			Tile = tile;
 			WorldPosition = new Vector2(x, y);
-			Walkable = walkable;
-			Penalty = penalty;
 		}
 
 		public int CompareTo (Node other) {
