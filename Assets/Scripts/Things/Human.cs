@@ -15,7 +15,7 @@ namespace Assets.Scripts.Things {
 		public Sprite[] HumanSprites;
 
 		[UsedImplicitly]
-		public bool DisplayGridGizmos;
+		public bool DisplayPathGizmos;
 
 		public Transform Target;
 
@@ -70,7 +70,7 @@ namespace Assets.Scripts.Things {
 
 		[UsedImplicitly]
 		private void OnDrawGizmos () {
-			if (_path == null || DisplayGridGizmos == false) {
+			if (_path == null || DisplayPathGizmos == false) {
 				return;
 			}
 
