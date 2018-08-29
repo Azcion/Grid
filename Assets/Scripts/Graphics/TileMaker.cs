@@ -114,35 +114,43 @@ namespace Assets.Scripts.Graphics {
 			float v = Noise.Sum(x + _seed, y + _seed, .01f, 6, 2, .5f);
 
 			TileType type;
+			int penalty = 0;
 			Material mat;
 			Color color;
 
 			if (v > .60) {
 				type = TileType.Snow;
+				penalty = 8;
 				mat = SnowMat;
 				color = TileSprites.CSnow;
 			} else if (v > .55) {
 				type = TileType.Rock;
+				penalty = 0;
 				mat = RockMat;
 				color = TileSprites.CRock;
 			} else if (v > .53) {
 				type = TileType.Dirt;
+				penalty = 2;
 				mat = DirtMat;
 				color = TileSprites.CDirt;
 			} else if (v > .48) {
 				type = TileType.Grass;
+				penalty = 3;
 				mat = GrassMat;
 				color = TileSprites.CGrass;
 			} else if (v > .35) {
 				type = TileType.Sand;
+				penalty = 6;
 				mat = SandMat;
 				color = TileSprites.CSand;
 			} else if (v > .30) {
 				type = TileType.Grass;
+				penalty = 3;
 				mat = GrassMat;
 				color = TileSprites.CGrass;
 			} else if (v > .25) {
 				type = TileType.ShallowWater;
+				penalty = 15;
 				mat = ShallowWaterMat;
 				color = TileSprites.CShallowWater;
 			} else {
@@ -150,12 +158,6 @@ namespace Assets.Scripts.Graphics {
 				mat = DeepWaterMat;
 				color = TileSprites.CDeepWater;
 			}
-
-			Tile tile = t.GetComponent<Tile>();
-			tile.Chunk = t.parent.gameObject;
-			tile.Type = type;
-			tile.X = x;
-			tile.Y = y;
 
 			SpriteRenderer sr = t.GetComponent<SpriteRenderer>();
 			sr.material = mat;
@@ -165,35 +167,29 @@ namespace Assets.Scripts.Graphics {
 			st.OverlapOrder = TileSprites.Order[(int) type];
 			st.Color = color;
 
+			Tile tile = t.GetComponent<Tile>();
+			bool walkable = true;
+			bool buildable = true;
+
 			switch (type) {
 				case TileType.DeepWater:
 					st.CanBeTransitionedTo = false;
-					tile.Walkable = false;
+					walkable = false;
 					break;
 				case TileType.Rock:
 				case TileType.Grass:
 					st.CanTransition = false;
-					tile.Walkable = true;
-					break;
-				default:
-					tile.Walkable = true;
 					break;
 			}
 
 			switch (type) {
 				case TileType.DeepWater:
 				case TileType.ShallowWater:
-					tile.Buildable = false;
-					break;
-				case TileType.Sand:
-				case TileType.Grass:
-				case TileType.Dirt:
-				case TileType.Rock:
-				case TileType.Snow:
-					tile.Buildable = true;
+					buildable = false;
 					break;
 			}
 
+			tile.Assign(t.parent.gameObject, x, y, type, walkable, buildable, penalty);
 			_tiles[y][x] = t.gameObject;
 		}
 

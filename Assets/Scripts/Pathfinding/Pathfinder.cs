@@ -47,7 +47,7 @@ namespace Assets.Scripts.Pathfinding {
 							continue;
 						}
 
-						int newCost = node.GCost + GetDistance(node, neighbor);
+						int newCost = node.GCost + GetDistance(node, neighbor) + neighbor.Penalty;
 
 						if (newCost >= neighbor.GCost && openSet.Contains(neighbor)) {
 							continue;
