@@ -7,6 +7,7 @@ namespace Assets.Scripts.Pathfinding {
 		public readonly int X;
 		public readonly int Y;
 		public readonly bool Walkable;
+		public readonly int Penalty;
 
 		public Vector2 WorldPosition;
 		public int GCost;
@@ -15,11 +16,12 @@ namespace Assets.Scripts.Pathfinding {
 		public int HeapIndex { get; set; }
 		public int FCost => GCost + HCost;
 
-		public Node (bool walkable, Vector2 worldPos, int x, int y) {
+		public Node (int x, int y, bool walkable, int penalty) {
 			X = x;
 			Y = y;
+			WorldPosition = new Vector2(x, y);
 			Walkable = walkable;
-			WorldPosition = worldPos;
+			Penalty = penalty;
 		}
 
 		public int CompareTo (Node other) {

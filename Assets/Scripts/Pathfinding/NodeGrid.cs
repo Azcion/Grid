@@ -74,9 +74,8 @@ namespace Assets.Scripts.Pathfinding {
 
 			for (int x = 0; x < TileMaker.YTILES; ++x) {
 				for (int y = 0; y < TileMaker.YTILES; ++y) {
-					Vector2 worldPoint = Vector2.right * x + Vector2.up * y;
 					bool walkable = TileMaker.Get(x, y).GetComponent<Tile>()?.Walkable ?? false;
-					_grid[x, y] = new Node(walkable, worldPoint, x, y);
+					_grid[x, y] = new Node(x, y, walkable, 0);
 				}
 			}
 		}
