@@ -72,8 +72,7 @@ namespace Assets.Scripts.Graphics {
 
 			Vector3 v = new Vector3((int) t.position.x, (int) t.position.y, Order.THING);
 			GameObject f = Instantiate(PlantSprites.Get(type), v, Quaternion.identity, Container.transform);
-			f.GetComponent<Plant>().Assign(type, Calc.Round(Random.Range(.5f, 1), 2), Random.value > .5);
-			f.SetActive(true);
+			f.GetComponent<Plant>().Initialize(type, Calc.Round(Random.Range(.5f, 1), 2), Random.value > .5);
 		}
 
 	}

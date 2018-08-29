@@ -9,63 +9,50 @@ namespace Assets.Scripts.Things {
 	public class Thing : MonoBehaviour {
 
 		protected Transform Sprite;
+		protected Transform Tf;
 
 		private SpriteRenderer _renderer;
-		private bool _didStart;
 
-		protected void AssertActive () {
-			if (gameObject.activeSelf == false) {
-				gameObject.SetActive(true);
-			}
-
-			if (_didStart == false) {
-				Start();
-			}
-		}
-
-		[UsedImplicitly]
-		private void Start () {
-			if (_didStart) {
-				return;
-			}
-
+		protected void InitializeThing () {
+			gameObject.SetActive(true);
+			Tf = transform;
+			Vector2 v = Tf.localPosition;
+			Tf.localPosition = new Vector3(v.x, v.y, Order.THING);
 			AssertRequiredComponents();
-
-			Vector2 v = transform.localPosition;
-			transform.localPosition = new Vector3(v.x, v.y, Order.THING);
-			_didStart = true;
 		}
 
 		[UsedImplicitly]
 		private void OnMouseDown () {
-			Selector.Select(transform);
+			Selector.Select(Tf);
 		}
 
 		private void AssertRequiredComponents () {
-			if (transform.GetComponent<BoxCollider2D>() == null) {
+			if (Tf.GetComponent<BoxCollider2D>() == null) {
 				BoxCollider2D bc = gameObject.AddComponent<BoxCollider2D>();
 				bc.offset = new Vector2(.5f, .5f);
 				bc.size = Vector2.one;
 			}
 
-			if (transform.Find("Sprite") == null) {
+			if (Tf.Find("Sprite") == null) {
 				CreateChildSprite();
 			}
 		}
 
 		private void CreateChildSprite () {
 			Sprite = new GameObject("Sprite").transform;
-			Sprite.SetParent(transform);
+			Sprite.SetParent(Tf);
 			Sprite.localPosition = Vector3.zero;
 			_renderer = Sprite.gameObject.AddComponent<SpriteRenderer>();
 
-			SpriteRenderer sr = transform.GetComponent<SpriteRenderer>();
+			SpriteRenderer sr = Tf.GetComponent<SpriteRenderer>();
 
-			if (sr != null) {
-				_renderer.sprite = sr.sprite;
-				_renderer.material = AssetLoader.DiffuseMat;
-				Destroy(sr);
+			if (sr == null) {
+				return;
 			}
+
+			_renderer.sprite = sr.sprite;
+			_renderer.material = AssetLoader.DiffuseMat;
+			Destroy(sr);
 		}
 
 	}

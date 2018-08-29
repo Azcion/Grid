@@ -16,8 +16,8 @@ namespace Assets.Scripts.Things {
 		private PlantSize _size;
 		private float _growth;
 
-		public void Assign (PlantType type, float growth, bool flipX=false) {
-			AssertActive();
+		public void Initialize (PlantType type, float growth, bool flipX=false) {
+			InitializeThing();
 
 			_size = SizeOf(type);
 			_growth = growth;
