@@ -24,8 +24,8 @@ namespace Assets.Scripts.Pathfinding {
 			Vector2[] waypoints = new Vector2[0];
 			bool success = false;
 
-			Node startNode = _grid.GetNodeAt(start);
-			Node targetNode = _grid.GetNodeAt(target);
+			Node startNode = NodeGrid.GetNodeAt(start);
+			Node targetNode = NodeGrid.GetNodeAt(target);
 
 			if (startNode.Walkable && targetNode.Walkable) {
 				Heap<Node> openSet = new Heap<Node>(NodeGrid.MaxSize);

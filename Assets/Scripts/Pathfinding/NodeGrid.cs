@@ -12,18 +12,18 @@ namespace Assets.Scripts.Pathfinding {
 		[UsedImplicitly]
 		public bool DisplayGridGizmos;
 
-		private static readonly Vector2 Offset;
+		public static readonly Vector2 Offset;
 
 		private static Vector2 _gridSize;
 		private static Vector2 _center;
 
-		private Node[,] _grid;
+		private static Node[,] _grid;
 
 		static NodeGrid () {
 			Offset = new Vector2(.5f, .5f);
 		}
 
-		public Node GetNodeAt (Vector2 position) {
+		public static Node GetNodeAt (Vector2 position) {
 			return _grid[(int) position.x, (int) position.y];
 		}
 

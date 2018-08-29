@@ -14,23 +14,30 @@ namespace Assets.Scripts.Things {
 		[UsedImplicitly]
 		public Sprite[] HumanSprites;
 
+		[UsedImplicitly]
+		public bool DisplayGridGizmos;
+
 		public Transform Target;
 
 		private const float SPRITE_OFFSET = -.3f;
 
+		private Transform _t;
 		private Direction _facing;
 		private bool _wasAssigned;
 
 		private Vector2[] _path;
 		private int _targetIndex;
 		private bool _moving;
+		private float _speed;
 
 		public void Assign () {
 			AssertActive();
 
 			Sprite.localPosition = new Vector2(.5f, Calc.Round(.5f + SPRITE_OFFSET, 2));
+			_t = transform;
 			_wasAssigned = true;
 			_moving = false;
+			_speed = 2;
 		}
 
 		[UsedImplicitly]
@@ -46,13 +53,20 @@ namespace Assets.Scripts.Things {
 				return;
 			}
 
-			if (_moving || !(Random.value > .985f)) {
+			if (_moving || Random.value < .985f) {
 				return;
 			}
 
-			Vector2 v = (Vector2) transform.localPosition + new Vector2(Random.Range(-5, 5), Random.Range(-5, 5));
+			//todo implement smarter targeting
+			Vector2 v = (Vector2) _t.localPosition + new Vector2(Random.Range(-5, 5), Random.Range(-5, 5));
 			v = Calc.Clamp(v, 0, TileMaker.YTILES, 0, TileMaker.YTILES);
-			PathRequestManager.RequestPath(transform.localPosition, v, OnPathFound);
+
+			if (NodeGrid.GetNodeAt(v).Walkable == false) {
+				return;
+			}
+			
+			PathRequestManager.RequestPath(_t.localPosition, v, OnPathFound);
+		}
 		}
 
 		private void OnPathFound (Vector2[] path, bool success) {
@@ -60,7 +74,9 @@ namespace Assets.Scripts.Things {
 				return;
 			}
 
+			_moving = true;
 			_path = path;
+			_targetIndex = 0;
 			StopCoroutine("FollowPath");
 			StartCoroutine("FollowPath");
 		}
@@ -70,15 +86,17 @@ namespace Assets.Scripts.Things {
 			Vector2 currentWaypoint = _path[0];
 
 			while (true) {
-				if ((Vector2) transform.position == currentWaypoint) {
+				if ((Vector2) _t.position == currentWaypoint) {
 					if (++_targetIndex >= _path.Length) {
+						_moving = false;
 						yield break;
 					}
 
 					currentWaypoint = _path[_targetIndex];
 				}
 
-				transform.localPosition = Vector2.MoveTowards(transform.localPosition, currentWaypoint, .05f);
+				float speed = _speed * Time.deltaTime;
+				_t.localPosition = Vector2.MoveTowards(_t.localPosition, currentWaypoint, speed);
 
 				yield return null;
 			}
