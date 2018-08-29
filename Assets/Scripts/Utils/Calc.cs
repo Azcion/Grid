@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Graphics;
 using UnityEngine;
 
 namespace Assets.Scripts.Utils {
@@ -9,7 +10,11 @@ namespace Assets.Scripts.Utils {
 			return (float) Math.Round(value, digits);
 		}
 
-		public static Vector2 Clamp (Vector2 v, int x0, int x1, int y0, int y1) {
+		public static Vector2 Clamp (Vector2 v) {
+			return Clamp(v, 0, TileMaker.YTILES - 1, 0, TileMaker.YTILES - 1);
+		}
+
+		private static Vector2 Clamp (Vector2 v, int x0, int x1, int y0, int y1) {
 			int x = (int) v.x;
 			int y = (int) v.y;
 
