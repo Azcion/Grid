@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -7,25 +7,20 @@ namespace Assets.Scripts.Pathfinding {
 
 	public class Pathfinder : MonoBehaviour {
 
-		private PathRequestManager _manager;
 		private NodeGrid _grid;
-		
-		public void StartFindPath (PathRequest request) {
-			StartCoroutine(FindPath(request.Start, request.End));
-		}
 
 		[UsedImplicitly]
 		private void Awake () {
-			_manager = GetComponent<PathRequestManager>();
 			_grid = GetComponent<NodeGrid>();
 		}
 
-		private IEnumerator FindPath (Vector2 start, Vector2 target) {
+		public void FindPath (PathRequest request, Action<PathResult> callback) {
 			Vector2[] waypoints = new Vector2[0];
 			bool success = false;
 
-			Node startNode = NodeGrid.GetNodeAt(start);
-			Node targetNode = NodeGrid.GetNodeAt(target);
+			Node startNode = NodeGrid.GetNodeAt(request.Start);
+			Node targetNode = NodeGrid.GetNodeAt(request.End);
+			startNode.Parent = startNode;
 
 			if (startNode.Walkable && targetNode.Walkable) {
 				Heap<Node> openSet = new Heap<Node>(NodeGrid.MaxSize);
@@ -67,13 +62,12 @@ namespace Assets.Scripts.Pathfinding {
 				}
 			}
 
-			yield return null;
-
 			if (success) {
 				waypoints = RetracePath(startNode, targetNode);
+				success = waypoints.Length > 0;
 			}
 
-			_manager.FinishedProcessingPath(waypoints, success);
+			callback(new PathResult(waypoints, success, request.Callback));
 		}
 
 		private static int GetDistance (Node start, Node target) {

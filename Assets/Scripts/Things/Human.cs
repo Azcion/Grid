@@ -48,6 +48,7 @@ namespace Assets.Scripts.Things {
 		}
 
 		[UsedImplicitly]
+		//todo move to manual update
 		private void Update () {
 			if (_wasAssigned == false) {
 				return;
@@ -65,7 +66,7 @@ namespace Assets.Scripts.Things {
 				return;
 			}
 			
-			PathRequestManager.RequestPath(_t.localPosition, v, OnPathFound);
+			PathRequestManager.RequestPath(new PathRequest(_t.localPosition, v, OnPathFound));
 		}
 
 		[UsedImplicitly]

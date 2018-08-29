@@ -1,46 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Threading;
 using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.Pathfinding {
 
 	public class PathRequestManager : MonoBehaviour {
+		
+		private static readonly Queue<PathResult> Results = new Queue<PathResult>();
 
-		public static PathRequestManager Instance;
+		private static PathRequestManager _instance;
 
-		private Queue<PathRequest> _queue;
-		private PathRequest _currentRequest;
 		private Pathfinder _pathfinder;
-		private bool _isProcessingPath;
 
-		public static void RequestPath (Vector2 start, Vector2 end, Action<Vector2[], bool> callback) {
-			PathRequest request = new PathRequest(start, end, callback);
-			Instance._queue.Enqueue(request);
-			Instance.TryProcessNext();
+		public static void RequestPath (PathRequest request) {
+			ThreadStart threadStart = delegate {
+				_instance._pathfinder.FindPath(request, FinishedProcessingPath);
+			};
+
+			threadStart.Invoke();
 		}
 
-		public void FinishedProcessingPath (Vector2[] path, bool success) {
-			_currentRequest.Callback(path, success);
-			_isProcessingPath = false;
-			TryProcessNext();
+		public static void FinishedProcessingPath (PathResult result) {
+			lock (Results) {
+				Results.Enqueue(result);
+			}
 		}
 
 		[UsedImplicitly]
 		private void Awake () {
-			Instance = this;
-			_queue = new Queue<PathRequest>();
+			_instance = this;
 			_pathfinder = GetComponent<Pathfinder>();
 		}
 
-		private void TryProcessNext () {
-			if (_isProcessingPath || _queue.Count <= 0) {
-				return;
-			}
+		[UsedImplicitly]
+		private void Update () {
+			lock (Results) {
+				if (Results.Count == 0) {
+					return;
+				}
 
-			_currentRequest = _queue.Dequeue();
-			_isProcessingPath = true;
-			_pathfinder.StartFindPath(_currentRequest);
+				int itemsInQueue = Results.Count;
+
+				for (int i = 0; i < itemsInQueue; ++i) {
+					PathResult result = Results.Dequeue();
+					result.Callback(result.Path, result.Success);
+				}
+			}
 		}
 		
 	}
