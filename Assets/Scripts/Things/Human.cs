@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Things {
 
-	public class Human : Pathfinding {
+	public class Human : Pathfinding, ICreature {
 
 		[UsedImplicitly]
 		public Sprite[] HumanSprites;
@@ -24,6 +24,10 @@ namespace Assets.Scripts.Things {
 			_wasAssigned = true;
 		}
 
+		public ThingType ThingType () {
+			return Enums.ThingType.Creature;
+		}
+
 		[UsedImplicitly]
 		private void OnEnable () {
 			if (_wasAssigned == false) {
@@ -38,15 +42,31 @@ namespace Assets.Scripts.Things {
 				return;
 			}
 
+			Vector3 v = Tf.localPosition;
+
+			if (Selected) {
+				if (Input.GetMouseButtonUp(1)) {
+					FindPath(Calc.Clamp(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
+				}
+
+				return;
+			}
+
 			if (Moving || Random.value < .985f) {
 				return;
 			}
 
 			//todo implement smarter targeting
-			Vector2 v = (Vector2) Tf.localPosition + new Vector2(Random.Range(-5, 5), Random.Range(-5, 5));
-			v = Calc.Clamp(v, 0, TileMaker.YTILES, 0, TileMaker.YTILES);
+			v += new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), 0);
+			v = Calc.Clamp(v);
 
 			FindPath(v);
+		}
+
+		[UsedImplicitly]
+		private void OnDrawGizmos () {
+			Gizmos.color = Selected ? Color.green : Color.yellow;
+			Gizmos.DrawCube(Tf.position + new Vector3(.5f, .5f), Vector2.one * .5f);
 		}
 
 	}
