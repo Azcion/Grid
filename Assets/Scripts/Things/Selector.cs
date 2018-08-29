@@ -8,20 +8,22 @@ namespace Assets.Scripts.Things {
 	public class Selector : MonoBehaviour {
 
 		public static GameObject Instance;
-		public static Transform Target;
+		public static Thing Thing;
 		
 		private static bool _didSelect;
 		
-		public static void Select (Transform target) {
-			Target = target;
+		public static void Select (Transform target, Thing thing) {
 			_didSelect = true;
-			Instance.transform.SetParent(Target);
+			Instance.transform.SetParent(target);
 			Instance.transform.localPosition = new Vector3(.5f, 0, Order.SELECTOR);
 			Instance.SetActive(true);
+			Thing = thing;
 		}
 
 		public static void Deselect () {
 			Instance.SetActive(false);
+			Instance.transform.SetParent(null);
+			Thing.Deselect();
 		}
 
 		[UsedImplicitly]
@@ -29,8 +31,6 @@ namespace Assets.Scripts.Things {
 			gameObject.SetActive(false);
 			Instance = gameObject;
 		}
-
-
 
 		[UsedImplicitly]
 		private void LateUpdate () {

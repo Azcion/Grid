@@ -11,7 +11,13 @@ namespace Assets.Scripts.Things {
 		protected Transform Sprite;
 		protected Transform Tf;
 
+		protected bool Selected;
+
 		private SpriteRenderer _renderer;
+
+		public void Deselect () {
+			Selected = false;
+		}
 
 		protected void InitializeThing () {
 			gameObject.SetActive(true);
@@ -23,7 +29,8 @@ namespace Assets.Scripts.Things {
 
 		[UsedImplicitly]
 		private void OnMouseDown () {
-			Selector.Select(Tf);
+			Selector.Select(Tf, this);
+			Selected = true;
 		}
 
 		private void AssertRequiredComponents () {
