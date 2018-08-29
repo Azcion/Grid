@@ -67,6 +67,26 @@ namespace Assets.Scripts.Things {
 			
 			PathRequestManager.RequestPath(_t.localPosition, v, OnPathFound);
 		}
+
+		[UsedImplicitly]
+		private void OnDrawGizmos () {
+			if (_path == null || DisplayGridGizmos == false) {
+				return;
+			}
+
+			Gizmos.color = Color.cyan;
+
+			if (_targetIndex < _path.Length) {
+				Gizmos.DrawLine((Vector2) _t.localPosition + NodeGrid.Offset,
+					_path[_targetIndex] + NodeGrid.Offset);
+			}
+
+			for (int i = _targetIndex; i < _path.Length - 1; ++i) {
+				Vector2 current = _path[i] + NodeGrid.Offset;
+				Vector2 next = _path[i + 1] + NodeGrid.Offset;
+				
+				Gizmos.DrawLine(current, next);
+			}
 		}
 
 		private void OnPathFound (Vector2[] path, bool success) {
