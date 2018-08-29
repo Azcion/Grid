@@ -11,7 +11,7 @@ namespace Assets.Scripts.Pathfinding {
 
 		private Queue<PathRequest> _queue;
 		private PathRequest _currentRequest;
-		private PathfindingAlgorithm _pathfinding;
+		private Pathfinder _pathfinder;
 		private bool _isProcessingPath;
 
 		public static void RequestPath (Vector2 start, Vector2 end, Action<Vector2[], bool> callback) {
@@ -30,7 +30,7 @@ namespace Assets.Scripts.Pathfinding {
 		private void Awake () {
 			Instance = this;
 			_queue = new Queue<PathRequest>();
-			_pathfinding = GetComponent<PathfindingAlgorithm>();
+			_pathfinder = GetComponent<Pathfinder>();
 		}
 
 		private void TryProcessNext () {
@@ -40,7 +40,7 @@ namespace Assets.Scripts.Pathfinding {
 
 			_currentRequest = _queue.Dequeue();
 			_isProcessingPath = true;
-			_pathfinding.StartFindPath(_currentRequest);
+			_pathfinder.StartFindPath(_currentRequest);
 		}
 		
 	}

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Pathfinding {
 
-	public class PathfindingAlgorithm : MonoBehaviour {
+	public class Pathfinder : MonoBehaviour {
 
 		private PathRequestManager _manager;
 		private NodeGrid _grid;
