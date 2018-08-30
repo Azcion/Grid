@@ -30,19 +30,20 @@ namespace Assets.Scripts.Pathfinding {
 		public static IEnumerable<Node> GetNeighbors (Node node) {
 			List<Node> neighbors = new List<Node>();
 
-			for (int x = -1; x <= 1; ++x) {
-				for (int y = -1; y <= 1; ++y) {
-					if (x == 0 && y == 0) {
-						continue;
-					}
+			if (node.X - 1 >= 0) {
+				neighbors.Add(_grid[node.X - 1, node.Y]);
+			}
 
-					int checkX = node.X + x;
-					int checkY = node.Y + y;
+			if (node.X + 1 < _gridSize.x) {
+				neighbors.Add(_grid[node.X + 1, node.Y]);
+			}
 
-					if (checkX >= 0 && checkX < _gridSize.x && checkY >= 0 && checkY < _gridSize.y) {
-						neighbors.Add(_grid[checkX, checkY]);
-					}
-				}
+			if (node.Y - 1 >= 0) {
+				neighbors.Add(_grid[node.X, node.Y - 1]);
+			}
+
+			if (node.Y + 1 < _gridSize.y) {
+				neighbors.Add(_grid[node.X, node.Y + 1]);
 			}
 
 			return neighbors;
