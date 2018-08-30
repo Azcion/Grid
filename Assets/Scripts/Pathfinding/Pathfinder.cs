@@ -5,16 +5,10 @@ using UnityEngine;
 
 namespace Assets.Scripts.Pathfinding {
 
-	public class Pathfinder : MonoBehaviour {
+	[UsedImplicitly]
+	public class Pathfinder {
 
-		private NodeGrid _grid;
-
-		[UsedImplicitly]
-		private void Awake () {
-			_grid = GetComponent<NodeGrid>();
-		}
-
-		public void FindPath (PathRequest request, Action<PathResult> callback) {
+		public static void FindPath (PathRequest request, Action<PathResult> callback) {
 			Vector2[] waypoints = new Vector2[0];
 			bool success = false;
 
@@ -37,7 +31,7 @@ namespace Assets.Scripts.Pathfinding {
 						break;
 					}
 
-					foreach (Node neighbor in _grid.GetNeighbors(node)) {
+					foreach (Node neighbor in NodeGrid.GetNeighbors(node)) {
 						if (neighbor.Walkable == false || closedSet.Contains(neighbor)) {
 							continue;
 						}

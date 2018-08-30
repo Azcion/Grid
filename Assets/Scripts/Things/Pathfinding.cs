@@ -10,8 +10,6 @@ namespace Assets.Scripts.Things {
 		[UsedImplicitly]
 		public bool DisplayPathGizmos;
 
-		public Transform Target;
-
 		protected bool Moving;
 
 		private Vector2[] _path;
@@ -25,7 +23,7 @@ namespace Assets.Scripts.Things {
 			_speed = 2;
 		}
 
-		public bool FindPath (Vector2 target) {
+		protected bool FindPath (Vector2 target) {
 			if (NodeGrid.GetNodeAt(target).Walkable == false) {
 				return false;
 			}

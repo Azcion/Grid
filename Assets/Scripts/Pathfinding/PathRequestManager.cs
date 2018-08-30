@@ -9,28 +9,18 @@ namespace Assets.Scripts.Pathfinding {
 		
 		private static readonly Queue<PathResult> Results = new Queue<PathResult>();
 
-		private static PathRequestManager _instance;
-
-		private Pathfinder _pathfinder;
-
 		public static void RequestPath (PathRequest request) {
 			ThreadStart threadStart = delegate {
-				_instance._pathfinder.FindPath(request, FinishedProcessingPath);
+				Pathfinder.FindPath(request, FinishedProcessingPath);
 			};
 
 			threadStart.Invoke();
 		}
 
-		public static void FinishedProcessingPath (PathResult result) {
+		private static void FinishedProcessingPath (PathResult result) {
 			lock (Results) {
 				Results.Enqueue(result);
 			}
-		}
-
-		[UsedImplicitly]
-		private void Awake () {
-			_instance = this;
-			_pathfinder = GetComponent<Pathfinder>();
 		}
 
 		[UsedImplicitly]

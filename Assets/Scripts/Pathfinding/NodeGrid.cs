@@ -27,7 +27,7 @@ namespace Assets.Scripts.Pathfinding {
 			return _grid[(int) position.x, (int) position.y];
 		}
 
-		public IEnumerable<Node> GetNeighbors (Node node) {
+		public static IEnumerable<Node> GetNeighbors (Node node) {
 			List<Node> neighbors = new List<Node>();
 
 			for (int x = -1; x <= 1; ++x) {

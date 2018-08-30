@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Enums;
-using Assets.Scripts.Graphics;
 using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -61,12 +60,6 @@ namespace Assets.Scripts.Things {
 			v = Calc.Clamp(v);
 
 			FindPath(v);
-		}
-
-		[UsedImplicitly]
-		private void OnDrawGizmos () {
-			Gizmos.color = Selected ? Color.green : Color.yellow;
-			Gizmos.DrawCube(Tf.position + new Vector3(.5f, .5f), Vector2.one * .5f);
 		}
 
 	}
