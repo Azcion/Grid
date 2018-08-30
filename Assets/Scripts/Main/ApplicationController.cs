@@ -12,22 +12,13 @@ namespace Assets.Scripts.Main {
 		public static int Seed;
 		public static bool Ready;
 
-		// Object references
-		#region
-		[UsedImplicitly]
-		public GameObject InfoBox;
-
-		[UsedImplicitly]
-		public GameObject StartButton;
-
-		[UsedImplicitly]
-		public GameObject Sun;
-
-		[UsedImplicitly]
-		public GameObject TileMaker;
-
-		[UsedImplicitly]
-		public GameObject FloraMaker;
+		#region Object references
+		[UsedImplicitly] public GameObject InfoBox;
+		[UsedImplicitly] public GameObject StartButton;
+		[UsedImplicitly] public GameObject Sun;
+		[UsedImplicitly] public GameObject TileMaker;
+		[UsedImplicitly] public GameObject PlantMaker;
+		[UsedImplicitly] public GameObject AnimalMaker;
 		#endregion
 
 		private const int INFO_REFRESH_FRAMES = 8;
@@ -67,7 +58,8 @@ namespace Assets.Scripts.Main {
 			Destroy(StartButton);
 			Sun.SetActive(true);
 			TileMaker.SetActive(true);
-			FloraMaker.SetActive(true);
+			PlantMaker.SetActive(true);
+			AnimalMaker.SetActive(true);
 			_ready = true;
 
 			StartCoroutine(SetReady());
