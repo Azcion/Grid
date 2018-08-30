@@ -111,9 +111,12 @@ namespace Assets.Scripts.Pathfinding {
 				Vector2 opposite = ax == bx ? new Vector2(cx, ay) : new Vector2(ax, cy);
 				Node bNode = NodeGrid.GetNodeAt(opposite);
 
-				if (bNode.Walkable) {
-					nodesToRemove.Add(b);
+				if (!bNode.Walkable) {
+					continue;
 				}
+
+				nodesToRemove.Add(b);
+				++i;
 			}
 
 			foreach (Vector2 v in nodesToRemove) {
