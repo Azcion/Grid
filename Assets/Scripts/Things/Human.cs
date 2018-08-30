@@ -9,18 +9,18 @@ namespace Assets.Scripts.Things {
 	public class Human : Pathfinding, ICreature {
 
 		[UsedImplicitly]
-		public Sprite[] HumanSprites;
+		public Sprite[] Sprites;
 
 		private const float SPRITE_OFFSET = -.3f;
 
 		private Direction _facing;
-		private bool _wasAssigned;
+		private bool _didInitialize;
 
 		public void Initialize () {
 			InitializePathfinding();
 
 			Sprite.localPosition = new Vector2(.5f, Calc.Round(.5f + SPRITE_OFFSET, 2));
-			_wasAssigned = true;
+			_didInitialize = true;
 		}
 
 		public ThingType ThingType () {
@@ -29,7 +29,7 @@ namespace Assets.Scripts.Things {
 
 		[UsedImplicitly]
 		private void OnEnable () {
-			if (_wasAssigned == false) {
+			if (_didInitialize == false) {
 				Initialize();
 			}
 		}
@@ -37,7 +37,7 @@ namespace Assets.Scripts.Things {
 		[UsedImplicitly]
 		//todo move to manual update
 		private void Update () {
-			if (_wasAssigned == false) {
+			if (_didInitialize == false) {
 				return;
 			}
 
