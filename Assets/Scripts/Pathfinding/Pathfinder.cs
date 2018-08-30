@@ -84,6 +84,7 @@ namespace Assets.Scripts.Pathfinding {
 				currentNode = currentNode.Parent;
 			}
 
+			path.Add(start.WorldPosition);
 			path.Reverse();
 			path = MakeDiagonals(path);
 
@@ -91,7 +92,7 @@ namespace Assets.Scripts.Pathfinding {
 		}
 
 		private static List<Vector2> MakeDiagonals (List<Vector2> path) {
-			List<Vector2> nodesToRemove = new List<Vector2>();
+			List<Vector2> nodesToRemove = new List<Vector2> {path[0]};
 
 			for (int i = 2; i < path.Count; ++i) {
 				Vector2 a = path[i - 2];
