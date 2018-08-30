@@ -8,7 +8,7 @@ namespace Assets.Scripts.Things {
 	public class Pathfinding : Thing {
 		
 		[UsedImplicitly]
-		public bool DisplayPathGizmos;
+		public bool DisplayPathGizmos = true;
 
 		protected bool Moving;
 
@@ -16,11 +16,12 @@ namespace Assets.Scripts.Things {
 		private int _targetIndex;
 		private float _speed;
 
-		protected void InitializePathfinding () {
+		protected void InitializePathfinding (float speed = 2) {
 			InitializeThing();
+
 			Tf = transform;
 			Moving = false;
-			_speed = 2;
+			_speed = speed;
 		}
 
 		protected bool FindPath (Vector2 target) {

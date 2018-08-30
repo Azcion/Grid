@@ -14,7 +14,6 @@ namespace Assets.Scripts.Things {
 		private const float SPRITE_OFFSET_BUSH = 0;
 		private const float SPRITE_OFFSET_TREE = -.4f;
 
-		
 		private float _growth;
 
 		public void Initialize (PlantType type, float growth, bool flipX=false) {
