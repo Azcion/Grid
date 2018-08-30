@@ -85,8 +85,41 @@ namespace Assets.Scripts.Pathfinding {
 			}
 
 			path.Reverse();
+			path = MakeDiagonals(path);
 
 			return path.ToArray();
+		}
+
+		private static List<Vector2> MakeDiagonals (List<Vector2> path) {
+			List<Vector2> nodesToRemove = new List<Vector2>();
+
+			for (int i = 2; i < path.Count; ++i) {
+				Vector2 a = path[i - 2];
+				Vector2 c = path[i];
+				int ax = (int) a.x;
+				int ay = (int) a.y;
+				int cx = (int) c.x;
+				int cy = (int) c.y;
+
+				if (ax == cx || ay == cy) {
+					continue;
+				}
+
+				Vector2 b = path[i - 1];
+				int bx = (int) b.x;
+				Vector2 opposite = ax == bx ? new Vector2(cx, ay) : new Vector2(ax, cy);
+				Node bNode = NodeGrid.GetNodeAt(opposite);
+
+				if (bNode.Walkable) {
+					nodesToRemove.Add(b);
+				}
+			}
+
+			foreach (Vector2 v in nodesToRemove) {
+				path.Remove(v);
+			}
+
+			return path;
 		}
 
 	}
