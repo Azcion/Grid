@@ -9,8 +9,6 @@ namespace Assets.Scripts.Things {
 
 	public class Animal : Pathfinding, ICreature {
 
-		[UsedImplicitly]
-		public Sprite[] Sprites;
 
 		public AnimalType Type;
 

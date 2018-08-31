@@ -55,23 +55,11 @@ namespace Assets.Scripts.Things {
 		}
 
 		private void CreateChildSprite () {
-			if (Tf.Find("Sprite") != null) {
-				return;
-			}
-
 			Sprite = new GameObject("Sprite").transform;
 			Sprite.SetParent(Tf);
 			Sprite.localPosition = Vector3.zero;
 			_renderer = Sprite.gameObject.AddComponent<SpriteRenderer>();
-			SpriteRenderer sr = Tf.GetComponent<SpriteRenderer>();
-
-			if (sr == null) {
-				return;
-			}
-
-			_renderer.sprite = sr.sprite;
 			_renderer.material = AssetLoader.DiffuseMat;
-			Destroy(sr);
 		}
 
 	}

@@ -8,8 +8,7 @@ namespace Assets.Scripts.Things {
 
 	public class Pathfinding : Thing {
 		
-		[UsedImplicitly]
-		public bool DisplayPathGizmos = true;
+		[UsedImplicitly] public bool DisplayPathGizmos;
 
 		protected bool Moving;
 		protected Direction Facing;
