@@ -2,8 +2,9 @@
 
 	public enum PlantSize : byte {
 		
-		Bush,
-		Tree
+		Small,
+		Medium,
+		Large
 
 	}
 

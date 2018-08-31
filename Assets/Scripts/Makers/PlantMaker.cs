@@ -43,6 +43,12 @@ namespace Assets.Scripts.Makers {
 						return;
 					}
 
+					if (Random.value > .75) {
+						type = PlantType.SaguaroCactus;
+					} else {
+						type = PlantType.Grass;
+					}
+
 					type = PlantType.SaguaroCactus;
 					break;
 				case TileType.Grass:
@@ -62,7 +68,16 @@ namespace Assets.Scripts.Makers {
 						return;
 					}
 
-					type = PlantType.Agave;
+					float value = Random.value;
+
+					if (value > .95) {
+						type = PlantType.SaguaroCactus;
+					} else if (value > .90) {
+						type = PlantType.Agave;
+					} else {
+						type = PlantType.Grass;
+					}
+
 					break;
 				default:
 					return;
@@ -75,7 +90,7 @@ namespace Assets.Scripts.Makers {
 			go.transform.SetParent(Container.transform);
 			go.transform.position = v;
 			Plant plant = go.AddComponent<Plant>();
-			plant.Initialize(type, Calc.Round(Random.Range(.5f, 1), 2));
+			plant.Initialize(type, Calc.Round(Random.Range(.3f, 1), 2));
 			
 			if (TileMaker.GetTile(x, y).TryAddThing(plant) == false) {
 				Debug.Log($"Tried to add plant to occupied tile. {x}, {y}");
