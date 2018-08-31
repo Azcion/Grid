@@ -7,11 +7,6 @@ namespace Assets.Scripts.Graphics {
 
 	public class TileSprites : MonoBehaviour {
 
-		public static Color CDeepWater;
-		public static Color CShallowWater;
-		public static Color CSand;
-		public static Color CSoil;
-
 		public static int[] Order;
 
 		private static readonly int[] TransitionOrder = {4, 3, 2, 1, 0};
@@ -54,11 +49,6 @@ namespace Assets.Scripts.Graphics {
 			_sand = Resources.LoadAll<Sprite>("sprites/terrain/surfaces/Sand");
 			_soil = Resources.LoadAll<Sprite>("sprites/terrain/surfaces/Soil");
 			_roughStone = Resources.LoadAll<Sprite>("sprites/terrain/surfaces/RoughStone");
-
-			CDeepWater = new Color32(22, 85, 163, 255);
-			CShallowWater = new Color32(33, 121, 186, 255);
-			CSand = new Color32(176, 162, 141, 255);
-			CSoil = new Color32(135, 111, 97, 255);
 
 			Order = TransitionOrder;
 

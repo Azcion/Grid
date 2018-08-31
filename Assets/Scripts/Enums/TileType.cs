@@ -5,7 +5,9 @@
 		DeepWater,
 		ShallowWater,
 		Sand,
+		Mud,
 		Soil,
+		Gravel,
 		RoughStone
 
 	}
