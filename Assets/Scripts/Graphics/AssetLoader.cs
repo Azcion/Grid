@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using Assets.Scripts.Enums;
+using UnityEngine;
 
 namespace Assets.Scripts.Graphics {
 
@@ -6,8 +8,40 @@ namespace Assets.Scripts.Graphics {
 
 		public static readonly Material DiffuseMat;
 
+		private static readonly Sprite[][] AnimalSprites;
+		private static readonly string[] AnimalNames;
+		private static readonly int AnimalTypeCount;
+
 		static AssetLoader () {
 			DiffuseMat = Resources.Load<Material>("Materials/Diffuse");
+
+			AnimalNames = Enum.GetNames(typeof(AnimalType));
+			AnimalTypeCount = AnimalNames.Length;
+			AnimalSprites = new Sprite[AnimalTypeCount][];
+			LoadAnimals();
+		}
+
+		public static Sprite Get (AnimalType animal, Direction direction) {
+			Direction d = direction == Direction.Left ? Direction.Right : direction;
+			return AnimalSprites[(int) animal][(int) d];
+		}
+
+		private static void LoadAnimals () {
+			for (int i = 0; i < AnimalTypeCount; ++i) {
+				string animal = AnimalNames[i];
+				string loc = $"sprites/thing/creature/{animal.ToLower()}/{animal}_";
+				AnimalSprites[i] = new[] {
+					Resources.Load<Sprite>(loc + "back"),
+					Resources.Load<Sprite>(loc + "front"),
+					Resources.Load<Sprite>(loc + "side")
+				};
+
+				foreach (Sprite s in AnimalSprites[i]) {
+					if (s == null) {
+						Debug.Log($"Couldn't load {animal} properly in AssetLoader.");
+					}
+				}
+			}
 		}
 
 	}

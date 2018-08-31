@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Things;
 using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Graphics {
 
@@ -41,7 +43,7 @@ namespace Assets.Scripts.Graphics {
 						return;
 					}
 
-					type = AnimalType.Iguana;
+					type = Random.value < .75 ? AnimalType.Iguana : AnimalType.Elephant;
 					break;
 				case TileType.Grass:
 				case TileType.Dirt:
@@ -58,9 +60,11 @@ namespace Assets.Scripts.Graphics {
 			int x = (int) t.position.x;
 			int y = (int) t.position.y;
 			Vector3 v = new Vector3(x, y, Order.THING);
-			GameObject go = Instantiate(AnimalSprites.Get(type), v, Quaternion.identity, Container.transform);
-			Animal animal = go.GetComponent<Animal>();
-			animal.Initialize();
+			GameObject go = new GameObject(Enum.GetName(typeof(AnimalType), type));
+			go.transform.SetParent(Container.transform);
+			go.transform.position = v;
+			Animal animal = go.AddComponent<Animal>();
+			animal.Initialize(type);
 		}
 
 	}

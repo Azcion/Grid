@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Assets.Scripts.Enums;
 using Assets.Scripts.Pathfinding;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -11,6 +12,8 @@ namespace Assets.Scripts.Things {
 		public bool DisplayPathGizmos = true;
 
 		protected bool Moving;
+		protected Direction Facing;
+		protected bool DirectionChanged;
 
 		private Vector2[] _path;
 		private int _targetIndex;
@@ -21,6 +24,7 @@ namespace Assets.Scripts.Things {
 
 			Tf = transform;
 			Moving = false;
+			DirectionChanged = false;
 			_speed = speed;
 		}
 
@@ -70,6 +74,7 @@ namespace Assets.Scripts.Things {
 		[UsedImplicitly]
 		private IEnumerator FollowPath () {
 			Vector2 currentWaypoint = _path[0];
+			AdjustDirection(currentWaypoint);
 
 			while (true) {
 				if ((Vector2) Tf.position == currentWaypoint) {
@@ -79,6 +84,7 @@ namespace Assets.Scripts.Things {
 					}
 
 					currentWaypoint = _path[_targetIndex];
+					AdjustDirection(currentWaypoint);
 				}
 
 				float speed = _speed * Time.deltaTime;
@@ -86,6 +92,27 @@ namespace Assets.Scripts.Things {
 
 				yield return null;
 			}
+		}
+
+		private void AdjustDirection (Vector2 waypoint) {
+			int x0 = (int) Tf.position.x;
+			int y0 = (int) Tf.position.y;
+			int x1 = (int) waypoint.x;
+			int y1 = (int) waypoint.y;
+			Direction newDirection;
+
+			if (x0 == x1) {
+				newDirection = y0 < y1 ? Direction.Up : Direction.Down;
+			} else {
+				newDirection = x0 < x1 ? Direction.Right : Direction.Left;
+			}
+
+			if (Facing == newDirection) {
+				return;
+			}
+
+			Facing = newDirection;
+			DirectionChanged = true;
 		}
 
 	}

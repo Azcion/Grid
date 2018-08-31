@@ -27,6 +27,15 @@ namespace Assets.Scripts.Things {
 			AssertRequiredComponents();
 		}
 
+		protected void SetSprite (Sprite sprite, bool flipX) {
+			_renderer.sprite = sprite;
+			_renderer.flipX = flipX;
+		}
+
+		protected void SetTint (Color color) {
+			_renderer.color = color;
+		}
+
 		[UsedImplicitly]
 		private void OnMouseDown () {
 			Selector.Select(Tf, this);

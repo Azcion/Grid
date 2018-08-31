@@ -1,7 +1,9 @@
 ﻿using Assets.Scripts.Enums;
+using Assets.Scripts.Graphics;
 using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Things {
 
@@ -10,15 +12,18 @@ namespace Assets.Scripts.Things {
 		[UsedImplicitly]
 		public Sprite[] Sprites;
 
-		private const float SPRITE_OFFSET = 0;
+		public AnimalType Type;
 
-		private Direction _facing;
 		private bool _didInitialize;
 
-		public void Initialize () {
-			InitializePathfinding(.5f);
+		public void Initialize (AnimalType type) {
+			InitializePathfinding(AdjustSpeed(type));
 
-			Sprite.localPosition = new Vector2(.5f, Calc.Round(.5f + SPRITE_OFFSET, 2));
+			Type = type;
+			Sprite.localPosition = new Vector2(.5f, .5f);
+			Sprite.localScale = AdjustScale(type);
+			SetSprite(AssetLoader.Get(type, Direction.Up), false);
+			SetTint(AdjustTint(type));
 			_didInitialize = true;
 		}
 
@@ -26,17 +31,55 @@ namespace Assets.Scripts.Things {
 			return Enums.ThingType.Creature;
 		}
 
-		[UsedImplicitly]
-		private void OnEnable () {
-			if (_didInitialize == false) {
-				Initialize();
+		private static float AdjustSpeed (AnimalType type) {
+			switch (type) {
+				case AnimalType.Elephant:
+					return 1;
+				case AnimalType.Gazelle:
+				case AnimalType.Iguana:
+					return 2;
+				case AnimalType.Tortoise:
+					return .35f;
+				default:
+					return 2;
+			}
+		}
+
+		private static Vector3 AdjustScale (AnimalType type) {
+			switch (type) {
+				case AnimalType.Elephant:
+					return new Vector3(3, 3, 1);
+				case AnimalType.Gazelle:
+				case AnimalType.Iguana:
+				case AnimalType.Tortoise:
+					return new Vector3(1, 1, 1);
+				default:
+					return new Vector3(1, 1, 1);
+			}
+		}
+
+		private static Color AdjustTint (AnimalType type) {
+			switch (type) {
+				case AnimalType.Elephant:
+					return Color.gray;
+				default:
+					return Color.white;
 			}
 		}
 
 		[UsedImplicitly]
 		//todo move to manual update
 		private void Update () {
-			if (_didInitialize == false || Moving || Random.value < .995) {
+			if (_didInitialize == false) {
+				return;
+			}
+
+			if (DirectionChanged) {
+				SetSprite(AssetLoader.Get(Type, Facing), Facing == Direction.Left);
+				DirectionChanged = false;
+			}
+
+			if (Moving || Random.value < .995) {
 				return;
 			}
 
