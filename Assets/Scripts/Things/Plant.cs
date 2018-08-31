@@ -30,8 +30,13 @@ namespace Assets.Scripts.Things {
 
 		private static PlantSize SizeOf (PlantType type) {
 			switch (type) {
-				case PlantType.Palm:
+				case PlantType.SaguaroCactus:
+				case PlantType.TreeDrago:
+				case PlantType.TreePalm:
 					return PlantSize.Tree;
+				case PlantType.Agave:
+				case PlantType.Grass:
+					return PlantSize.Bush;
 				default:
 					return PlantSize.Bush;
 			}

@@ -2,10 +2,11 @@
 
 	public enum PlantType : byte {
 
-		Palm,
 		Agave,
-		Cactus,
-		Grass
+		Grass,
+		SaguaroCactus,
+		TreeDrago,
+		TreePalm
 		
 	}
 

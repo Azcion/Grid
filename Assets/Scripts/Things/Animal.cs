@@ -9,7 +9,6 @@ namespace Assets.Scripts.Things {
 
 	public class Animal : Pathfinding, ICreature {
 
-
 		public AnimalType Type;
 
 		private bool _didInitialize;
