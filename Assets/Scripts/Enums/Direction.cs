@@ -2,9 +2,9 @@
 	
 	public enum Direction : byte {
 		
+		Up,
 		Down,
 		Right,
-		Up,
 		Left
 
 	}
