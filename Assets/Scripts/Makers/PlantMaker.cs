@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Assets.Scripts.Enums;
-using Assets.Scripts.Graphics;
 using Assets.Scripts.Main;
 using Assets.Scripts.Things;
 using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Makers {
 
@@ -70,10 +71,12 @@ namespace Assets.Scripts.Makers {
 			int x = (int) t.position.x;
 			int y = (int) t.position.y;
 			Vector3 v = new Vector3(x, y, Order.THING);
-			GameObject f = Instantiate(PlantSprites.Get(type), v, Quaternion.identity, Container.transform);
-			Plant plant = f.GetComponent<Plant>();
+			GameObject go = new GameObject(Enum.GetName(typeof(PlantType), type));
+			go.transform.SetParent(Container.transform);
+			go.transform.position = v;
+			Plant plant = go.AddComponent<Plant>();
 			plant.Initialize(type, Calc.Round(Random.Range(.5f, 1), 2), Random.value > .5);
-
+			
 			if (TileMaker.GetTile(x, y).TryAddThing(plant) == false) {
 				Debug.Log($"Tried to add plant to occupied tile. {x}, {y}");
 			}
