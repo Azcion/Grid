@@ -20,7 +20,7 @@ namespace Assets.Scripts.Things {
 			Type = type;
 			Sprite.localPosition = new Vector2(.5f, .5f);
 			Sprite.localScale = AdjustScale(type);
-			SetSprite(AssetLoader.Get(type, Direction.Up), false);
+			SetSprite(AssetLoader.Get(type, Direction.North), false);
 			SetTint(AdjustTint(type));
 			_didInitialize = true;
 		}
@@ -73,7 +73,7 @@ namespace Assets.Scripts.Things {
 			}
 
 			if (DirectionChanged) {
-				SetSprite(AssetLoader.Get(Type, Facing), Facing == Direction.Left);
+				SetSprite(AssetLoader.Get(Type, Facing), Facing == Direction.West);
 				DirectionChanged = false;
 			}
 

@@ -2,10 +2,10 @@
 	
 	public enum Direction : byte {
 		
-		Up,
-		Down,
-		Right,
-		Left
+		North,
+		South,
+		East,
+		West
 
 	}
 

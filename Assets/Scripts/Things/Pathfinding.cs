@@ -101,9 +101,9 @@ namespace Assets.Scripts.Things {
 			Direction newDirection;
 
 			if (x0 == x1) {
-				newDirection = y0 < y1 ? Direction.Up : Direction.Down;
+				newDirection = y0 < y1 ? Direction.North : Direction.South;
 			} else {
-				newDirection = x0 < x1 ? Direction.Right : Direction.Left;
+				newDirection = x0 < x1 ? Direction.East : Direction.West;
 			}
 
 			if (Facing == newDirection) {

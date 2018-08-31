@@ -37,7 +37,7 @@ namespace Assets.Scripts.Graphics {
 		}
 
 		public static Sprite Get (AnimalType animal, Direction direction) {
-			Direction d = direction == Direction.Left ? Direction.Right : direction;
+			Direction d = direction == Direction.West ? Direction.East : direction;
 			return AnimalSprites[(int) animal][(int) d];
 		}
 
