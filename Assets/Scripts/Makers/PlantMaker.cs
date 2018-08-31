@@ -75,7 +75,7 @@ namespace Assets.Scripts.Makers {
 			go.transform.SetParent(Container.transform);
 			go.transform.position = v;
 			Plant plant = go.AddComponent<Plant>();
-			plant.Initialize(type, Calc.Round(Random.Range(.5f, 1), 2), Random.value > .5);
+			plant.Initialize(type, Calc.Round(Random.Range(.5f, 1), 2));
 			
 			if (TileMaker.GetTile(x, y).TryAddThing(plant) == false) {
 				Debug.Log($"Tried to add plant to occupied tile. {x}, {y}");

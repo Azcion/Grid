@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.Enums;
-using Assets.Scripts.Utils;
+using Assets.Scripts.Graphics;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -11,36 +11,21 @@ namespace Assets.Scripts.Things {
 		public PlantType Type;
 		public PlantSize Size;
 
-		private const float SPRITE_OFFSET_BUSH = 0;
-		private const float SPRITE_OFFSET_TREE = -.4f;
-
 		private float _growth;
 
-		public void Initialize (PlantType type, float growth, bool flipX=false) {
+		public void Initialize (PlantType type, float growth) {
 			InitializeThing();
 
+			Type = type;
 			Size = SizeOf(type);
 			_growth = growth;
-
-			Sprite.localPosition = AdjustPosition(Size);
-			Sprite.localScale = AdjustScale(growth, flipX);
+			Sprite.localPosition = new Vector2(.5f, 0);
+			Sprite.localScale = new Vector3(growth, growth, 1);
+			SetSprite(AssetLoader.Get(type), Random.value < .5);
 		}
 
 		public ThingType ThingType () {
 			return Enums.ThingType.Plant;
-		}
-
-		private static Vector3 AdjustScale (float scale, bool flipX) {
-			return new Vector3(flipX ? -scale : scale, scale, 1);
-		}
-
-		private static Vector3 AdjustPosition (PlantSize size) {
-			switch (size) {
-				case PlantSize.Tree:
-					return new Vector2(.5f, Calc.Round(.5f + SPRITE_OFFSET_TREE, 2));
-				default:
-					return new Vector2(.5f, Calc.Round(.5f + SPRITE_OFFSET_BUSH, 2));
-			}
 		}
 
 		private static PlantSize SizeOf (PlantType type) {
