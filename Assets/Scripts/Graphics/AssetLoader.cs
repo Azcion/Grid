@@ -58,9 +58,9 @@ namespace Assets.Scripts.Graphics {
 				string animal = AnimalNames[i];
 				string loc = $"sprites/thing/creature/{animal.ToLower()}/{animal}_";
 				AnimalSprites[i] = new[] {
-					Resources.Load<Sprite>(loc + "back"),
-					Resources.Load<Sprite>(loc + "front"),
-					Resources.Load<Sprite>(loc + "side")
+					Resources.Load<Sprite>(loc + "north"),
+					Resources.Load<Sprite>(loc + "south"),
+					Resources.Load<Sprite>(loc + "east")
 				};
 
 				foreach (Sprite s in AnimalSprites[i]) {
