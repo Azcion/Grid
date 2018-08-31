@@ -89,10 +89,10 @@ namespace Assets.Scripts.Makers {
 					break;
 				case ThingType.Plant:
 					switch (((Plant) thing).Size) {
-						case PlantSize.Bush:
+						case PlantSize.Medium:
 							sum += 10;
 							break;
-						case PlantSize.Tree:
+						case PlantSize.Large:
 							sum += 20;
 							break;
 					}

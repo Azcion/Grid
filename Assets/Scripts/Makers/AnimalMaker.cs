@@ -36,19 +36,23 @@ namespace Assets.Scripts.Makers {
 
 			switch (t.GetComponent<Tile>().Type) {
 				case TileType.Sand:
+				case TileType.Soil:
 					if (Random.value < .998) {
 						return;
 					}
 
-					type = Random.value < .75 ? AnimalType.Iguana : AnimalType.Elephant;
-					break;
-				case TileType.Grass:
-				case TileType.Dirt:
-					if (Random.value < .997) {
-						return;
+					float value = Random.value;
+
+					if (value > .90) {
+						type = AnimalType.Elephant;
+					} else if (value > .40) {
+						type = AnimalType.Gazelle;
+					} else if (value > .20) {
+						type = AnimalType.Tortoise;
+					} else {
+						type = AnimalType.Iguana;
 					}
 
-					type = Random.value < .5 ? AnimalType.Tortoise : AnimalType.Gazelle;
 					break;
 				default:
 					return;

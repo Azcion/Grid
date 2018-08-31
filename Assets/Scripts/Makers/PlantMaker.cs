@@ -51,7 +51,7 @@ namespace Assets.Scripts.Makers {
 
 					type = PlantType.SaguaroCactus;
 					break;
-				case TileType.Grass:
+				/*case TileType.Grass:
 					if (Random.value < .75) {
 						return;
 					}
@@ -62,9 +62,9 @@ namespace Assets.Scripts.Makers {
 					}
 
 					type = PlantType.TreePalm;
-					break;
-				case TileType.Dirt:
-					if (Random.value < .90) {
+					break;*/
+				case TileType.Soil:
+					if (Random.value < .35) {
 						return;
 					}
 

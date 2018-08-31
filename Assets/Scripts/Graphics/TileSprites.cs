@@ -10,14 +10,11 @@ namespace Assets.Scripts.Graphics {
 		public static Color CDeepWater;
 		public static Color CShallowWater;
 		public static Color CSand;
-		public static Color CGrass;
-		public static Color CDirt;
-		public static Color CRock;
-		public static Color CSnow;
+		public static Color CSoil;
 
 		public static int[] Order;
 
-		[UsedImplicitly] public int[] TransitionOrder = new int[7];
+		private static readonly int[] TransitionOrder = {4, 3, 2, 1, 0};
 
 		#region Object references
 		[UsedImplicitly] public GameObject TransitionSidePrefab;
@@ -27,8 +24,8 @@ namespace Assets.Scripts.Graphics {
 		private static Sprite[] _water;
 		private static Sprite[] _sand;
 		private static Sprite[] _grass;
-		private static Sprite[] _dirt;
-		private static Sprite[] _rock;
+		private static Sprite[] _soil;
+		private static Sprite[] _roughStone;
 		private static Sprite[] _snow;
 
 		public static Sprite Get (TileType type, int x, int y) {
@@ -42,14 +39,10 @@ namespace Assets.Scripts.Graphics {
 					return _water[i];
 				case TileType.Sand:
 					return _sand[i];
-				case TileType.Grass:
-					return _grass[i];
-				case TileType.Dirt:
-					return _dirt[i];
-				case TileType.Rock:
-					return _rock[i];
-				case TileType.Snow:
-					return _snow[i];
+				case TileType.Soil:
+					return _soil[i];
+				case TileType.RoughStone:
+					return _roughStone[i];
 				default:
 					return null;
 			}
@@ -58,19 +51,14 @@ namespace Assets.Scripts.Graphics {
 		[UsedImplicitly]
 		private void OnEnable () {
 			_water = Resources.LoadAll<Sprite>("Tiles/Water");
-			_sand = Resources.LoadAll<Sprite>("Tiles/Sand");
-			_grass = Resources.LoadAll<Sprite>("Tiles/Grass");
-			_dirt = Resources.LoadAll<Sprite>("Tiles/Dirt");
-			_rock = Resources.LoadAll<Sprite>("Tiles/Rock");
-			_snow = Resources.LoadAll<Sprite>("Tiles/Snow");
+			_sand = Resources.LoadAll<Sprite>("sprites/terrain/surfaces/Sand");
+			_soil = Resources.LoadAll<Sprite>("sprites/terrain/surfaces/Soil");
+			_roughStone = Resources.LoadAll<Sprite>("sprites/terrain/surfaces/RoughStone");
 
 			CDeepWater = new Color32(22, 85, 163, 255);
 			CShallowWater = new Color32(33, 121, 186, 255);
 			CSand = new Color32(176, 162, 141, 255);
-			CGrass = new Color32(0, 0, 0, 255);  // todo
-			CDirt = new Color32(135, 111, 97, 255);
-			CRock = new Color32(0, 0, 0, 255);  // todo
-			CSnow = new Color32(188, 188, 197, 255);
+			CSoil = new Color32(135, 111, 97, 255);
 
 			Order = TransitionOrder;
 

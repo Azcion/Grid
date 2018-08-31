@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Graphics;
@@ -6,6 +7,7 @@ using Assets.Scripts.Main;
 using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Makers {
 
@@ -101,45 +103,55 @@ namespace Assets.Scripts.Makers {
 			Material mat;
 			Color color;
 
-			if (v > .60) {
-				type = TileType.Snow;
-				penalty = 8;
-				mat = SnowMat;
-				color = TileSprites.CSnow;
-			} else if (v > .55) {
-				type = TileType.Rock;
-				penalty = 0;
-				mat = RockMat;
-				color = TileSprites.CRock;
-			} else if (v > .53) {
-				type = TileType.Dirt;
-				penalty = 2;
-				mat = DirtMat;
-				color = TileSprites.CDirt;
-			} else if (v > .48) {
-				type = TileType.Grass;
-				penalty = 3;
-				mat = GrassMat;
-				color = TileSprites.CGrass;
+			if (v > .55) {
+				type = TileType.RoughStone;
+			} else if (v > .45) {
+				type = TileType.Soil;
 			} else if (v > .35) {
 				type = TileType.Sand;
-				penalty = 6;
-				mat = SandMat;
-				color = TileSprites.CSand;
-			} else if (v > .30) {
-				type = TileType.Grass;
-				penalty = 3;
-				mat = GrassMat;
-				color = TileSprites.CGrass;
-			} else if (v > .25) {
+			} else if (v > .27) {
+				type = TileType.Soil;
+			}/* else if (v > .26) {
+				if (Random.value < .25) {
+					type = TileType.Dirt;
+				} else {
+					type = TileType.Sand;
+				}
+			}*/
+			else if (v > .23) {
 				type = TileType.ShallowWater;
-				penalty = 15;
-				mat = ShallowWaterMat;
-				color = TileSprites.CShallowWater;
 			} else {
 				type = TileType.DeepWater;
-				mat = DeepWaterMat;
-				color = TileSprites.CDeepWater;
+			}
+
+			switch (type) {
+				case TileType.DeepWater:
+					mat = DeepWaterMat;
+					color = TileSprites.CDeepWater;
+					break;
+				case TileType.ShallowWater:
+					penalty = 15;
+					mat = ShallowWaterMat;
+					color = TileSprites.CShallowWater;
+					break;
+				case TileType.Sand:
+					penalty = 6;
+					mat = SandMat;
+					color = TileSprites.CSand;
+					break;
+				case TileType.Soil:
+					penalty = 3;
+					mat = DirtMat;
+					color = TileSprites.CSoil;
+					break;
+				case TileType.RoughStone:
+					penalty = 0;
+					mat = RockMat;
+					color = null;
+					break;
+				default:
+					Debug.Log($"Failed to instantiate tile of type {type} in TileMaker.");
+					return;
 			}
 
 			SpriteRenderer sr = t.GetComponent<SpriteRenderer>();
@@ -159,8 +171,7 @@ namespace Assets.Scripts.Makers {
 					st.CanBeTransitionedTo = false;
 					walkable = false;
 					break;
-				case TileType.Rock:
-				case TileType.Grass:
+				case TileType.RoughStone:
 					st.CanTransition = false;
 					break;
 			}
