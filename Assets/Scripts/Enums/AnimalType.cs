@@ -2,6 +2,7 @@
 
 	public enum AnimalType {
 		
+		Elephant,
 		Gazelle,
 		Iguana,
 		Tortoise
