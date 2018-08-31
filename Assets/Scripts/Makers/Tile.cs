@@ -4,7 +4,7 @@ using Assets.Scripts.Things;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Assets.Scripts.Graphics {
+namespace Assets.Scripts.Makers {
 
 	[UsedImplicitly]
 	public class Tile : MonoBehaviour {

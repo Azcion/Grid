@@ -1,5 +1,5 @@
 ﻿using System;
-using Assets.Scripts.Graphics;
+using Assets.Scripts.Makers;
 using UnityEngine;
 
 namespace Assets.Scripts.Utils {

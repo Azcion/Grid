@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Enums;
+using Assets.Scripts.Graphics;
 using Assets.Scripts.Main;
 using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Assets.Scripts.Graphics {
+namespace Assets.Scripts.Makers {
 
 	public class TileMaker : MonoBehaviour {
 
@@ -17,43 +18,21 @@ namespace Assets.Scripts.Graphics {
 		public const int THALF = YTILES / 2;
 		public const int CENTER = YCHUNKS / 2;
 
-		// Object references
-		#region
-		[UsedImplicitly]
-		public GameObject ChunkPrefab;
-
-		[UsedImplicitly]
-		public GameObject Container;
-
-		[UsedImplicitly]
-		public GameObject Pathfinder;
+		#region Object references
+		[UsedImplicitly] public GameObject ChunkPrefab;
+		[UsedImplicitly] public GameObject Container;
+		[UsedImplicitly] public GameObject Pathfinder;
 		#endregion
 
-		// Materials
-		#region
-		[UsedImplicitly]
-		public Material DeepWaterMat;
-
-		[UsedImplicitly]
-		public Material ShallowWaterMat;
-
-		[UsedImplicitly]
-		public Material SandMat;
-
-		[UsedImplicitly]
-		public Material GrassMat;
-
-		[UsedImplicitly]
-		public Material DirtMat;
-
-		[UsedImplicitly]
-		public Material RockMat;
-
-		[UsedImplicitly]
-		public Material SnowMat;
-
-		[UsedImplicitly]
-		public Material DefaultMat;
+		#region Materials
+		[UsedImplicitly] public Material DeepWaterMat;
+		[UsedImplicitly] public Material ShallowWaterMat;
+		[UsedImplicitly] public Material SandMat;
+		[UsedImplicitly] public Material GrassMat;
+		[UsedImplicitly] public Material DirtMat;
+		[UsedImplicitly] public Material RockMat;
+		[UsedImplicitly] public Material SnowMat;
+		[UsedImplicitly] public Material DefaultMat;
 		#endregion
 
 		private static List<List<Tile>> _tiles;

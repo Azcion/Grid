@@ -1,22 +1,19 @@
 ﻿using System.Collections;
 using Assets.Scripts.Enums;
+using Assets.Scripts.Graphics;
 using Assets.Scripts.Main;
 using Assets.Scripts.Things;
 using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Assets.Scripts.Graphics {
+namespace Assets.Scripts.Makers {
 
 	public class PlantMaker : MonoBehaviour {
 
-		// Object references
-		#region
-		[UsedImplicitly]
-		public GameObject ChunkContainer;
-
-		[UsedImplicitly]
-		public GameObject Container;
+		#region Object references
+		[UsedImplicitly] public GameObject ChunkContainer;
+		[UsedImplicitly] public GameObject Container;
 		#endregion
 
 		[UsedImplicitly]

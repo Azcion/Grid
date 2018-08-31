@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Enums;
+using Assets.Scripts.Makers;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -16,16 +17,11 @@ namespace Assets.Scripts.Graphics {
 
 		public static int[] Order;
 
-		[UsedImplicitly]
-		public int[] TransitionOrder = new int[7];
+		[UsedImplicitly] public int[] TransitionOrder = new int[7];
 
-		// Object references
-		#region
-		[UsedImplicitly]
-		public GameObject TransitionSidePrefab;
-
-		[UsedImplicitly]
-		public GameObject TransitionCornerPrefab;
+		#region Object references
+		[UsedImplicitly] public GameObject TransitionSidePrefab;
+		[UsedImplicitly] public GameObject TransitionCornerPrefab;
 		#endregion
 
 		private static Sprite[] _water;

@@ -7,16 +7,13 @@ using JetBrains.Annotations;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Assets.Scripts.Graphics {
+namespace Assets.Scripts.Makers {
 
 	public class AnimalMaker : MonoBehaviour {
 		
 		#region Object references
-		[UsedImplicitly]
-		public GameObject ChunkContainer;
-
-		[UsedImplicitly]
-		public GameObject Container;
+		[UsedImplicitly] public GameObject ChunkContainer;
+		[UsedImplicitly] public GameObject Container;
 		#endregion
 
 		[UsedImplicitly]

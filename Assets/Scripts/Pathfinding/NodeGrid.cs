@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Graphics;
+using Assets.Scripts.Makers;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -9,8 +9,7 @@ namespace Assets.Scripts.Pathfinding {
 
 		public static int MaxSize => (int) _gridSize.x * (int) _gridSize.y;
 
-		[UsedImplicitly]
-		public bool DisplayGridGizmos;
+		[UsedImplicitly] public bool DisplayGridGizmos;
 
 		public static readonly Vector2 Offset;
 

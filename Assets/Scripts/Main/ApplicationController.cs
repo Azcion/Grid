@@ -2,6 +2,7 @@
 using System.Collections;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Graphics;
+using Assets.Scripts.Makers;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
