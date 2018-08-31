@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using Assets.Scripts.Enums;
 using Assets.Scripts.Graphics;
 using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Main {
 
@@ -85,7 +88,7 @@ namespace Assets.Scripts.Main {
 			if (tileObj != null) {
 				Tile t = tileObj.GetComponent<Tile>();
 				_i.text += "\n" + t.Chunk.name + " | " + tileObj.name;
-				_i.text += "\n" + EnumName.Get(t.Type);
+				_i.text += "\n" + Enum.GetName(typeof(TileType), t.Type);
 			} else {
 				_i.text += "\nVoid";
 			}
