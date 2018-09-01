@@ -5,8 +5,10 @@
 		DeepWater,
 		ShallowWater,
 		Sand,
+		SoftSand,
 		Mud,
 		Soil,
+		SoilRich,
 		Gravel,
 		RoughStone
 
