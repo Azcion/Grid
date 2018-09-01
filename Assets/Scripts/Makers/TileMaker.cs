@@ -88,24 +88,63 @@ namespace Assets.Scripts.Makers {
 		private void InitializeTile (Transform t) {
 			int x = (int) t.position.x;
 			int y = (int) t.position.y;
-			float v = Noise.Sum(x + _seed, y + _seed, .01f, 6, 2, .5f);
+			float v0 = Noise.Sum(x + _seed, y + _seed, .01f, 8, 2.2f, .5f);
 
 			TileType type;
-			
-			if (v > .55) {
+
+			if (v0 > .55) {
 				type = TileType.RoughStone;
-			} else if (v > .45) {
+			} else if (v0 > .53) {
+				type = TileType.Gravel;
+			} else if (v0 > .44) {
 				type = TileType.Soil;
-			} else if (v > .35) {
+			} else if (v0 > .35) {
 				type = TileType.Sand;
-			} else if (v > .28) {
+			} else if (v0 > .25) {
 				type = TileType.Soil;
-			} else if (v > .25) {
-				type = TileType.Mud;
-			} else if (v > .22) {
-				type = TileType.ShallowWater;
+			} else if (v0 > .23) {
+				type = TileType.Gravel;
 			} else {
-				type = TileType.DeepWater;
+				type = TileType.RoughStone;
+			}
+
+			float v1 = Noise.Sum(x + _seed, y + _seed, .005f, 6, 2.2f, .5f);
+			const float dw = .80f;
+			const float sw = dw - .015f;
+			const float m = sw - .015f;
+
+			if (type != TileType.RoughStone) {
+				if (v1 > dw) {
+					type = TileType.DeepWater;
+				} else if (v1 > sw) {
+					type = TileType.ShallowWater;
+				} else if (v1 > m) {
+					type = TileType.Mud;
+				} else if (v1 > 1 - m) {
+					if (v1 < .55 && v1 > .45) {
+						float v2 = Noise.Sum(x + _seed, y + _seed, .02f, 4, 2.2f, .5f);
+
+						if (type == TileType.Soil) {
+							if (v2 > .60) {
+								type = TileType.SoftSand;
+							} else if (v2 > .55) {
+								type = TileType.Sand;
+							}
+						} else if (type == TileType.Sand) {
+							if (v2 < .33) {
+								type = TileType.SoilRich;
+							} else if (v2 < .36) {
+								type = TileType.Soil;
+							}
+						}
+					}
+				} else if (v1 > 1 - sw) {
+					type = TileType.Mud;
+				} else if (v1 > 1 - dw) {
+					type = TileType.ShallowWater;
+				} else {
+					type = TileType.DeepWater;
+				}
 			}
 
 			int penalty = 0;
