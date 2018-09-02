@@ -46,10 +46,10 @@ namespace Assets.Scripts.Graphics {
 		}
 
 		public static Sprite Get (TileType tile, int x, int y) {
-			const int size = TileMaker.CSIZE;
-			const int zeroPos = size * (size - 1);
-			int xy = zeroPos - size * (y % size) + x % size;
-			int i = tile == TileType.DeepWater ? (int) TileType.ShallowWater : (int) tile;
+			tile = tile == TileType.DeepWater ? TileType.ShallowWater : tile;
+			int i = (int) tile;
+			int size = (int) Mathf.Sqrt(TileSprites[i].Length);
+			int xy = size * (size - 1) - size * (y % size) + x % size;
 			return TileSprites[i][xy];
 		}
 
