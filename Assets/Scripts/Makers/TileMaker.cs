@@ -154,21 +154,37 @@ namespace Assets.Scripts.Makers {
 
 			switch (type) {
 				case TileType.ShallowWater:
+				case TileType.MarshyTerrain:
+				case TileType.SoftSand:
 					penalty = 15;
 					break;
+				case TileType.Marsh:
 				case TileType.Mud:
 					penalty = 20;
 					break;
 				case TileType.Sand:
 					penalty = 8;
 					break;
+				case TileType.Mossy:
 				case TileType.Soil:
+				case TileType.SoilRich:
 					penalty = 5;
 					break;
 				case TileType.Gravel:
 					penalty = 2;
 					break;
+				case TileType.PackedDirt:
+				case TileType.Ice:
 				case TileType.RoughStone:
+				case TileType.RoughHewnRock:
+				case TileType.SmoothStone:
+				case TileType.Carpet:
+				case TileType.Concrete:
+				case TileType.Flagstone:
+				case TileType.GenericFloorTile:
+				case TileType.PavedTile:
+				case TileType.TileStone:
+				case TileType.WoodFloor:
 					penalty = 0;
 					break;
 			}
