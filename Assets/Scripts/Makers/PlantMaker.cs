@@ -63,13 +63,13 @@ namespace Assets.Scripts.Makers {
 
 					float value = Random.value;
 
-					if (value > .90) {
+					if (value > .925) {
 						if (Random.value > .25) {
 							type = PlantType.TreeDrago;
 						} else {
 							type = PlantType.SaguaroCactus;
 						}
-					} else if (value > .60) {
+					} else if (value > .90) {
 						type = PlantType.Agave;
 					} else {
 						type = PlantType.Grass;
