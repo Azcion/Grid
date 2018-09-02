@@ -33,38 +33,43 @@ namespace Assets.Scripts.Things {
 		private void AdjustTransform (float growth) {
 			growth = Mathf.Clamp(growth, .15f, 1);
 			float s;
+			float x;
+			float y;
 			
 			switch (Size) {
 				case PlantSize.Small:
 					s = Mathf.Lerp(.65f, .85f, growth);
+					x = Random.Range(.2f, .8f);
+					y = Random.Range(.2f, .8f);
 					break;
 				case PlantSize.Medium:
 					s = Mathf.Lerp(1, 1.5f, growth);
+					x = .5f;
+					y = Mathf.Lerp(.2f, .04f, growth);
 					break;
 				case PlantSize.Large:
-					s = Mathf.Lerp(1.28f, 1.95f, growth);
-					break;
 				default:
-					s = Mathf.Lerp(.75f, 1, growth);
+					s = Mathf.Lerp(1.28f, 1.95f, growth);
+					x = .5f;
+					y = .04f;
 					break;
 			}
 
 			Sprite.localScale = new Vector3(s, s, 1);
-			Sprite.localPosition = new Vector2(.5f, Mathf.Lerp(.2f, .04f, growth));
+			Sprite.localPosition = new Vector2(x, y);
 		}
 
 		private static PlantSize SizeOf (PlantType type) {
 			switch (type) {
+				case PlantType.Agave:
 				case PlantType.SaguaroCactus:
 				case PlantType.TreeDrago:
 				case PlantType.TreePalm:
 					return PlantSize.Large;
-				case PlantType.Agave:
-					return PlantSize.Medium;
 				case PlantType.Grass:
 					return PlantSize.Small;
 				default:
-					return PlantSize.Medium;
+					return PlantSize.Large;
 			}
 		}
 
