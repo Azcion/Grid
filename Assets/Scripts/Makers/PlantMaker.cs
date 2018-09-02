@@ -89,11 +89,8 @@ namespace Assets.Scripts.Makers {
 			Plant plant = go.AddComponent<Plant>();
 			plant.Initialize(type, Calc.Round(Random.Range(.3f, 1), 2));
 
-			Tile tile = TileMaker.GetTile(x, y);
-
-			if (tile.TryAddThing(plant) == false) {
-				Plant plantDebug = tile.GetThing() as Plant;
-				Debug.Log($"Tried to add plant to occupied tile. {x}, {y}, {plantDebug?.Type}");
+			if (TileMaker.GetTile(x, y).TryAddThing(plant) == false) {
+				Debug.Log($"Tried to add plant to occupied tile. {x}, {y}");
 			}
 		}
 
