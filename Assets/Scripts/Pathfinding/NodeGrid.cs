@@ -7,17 +7,10 @@ namespace Assets.Scripts.Pathfinding {
 
 	public class NodeGrid : MonoBehaviour {
 
-		public static readonly Vector2 Offset;
-
 		public static int MaxSize => (int) _gridSize.x * (int) _gridSize.y;
 		
 		private static Vector2 _gridSize;
-		private static Vector2 _center;
 		private static Node[,] _grid;
-
-		static NodeGrid () {
-			Offset = new Vector2(.5f, .5f);
-		}
 
 		public static Node GetNodeAt (Vector2 position) {
 			return _grid[(int) position.x, (int) position.y];
@@ -48,7 +41,6 @@ namespace Assets.Scripts.Pathfinding {
 		[UsedImplicitly]
 		private void Awake () {
 			_gridSize = new Vector2(TileMaker.YTILES, TileMaker.YTILES);
-			_center = new Vector3(TileMaker.THALF, TileMaker.THALF);
 			CreateGrid();
 		}
 
