@@ -12,7 +12,6 @@ namespace Assets.Scripts.Graphics {
 
 		public Color Color;
 		public float OverlapOrder;
-
 		public bool CanTransition = true;
 		public bool CanBeTransitionedTo = true;
 
@@ -25,29 +24,28 @@ namespace Assets.Scripts.Graphics {
 		private bool _canFadeD = true;
 		private bool _canFadeL = true;
 		private bool _canFadeR = true;
-
 		private bool _canFadeUl = true;
 		private bool _canFadeUr = true;
 		private bool _canFadeDl = true;
 		private bool _canFadeDr = true;
-
 		private int _x;
 		private int _y;
 		private TileType _type;
 
 		public static void LoadAssets () {
 			_side = new GameObject("Transition Side");
+			_side.SetActive(false);
 			SpriteRenderer sideSr = _side.AddComponent<SpriteRenderer>();
 			sideSr.sprite = AssetLoader.TransitionSide;
 			sideSr.material = AssetLoader.DiffuseMat;
 			_corner = new GameObject("Transition Corner");
+			_corner.SetActive(false);
 			SpriteRenderer cornerSr = _corner.AddComponent<SpriteRenderer>();
 			cornerSr.sprite = AssetLoader.TransitionCorner;
 			cornerSr.material = AssetLoader.DiffuseMat;
 		}
 
-		// Neighbor bools
-		#region
+		#region Neighbor bools
 		private bool IsUp () {
 			return TileMaker.Get(_x, _y + 1);
 		}
@@ -81,8 +79,7 @@ namespace Assets.Scripts.Graphics {
 		}
 		#endregion
 
-		// Neighbor objects
-		#region
+		#region Neighbor objects
 		private GameObject GetUp () {
 			return TileMaker.Get(_x, _y + 1);
 		}
@@ -196,24 +193,18 @@ namespace Assets.Scripts.Graphics {
 				return false;
 			}
 
-			// Can transition with self
-			bool canTransition = t.GetComponent<Tile>().Type != _type;
-
-			// Overlap
-			if (t.GetComponent<SmoothTiles>().OverlapOrder >= OverlapOrder) {
-				canTransition = false;
+			if (t.GetComponent<Tile>().Type == _type) {
+				return false;
 			}
 
-			// Can other sprites transition to self
-			if (t.GetComponent<SmoothTiles>().CanBeTransitionedTo == false) {
-				canTransition = false;
-			}
+			SmoothTiles other = t.GetComponent<SmoothTiles>();
 
-			return canTransition;
+			return !(other.OverlapOrder >= OverlapOrder) && other.CanBeTransitionedTo;
 		}
 
 		private void Create (int r, float x, float y, bool corner=false, bool special=false) {
 			GameObject t = Instantiate(corner ? _corner : _side, transform);
+			t.SetActive(true);
 			t.transform.rotation = Quaternion.Euler(0, 0, r);
 			t.transform.position = new Vector3(x, y, Order.TRANSITION);
 			t.GetComponent<SpriteRenderer>().color = Color;
