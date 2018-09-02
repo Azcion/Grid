@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Assets.Scripts.Enums;
 using Assets.Scripts.Main;
 using Assets.Scripts.Makers;
 using Assets.Scripts.Utils;
@@ -32,6 +33,7 @@ namespace Assets.Scripts.Graphics {
 
 		private int _x;
 		private int _y;
+		private TileType _type;
 
 		public static void GetStaticAssets (GameObject side, GameObject corner) {
 			_side = side;
@@ -115,6 +117,8 @@ namespace Assets.Scripts.Graphics {
 			Tile tile = GetComponent<Tile>();
 			_x = tile.X;
 			_y = tile.Y;
+			_type = tile.Type;
+			Color = AverageColor.Get(_type);
 		}
 
 		private IEnumerator Initialize () {
@@ -187,7 +191,7 @@ namespace Assets.Scripts.Graphics {
 			}
 
 			// Can transition with self
-			bool canTransition = t.GetComponent<Tile>().Type != GetComponent<Tile>().Type;
+			bool canTransition = t.GetComponent<Tile>().Type != _type;
 
 			// Overlap
 			if (t.GetComponent<SmoothTiles>().OverlapOrder >= OverlapOrder) {

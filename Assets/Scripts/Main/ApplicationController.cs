@@ -60,6 +60,7 @@ namespace Assets.Scripts.Main {
 
 			Destroy(StartButton);
 			Sun.SetActive(true);
+			AverageColor.Initialize();
 			TileMaker.SetActive(true);
 			PlantMaker.SetActive(true);
 			AnimalMaker.SetActive(true);
