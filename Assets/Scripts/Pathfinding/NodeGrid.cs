@@ -7,15 +7,12 @@ namespace Assets.Scripts.Pathfinding {
 
 	public class NodeGrid : MonoBehaviour {
 
-		public static int MaxSize => (int) _gridSize.x * (int) _gridSize.y;
-
-		[UsedImplicitly] public bool DisplayGridGizmos;
-
 		public static readonly Vector2 Offset;
 
+		public static int MaxSize => (int) _gridSize.x * (int) _gridSize.y;
+		
 		private static Vector2 _gridSize;
 		private static Vector2 _center;
-
 		private static Node[,] _grid;
 
 		static NodeGrid () {
@@ -53,20 +50,6 @@ namespace Assets.Scripts.Pathfinding {
 			_gridSize = new Vector2(TileMaker.YTILES, TileMaker.YTILES);
 			_center = new Vector3(TileMaker.THALF, TileMaker.THALF);
 			CreateGrid();
-		}
-
-		[UsedImplicitly]
-		private void OnDrawGizmos () {
-			Gizmos.DrawWireCube(_center, _gridSize);
-
-			if (_grid == null || DisplayGridGizmos == false) {
-				return;
-			}
-
-			foreach (Node n in _grid) {
-				Gizmos.color = n.Walkable ? Color.white : Color.red;
-				Gizmos.DrawCube(n.WorldPosition + Offset, Vector2.one * .5f);
-			}
 		}
 
 		private void CreateGrid () {
