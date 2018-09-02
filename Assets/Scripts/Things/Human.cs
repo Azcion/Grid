@@ -19,7 +19,7 @@ namespace Assets.Scripts.Things {
 		public void Initialize () {
 			InitializePathfinding();
 
-			Sprite.localPosition = new Vector2(.5f, Calc.Round(.5f + SPRITE_OFFSET, 2));
+			Child.localPosition = new Vector2(.5f, Calc.Round(.5f + SPRITE_OFFSET, 2));
 			_didInitialize = true;
 		}
 

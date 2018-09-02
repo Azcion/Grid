@@ -8,12 +8,14 @@ namespace Assets.Scripts.Things {
 	[RequireComponent(typeof(BoxCollider2D))]
 	public class Thing : MonoBehaviour {
 
-		protected Transform Sprite;
+		
 		protected Transform Tf;
+		protected Transform Child;
+		protected SpriteRenderer ChildRenderer;
 
 		protected bool Selected;
 
-		private SpriteRenderer _renderer;
+		
 
 		public void Deselect () {
 			Selected = false;
@@ -28,12 +30,12 @@ namespace Assets.Scripts.Things {
 		}
 
 		protected void SetSprite (Sprite sprite, bool flipX) {
-			_renderer.sprite = sprite;
-			_renderer.flipX = flipX;
+			ChildRenderer.sprite = sprite;
+			ChildRenderer.flipX = flipX;
 		}
 
 		protected void SetTint (Color color) {
-			_renderer.color = color;
+			ChildRenderer.color = color;
 		}
 
 		[UsedImplicitly]
@@ -55,11 +57,11 @@ namespace Assets.Scripts.Things {
 		}
 
 		private void CreateChildSprite () {
-			Sprite = new GameObject("Sprite").transform;
-			Sprite.SetParent(Tf);
-			Sprite.localPosition = Vector3.zero;
-			_renderer = Sprite.gameObject.AddComponent<SpriteRenderer>();
-			_renderer.material = AssetLoader.DiffuseMat;
+			Child = new GameObject("Sprite").transform;
+			Child.SetParent(Tf);
+			Child.localPosition = Vector3.zero;
+			ChildRenderer = Child.gameObject.AddComponent<SpriteRenderer>();
+			ChildRenderer.sharedMaterial = AssetLoader.DiffuseMat;
 		}
 
 	}

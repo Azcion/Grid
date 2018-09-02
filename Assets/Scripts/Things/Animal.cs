@@ -17,8 +17,8 @@ namespace Assets.Scripts.Things {
 			InitializePathfinding(AdjustSpeed(type));
 
 			Type = type;
-			Sprite.localPosition = new Vector2(.5f, .5f);
-			Sprite.localScale = AdjustScale(type);
+			Child.localPosition = new Vector2(.5f, .5f);
+			Child.localScale = AdjustScale(type);
 			SetSprite(AssetLoader.Get(type, Direction.North), false);
 			SetTint(AdjustTint(type));
 			_didInitialize = true;
