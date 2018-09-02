@@ -13,7 +13,7 @@ namespace Assets.Scripts.Makers {
 	public class TileMaker : MonoBehaviour {
 
 		public const int CSIZE = 8;
-		public const int YCHUNKS = 10;
+		public const int YCHUNKS = 20;
 		public const int CHALF = CSIZE / 2;
 		public const int YTILES = CSIZE * YCHUNKS;
 		public const int THALF = YTILES / 2;
@@ -193,6 +193,14 @@ namespace Assets.Scripts.Makers {
 			sr.sharedMaterial = mat;
 			sr.sprite = AssetLoader.Get(type, x, y);
 
+			switch (type) {
+				case TileType.RoughStone:
+				case TileType.RoughHewnRock:
+				case TileType.SmoothStone:
+					sr.color = TileTint.Get(type);
+					break;
+			}
+
 			SmoothTiles st = t.GetComponent<SmoothTiles>();
 			st.OverlapOrder = _typeCount - (int) type;
 			st.Color = color;
@@ -206,6 +214,8 @@ namespace Assets.Scripts.Makers {
 					st.CanBeTransitionedTo = false;
 					walkable = false;
 					break;
+				case TileType.RoughStone:
+				case TileType.RoughHewnRock:
 				case TileType.SmoothStone:
 				case TileType.Carpet:
 				case TileType.Concrete:
