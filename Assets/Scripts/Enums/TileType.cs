@@ -4,13 +4,27 @@
 
 		DeepWater,
 		ShallowWater,
+		Marsh,
+		MarshyTerrain,
+		Mud,
+		Mossy,
 		Sand,
 		SoftSand,
-		Mud,
 		Soil,
 		SoilRich,
 		Gravel,
-		RoughStone
+		PackedDirt,
+		Ice,
+		RoughStone,
+		RoughHewnRock,
+		SmoothStone,
+		Carpet,
+		Concrete,
+		Flagstone,
+		GenericFloorTile,
+		PavedTile,
+		TileStone,
+		WoodFloor
 
 	}
 
