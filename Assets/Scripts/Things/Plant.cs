@@ -23,13 +23,6 @@ namespace Assets.Scripts.Things {
 			_growth = growth;
 			AdjustTransform(growth);
 			SetSprite(AssetLoader.Get(type), Random.value < .5);
-
-			// This causes every affected row to be drawn separately, significantly raising draw calls!
-			if (Size == PlantSize.Large) {
-				const float factor = 1f / TileMaker.YTILES;
-				Vector3 v = Tf.position;
-				Tf.position = new Vector3(v.x, v.y, v.z - 1 + v.y * factor);
-			}
 		}
 
 		public ThingType ThingType () {

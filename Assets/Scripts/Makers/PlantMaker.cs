@@ -25,9 +25,9 @@ namespace Assets.Scripts.Makers {
 		private IEnumerator Populate () {
 			yield return new WaitForSeconds(.10f);
 
-			foreach (Transform c in ChunkContainer.transform) {
-				foreach (Transform t in c) {
-					Initialize(t);
+			for (int x = 0; x < TileMaker.YTILES; ++x) {
+				for (int y = TileMaker.YTILES - 1; y >= 0; --y) {
+					Initialize(TileMaker.Get(x, y).transform);
 				}
 			}
 
@@ -88,9 +88,12 @@ namespace Assets.Scripts.Makers {
 			go.transform.position = v;
 			Plant plant = go.AddComponent<Plant>();
 			plant.Initialize(type, Calc.Round(Random.Range(.3f, 1), 2));
-			
-			if (TileMaker.GetTile(x, y).TryAddThing(plant) == false) {
-				Debug.Log($"Tried to add plant to occupied tile. {x}, {y}");
+
+			Tile tile = TileMaker.GetTile(x, y);
+
+			if (tile.TryAddThing(plant) == false) {
+				Plant plantDebug = tile.GetThing() as Plant;
+				Debug.Log($"Tried to add plant to occupied tile. {x}, {y}, {plantDebug?.Type}");
 			}
 		}
 
