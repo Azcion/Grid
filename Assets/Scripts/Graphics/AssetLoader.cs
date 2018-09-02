@@ -9,6 +9,8 @@ namespace Assets.Scripts.Graphics {
 	public static class AssetLoader {
 
 		public static readonly Material DiffuseMat;
+		public static readonly Sprite TransitionSide;
+		public static readonly Sprite TransitionCorner;
 
 		private static readonly Sprite[][] TileSprites;
 		private static readonly string[] TileNames;
@@ -24,6 +26,8 @@ namespace Assets.Scripts.Graphics {
 
 		static AssetLoader () {
 			DiffuseMat = Resources.Load<Material>("Materials/Diffuse");
+			TransitionSide= Resources.Load<Sprite>("sprites/terrain/decals/TransitionSide");
+			TransitionCorner = Resources.Load<Sprite>("sprites/terrain/decals/TransitionCorner");
 
 			TileNames = Enum.GetNames(typeof(TileType));
 			TileTypeCount = TileNames.Length;

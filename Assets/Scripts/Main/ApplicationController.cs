@@ -61,6 +61,7 @@ namespace Assets.Scripts.Main {
 			Destroy(StartButton);
 			Sun.SetActive(true);
 			AverageColor.Initialize();
+			SmoothTiles.LoadAssets();
 			TileMaker.SetActive(true);
 			PlantMaker.SetActive(true);
 			AnimalMaker.SetActive(true);

@@ -35,9 +35,15 @@ namespace Assets.Scripts.Graphics {
 		private int _y;
 		private TileType _type;
 
-		public static void GetStaticAssets (GameObject side, GameObject corner) {
-			_side = side;
-			_corner = corner;
+		public static void LoadAssets () {
+			_side = new GameObject("Transition Side");
+			SpriteRenderer sideSr = _side.AddComponent<SpriteRenderer>();
+			sideSr.sprite = AssetLoader.TransitionSide;
+			sideSr.material = AssetLoader.DiffuseMat;
+			_corner = new GameObject("Transition Corner");
+			SpriteRenderer cornerSr = _corner.AddComponent<SpriteRenderer>();
+			cornerSr.sprite = AssetLoader.TransitionCorner;
+			cornerSr.material = AssetLoader.DiffuseMat;
 		}
 
 		// Neighbor bools
