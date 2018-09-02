@@ -39,40 +39,37 @@ namespace Assets.Scripts.Makers {
 
 			switch (t.GetComponent<Tile>().Type) {
 				case TileType.Sand:
+				case TileType.Gravel:
 					if (Random.value < .95) {
 						return;
 					}
 
 					if (Random.value > .75) {
-						type = PlantType.SaguaroCactus;
+						if (Random.value > .75) {
+							type = PlantType.TreeDrago;
+						} else {
+							type = PlantType.SaguaroCactus;
+						}
 					} else {
 						type = PlantType.Grass;
 					}
 
-					type = PlantType.SaguaroCactus;
 					break;
-				/*case TileType.Grass:
-					if (Random.value < .75) {
-						return;
-					}
-
-					if (Random.value < .50) {
-						type = PlantType.Grass;
-						break;
-					}
-
-					type = PlantType.TreePalm;
-					break;*/
 				case TileType.Soil:
+				case TileType.SoilRich:
 					if (Random.value < .35) {
 						return;
 					}
 
 					float value = Random.value;
 
-					if (value > .95) {
-						type = PlantType.SaguaroCactus;
-					} else if (value > .90) {
+					if (value > .90) {
+						if (Random.value > .25) {
+							type = PlantType.TreeDrago;
+						} else {
+							type = PlantType.SaguaroCactus;
+						}
+					} else if (value > .60) {
 						type = PlantType.Agave;
 					} else {
 						type = PlantType.Grass;
