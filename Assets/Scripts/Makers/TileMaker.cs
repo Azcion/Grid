@@ -190,7 +190,7 @@ namespace Assets.Scripts.Makers {
 			}
 
 			SpriteRenderer sr = t.GetComponent<SpriteRenderer>();
-			sr.material = mat;
+			sr.sharedMaterial = mat;
 			sr.sprite = AssetLoader.Get(type, x, y);
 
 			SmoothTiles st = t.GetComponent<SmoothTiles>();

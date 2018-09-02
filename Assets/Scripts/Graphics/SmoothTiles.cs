@@ -37,12 +37,12 @@ namespace Assets.Scripts.Graphics {
 			_side.SetActive(false);
 			SpriteRenderer sideSr = _side.AddComponent<SpriteRenderer>();
 			sideSr.sprite = AssetLoader.TransitionSide;
-			sideSr.material = AssetLoader.DiffuseMat;
+			sideSr.sharedMaterial = AssetLoader.DiffuseMat;
 			_corner = new GameObject("Transition Corner");
 			_corner.SetActive(false);
 			SpriteRenderer cornerSr = _corner.AddComponent<SpriteRenderer>();
 			cornerSr.sprite = AssetLoader.TransitionCorner;
-			cornerSr.material = AssetLoader.DiffuseMat;
+			cornerSr.sharedMaterial = AssetLoader.DiffuseMat;
 		}
 
 		#region Neighbor bools
