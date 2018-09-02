@@ -91,7 +91,9 @@ namespace Assets.Scripts.Makers {
 
 			TileType type;
 
-			if (v0 > .55) {
+			if (v0 > .575) {
+				type = TileType.RoughHewnRock;
+			} else if (v0 > .55) {
 				type = TileType.RoughStone;
 			} else if (v0 > .53) {
 				type = TileType.Gravel;
@@ -116,7 +118,7 @@ namespace Assets.Scripts.Makers {
 				if (v1 > dw) {
 					type = TileType.DeepWater;
 				} else if (v1 > sw) {
-					type = TileType.ShallowWater;
+					type = TileType.Marsh;
 				} else if (v1 > m) {
 					type = TileType.Mud;
 				} else if (v1 > 1 - m) {
@@ -140,7 +142,7 @@ namespace Assets.Scripts.Makers {
 				} else if (v1 > 1 - sw) {
 					type = TileType.Mud;
 				} else if (v1 > 1 - dw) {
-					type = TileType.ShallowWater;
+					type = TileType.Marsh;
 				} else {
 					type = TileType.DeepWater;
 				}
@@ -188,7 +190,14 @@ namespace Assets.Scripts.Makers {
 					st.CanBeTransitionedTo = false;
 					walkable = false;
 					break;
-				case TileType.RoughStone:
+				case TileType.SmoothStone:
+				case TileType.Carpet:
+				case TileType.Concrete:
+				case TileType.Flagstone:
+				case TileType.GenericFloorTile:
+				case TileType.PavedTile:
+				case TileType.TileStone:
+				case TileType.WoodFloor:
 					st.CanTransition = false;
 					break;
 			}
@@ -197,6 +206,9 @@ namespace Assets.Scripts.Makers {
 				case TileType.DeepWater:
 				case TileType.ShallowWater:
 				case TileType.Mud:
+				case TileType.Marsh:
+				case TileType.MarshyTerrain:
+				case TileType.SoftSand:
 					buildable = false;
 					break;
 			}
