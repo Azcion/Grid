@@ -10,10 +10,15 @@ namespace Assets.Scripts.Graphics {
 		public static readonly Material DiffuseMat;
 		public static readonly Sprite TransitionSide;
 		public static readonly Sprite TransitionCorner;
+		public static readonly Sprite WallTop;
 
 		private static readonly Sprite[][] TileSprites;
 		private static readonly string[] TileNames;
 		private static readonly int TileTypeCount;
+
+		private static readonly Sprite[][] LinkedSprites;
+		private static readonly string[] LinkedNames;
+		private static readonly int LinkedTypeCount;
 
 		private static readonly Sprite[][] PlantSprites;
 		private static readonly string[] PlantNames;
@@ -27,11 +32,17 @@ namespace Assets.Scripts.Graphics {
 			DiffuseMat = Resources.Load<Material>("Materials/Diffuse");
 			TransitionSide= Resources.Load<Sprite>("sprites/terrain/decals/TransitionSide");
 			TransitionCorner = Resources.Load<Sprite>("sprites/terrain/decals/TransitionCorner");
+			WallTop = Resources.Load<Sprite>("sprites/other/WallTop");
 
 			TileNames = Enum.GetNames(typeof(TileType));
 			TileTypeCount = TileNames.Length;
 			TileSprites = new Sprite[TileTypeCount][];
 			LoadTiles();
+
+			LinkedNames = Enum.GetNames(typeof(LinkedType));
+			LinkedTypeCount = LinkedNames.Length;
+			LinkedSprites = new Sprite[LinkedTypeCount][];
+			LoadLinked();
 
 			PlantNames = Enum.GetNames(typeof(PlantType));
 			PlantTypeCount = PlantNames.Length;
@@ -50,6 +61,10 @@ namespace Assets.Scripts.Graphics {
 			int size = (int) Mathf.Sqrt(TileSprites[i].Length);
 			int xy = size * (size - 1) - size * (y % size) + x % size;
 			return TileSprites[i][xy];
+		}
+
+		public static Sprite Get (LinkedType linked, int index) {
+			return LinkedSprites[(int) linked][index];
 		}
 
 		public static Sprite Get (PlantType plant) {
@@ -71,6 +86,20 @@ namespace Assets.Scripts.Graphics {
 				foreach (Sprite s in TileSprites[i]) {
 					if (s == null) {
 						Debug.Log($"Couldn't load {tile} properly in AssetLoader.");
+					}
+				}
+			}
+		}
+
+		private static void LoadLinked () {
+			for (int i = 0; i < LinkedTypeCount; ++i) {
+				string linked = LinkedNames[i];
+				string loc = $"sprites/thing/building/linked/{linked}_Atlas";
+				LinkedSprites[i] = Resources.LoadAll<Sprite>(loc);
+
+				foreach (Sprite s in LinkedSprites[i]) {
+					if (s == null) {
+						Debug.Log($"Couldn't load {linked} properly in AssetLoader.");
 					}
 				}
 			}

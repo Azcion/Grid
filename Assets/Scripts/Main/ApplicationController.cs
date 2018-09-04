@@ -20,6 +20,7 @@ namespace Assets.Scripts.Main {
 		[UsedImplicitly] public GameObject StartButton;
 		[UsedImplicitly] public GameObject Sun;
 		[UsedImplicitly] public GameObject TileMaker;
+		[UsedImplicitly] public GameObject WallMaker;
 		[UsedImplicitly] public GameObject PlantMaker;
 		[UsedImplicitly] public GameObject AnimalMaker;
 		#endregion
@@ -64,6 +65,7 @@ namespace Assets.Scripts.Main {
 			TileTint.Initialize();
 			SmoothTiles.LoadAssets();
 			TileMaker.SetActive(true);
+			WallMaker.SetActive(true);
 			PlantMaker.SetActive(true);
 			AnimalMaker.SetActive(true);
 			_ready = true;
