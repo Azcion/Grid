@@ -115,13 +115,13 @@ namespace Assets.Scripts.Graphics {
 
 		[UsedImplicitly]
 		private void Start () {
-			StartCoroutine(Initialize());
-
 			Tile tile = GetComponent<Tile>();
 			_x = tile.X;
 			_y = tile.Y;
 			_type = tile.Type;
 			Color = AverageColor.Get(_type);
+
+			StartCoroutine(Initialize());
 		}
 
 		private IEnumerator Initialize () {

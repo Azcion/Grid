@@ -26,9 +26,7 @@ namespace Assets.Scripts.Makers {
 		#endregion
 
 		private static int _typeCount;
-
 		private static List<List<Tile>> _tiles;
-
 		private static int _seed;
 		private static bool _ready;
 

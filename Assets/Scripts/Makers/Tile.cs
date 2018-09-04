@@ -35,6 +35,10 @@ namespace Assets.Scripts.Makers {
 			_creatures = new List<ICreature>();
 		}
 
+		public IThing GetThing () {
+			return _thingSlot[0];
+		}
+
 		public void AddCreature (ICreature creature) {
 			_creatures.Add(creature);
 			UpdatePenalty();
