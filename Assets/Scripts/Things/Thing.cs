@@ -12,10 +12,7 @@ namespace Assets.Scripts.Things {
 		protected Transform Tf;
 		protected Transform Child;
 		protected SpriteRenderer ChildRenderer;
-
 		protected bool Selected;
-
-		
 
 		public void Deselect () {
 			Selected = false;

@@ -15,7 +15,8 @@ namespace Assets.Scripts.Things {
 		public static void Select (Transform target, Thing thing) {
 			_didSelect = true;
 			Instance.transform.SetParent(target);
-			Instance.transform.localPosition = new Vector3(.5f, 0, Order.SELECTOR);
+			Vector2 v = target.position;
+			Instance.transform.position = new Vector3(v.x + .5f, v.y, Order.SELECTOR);
 			Instance.SetActive(true);
 			Thing = thing;
 		}
