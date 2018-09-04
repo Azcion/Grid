@@ -8,7 +8,7 @@ namespace Assets.Scripts.Main {
 
 	public class CameraController : MonoBehaviour {
 
-		public static GameObject TileUnderCursor;
+		public static Tile TileUnderCursor;
 		public static float Size;
 
 		private const float ZOOM_SPEED = 10;
@@ -83,7 +83,7 @@ namespace Assets.Scripts.Main {
 
 		private void DoHover () {
 			Vector2 pos = _camera.ScreenToWorldPoint(Input.mousePosition);
-			TileUnderCursor = TileMaker.Get((int) pos.x, (int) pos.y);
+			TileUnderCursor = TileMaker.GetTile((int) pos.x, (int) pos.y);
 		}
 
 	}

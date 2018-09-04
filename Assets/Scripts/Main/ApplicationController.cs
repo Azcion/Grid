@@ -85,14 +85,13 @@ namespace Assets.Scripts.Main {
 				return;
 			}
 
-			GameObject tileObj = CameraController.TileUnderCursor;
+			Tile t = CameraController.TileUnderCursor;
 			_infoRefreshFrame = 0;
 			_i.text = "";
 			_i.text += "\n" + DayNightCycle.LightLevel + "% lit";
 
-			if (tileObj != null) {
-				Tile t = tileObj.GetComponent<Tile>();
-				_i.text += "\n" + t.Chunk.name + " | " + tileObj.name;
+			if (t != null) {
+				_i.text += "\n" + t.Chunk.name + " | " + t.name;
 				_i.text += "\n" + Enum.GetName(typeof(TileType), t.Type);
 			} else {
 				_i.text += "\nVoid";
