@@ -2,10 +2,12 @@
 using Assets.Scripts.Enums;
 using Assets.Scripts.Graphics;
 using Assets.Scripts.Makers;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.Things {
 
+	[UsedImplicitly]
 	public class Linked : Thing, IThing {
 
 		private int _x;

@@ -64,7 +64,8 @@ namespace Assets.Scripts.Things {
 				}
 
 				float speed = _speed * Time.deltaTime;
-				Tf.localPosition = Vector2.MoveTowards(Tf.localPosition, currentWaypoint, speed);
+				Vector2 v = Vector2.MoveTowards(Tf.localPosition, currentWaypoint, speed);
+				Tf.localPosition = new Vector3(v.x, v.y, Tf.localPosition.z);
 
 				yield return null;
 			}
