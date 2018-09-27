@@ -13,12 +13,14 @@ namespace Assets.Scripts.Graphics {
 		}
 
 		public static void Initialize () {
-			Color32 c = new Color32(143, 148, 142, 255);
-			TileTints[(int) TileType.RoughStone] = c;
+			TileTints[(int) TileType.RoughStone] = new Color32(143, 148, 142, 255);
+			TileTints[(int) TileType.WoodFloor] = new Color32(189, 126, 75, 255);
 		}
 
 		public static Color Get (TileType type) {
 			switch (type) {
+				case TileType.WoodFloor:
+					return TileTints[(int) TileType.WoodFloor];
 				case TileType.RoughStone:
 				case TileType.RoughHewnRock:
 				case TileType.SmoothStone:

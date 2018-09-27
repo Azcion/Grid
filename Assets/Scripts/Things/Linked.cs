@@ -20,13 +20,28 @@ namespace Assets.Scripts.Things {
 			_type = type;
 			_x = (int) Tf.position.x;
 			_y = (int) Tf.position.y;
-			ChildRenderer.color = TileTint.Get(TileType.RoughHewnRock);
+			ChildRenderer.color = AdjustTint(type);
 
 			StartCoroutine(InitializeSelf());
 		}
 
 		public ThingType ThingType () {
 			return Enums.ThingType.Structure;
+		}
+
+		private static Color AdjustTint (LinkedType type) {
+			switch (type) {
+				case LinkedType.Rock:
+					return TileTint.Get(TileType.RoughStone);
+				case LinkedType.WallPlanks:
+					return TileTint.Get(TileType.WoodFloor);
+				case LinkedType.WallTiles:
+					return TileTint.Get(TileType.SmoothStone);
+				case LinkedType.WallSmooth:
+					return TileTint.Get(TileType.SmoothStone);
+				default:
+					return Color.magenta;
+			}
 		}
 
 		private static int GetIndex (byte mask) {
