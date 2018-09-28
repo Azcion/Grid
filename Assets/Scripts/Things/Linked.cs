@@ -125,8 +125,8 @@ namespace Assets.Scripts.Things {
 			t.localPosition = position;
 			t.localScale = scale;
 			SpriteRenderer sr = t.gameObject.AddComponent<SpriteRenderer>();
-			sr.sprite = AssetLoader.WallTop;
-			sr.color = TileTint.Get(TileType.RoughStone);
+			sr.sprite = _type == LinkedType.Rock ? AssetLoader.RockTop : AssetLoader.WoodTop;
+			sr.color = AdjustTint(_type);
 			sr.sharedMaterial = AssetLoader.DiffuseMat;
 		}
 		

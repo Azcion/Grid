@@ -10,7 +10,9 @@ namespace Assets.Scripts.Graphics {
 		public static readonly Material DiffuseMat;
 		public static readonly Sprite TransitionSide;
 		public static readonly Sprite TransitionCorner;
-		public static readonly Sprite WallTop;
+
+		public static readonly Sprite RockTop;
+		public static readonly Sprite WoodTop;
 
 		private static readonly Sprite[][] TileSprites;
 		private static readonly string[] TileNames;
@@ -32,7 +34,9 @@ namespace Assets.Scripts.Graphics {
 			DiffuseMat = Resources.Load<Material>("Materials/Diffuse");
 			TransitionSide= Resources.Load<Sprite>("sprites/terrain/decals/TransitionSide");
 			TransitionCorner = Resources.Load<Sprite>("sprites/terrain/decals/TransitionCorner");
-			WallTop = Resources.Load<Sprite>("sprites/other/WallTop");
+
+			RockTop = Resources.Load<Sprite>("sprites/other/RockTop");
+			WoodTop = Resources.Load<Sprite>("sprites/other/WoodTop");
 
 			TileNames = Enum.GetNames(typeof(TileType));
 			TileTypeCount = TileNames.Length;
