@@ -15,6 +15,7 @@ namespace Assets.Scripts.Makers {
 		[UsedImplicitly] public GameObject Container;
 		#endregion
 
+		private static WallMaker _instance;
 		private static Linked[,] _walls;
 		private static bool _ready;
 
@@ -26,8 +27,28 @@ namespace Assets.Scripts.Makers {
 			return _walls[x, y];
 		}
 
+		public static bool TryAdd (Linked wall) {
+			int x = (int) wall.transform.position.x;
+			int y = (int) wall.transform.position.y;
+			Tile tile = TileMaker.GetTile(x, y);
+
+			if (tile == null || !tile.TryAddThing(wall)) {
+				return false;
+			}
+
+			GameObject go = wall.gameObject;
+			go.name = Enum.GetName(typeof(ThingType), wall.ThingType());
+			go.transform.SetParent(_instance.Container.transform);
+			go.transform.localPosition = new Vector3(x, y, Order.THING);
+			_walls[x, y] = wall;
+
+			return true;
+
+		}
+
 		[UsedImplicitly]
 		private void Start () {
+			_instance = this;
 			_walls = new Linked[TileMaker.YTILES, TileMaker.YTILES];
 
 			Populate();
@@ -53,10 +74,9 @@ namespace Assets.Scripts.Makers {
 			LinkedType type = LinkedType.Rock;
 			int x = (int) t.position.x;
 			int y = (int) t.position.y;
-			Vector3 v = new Vector3(x, y, Order.THING);
 			GameObject go = new GameObject(Enum.GetName(typeof(LinkedType), type));
 			go.transform.SetParent(Container.transform);
-			go.transform.localPosition = v;
+			go.transform.localPosition = new Vector3(x, y, Order.THING);;
 			Linked wall = go.AddComponent<Linked>();
 			wall.Initialize(type);
 			_walls[x, y] = wall;

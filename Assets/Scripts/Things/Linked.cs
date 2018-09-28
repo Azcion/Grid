@@ -21,7 +21,20 @@ namespace Assets.Scripts.Things {
 			_y = (int) Tf.position.y;
 			ChildRenderer.color = AdjustTint(type);
 
+			if (planning) {
+				SetSprite(AssetLoader.Get(_type, GetIndex(0)), false);
+				return;
+			}
+
 			InitializeSelf();
+		}
+
+		public void Refresh () {
+			_x = (int) Tf.position.x;
+			_y = (int) Tf.position.y;
+
+			InitializeSelf();
+			InitializeNeighbors();
 		}
 
 		public ThingType ThingType () {
@@ -69,6 +82,28 @@ namespace Assets.Scripts.Things {
 			CoverEdgeGaps();
 		}
 
+		private void InitializeNeighbors () {
+			for (int x = -1; x < 2; ++x) {
+				for (int y = -1; y < 2; ++y) {
+					if (x == 0 && y == 0) {
+						continue;
+					}
+
+					Linked neighbor = WallMaker.GetLinked(_x + x, _y + y);
+
+					if (neighbor == null) {
+						continue;
+					}
+
+					for (int i = neighbor.transform.childCount - 1; i > 0; --i) {
+						Destroy(neighbor.transform.GetChild(i).gameObject, .2f);
+					}
+
+					neighbor.InitializeSelf();
+				}
+			}
+		}
+
 		private void CoverCenterGaps (int index) {
 			switch (index) {
 				case 2:
@@ -87,24 +122,24 @@ namespace Assets.Scripts.Things {
 			const int max = TileMaker.YTILES - 1;
 
 			if (_x == 0) {
+				if (_y == 0) {
+					Make("Left Bottom Corner Cover", new Vector3(.25f, .25f, -.5f), new Vector3(.5f, .5f, 1));
+				} else if (_y == max) {
+					Make("Left Top Corner Cover", new Vector3(.25f, .75f, -.5f), new Vector3(.5f, .5f, 1));
+				}
+
 				if (WallMaker.GetLinked(0, _y - 1)?._type == _type) {
 					Make("Left Edge Cover", new Vector3(.25f, .25f, -.5f), new Vector3(.5f, 1, 1));
-
-					if (_y == 0) {
-						Make("Left Bottom Corner Cover", new Vector3(.25f, .25f, -.5f), new Vector3(.5f, .5f, 1));
-					} else if (_y == max) {
-						Make("Left Top Corner Cover", new Vector3(.25f, .75f, -.5f), new Vector3(.5f, .5f, 1));
-					}
 				}
 			} else if (_x == max) {
+				if (_y == 0) {
+					Make("Right Bottom Corner Cover", new Vector3(.75f, .25f, -.5f), new Vector3(.5f, .5f, 1));
+				} else if (_y == max) {
+					Make("Right Top Corner Cover", new Vector3(.75f, .75f, -.5f), new Vector3(.5f, .5f, 1));
+				}
+
 				if (WallMaker.GetLinked(max, _y - 1)?._type == _type) {
 					Make("Right Edge Cover", new Vector3(.75f, .25f, -.5f), new Vector3(.5f, 1, 1));
-
-					if (_y == 0) {
-						Make("Right Bottom Corner Cover", new Vector3(.75f, .25f, -.5f), new Vector3(.5f, .5f, 1));
-					} else if (_y == max) {
-						Make("Right Top Corner Cover", new Vector3(.75f, .75f, -.5f), new Vector3(.5f, .5f, 1));
-					}
 				}
 			}
 

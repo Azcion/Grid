@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Main;
+using Assets.Scripts.Makers;
 using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -13,6 +14,10 @@ namespace Assets.Scripts.Things {
 		private static bool _didSelect;
 		
 		public static void Select (Transform target, Thing thing) {
+			if (Architect.Planning) {
+				return;
+			}
+
 			_didSelect = true;
 			Instance.transform.SetParent(target);
 			Vector2 v = target.position;
