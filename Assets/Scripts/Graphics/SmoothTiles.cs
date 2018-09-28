@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using Assets.Scripts.Enums;
+﻿using Assets.Scripts.Enums;
 using Assets.Scripts.Main;
 using Assets.Scripts.Makers;
 using Assets.Scripts.Utils;
@@ -121,12 +120,10 @@ namespace Assets.Scripts.Graphics {
 			_type = tile.Type;
 			Color = AverageColor.Get(_type);
 
-			StartCoroutine(Initialize());
+			Initialize();
 		}
 
-		private IEnumerator Initialize () {
-			yield return new WaitForSeconds(1);
-			
+		private void Initialize () {
 			if (!CanTransition) {
 				_canFadeD = false;
 				_canFadeDl = false;
@@ -137,7 +134,7 @@ namespace Assets.Scripts.Graphics {
 				_canFadeUl = false;
 				_canFadeUr = false;
 
-				yield break;
+				return;
 			}
 
 			// Test for transferability

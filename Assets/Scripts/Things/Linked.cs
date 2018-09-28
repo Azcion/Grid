@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using Assets.Scripts.Enums;
+﻿using Assets.Scripts.Enums;
 using Assets.Scripts.Graphics;
 using Assets.Scripts.Makers;
 using JetBrains.Annotations;
@@ -14,7 +13,7 @@ namespace Assets.Scripts.Things {
 		private int _y;
 		private LinkedType _type;
 
-		public void Initialize (LinkedType type) {
+		public void Initialize (LinkedType type, bool planning = false) {
 			InitializeThing();
 
 			_type = type;
@@ -22,7 +21,7 @@ namespace Assets.Scripts.Things {
 			_y = (int) Tf.position.y;
 			ChildRenderer.color = AdjustTint(type);
 
-			StartCoroutine(InitializeSelf());
+			InitializeSelf();
 		}
 
 		public ThingType ThingType () {
@@ -49,9 +48,7 @@ namespace Assets.Scripts.Things {
 			return 12 - (mask - mod) + mod;
 		}
 
-		private IEnumerator InitializeSelf () {
-			yield return new WaitForSeconds(1);
-
+		private void InitializeSelf () {
 			int mask = WallMaker.GetLinked(_x, _y + 1)?._type == _type ? 1 : 0;
 			mask += WallMaker.GetLinked(_x + 1, _y)?._type == _type ? 2 : 0;
 			mask += WallMaker.GetLinked(_x, _y - 1)?._type == _type ? 4 : 0;
@@ -64,7 +61,7 @@ namespace Assets.Scripts.Things {
 			int index = GetIndex((byte) mask);
 
 			if (index < 0) {
-				yield break;
+				return;
 			}
 			
 			SetSprite(AssetLoader.Get(_type, index), false);

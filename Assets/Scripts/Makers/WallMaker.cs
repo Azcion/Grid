@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Main;
 using Assets.Scripts.Things;
@@ -31,12 +30,10 @@ namespace Assets.Scripts.Makers {
 		private void Start () {
 			_walls = new Linked[TileMaker.YTILES, TileMaker.YTILES];
 
-			StartCoroutine(Populate());
+			Populate();
 		}
 
-		private IEnumerator Populate () {
-			yield return new WaitForSeconds(.20f);
-
+		private void Populate () {
 			for (int x = 0; x < TileMaker.YTILES; ++x) {
 				for (int y = TileMaker.YTILES - 1; y >= 0; --y) {
 					Initialize(TileMaker.Get(x, y).transform);

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Things;
 using Assets.Scripts.Utils;
@@ -18,12 +17,10 @@ namespace Assets.Scripts.Makers {
 
 		[UsedImplicitly]
 		private void Start () {
-			StartCoroutine(Populate());
+			Populate();
 		}
 
-		private IEnumerator Populate () {
-			yield return new WaitForSeconds(.15f);
-
+		private void Populate () {
 			foreach (Transform c in ChunkContainer.transform) {
 				foreach (Transform t in c) {
 					Initialize(t);

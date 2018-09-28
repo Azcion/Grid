@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Graphics;
 using Assets.Scripts.Makers;
@@ -38,9 +37,7 @@ namespace Assets.Scripts.Main {
 			_loadTime = Time.realtimeSinceStartup - _startTime;
 		}
 
-		private static IEnumerator SetReady () {
-			yield return new WaitForSeconds(2);
-
+		private static void SetReady () {
 			Ready = true;
 		}
 
@@ -70,7 +67,7 @@ namespace Assets.Scripts.Main {
 			AnimalMaker.SetActive(true);
 			_ready = true;
 
-			StartCoroutine(SetReady());
+			SetReady();
 		}
 
 		[UsedImplicitly]

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Graphics;
@@ -58,12 +57,10 @@ namespace Assets.Scripts.Makers {
 				_tiles.Add(row);
 			}
 
-			StartCoroutine(Create());
+			Create();
 		}
 
-		private IEnumerator Create () {
-			yield return new WaitForSeconds(.05f);
-
+		private void Create () {
 			for (int y = 0; y < YCHUNKS; ++y) {
 				for (int x = 0; x < YCHUNKS; ++x) {
 					Vector3 pos = new Vector3(CSIZE * x, CSIZE * y, Order.GROUND);
