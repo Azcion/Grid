@@ -64,17 +64,7 @@ namespace Assets.Scripts.Things {
 		}
 
 		private static PlantSize SizeOf (PlantType type) {
-			switch (type) {
-				case PlantType.Agave:
-				case PlantType.SaguaroCactus:
-				case PlantType.TreeDrago:
-				case PlantType.TreePalm:
-					return PlantSize.Large;
-				case PlantType.Grass:
-					return PlantSize.Small;
-				default:
-					return PlantSize.Large;
-			}
+			return type == PlantType.Grass ? PlantSize.Small : PlantSize.Large;
 		}
 
 		private Transform CreateChildSprite () {
