@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<Defs>
+	<PlantDef>
+		<DefName>Plant_Agave</DefName>
+		<Label>agave</Label>
+		<Description>A large-leafed desert plant with edible flowers and stalks.</Description>
+		<StatBases>
+			<MaxHitPoints>120</MaxHitPoints>
+			<Nutrition>0.2</Nutrition>
+		</StatBases>
+		<TexPath>thing/plant/agave</TexPath>
+		<EcosystemWeight>1</EcosystemWeight>
+		<PlantSize>Large</PlantSize>
+	</PlantDef>
+	<PlantDef>
+		<DefName>Plant_SaguaroCactus</DefName>
+		<Label>saguaro cactus</Label>
+		<Description>A large cactus native to arid Earth environments. Though it is not a tree, it yields a small amount of fibrous material that can be used like wood.</Description>
+		<StatBases>
+			<MaxHitPoints>130</MaxHitPoints>
+			<Nutrition>1.5</Nutrition>
+		</StatBases>
+		<TexPath>thing/plant/saguarocactus</TexPath>
+		<EcosystemWeight>.25</EcosystemWeight>
+		<PlantSize>Large</PlantSize>
+	</PlantDef>
+	<PlantDef>
+		<DefName>Plant_TreeDrago</DefName>
+		<Label>drago tree</Label>
+		<Description>A hardy desert tree topped with thick, pointed leaves.</Description>
+		<StatBases>
+			<MaxHitPoints>150</MaxHitPoints><!--Check in game-->
+			<Nutrition>1</Nutrition>
+		</StatBases>
+		<TexPath>thing/plant/treedrago</TexPath>
+		<EcosystemWeight>.75</EcosystemWeight>
+		<PlantSize>Large</PlantSize>
+	</PlantDef>
+	<PlantDef>
+		<DefName>Plant_TreePalm</DefName>
+		<Label>palm tree</Label>
+		<Description>A tropical tree with a tall, naked trunk topped by a cluster of very broad leaves. Unfortunately, this variety doesn't produce any edible coconuts.</Description>
+		<StatBases>
+			<MaxHitPoints>100</MaxHitPoints>
+			<Nutrition>1.2</Nutrition>
+		</StatBases>
+		<TexPath>thing/plant/treepalm</TexPath>
+		<EcosystemWeight>.75</EcosystemWeight>
+		<PlantSize>Large</PlantSize>
+	</PlantDef>
+</Defs>

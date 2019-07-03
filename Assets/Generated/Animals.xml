@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<Defs>
+	<AnimalDef>
+		<DefName>Elephant</DefName>
+		<Label>elephant</Label>
+		<Description>The largest unmodified land animal. Elephants has a long trunk they use to manipulate objects, and sharp tusks they use to gore attackers. A dead elephant's valuable tusks can be recovered by butchering it.\n\nIntelligent creatures with complex social relationships, elephants can be used as pack animals or trained to carry out the most complex of tasks. They live a long time, and are known to remember events and relationships from many decades before.</Description>
+		<StatBases>
+			<MoveSpeed>4.8</MoveSpeed>
+			<ComfyTemperatureMin>-12</ComfyTemperatureMin>
+			<ComfyTemperatureMax>50</ComfyTemperatureMax>
+		</StatBases>
+		<TexPath>thing/creature/elephant</TexPath>
+		<EcosystemWeight>2</EcosystemWeight>
+	</AnimalDef>
+	<AnimalDef>
+		<DefName>Gazelle</DefName>
+		<Label>gazelle</Label>
+		<Description>A small, extremely quick antelope known for its amazingly long leap.</Description>
+		<StatBases>
+			<MoveSpeed>6</MoveSpeed>
+			<ComfyTemperatureMin>-10</ComfyTemperatureMin>
+			<ComfyTemperatureMax>40</ComfyTemperatureMax>
+		</StatBases>
+		<TexPath>thing/creature/gazelle</TexPath>
+		<EcosystemWeight>0.45</EcosystemWeight>
+	</AnimalDef>
+	<AnimalDef>
+		<DefName>Iguana</DefName>
+		<Label>iguana</Label>
+		<Description>These large lizards normally feed on plant matter. However, when angered, their tough hide and sharp claws make them quite dangerous.\n\nResting iguanas hold their heads high, giving them an amusing 'proud' look. But they're not proud; they're just trying to see predators so they don't get eaten.</Description>
+		<StatBases>
+			<MoveSpeed>3</MoveSpeed>
+			<ComfyTemperatureMin>0</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+		</StatBases>
+		<TexPath>thing/creature/iguana</TexPath>
+		<EcosystemWeight>0.30</EcosystemWeight>
+	</AnimalDef>
+	<AnimalDef>
+		<DefName>Iguana</DefName>
+		<Label>iguana</Label>
+		<Description>These large lizards normally feed on plant matter. However, when angered, their tough hide and sharp claws make them quite dangerous.\n\nResting iguanas hold their heads high, giving them an amusing 'proud' look. But they're not proud; they're just trying to see predators so they don't get eaten.</Description>
+		<StatBases>
+			<MoveSpeed>3</MoveSpeed>
+			<ComfyTemperatureMin>0</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+		</StatBases>
+		<TexPath>thing/creature/iguana</TexPath>
+		<EcosystemWeight>0.30</EcosystemWeight>
+	</AnimalDef>
+</Defs>
