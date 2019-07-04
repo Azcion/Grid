@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Enums;
+﻿using Assets.Scripts.Defs;
+using Assets.Scripts.Enums;
 using Assets.Scripts.Graphics;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -9,21 +10,25 @@ namespace Assets.Scripts.Things {
 	[UsedImplicitly]
 	public class Plant : Thing, IThing {
 
-		public PlantType Type;
+		public PlantDef Def;
 		public PlantSize Size;
+
+		private const ThingType TYPE = Enums.ThingType.Plant;
 
 		private float _growth;
 
-		public void Initialize (PlantType type, float growth) {
+		public void Initialize (PlantDef def, float growth) {
 			InitializeThing();
 
-			Type = type;
-			Size = SizeOf(type);
+			Def = def;
+			Size = def.PlantSize;
 			_growth = growth;
 			AdjustTransform(growth);
-			SetSprite(AssetLoader.Get(type), Random.value < .5);
+			SetSprite(AssetLoader.Get(TYPE, def.DefName), Random.value < .5);
+			IsSelectable = Def.DefName != "Plant_Grass";
 
 			if (Size == PlantSize.Small) {
+				//todo generate better random points
 				for (int i = 0; i < Random.Range(0, 4); ++i) {
 					CreateChildSprite();
 				}
@@ -61,10 +66,6 @@ namespace Assets.Scripts.Things {
 
 			Child.localScale = new Vector3(s, s, 1);
 			Child.localPosition = new Vector2(x, y);
-		}
-
-		private static PlantSize SizeOf (PlantType type) {
-			return type == PlantType.Grass ? PlantSize.Small : PlantSize.Large;
 		}
 
 		private Transform CreateChildSprite () {

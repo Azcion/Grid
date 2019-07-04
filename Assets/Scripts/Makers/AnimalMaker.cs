@@ -1,5 +1,4 @@
-﻿using System;
-using Assets.Scripts.Enums;
+﻿using Assets.Scripts.Defs;
 using Assets.Scripts.Things;
 using Assets.Scripts.Utils;
 using JetBrains.Annotations;
@@ -9,11 +8,14 @@ using Random = UnityEngine.Random;
 namespace Assets.Scripts.Makers {
 
 	public class AnimalMaker : MonoBehaviour {
-		
+
 		#region Object references
 		[UsedImplicitly] public GameObject ChunkContainer;
 		[UsedImplicitly] public GameObject Container;
 		#endregion
+
+		public static float MaxCapacity = Mathf.Clamp(TileMaker.YCHUNKS * TileMaker.YCHUNKS, 2.5f, 25);
+		public static float CurrentCapacity;
 
 		[UsedImplicitly]
 		private void Start () {
@@ -24,45 +26,31 @@ namespace Assets.Scripts.Makers {
 			foreach (Transform c in ChunkContainer.transform) {
 				foreach (Transform t in c) {
 					Initialize(t);
+
+					if (CurrentCapacity >= MaxCapacity) {
+						return;
+					}
 				}
 			}
 		}
 
 		private void Initialize (Transform t) {
-			AnimalType type;
-
-			switch (t.GetComponent<Tile>().Type) {
-				case TileType.Sand:
-				case TileType.Soil:
-					if (Random.value < .998) {
-						return;
-					}
-
-					float value = Random.value;
-
-					if (value > .90) {
-						type = AnimalType.Elephant;
-					} else if (value > .40) {
-						type = AnimalType.Gazelle;
-					} else if (value > .20) {
-						type = AnimalType.Tortoise;
-					} else {
-						type = AnimalType.Iguana;
-					}
-
-					break;
-				default:
-					return;
+			if (Random.value < .998) {
+				return;
 			}
+
+			//todo entry point for animal selection
+			AnimalDef def = DefLoader.GetRandomAnimalDef();
+			CurrentCapacity += def.EcosystemWeight;
 
 			int x = (int) t.position.x;
 			int y = (int) t.position.y;
 			Vector3 v = new Vector3(x, y, Order.THING);
-			GameObject go = new GameObject(Enum.GetName(typeof(AnimalType), type));
+			GameObject go = new GameObject(def.DefName);
 			go.transform.SetParent(Container.transform);
 			go.transform.position = v;
 			Animal animal = go.AddComponent<Animal>();
-			animal.Initialize(type);
+			animal.Initialize(def);
 		}
 
 	}

@@ -37,15 +37,15 @@
 		<EcosystemWeight>0.30</EcosystemWeight>
 	</AnimalDef>
 	<AnimalDef>
-		<DefName>Iguana</DefName>
-		<Label>iguana</Label>
-		<Description>These large lizards normally feed on plant matter. However, when angered, their tough hide and sharp claws make them quite dangerous.\n\nResting iguanas hold their heads high, giving them an amusing 'proud' look. But they're not proud; they're just trying to see predators so they don't get eaten.</Description>
+		<DefName>Tortoise</DefName>
+		<Label>tortoise</Label>
+		<Description>This heavily armored land-dwelling reptile is known for its slow moving speed and surprisingly vicious bite. Because of its natural armor, it is tough to kill and can do serious damage during drawn-out melee fights.</Description>
 		<StatBases>
-			<MoveSpeed>3</MoveSpeed>
+			<MoveSpeed>1</MoveSpeed>
 			<ComfyTemperatureMin>0</ComfyTemperatureMin>
-			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+			<ComfyTemperatureMax>50</ComfyTemperatureMax>
 		</StatBases>
-		<TexPath>thing/creature/iguana</TexPath>
-		<EcosystemWeight>0.30</EcosystemWeight>
+		<TexPath>thing/creature/tortoise</TexPath>
+		<EcosystemWeight>0.40</EcosystemWeight>
 	</AnimalDef>
 </Defs>

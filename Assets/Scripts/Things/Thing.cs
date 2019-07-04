@@ -8,7 +8,8 @@ namespace Assets.Scripts.Things {
 	[RequireComponent(typeof(BoxCollider2D))]
 	public class Thing : MonoBehaviour {
 
-		
+		public bool IsSelectable { get; protected set; }
+
 		protected Transform Tf;
 		protected Transform Child;
 		protected SpriteRenderer ChildRenderer;

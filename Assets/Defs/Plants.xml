@@ -1,6 +1,17 @@
 <?xml version="1.0"?>
 <Defs>
 	<PlantDef>
+		<DefName>Plant_Grass</DefName>
+		<Label>grass</Label>
+		<StatBases>
+			<MaxHitPoints>30</MaxHitPoints>
+			<Nutrition>0.15</Nutrition>
+		</StatBases>
+		<TexPath>thing/plant/grass</TexPath>
+		<EcosystemWeight>0</EcosystemWeight>
+		<PlantSize>Small</PlantSize>
+	</PlantDef>
+	<PlantDef>
 		<DefName>Plant_Agave</DefName>
 		<Label>agave</Label>
 		<Description>A large-leafed desert plant with edible flowers and stalks.</Description>

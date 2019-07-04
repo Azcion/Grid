@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Enums;
+﻿using Assets.Scripts.Defs;
+using Assets.Scripts.Enums;
 using Assets.Scripts.Graphics;
 using Assets.Scripts.Utils;
 using JetBrains.Annotations;
@@ -9,26 +10,29 @@ namespace Assets.Scripts.Things {
 
 	public class Animal : Pathfinding, ICreature {
 
-		public AnimalType Type;
+		public AnimalDef Def;
+
+		private const ThingType TYPE = Enums.ThingType.Creature;
 
 		private bool _didInitialize;
 
-		public void Initialize (AnimalType type) {
-			InitializePathfinding(AdjustSpeed(type));
+		public void Initialize (AnimalDef def) {
+			InitializePathfinding(def.StatBases.MoveSpeed);
 
-			Type = type;
+			Def = def;
 			Child.localPosition = new Vector2(.5f, .5f);
-			Child.localScale = AdjustScale(type);
-			SetSprite(AssetLoader.Get(type, Direction.North), false);
-			SetTint(AdjustTint(type));
+			Child.localScale = Vector3.one; //AdjustScale(type);
+			SetSprite(AssetLoader.Get(TYPE, def.DefName), false);//type, Direction.North), false);
+			//SetTint(AdjustTint(type));
+			IsSelectable = true;
 			_didInitialize = true;
 		}
 
 		public ThingType ThingType () {
-			return Enums.ThingType.Creature;
+			return TYPE;
 		}
 
-		private static float AdjustSpeed (AnimalType type) {
+		/*private static float AdjustSpeed (AnimalType type) {
 			switch (type) {
 				case AnimalType.Elephant:
 					return 1;
@@ -40,9 +44,9 @@ namespace Assets.Scripts.Things {
 				default:
 					return 2;
 			}
-		}
-
-		private static Vector3 AdjustScale (AnimalType type) {
+		}*/
+		//todo add scale and tint to def
+		/*private static Vector3 AdjustScale (AnimalType type) {
 			switch (type) {
 				case AnimalType.Elephant:
 					return new Vector3(3, 3, 1);
@@ -62,7 +66,7 @@ namespace Assets.Scripts.Things {
 				default:
 					return Color.white;
 			}
-		}
+		}*/
 
 		[UsedImplicitly]
 		//todo move to manual update
@@ -72,10 +76,11 @@ namespace Assets.Scripts.Things {
 			}
 
 			if (DirectionChanged) {
-				SetSprite(AssetLoader.Get(Type, Facing), Facing == Direction.West);
+				SetSprite(AssetLoader.Get(TYPE, Def.DefName, Facing), Facing == Direction.West);
 				DirectionChanged = false;
 			}
 
+			//todo set to random time
 			if (Moving || Random.value < .995) {
 				return;
 			}

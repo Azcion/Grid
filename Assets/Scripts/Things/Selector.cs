@@ -14,7 +14,7 @@ namespace Assets.Scripts.Things {
 		private static bool _didSelect;
 		
 		public static void Select (Transform target, Thing thing) {
-			if (Architect.Planning) {
+			if (!thing.IsSelectable || Architect.Planning) {
 				return;
 			}
 
