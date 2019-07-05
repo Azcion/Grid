@@ -16,13 +16,13 @@ namespace Assets.Scripts.Things {
 		private int _targetIndex;
 		private float _speed;
 
-		protected void InitializePathfinding (float speed = 2) {
+		protected void InitializePathfinding (float speed) {
 			InitializeThing();
 
 			Tf = transform;
 			Moving = false;
 			DirectionChanged = false;
-			_speed = speed;
+			_speed = speed / 3;
 		}
 
 		protected bool FindPath (Vector2 target) {
