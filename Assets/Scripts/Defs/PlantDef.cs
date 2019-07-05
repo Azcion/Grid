@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Xml.Serialization;
 using Assets.Scripts.Enums;
+// ReSharper disable UnassignedField.Global
 
 namespace Assets.Scripts.Defs {
 

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+// ReSharper disable UnassignedField.Global
 
 namespace Assets.Scripts.Defs {
 
