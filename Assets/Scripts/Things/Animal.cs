@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Defs;
+﻿using System;
+using System.Collections.Generic;
+using Assets.Scripts.Defs;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Graphics;
 using Assets.Scripts.Utils;
@@ -21,9 +23,9 @@ namespace Assets.Scripts.Things {
 
 			Def = def;
 			Child.localPosition = new Vector2(.5f, .5f);
-			Child.localScale = Vector3.one; //AdjustScale(type);
-			SetSprite(AssetLoader.Get(TYPE, def.DefName), false);//type, Direction.North), false);
-			//SetTint(AdjustTint(type));
+			Child.localScale = AdjustScale(Def.SpriteScale);
+			SetSprite(AssetLoader.Get(TYPE, def.DefName), false);
+			SetTint(AdjustTint(Def.Tint));
 			IsSelectable = true;
 			_didInitialize = true;
 		}
@@ -32,41 +34,24 @@ namespace Assets.Scripts.Things {
 			return TYPE;
 		}
 
-		/*private static float AdjustSpeed (AnimalType type) {
-			switch (type) {
-				case AnimalType.Elephant:
-					return 1;
-				case AnimalType.Gazelle:
-				case AnimalType.Iguana:
-					return 2;
-				case AnimalType.Tortoise:
-					return .35f;
-				default:
-					return 2;
-			}
-		}*/
-		//todo add scale and tint to def
-		/*private static Vector3 AdjustScale (AnimalType type) {
-			switch (type) {
-				case AnimalType.Elephant:
-					return new Vector3(3, 3, 1);
-				case AnimalType.Gazelle:
-				case AnimalType.Iguana:
-				case AnimalType.Tortoise:
-					return new Vector3(1, 1, 1);
-				default:
-					return new Vector3(1, 1, 1);
-			}
+		private static Vector3 AdjustScale (float s) {
+			return s > 0 ? new Vector3(s, s, 1) : Vector3.one;
 		}
 
-		private static Color AdjustTint (AnimalType type) {
-			switch (type) {
-				case AnimalType.Elephant:
-					return Color.gray;
+		private static Color AdjustTint (IReadOnlyList<float> t) {
+			if (t == null) {
+				return Color.white;
+			}
+
+			switch (t.Count) {
+				case 3:
+					return new Color(t[0], t[1], t[2], 1);
+				case 1:
+					return new Color(t[0], t[0], t[0], 1);
 				default:
 					return Color.white;
 			}
-		}*/
+		}
 
 		[UsedImplicitly]
 		//todo move to manual update

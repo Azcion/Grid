@@ -25,6 +25,7 @@ namespace Assets.Scripts.Defs {
 			AnimalDefs = new DefContainer<AnimalDef>(path + "Animals.xml");
 			PlantDefs = new DefContainer<PlantDef>(path + "Plants.xml");
 
+			//Find grass def
 			foreach (PlantDef def in PlantDefs.Defs) {
 				if (def.DefName != "Plant_Grass") {
 					continue;

@@ -11,6 +11,10 @@
 		</StatBases>
 		<TexPath>thing/creature/elephant</TexPath>
 		<EcosystemWeight>2</EcosystemWeight>
+		<SpriteScale>3</SpriteScale>
+		<Tint>
+			<float>0.5</float>
+		</Tint>
 	</AnimalDef>
 	<AnimalDef>
 		<DefName>Gazelle</DefName>

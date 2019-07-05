@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using UnityEngine;
 
 namespace Assets.Scripts.Defs {
 
@@ -10,7 +11,9 @@ namespace Assets.Scripts.Defs {
 		[DefaultValue(null)] public StatBases StatBases;
 		[DefaultValue(null)] public string TexPath;
 		[DefaultValue(0)] public float EcosystemWeight;
-		
+		[DefaultValue(0)] public float SpriteScale;
+		[DefaultValue(null)] public float[] Tint;
+
 	}
 
 }
