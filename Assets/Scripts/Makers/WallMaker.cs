@@ -62,6 +62,19 @@ namespace Assets.Scripts.Makers {
 			}
 
 			_ready = true;
+
+			for (int x = 0; x < TileMaker.YTILES; ++x) {
+				for (int y = TileMaker.YTILES - 1; y >= 0; --y) {
+					Linked wall = _walls[x, y];
+
+					if (wall == null) {
+						continue;
+					}
+
+					wall.Initialize();
+				}
+			}
+
 			ApplicationController.NotifyReady();
 		}
 
@@ -72,17 +85,14 @@ namespace Assets.Scripts.Makers {
 			}
 
 			LinkedType type = LinkedType.Rock;
+			string name = Enum.GetName(typeof(LinkedType), type);
 			int x = (int) t.position.x;
 			int y = (int) t.position.y;
-			GameObject go = new GameObject(Enum.GetName(typeof(LinkedType), type));
-			go.transform.SetParent(Container.transform);
-			go.transform.localPosition = new Vector3(x, y, Order.THING);;
-			Linked wall = go.AddComponent<Linked>();
-			wall.Initialize(type);
-			_walls[x, y] = wall;
+			Linked linked = Linked.Create(name, x, y, Order.THING, Container.transform, type);
+			_walls[x, y] = linked;
 
-			if (TileMaker.GetTile(x, y).TryAddThing(wall) == false) {
-				Debug.Log($"Tried to add wall to occupied tile. {x}, {y}");
+			if (TileMaker.GetTile(x, y).TryAddThing(linked) == false) {
+				Debug.Log($"Tried to add wall to an occupied tile. {x}, {y}");
 			}
 		}
 	}

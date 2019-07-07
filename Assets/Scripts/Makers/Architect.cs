@@ -26,18 +26,13 @@ namespace Assets.Scripts.Makers {
 			Planning = true;
 			_didStartPlanningThisCycle = true;
 			_selectedType = ThingType.Structure;
-
 			Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			int x = (int) mousePos.x;
 			int y = (int) mousePos.y;
-			GameObject go = new GameObject("Architect Wall");
-			go.transform.localPosition = new Vector3(x, y, Order.SELECTOR);
-			Linked wall = go.AddComponent<Linked>();
-			_linkedType = LinkedType.WallPlanks;
-			wall.Initialize(_linkedType, true);
-
+			Linked wall = Linked.Create("Arc Wall", x, y, Order.SELECTOR, null, LinkedType.WallPlanks);
+			wall.Initialize(true);
 			_thing = wall;
-			_transform = go.transform;
+			_transform = wall.gameObject.transform;
 		}
 
 		[UsedImplicitly]

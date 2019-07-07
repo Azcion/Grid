@@ -13,13 +13,22 @@ namespace Assets.Scripts.Things {
 		private int _y;
 		private LinkedType _type;
 
-		public void Initialize (LinkedType type, bool planning = false) {
-			InitializeThing();
+		public static Linked Create (string name, int x, int y, int z, Transform parent, LinkedType type) {
+			GameObject go = new GameObject(name);
+			go.transform.SetParent(parent);
+			go.transform.localPosition = new Vector3(x, y, z);
+			Linked linked = go.AddComponent<Linked>();
+			linked._type = type;
 
-			_type = type;
+			return linked;
+		}
+
+		public void Initialize (bool planning = false) {
+			InitializeThing();
+			
 			_x = (int) Tf.position.x;
 			_y = (int) Tf.position.y;
-			ChildRenderer.color = AdjustTint(type);
+			ChildRenderer.color = AdjustTint(_type);
 
 			if (planning) {
 				SetSprite(AssetLoader.Get(_type, GetIndex(0)), false);
