@@ -66,9 +66,9 @@ namespace Assets.Scripts.Graphics {
 			int g = (int) Mathf.Lerp(from[1], to[1], time);
 			int b = (int) Mathf.Lerp(from[2], to[2], time);
 			int r = (int) Mathf.Lerp(from[0], to[0], time);
-			byte rb = (byte) (r < 0 ? 0 : r > 255 ? 255 : r);
-			byte gb = (byte) (g < 0 ? 0 : g > 255 ? 255 : g);
-			byte bb = (byte) (b < 0 ? 0 : b > 255 ? 255 : b);
+			byte rb = (byte) Mathf.Clamp(r, 0, 255);
+			byte gb = (byte) Mathf.Clamp(g, 0, 255);
+			byte bb = (byte) Mathf.Clamp(b, 0, 255);
 
 			_sun.color = new Color32(rb, gb, bb, 255);
 			Progress += speed * Time.deltaTime;
@@ -80,9 +80,7 @@ namespace Assets.Scripts.Graphics {
 
 		private void LerpLight (int from, int to, float time) {
 			int l = (int) Mathf.Lerp(from, to, time);
-			l = l < 0 ? 0 : l > 100 ? 100 : l;
-
-			LightLevel = l;
+			LightLevel = Mathf.Clamp(l, 0, 100);
 		}
 
 	}
