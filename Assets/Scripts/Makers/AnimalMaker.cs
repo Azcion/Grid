@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Defs;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Defs;
+using Assets.Scripts.Enums;
 using Assets.Scripts.Things;
 using Assets.Scripts.Utils;
 using JetBrains.Annotations;
@@ -16,6 +18,10 @@ namespace Assets.Scripts.Makers {
 
 		public static float MaxCapacity = Mathf.Clamp(TileMaker.YCHUNKS * TileMaker.YCHUNKS, 2.5f, 25);
 		public static float CurrentCapacity;
+
+		private static readonly List<TileType> ValidTiles = new List<TileType> {
+			TileType.Mossy, TileType.Sand, TileType.Soil, TileType.SoilRich, TileType.Gravel, TileType.PackedDirt, TileType.Ice
+		};
 
 		[UsedImplicitly]
 		private void Start () {
@@ -35,7 +41,11 @@ namespace Assets.Scripts.Makers {
 		}
 
 		private void Initialize (Transform t) {
-			if (Random.value < .998) {
+			if (Random.value < .998f) {
+				return;
+			}
+
+			if (ValidTiles.Contains(t.GetComponent<Tile>().Type) == false) {
 				return;
 			}
 
@@ -45,12 +55,8 @@ namespace Assets.Scripts.Makers {
 
 			int x = (int) t.position.x;
 			int y = (int) t.position.y;
-			Vector3 v = new Vector3(x, y, Order.THING);
-			GameObject go = new GameObject(def.DefName);
-			go.transform.SetParent(Container.transform);
-			go.transform.position = v;
-			Animal animal = go.AddComponent<Animal>();
-			animal.Initialize(def);
+			Animal animal = Animal.Create(def, x, y, Order.THING, Container.transform);
+			animal.Initialize();
 		}
 
 	}

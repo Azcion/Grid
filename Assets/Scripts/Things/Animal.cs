@@ -17,13 +17,22 @@ namespace Assets.Scripts.Things {
 
 		private bool _didInitialize;
 
-		public void Initialize (AnimalDef def) {
-			InitializePathfinding(def.StatBases.MoveSpeed);
+		public static Animal Create (AnimalDef def, int x, int y, int z, Transform parent) {
+			GameObject go = new GameObject(def.DefName);
+			go.transform.SetParent(parent);
+			go.transform.position = new Vector3(x, y, z);
+			Animal animal = go.AddComponent<Animal>();
+			animal.Def = def;
 
-			Def = def;
+			return animal;
+		}
+
+		public void Initialize () {
+			InitializePathfinding(Def.StatBases.MoveSpeed);
+
 			Child.localPosition = new Vector2(.5f, .5f);
 			Child.localScale = AdjustScale(Def.SpriteScale);
-			SetSprite(AssetLoader.Get(TYPE, def.DefName), false);
+			SetSprite(AssetLoader.Get(TYPE, Def.DefName), false);
 			SetTint(AdjustTint(Def.Tint));
 			IsSelectable = true;
 			_didInitialize = true;
