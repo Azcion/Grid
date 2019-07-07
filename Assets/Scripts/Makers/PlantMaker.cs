@@ -78,12 +78,8 @@ namespace Assets.Scripts.Makers {
 
 			int x = (int) t.position.x;
 			int y = (int) t.position.y;
-			Vector3 v = new Vector3(x, y, Order.THING);
-			GameObject go = new GameObject(def.DefName);
-			go.transform.SetParent(Container.transform);
-			go.transform.position = v;
-			Plant plant = go.AddComponent<Plant>();
-			plant.Initialize(def, Calc.Round(Random.Range(.3f, 1), 2));
+			Plant plant = Plant.Create(def, x, y, Order.THING, Container.transform);
+			plant.Initialize(Calc.Round(Random.Range(.3f, 1), 2));
 
 			if (TileMaker.GetTile(x, y).TryAddThing(plant) == false) {
 				Debug.Log($"Tried to add plant to occupied tile. {x}, {y}");

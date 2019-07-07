@@ -17,14 +17,23 @@ namespace Assets.Scripts.Things {
 
 		private float _growth;
 
-		public void Initialize (PlantDef def, float growth) {
+		public static Plant Create (PlantDef def, int x, int y, int z, Transform parent) {
+			GameObject go = new GameObject(def.DefName);
+			go.transform.SetParent(parent);
+			go.transform.position = new Vector3(x, y, z);
+			Plant plant = go.AddComponent<Plant>();
+			plant.Def = def;
+
+			return plant;
+		}
+
+		public void Initialize (float growth) {
 			InitializeThing();
 
-			Def = def;
-			Size = def.PlantSize;
+			Size = Def.PlantSize;
 			_growth = growth;
 			AdjustTransform(growth);
-			SetSprite(AssetLoader.Get(TYPE, def.DefName), Random.value < .5);
+			SetSprite(AssetLoader.Get(TYPE, Def.DefName), Random.value < .5);
 			IsSelectable = Def.DefName != "Plant_Grass";
 
 			if (Size == PlantSize.Small) {
