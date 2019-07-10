@@ -50,6 +50,8 @@ namespace Assets.Scripts.Things {
 			return Enums.ThingType.Structure;
 		}
 
+		public void UpdateSortingOrder () {}
+
 		private static Color AdjustTint (LinkedType type) {
 			switch (type) {
 				case LinkedType.Rock:

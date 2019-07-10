@@ -42,10 +42,16 @@ namespace Assets.Scripts.Things {
 					CreateChildSprite();
 				}
 			}
+
+			UpdateSortingOrder();
 		}
 
 		public ThingType ThingType () {
 			return Enums.ThingType.Plant;
+		}
+
+		public void UpdateSortingOrder () {
+			ChildRenderer.sortingOrder = (int) (1024 - Tf.position.y - 1);
 		}
 
 		private void AdjustTransform (float growth) {

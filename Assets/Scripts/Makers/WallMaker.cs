@@ -88,7 +88,7 @@ namespace Assets.Scripts.Makers {
 			string name = Enum.GetName(typeof(LinkedType), type);
 			int x = (int) t.position.x;
 			int y = (int) t.position.y;
-			Linked linked = Linked.Create(name, x, y, Order.THING, Container.transform, type);
+			Linked linked = Linked.Create(name, x, y, Order.STRUCTURE, Container.transform, type);
 			_walls[x, y] = linked;
 
 			if (TileMaker.GetTile(x, y).TryAddThing(linked) == false) {

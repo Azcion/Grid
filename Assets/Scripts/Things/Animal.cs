@@ -28,7 +28,7 @@ namespace Assets.Scripts.Things {
 		}
 
 		public void Initialize () {
-			InitializePathfinding(Def.StatBases.MoveSpeed);
+			InitializePathfinding(this, Def.StatBases.MoveSpeed);
 
 			Child.localPosition = new Vector2(.5f, .5f);
 			Child.localScale = AdjustScale(Def.SpriteScale);
@@ -36,10 +36,16 @@ namespace Assets.Scripts.Things {
 			SetTint(AdjustTint(Def.Tint));
 			IsSelectable = true;
 			_didInitialize = true;
+
+			UpdateSortingOrder();
 		}
 
 		public ThingType ThingType () {
 			return TYPE;
+		}
+
+		public void UpdateSortingOrder () {
+			ChildRenderer.sortingOrder = 1024 - Mathf.RoundToInt(Tf.position.y);
 		}
 
 		private static Vector3 AdjustScale (float s) {

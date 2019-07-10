@@ -7,16 +7,18 @@ using UnityEngine;
 namespace Assets.Scripts.Things {
 
 	public class Pathfinding : Thing {
-
+		
 		protected bool Moving;
 		protected Direction Facing;
 		protected bool DirectionChanged;
 
+		private IThing _thing;
 		private Vector2[] _path;
 		private int _targetIndex;
 		private float _speed;
 
-		protected void InitializePathfinding (float speed) {
+		protected void InitializePathfinding (IThing thing, float speed) {
+			_thing = thing;
 			InitializeThing();
 
 			Tf = transform;
@@ -66,6 +68,7 @@ namespace Assets.Scripts.Things {
 				float speed = _speed * Time.deltaTime;
 				Vector2 v = Vector2.MoveTowards(Tf.localPosition, currentWaypoint, speed);
 				Tf.localPosition = new Vector3(v.x, v.y, Tf.localPosition.z);
+				_thing.UpdateSortingOrder();
 
 				yield return null;
 			}
