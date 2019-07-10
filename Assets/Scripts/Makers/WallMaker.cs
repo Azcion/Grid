@@ -32,18 +32,44 @@ namespace Assets.Scripts.Makers {
 			int y = (int) wall.transform.position.y;
 			Tile tile = TileMaker.GetTile(x, y);
 
-			if (tile == null || !tile.TryAddThing(wall)) {
+			if (tile == null) {
 				return false;
+			}
+
+			// Grass can be built over
+			bool isGrass = IsGrass(tile);
+
+			if (!tile.TryAddThing(wall) && !isGrass) {
+				return false;
+			}
+
+			if (isGrass) {
+				//tile.RemoveThing();
 			}
 
 			GameObject go = wall.gameObject;
 			go.name = Enum.GetName(typeof(ThingType), wall.ThingType());
 			go.transform.SetParent(_instance.Container.transform);
-			go.transform.localPosition = new Vector3(x, y, Order.THING);
+			go.transform.localPosition = new Vector3(x, y, Order.STRUCTURE);
 			_walls[x, y] = wall;
-
+			
 			return true;
+		}
 
+		public static void Remove (Linked wall) {
+			int x = (int) wall.transform.position.x;
+			int y = (int) wall.transform.position.y;
+			_walls[x, y] = null;
+			wall.gameObject.SetActive(false);
+			Destroy(wall.gameObject);
+		}
+
+		private static bool IsGrass (Tile tile) {
+			if (tile.IsBarren()) {
+				return false;
+			}
+
+			return (tile.GetThing() as Plant)?.Def.DefName == "Plant_Grass";
 		}
 
 		[UsedImplicitly]
@@ -77,7 +103,6 @@ namespace Assets.Scripts.Makers {
 
 			ApplicationController.NotifyReady();
 		}
-
 
 		private void Initialize (Transform t) {
 			if (t.GetComponent<Tile>().Type != TileType.RoughHewnRock) {

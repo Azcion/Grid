@@ -36,7 +36,7 @@ namespace Assets.Scripts.Makers {
 		}
 
 		public IThing GetThing () {
-			return _thingSlot[0];
+			return _thingSlot.Count == 0 ? null : _thingSlot[0];
 		}
 
 		public void AddCreature (ICreature creature) {

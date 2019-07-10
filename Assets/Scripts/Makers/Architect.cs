@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Enums;
+﻿using System;
+using Assets.Scripts.Enums;
 using Assets.Scripts.Things;
 using Assets.Scripts.Utils;
 using JetBrains.Annotations;
@@ -15,6 +16,7 @@ namespace Assets.Scripts.Makers {
 		private LinkedType _linkedType;
 		private IThing _thing;
 		private Transform _transform;
+		private Vector3Int _dragStart;
 
 		[UsedImplicitly]
 		public void SelectThing_Wall () {
@@ -46,8 +48,8 @@ namespace Assets.Scripts.Makers {
 				return;
 			}
 
-			Vector2 v = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			v = new Vector3((int) v.x, (int) v.y, Order.SELECTOR);
+			Vector2 cv = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			Vector3Int v = new Vector3Int((int) cv.x, (int) cv.y, Order.SELECTOR);
 			_transform.position = v;
 
 			if (_didStartPlanningThisCycle) {
@@ -55,11 +57,16 @@ namespace Assets.Scripts.Makers {
 				return;
 			}
 
-			if (Input.GetMouseButtonUp(1)) {
+			if (Input.GetMouseButtonDown(0)) {
+				// Left click
+				_dragStart = v;
+			} else if (Input.GetMouseButtonUp(1)) {
+				// Right click
 				Planning = false;
 				_transform.gameObject.SetActive(false);
 				Destroy(_transform.gameObject);
 			} else if (Input.GetMouseButtonUp(0)) {
+				// Left click release
 				Planning = false;
 
 				switch (_selectedType) {
@@ -71,17 +78,63 @@ namespace Assets.Scripts.Makers {
 							return;
 						}
 
-						if (WallMaker.TryAdd(wall)) {
-							wall.Refresh();
-							Debug.Log($"Placed wall at {(int) v.x} {(int) v.y}");
-							return;
+						int dx = v.x - _dragStart.x;
+						int dy = v.y - _dragStart.y;
+						
+						if (_dragStart.x != v.x || _dragStart.y != v.y) {
+							Direction directionX = dx > 0 ? Direction.East : Direction.West;
+							Direction directionY = dy > 0 ? Direction.North : Direction.South;
+							Direction direction = Mathf.Abs(dx) >= Mathf.Abs(dy) ? directionX : directionY;
+
+							switch (direction) {
+								case Direction.North:
+									for (int y = _dragStart.y; y <= v.y; ++y) {
+										BuildWall(_dragStart.x, y);
+									}
+
+									break;
+								case Direction.South:
+									for (int y = _dragStart.y; y >= v.y; --y) {
+										BuildWall(_dragStart.x, y);
+									}
+
+									break;
+								case Direction.East:
+									for (int x = _dragStart.x; x <= v.x; ++x) {
+										BuildWall(x, _dragStart.y);
+									}
+
+									break;
+								case Direction.West:
+									for (int x = _dragStart.x; x >= v.x; --x) {
+										BuildWall(x, _dragStart.y);
+									}
+
+									break;
+							}
+						} else {
+							BuildWall(v.x, v.y);
 						}
 
+						// Destroy architect wall
 						_transform.gameObject.SetActive(false);
 						Destroy(_transform.gameObject);
-						Debug.Log($"Couldn't place wall at {(int) v.x} {(int) v.y}");
-						return;
+
+						break;
 				}
+			}
+		}
+
+		private void BuildWall (int x, int y) {
+			Linked w = Linked.Create("Arc Wall", x, y, Order.SELECTOR, null, LinkedType.WallPlanks);
+			w.Initialize();
+
+			if (WallMaker.TryAdd(w)) {
+				w.Refresh();
+			} else {
+				w.gameObject.SetActive(false);
+				Destroy(w.gameObject);
+				//WallMaker.Remove(w);
 			}
 		}
 
