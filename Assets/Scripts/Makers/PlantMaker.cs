@@ -16,9 +16,6 @@ namespace Assets.Scripts.Makers {
 		[UsedImplicitly] public GameObject Container;
 		#endregion
 
-		public static float MaxCapacity = Mathf.Max(TileMaker.YCHUNKS * TileMaker.YCHUNKS, 2.5f);
-		public static float CurrentCapacity;
-
 		[UsedImplicitly]
 		private void Start () {
 			Populate();
@@ -28,10 +25,6 @@ namespace Assets.Scripts.Makers {
 			for (int x = 0; x < TileMaker.YTILES; ++x) {
 				for (int y = TileMaker.YTILES - 1; y >= 0; --y) { 
 					Initialize(TileMaker.Get(x, y).transform);
-
-					if (CurrentCapacity >= MaxCapacity) {
-						//return;
-					}
 				}
 			}
 
@@ -74,8 +67,6 @@ namespace Assets.Scripts.Makers {
 
 			//todo entry point for plant selection
 			PlantDef def = isGrass ? DefLoader.Grass : DefLoader.GetRandomPlantDef();
-			CurrentCapacity += def.EcosystemWeight;
-
 			int x = (int) t.position.x;
 			int y = (int) t.position.y;
 			Plant plant = Plant.Create(def, x, y, Order.THING, Container.transform);
