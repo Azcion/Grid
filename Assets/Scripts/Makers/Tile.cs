@@ -60,7 +60,13 @@ namespace Assets.Scripts.Makers {
 			return true;
 		}
 
-		public void RemoveThing () {
+		public void RemoveThing (bool destroy = false) {
+			if (destroy) {
+				foreach (IThing thing in _thingSlot) {
+					Destroy(thing.GameObject());
+				}
+			}
+
 			_thingSlot.Clear();
 			UpdatePenalty();
 		}

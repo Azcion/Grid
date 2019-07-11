@@ -40,6 +40,10 @@ namespace Assets.Scripts.Things {
 			UpdateSortingOrder();
 		}
 
+		public GameObject GameObject () {
+			return gameObject;
+		}
+
 		public ThingType ThingType () {
 			return TYPE;
 		}

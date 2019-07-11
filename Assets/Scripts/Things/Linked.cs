@@ -46,6 +46,10 @@ namespace Assets.Scripts.Things {
 			InitializeNeighbors();
 		}
 
+		public GameObject GameObject () {
+			return gameObject;
+		}
+
 		public ThingType ThingType () {
 			return Enums.ThingType.Structure;
 		}

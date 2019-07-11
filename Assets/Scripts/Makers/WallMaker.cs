@@ -44,7 +44,7 @@ namespace Assets.Scripts.Makers {
 			}
 
 			if (isGrass) {
-				//tile.RemoveThing();
+				tile.RemoveThing(true);
 			}
 
 			GameObject go = wall.gameObject;
