@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Things {
 
+	[RequireComponent(typeof(SpriteRenderer))]
 	public class Selector : MonoBehaviour {
 
 		public static GameObject Instance;
@@ -35,6 +36,7 @@ namespace Assets.Scripts.Things {
 		[UsedImplicitly]
 		private void Start () {
 			gameObject.SetActive(false);
+			GetComponent<SpriteRenderer>().enabled = true;
 			Instance = gameObject;
 		}
 
