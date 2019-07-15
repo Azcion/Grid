@@ -15,8 +15,9 @@ namespace Assets.Scripts.Main {
 		public static bool Ready;
 
 		#region Object references
-		[UsedImplicitly] public GameObject InfoBox;
+		[UsedImplicitly] public GameObject InputSeed;
 		[UsedImplicitly] public GameObject StartButton;
+		[UsedImplicitly] public GameObject InfoBox;
 		[UsedImplicitly] public GameObject Sun;
 		[UsedImplicitly] public GameObject TileMaker;
 		[UsedImplicitly] public GameObject WallMaker;
@@ -43,8 +44,7 @@ namespace Assets.Scripts.Main {
 
 		[UsedImplicitly]
 		private void OnEnable () {
-			Seed = (int) (Random.value * 1000000);
-			_i = InfoBox.GetComponent<Text>();
+			
 		}
 
 		[UsedImplicitly]
@@ -56,6 +56,12 @@ namespace Assets.Scripts.Main {
 		private void OnClick () {
 			_startTime = Time.realtimeSinceStartup;
 
+			string seedInput = InputSeed.transform.Find("Text")?.GetComponent<Text>()?.text;
+			Seed = Utils.Seed.Get(seedInput);
+			Random.InitState(Seed);
+			_i = InfoBox.GetComponent<Text>();
+
+			Destroy(InputSeed);
 			Destroy(StartButton);
 			Sun.SetActive(true);
 			AverageColor.Initialize();

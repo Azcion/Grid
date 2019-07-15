@@ -43,8 +43,11 @@ namespace Assets.Scripts.Makers {
 
 		[UsedImplicitly]
 		private void Start () {
+			const float maxSeed = 2 << 22;
+			float t = (float)(uint) ApplicationController.Seed / uint.MaxValue;
+			Debug.Log(t);
+			_seed = (int) Mathf.Lerp(0, maxSeed, t);
 			_typeCount = Enum.GetValues(typeof(TileType)).Length;
-			_seed = ApplicationController.Seed;
 			_tiles = new List<List<Tile>>();
 
 			for (int y = 0; y < YTILES; ++y) {
@@ -83,7 +86,6 @@ namespace Assets.Scripts.Makers {
 			int x = (int) t.position.x;
 			int y = (int) t.position.y;
 			float v0 = Noise.Sum(x + _seed, y + _seed, .01f, 8, 2.2f, .5f);
-
 			TileType type;
 
 			if (v0 > .575) {
