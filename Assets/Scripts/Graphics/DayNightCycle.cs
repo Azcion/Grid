@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Main;
-using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
 

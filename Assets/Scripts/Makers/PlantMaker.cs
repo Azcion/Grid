@@ -22,8 +22,8 @@ namespace Assets.Scripts.Makers {
 		}
 
 		private void Populate () {
-			for (int x = 0; x < TileMaker.YTILES; ++x) {
-				for (int y = TileMaker.YTILES - 1; y >= 0; --y) { 
+			for (int x = 0; x < Map.YTiles; ++x) {
+				for (int y = Map.YTiles - 1; y >= 0; --y) { 
 					Initialize(TileMaker.Get(x, y).transform);
 				}
 			}

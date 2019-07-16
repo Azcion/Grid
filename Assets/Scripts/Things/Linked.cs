@@ -82,8 +82,8 @@ namespace Assets.Scripts.Things {
 			mask += WallMaker.GetLinked(_x, _y - 1)?._type == _type ? 4 : 0;
 			mask += WallMaker.GetLinked(_x - 1, _y)?._type == _type ? 8 : 0;
 
-			mask += _y == TileMaker.YTILES - 1 ? 1 : 0;
-			mask += _x == TileMaker.YTILES - 1 ? 2 : 0;
+			mask += _y == Map.YTiles - 1 ? 1 : 0;
+			mask += _x == Map.YTiles - 1 ? 2 : 0;
 			mask += _y == 0 ? 4 : 0;
 			mask += _x == 0 ? 8 : 0;
 			int index = GetIndex((byte) mask);
@@ -134,7 +134,7 @@ namespace Assets.Scripts.Things {
 		}
 
 		private void CoverEdgeGaps () {
-			const int max = TileMaker.YTILES - 1;
+			int max = Map.YTiles - 1;
 
 			if (_x == 0) {
 				if (_y == 0) {

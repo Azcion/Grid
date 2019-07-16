@@ -1,6 +1,5 @@
 ﻿using System;
 using Assets.Scripts.Makers;
-using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -9,7 +8,6 @@ namespace Assets.Scripts.Main {
 	public class CameraController : MonoBehaviour {
 
 		public static Tile TileUnderCursor;
-		public static float Size;
 
 		private const float ZOOM_SPEED = 10;
 		private const int ZOOM_RATE = 10;
@@ -17,31 +15,35 @@ namespace Assets.Scripts.Main {
 		private const int MIN_SIZE = 5;
 		private const int INITIAL_SIZE = 10;
 
+		private static CameraController _instance;
+
+		private int _cHalf;
 		private float _newSize;
 		private Camera _camera;
 		private Vector3 _lastPosition;
 
-		[UsedImplicitly]
-		private void OnEnable () {
-			transform.position = new Vector3(TileMaker.THALF, TileMaker.THALF, Order.CAMERA);
-			_camera = GetComponent<Camera>();
-			_camera.orthographicSize = INITIAL_SIZE;
+		public static void PointCameraAtMapCenter () {
+			_instance.transform.position = new Vector3(Map.YHalf, Map.YHalf, Order.CAMERA);
 		}
 
 		[UsedImplicitly]
 		private void Start () {
+			_instance = this;
+			_camera = GetComponent<Camera>();
+			_camera.orthographicSize = INITIAL_SIZE;
 			_newSize = _camera.orthographicSize;
+			_cHalf = Map.CSIZE / 2;
 		}
 
 		[UsedImplicitly]
 		private void LateUpdate () {
-			if (ApplicationController.Ready) {
-				DoZoom();
-				DoPan();
-				DoHover();
-
-				Size = _camera.orthographicSize;
+			if (!ApplicationController.Ready) {
+				return;
 			}
+
+			DoZoom();
+			DoPan();
+			DoHover();
 		}
 
 		private void DoZoom () {
@@ -75,8 +77,8 @@ namespace Assets.Scripts.Main {
 				Vector3 p = transform.position;
 				
 				transform.position = new Vector3(
-						Mathf.Clamp(p.x, TileMaker.CHALF, TileMaker.YTILES - TileMaker.CHALF),
-						Mathf.Clamp(p.y, TileMaker.CHALF, TileMaker.YTILES - TileMaker.CHALF),
+						Mathf.Clamp(p.x, _cHalf, Map.YTiles - _cHalf),
+						Mathf.Clamp(p.y, _cHalf, Map.YTiles - _cHalf),
 						p.z);
 			}
 		}

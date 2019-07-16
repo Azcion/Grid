@@ -2,7 +2,6 @@
 using Assets.Scripts.Enums;
 using Assets.Scripts.Main;
 using Assets.Scripts.Things;
-using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -20,7 +19,7 @@ namespace Assets.Scripts.Makers {
 		private static bool _ready;
 
 		public static Linked GetLinked (int x, int y) {
-			if (!_ready || x < 0 || x >= TileMaker.YTILES || y < 0 || y >= TileMaker.YTILES) {
+			if (!_ready || x < 0 || x >= Map.YTiles || y < 0 || y >= Map.YTiles) {
 				return null;
 			}
 
@@ -75,22 +74,22 @@ namespace Assets.Scripts.Makers {
 		[UsedImplicitly]
 		private void Start () {
 			_instance = this;
-			_walls = new Linked[TileMaker.YTILES, TileMaker.YTILES];
+			_walls = new Linked[Map.YTiles, Map.YTiles];
 
 			Populate();
 		}
 
 		private void Populate () {
-			for (int x = 0; x < TileMaker.YTILES; ++x) {
-				for (int y = TileMaker.YTILES - 1; y >= 0; --y) {
+			for (int x = 0; x < Map.YTiles; ++x) {
+				for (int y = Map.YTiles - 1; y >= 0; --y) {
 					Initialize(TileMaker.Get(x, y).transform);
 				}
 			}
 
 			_ready = true;
 
-			for (int x = 0; x < TileMaker.YTILES; ++x) {
-				for (int y = TileMaker.YTILES - 1; y >= 0; --y) {
+			for (int x = 0; x < Map.YTiles; ++x) {
+				for (int y = Map.YTiles - 1; y >= 0; --y) {
 					Linked wall = _walls[x, y];
 
 					if (wall == null) {

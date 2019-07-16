@@ -2,7 +2,6 @@
 using Assets.Scripts.Defs;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Things;
-using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
 using Random = UnityEngine.Random;

@@ -10,14 +10,7 @@ using UnityEngine;
 namespace Assets.Scripts.Makers {
 
 	public class TileMaker : MonoBehaviour {
-
-		public const int CSIZE = 8;
-		public const int YCHUNKS = 20;
-		public const int CHALF = CSIZE / 2;
-		public const int YTILES = CSIZE * YCHUNKS;
-		public const int THALF = YTILES / 2;
-		public const int CENTER = YCHUNKS / 2;
-
+		
 		#region Object references
 		[UsedImplicitly] public GameObject ChunkPrefab;
 		[UsedImplicitly] public GameObject Container;
@@ -34,7 +27,7 @@ namespace Assets.Scripts.Makers {
 		}
 
 		public static Tile GetTile (int x, int y) {
-			if (!_ready || x < 0 || x >= YTILES || y < 0 || y >= YTILES) {
+			if (!_ready || x < 0 || x >= Map.YTiles || y < 0 || y >= Map.YTiles) {
 				return null;
 			}
 
@@ -45,15 +38,14 @@ namespace Assets.Scripts.Makers {
 		private void Start () {
 			const float maxSeed = 2 << 22;
 			float t = (float)(uint) ApplicationController.Seed / uint.MaxValue;
-			Debug.Log(t);
 			_seed = (int) Mathf.Lerp(0, maxSeed, t);
 			_typeCount = Enum.GetValues(typeof(TileType)).Length;
 			_tiles = new List<List<Tile>>();
 
-			for (int y = 0; y < YTILES; ++y) {
+			for (int y = 0; y < Map.YTiles; ++y) {
 				List<Tile> row = new List<Tile>();
 
-				for (int x = 0; x < YTILES; ++x) {
+				for (int x = 0; x < Map.YTiles; ++x) {
 					row.Add(null);
 				}
 
@@ -64,9 +56,9 @@ namespace Assets.Scripts.Makers {
 		}
 
 		private void Create () {
-			for (int y = 0; y < YCHUNKS; ++y) {
-				for (int x = 0; x < YCHUNKS; ++x) {
-					Vector3 pos = new Vector3(CSIZE * x, CSIZE * y, Order.GROUND);
+			for (int y = 0; y < Map.YChunks; ++y) {
+				for (int x = 0; x < Map.YChunks; ++x) {
+					Vector3 pos = new Vector3(Map.CSIZE * x, Map.CSIZE * y, Order.GROUND);
 					GameObject c = Instantiate(ChunkPrefab, pos, Quaternion.identity, Container.transform);
 					c.name = "Chunk " + y + "y " + x + "x";
 

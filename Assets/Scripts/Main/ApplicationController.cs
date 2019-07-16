@@ -15,8 +15,7 @@ namespace Assets.Scripts.Main {
 		public static bool Ready;
 
 		#region Object references
-		[UsedImplicitly] public GameObject InputSeed;
-		[UsedImplicitly] public GameObject StartButton;
+		[UsedImplicitly, SerializeField] private GameObject _background;
 		[UsedImplicitly] public GameObject InfoBox;
 		[UsedImplicitly] public GameObject Sun;
 		[UsedImplicitly] public GameObject TileMaker;
@@ -34,35 +33,18 @@ namespace Assets.Scripts.Main {
 		private int _infoRefreshFrame;
 		private Text _i;
 
-		public static void NotifyReady () {
-			_loadTime = Time.realtimeSinceStartup - _startTime;
-		}
-
-		private static void SetReady () {
-			Ready = true;
-		}
-
 		[UsedImplicitly]
-		private void OnEnable () {
-			
-		}
-
-		[UsedImplicitly]
-		private void Awake () {
-			//QualitySettings.vSyncCount = 0;
-		}
-
-		[UsedImplicitly]
-		private void OnClick () {
+		public void OnStart () {
 			_startTime = Time.realtimeSinceStartup;
 
-			string seedInput = InputSeed.transform.Find("Text")?.GetComponent<Text>()?.text;
+			string seedInput = StartInterface.GetSeed;
 			Seed = Utils.Seed.Get(seedInput);
+			Map.InitializeMapMeasurements(StartInterface.GetMapSize / Map.CSIZE);
 			Random.InitState(Seed);
 			_i = InfoBox.GetComponent<Text>();
-
-			Destroy(InputSeed);
-			Destroy(StartButton);
+			StartInterface.Hide();
+			_background.SetActive(true);
+			CameraController.PointCameraAtMapCenter();
 			Sun.SetActive(true);
 			AverageColor.Initialize();
 			TileTint.Initialize();
@@ -74,6 +56,14 @@ namespace Assets.Scripts.Main {
 			_ready = true;
 
 			SetReady();
+		}
+
+		public static void NotifyReady () {
+			_loadTime = Time.realtimeSinceStartup - _startTime;
+		}
+
+		private static void SetReady () {
+			Ready = true;
 		}
 
 		[UsedImplicitly]

@@ -40,15 +40,15 @@ namespace Assets.Scripts.Pathfinding {
 
 		[UsedImplicitly]
 		private void Awake () {
-			_gridSize = new Vector2(TileMaker.YTILES, TileMaker.YTILES);
+			_gridSize = new Vector2(Map.YTiles, Map.YTiles);
 			CreateGrid();
 		}
 
 		private void CreateGrid () {
-			_grid = new Node[TileMaker.YTILES, TileMaker.YTILES];
+			_grid = new Node[Map.YTiles, Map.YTiles];
 
-			for (int x = 0; x < TileMaker.YTILES; ++x) {
-				for (int y = 0; y < TileMaker.YTILES; ++y) {
+			for (int x = 0; x < Map.YTiles; ++x) {
+				for (int y = 0; y < Map.YTiles; ++y) {
 					_grid[x, y] = new Node(x, y, TileMaker.GetTile(x, y));
 				}
 			}

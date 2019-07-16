@@ -1,7 +1,6 @@
 ﻿using Assets.Scripts.Enums;
 using Assets.Scripts.Main;
 using Assets.Scripts.Makers;
-using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
 

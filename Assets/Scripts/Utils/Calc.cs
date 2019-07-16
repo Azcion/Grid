@@ -1,5 +1,4 @@
 ﻿using System;
-using Assets.Scripts.Makers;
 using UnityEngine;
 
 namespace Assets.Scripts.Utils {
@@ -11,7 +10,7 @@ namespace Assets.Scripts.Utils {
 		}
 
 		public static Vector2 Clamp (Vector2 v) {
-			return Clamp(v, 0, TileMaker.YTILES - 1, 0, TileMaker.YTILES - 1);
+			return Clamp(v, 0, Map.YTiles - 1, 0, Map.YTiles - 1);
 		}
 
 		private static Vector2 Clamp (Vector2 v, int x0, int x1, int y0, int y1) {
