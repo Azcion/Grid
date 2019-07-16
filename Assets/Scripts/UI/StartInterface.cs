@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.Makers {
+namespace Assets.Scripts.UI {
 
 	public class StartInterface : MonoBehaviour {
 
@@ -11,12 +11,10 @@ namespace Assets.Scripts.Makers {
 		private static Text _seedText;
 		private static Text _mapSizeSliderHandleText;
 
-		#region Object references
 		[UsedImplicitly, SerializeField] private GameObject _seed;
 		[UsedImplicitly, SerializeField] private GameObject _mapSizeSlider;
 		[UsedImplicitly, SerializeField] private GameObject _mapSizeSliderText;
 		[UsedImplicitly, SerializeField] private GameObject _startButton;
-		#endregion
 
 		public static string GetSeed => _seedText.text;
 		public static int GetMapSize => int.Parse(_mapSizeSliderHandleText.text);
