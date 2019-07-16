@@ -11,16 +11,14 @@ namespace Assets.Scripts.Makers {
 
 	public class TileMaker : MonoBehaviour {
 		
-		#region Object references
-		[UsedImplicitly] public GameObject ChunkPrefab;
-		[UsedImplicitly] public GameObject Container;
-		[UsedImplicitly] public GameObject Pathfinder;
-		#endregion
-
 		private static int _typeCount;
 		private static List<List<Tile>> _tiles;
 		private static int _seed;
 		private static bool _ready;
+
+		[UsedImplicitly, SerializeField] private GameObject _chunkPrefab;
+		[UsedImplicitly, SerializeField] private GameObject _container;
+		[UsedImplicitly, SerializeField] private GameObject _pathfinder;
 
 		public static GameObject Get (int x, int y) {
 			return GetTile(x, y)?.gameObject;
@@ -59,7 +57,7 @@ namespace Assets.Scripts.Makers {
 			for (int y = 0; y < Map.YChunks; ++y) {
 				for (int x = 0; x < Map.YChunks; ++x) {
 					Vector3 pos = new Vector3(Map.CSIZE * x, Map.CSIZE * y, Order.GROUND);
-					GameObject c = Instantiate(ChunkPrefab, pos, Quaternion.identity, Container.transform);
+					GameObject c = Instantiate(_chunkPrefab, pos, Quaternion.identity, _container.transform);
 					c.name = "Chunk " + y + "y " + x + "x";
 
 					foreach (Transform t in c.transform) {
@@ -71,7 +69,7 @@ namespace Assets.Scripts.Makers {
 			_ready = true;
 			ApplicationController.NotifyReady();
 
-			Pathfinder.SetActive(true);
+			_pathfinder.SetActive(true);
 		}
 
 		private void InitializeTile (Transform t) {

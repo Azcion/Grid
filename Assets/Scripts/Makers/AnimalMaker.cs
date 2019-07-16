@@ -10,11 +10,9 @@ namespace Assets.Scripts.Makers {
 
 	public class AnimalMaker : MonoBehaviour {
 
-		#region Object references
-		[UsedImplicitly] public GameObject ChunkContainer;
-		[UsedImplicitly] public GameObject Container;
-		#endregion
-		
+		[UsedImplicitly, SerializeField] private GameObject _chunkContainer;
+		[UsedImplicitly, SerializeField] private GameObject _container;
+
 		private static readonly List<TileType> ValidTiles = new List<TileType> {
 			TileType.Mossy, TileType.Sand, TileType.Soil, TileType.SoilRich, TileType.Gravel, TileType.PackedDirt, TileType.Ice
 		};
@@ -25,7 +23,7 @@ namespace Assets.Scripts.Makers {
 		}
 
 		private void Populate () {
-			foreach (Transform c in ChunkContainer.transform) {
+			foreach (Transform c in _chunkContainer.transform) {
 				foreach (Transform t in c) {
 					Initialize(t);
 				}
@@ -45,7 +43,7 @@ namespace Assets.Scripts.Makers {
 			AnimalDef def = DefLoader.GetRandomAnimalDef();
 			int x = (int) t.position.x;
 			int y = (int) t.position.y;
-			Animal animal = Animal.Create(def, x, y, Order.THING, Container.transform);
+			Animal animal = Animal.Create(def, x, y, Order.THING, _container.transform);
 			animal.Initialize();
 		}
 

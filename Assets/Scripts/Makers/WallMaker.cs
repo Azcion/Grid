@@ -9,14 +9,12 @@ namespace Assets.Scripts.Makers {
 
 	public class WallMaker : MonoBehaviour {
 
-		#region Object references
-		[UsedImplicitly] public GameObject ChunkContainer;
-		[UsedImplicitly] public GameObject Container;
-		#endregion
-
 		private static WallMaker _instance;
 		private static Linked[,] _walls;
 		private static bool _ready;
+
+		[UsedImplicitly, SerializeField] private GameObject _chunkContainer;
+		[UsedImplicitly, SerializeField] private GameObject _container;
 
 		public static Linked GetLinked (int x, int y) {
 			if (!_ready || x < 0 || x >= Map.YTiles || y < 0 || y >= Map.YTiles) {
@@ -48,7 +46,7 @@ namespace Assets.Scripts.Makers {
 
 			GameObject go = wall.gameObject;
 			go.name = Enum.GetName(typeof(ThingType), wall.ThingType());
-			go.transform.SetParent(_instance.Container.transform);
+			go.transform.SetParent(_instance._container.transform);
 			go.transform.localPosition = new Vector3(x, y, Order.STRUCTURE);
 			_walls[x, y] = wall;
 			
@@ -112,7 +110,7 @@ namespace Assets.Scripts.Makers {
 			string name = Enum.GetName(typeof(LinkedType), type);
 			int x = (int) t.position.x;
 			int y = (int) t.position.y;
-			Linked linked = Linked.Create(name, x, y, Order.STRUCTURE, Container.transform, type);
+			Linked linked = Linked.Create(name, x, y, Order.STRUCTURE, _container.transform, type);
 			_walls[x, y] = linked;
 
 			if (TileMaker.GetTile(x, y).TryAddThing(linked) == false) {

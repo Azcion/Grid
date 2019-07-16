@@ -15,16 +15,6 @@ namespace Assets.Scripts.Main {
 		public static int Seed;
 		public static bool Ready;
 
-		#region Object references
-		[UsedImplicitly, SerializeField] private GameObject _background;
-		[UsedImplicitly] public GameObject InfoBox;
-		[UsedImplicitly] public GameObject Sun;
-		[UsedImplicitly] public GameObject TileMaker;
-		[UsedImplicitly] public GameObject WallMaker;
-		[UsedImplicitly] public GameObject PlantMaker;
-		[UsedImplicitly] public GameObject AnimalMaker;
-		#endregion
-
 		private const int INFO_REFRESH_FRAMES = 8;
 
 		private static bool _ready;
@@ -34,6 +24,14 @@ namespace Assets.Scripts.Main {
 		private int _infoRefreshFrame;
 		private Text _i;
 
+		[UsedImplicitly, SerializeField] private GameObject _background;
+		[UsedImplicitly, SerializeField] private GameObject _infoBox;
+		[UsedImplicitly, SerializeField] private GameObject _sun;
+		[UsedImplicitly, SerializeField] private GameObject _tileMaker;
+		[UsedImplicitly, SerializeField] private GameObject _wallMaker;
+		[UsedImplicitly, SerializeField] private GameObject _plantMaker;
+		[UsedImplicitly, SerializeField] private GameObject _animalMaker;
+
 		[UsedImplicitly]
 		public void OnStart () {
 			_startTime = Time.realtimeSinceStartup;
@@ -42,18 +40,18 @@ namespace Assets.Scripts.Main {
 			Seed = Utils.Seed.Get(seedInput);
 			Map.InitializeMapMeasurements(StartInterface.GetMapSize / Map.CSIZE);
 			Random.InitState(Seed);
-			_i = InfoBox.GetComponent<Text>();
+			_i = _infoBox.GetComponent<Text>();
 			StartInterface.Hide();
 			_background.SetActive(true);
 			CameraController.PointCameraAtMapCenter();
-			Sun.SetActive(true);
+			_sun.SetActive(true);
 			AverageColor.Initialize();
 			TileTint.Initialize();
 			SmoothTiles.LoadAssets();
-			TileMaker.SetActive(true);
-			WallMaker.SetActive(true);
-			PlantMaker.SetActive(true);
-			AnimalMaker.SetActive(true);
+			_tileMaker.SetActive(true);
+			_wallMaker.SetActive(true);
+			_plantMaker.SetActive(true);
+			_animalMaker.SetActive(true);
 			_ready = true;
 
 			SetReady();
