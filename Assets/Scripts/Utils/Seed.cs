@@ -19,35 +19,16 @@ namespace Assets.Scripts.Utils {
 				return seed;
 			}
 
-			string seedStr = str;
+			int hashed = Hash(str);
+			Debug.Log("Hashed seed: " + hashed);
 
-			for (int i = 0; i < 5; ++i) {
-				if (int.TryParse(seedStr, out seed)) {
-					Debug.Log("Computed seed: " + seedStr);
-					return seed;
-				}
-
-				seedStr = "1";
-
-				foreach (char c in str) {
-					if (i == 0) {
-						seedStr += (c - 32).ToString();
-					} else {
-						seedStr += ((c - 32) >> 1).ToString();
-					}
-				}
-			}
-
-			Debug.Log("Invalid seed. Generating random...");
-			return Hash();
+			return hashed;
 		}
 
 		private static int Hash (string str = null) {
 			while (true) {
 				if (string.IsNullOrEmpty(str)) {
-					Debug.Log("Null seed. Generating random...");
-					// ReSharper disable once SpecifyACultureInStringConversionExplicitly
-					str = Random.value.ToString();
+					str = Random.Range(int.MinValue, int.MaxValue).ToString();
 					continue;
 				}
 
