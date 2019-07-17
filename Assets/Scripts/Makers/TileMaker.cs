@@ -16,9 +16,9 @@ namespace Assets.Scripts.Makers {
 		private static int _seed;
 		private static bool _ready;
 
-		[UsedImplicitly, SerializeField] private GameObject _chunkPrefab;
-		[UsedImplicitly, SerializeField] private GameObject _container;
-		[UsedImplicitly, SerializeField] private GameObject _pathfinder;
+		[UsedImplicitly, SerializeField] private GameObject _chunkPrefab = null;
+		[UsedImplicitly, SerializeField] private GameObject _container = null;
+		[UsedImplicitly, SerializeField] private GameObject _pathfinder = null;
 
 		public static GameObject Get (int x, int y) {
 			return GetTile(x, y)?.gameObject;

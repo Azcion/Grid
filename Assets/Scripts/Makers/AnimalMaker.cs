@@ -10,8 +10,8 @@ namespace Assets.Scripts.Makers {
 
 	public class AnimalMaker : MonoBehaviour {
 
-		[UsedImplicitly, SerializeField] private GameObject _chunkContainer;
-		[UsedImplicitly, SerializeField] private GameObject _container;
+		[UsedImplicitly, SerializeField] private GameObject _chunkContainer = null;
+		[UsedImplicitly, SerializeField] private GameObject _container = null;
 
 		private static readonly List<TileType> ValidTiles = new List<TileType> {
 			TileType.Mossy, TileType.Sand, TileType.Soil, TileType.SoilRich, TileType.Gravel, TileType.PackedDirt, TileType.Ice
