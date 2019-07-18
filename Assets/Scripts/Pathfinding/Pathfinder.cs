@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.Pathfinding {
 
-	[UsedImplicitly]
-	public class Pathfinder {
+	public static class Pathfinder {
 
 		public static void FindPath (PathRequest request, Action<PathResult> callback) {
 			Vector2[] waypoints = new Vector2[0];
