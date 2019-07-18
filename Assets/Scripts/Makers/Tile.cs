@@ -20,15 +20,18 @@ namespace Assets.Scripts.Makers {
 		private int _groundPenalty;
 		private List<IThing> _thingSlot;
 		private List<ICreature> _creatures;
+		private bool _originalWalkable;
+		private bool _originalBuildable;
 
-		public void Assign (GameObject chunk, int x, int y,
-			TileType type, bool walkable, bool buildable, int penalty) {
+		public void Assign (GameObject chunk, int x, int y, TileType type, bool walkable, bool buildable, int penalty) {
 			Chunk = chunk;
 			X = x;
 			Y = y;
 			Type = type;
 			Walkable = walkable;
 			Buildable = buildable;
+			_originalWalkable = walkable;
+			_originalBuildable = buildable;
 			Penalty = penalty;
 			_groundPenalty = penalty;
 			_thingSlot = new List<IThing>();
@@ -49,9 +52,18 @@ namespace Assets.Scripts.Makers {
 			UpdatePenalty();
 		}
 
-		public bool TryAddThing (IThing thing) {
-			if (ThingSlotVacant() == false) {
+		public bool TryAddThing (IThing thing, bool ignoreGrass = false) {
+			if (!ThingSlotVacant() && !ignoreGrass) {
 				return false;
+			}
+
+			if (ignoreGrass && HasGrass()) {
+				RemoveGrass(true);
+			}
+
+			if (thing.ThingType() == ThingType.Structure) {
+				Walkable = false;
+				Buildable = false;
 			}
 
 			_thingSlot.Add(thing);
@@ -60,15 +72,61 @@ namespace Assets.Scripts.Makers {
 			return true;
 		}
 
-		public void RemoveThing (bool destroy = false) {
+		public void RemoveThings (bool destroy = false) {
 			if (destroy) {
 				foreach (IThing thing in _thingSlot) {
+					if (thing.ThingType() == ThingType.Structure) {
+						Walkable = _originalWalkable;
+						Buildable = _originalBuildable;
+					}
+
 					Destroy(thing.GameObject());
 				}
 			}
 
+			string s = _thingSlot.Count.ToString();
 			_thingSlot.Clear();
+			s += " " + _thingSlot.Count;
+			Debug.Log(s);
 			UpdatePenalty();
+		}
+
+		private bool IsGrass (IThing thing) {
+			if (thing.ThingType() != ThingType.Plant) {
+				return false;
+			}
+
+			return (thing as Plant)?.Def.DefName == "Plant_Grass";
+		}
+
+		private bool HasGrass () {
+			foreach (IThing thing in _thingSlot) {
+				if (thing.ThingType() != ThingType.Plant) {
+					continue;
+				}
+
+				if (IsGrass(thing)) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		private void RemoveGrass (bool destroy = false) {
+			foreach (IThing thing in _thingSlot) {
+				if (!IsGrass(thing)) {
+					continue;
+				}
+
+				_thingSlot.Remove(thing);
+
+				if (destroy) {
+					Destroy(thing.GameObject());
+				}
+
+				return;
+			}
 		}
 
 		public bool IsBarren () {
@@ -94,16 +152,19 @@ namespace Assets.Scripts.Makers {
 			IThing thing = _thingSlot[0];
 
 			switch (thing.ThingType()) {
+				case ThingType.Structure:
+					sum += 1000;
+					break;
 				case ThingType.Object:
-					sum += 20;
+					sum += 80;
 					break;
 				case ThingType.Plant:
 					switch (((Plant) thing).Size) {
 						case PlantSize.Medium:
-							sum += 10;
+							sum += 20;
 							break;
 						case PlantSize.Large:
-							sum += 20;
+							sum += 80;
 							break;
 					}
 
@@ -111,7 +172,7 @@ namespace Assets.Scripts.Makers {
 			}
 
 			if (AnyCreaturesOnTile()) {
-				sum += 5;
+				sum += 20;
 			}
 
 			Penalty = sum;
