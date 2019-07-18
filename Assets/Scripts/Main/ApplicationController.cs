@@ -31,6 +31,7 @@ namespace Assets.Scripts.Main {
 		[UsedImplicitly, SerializeField] private GameObject _wallMaker = null;
 		[UsedImplicitly, SerializeField] private GameObject _plantMaker = null;
 		[UsedImplicitly, SerializeField] private GameObject _animalMaker = null;
+		[UsedImplicitly, SerializeField] private GameObject _pathfinder = null;
 
 		[UsedImplicitly]
 		public void OnStart () {
@@ -52,6 +53,7 @@ namespace Assets.Scripts.Main {
 			_wallMaker.SetActive(true);
 			_plantMaker.SetActive(true);
 			_animalMaker.SetActive(true);
+			_pathfinder.SetActive(true);
 			_ready = true;
 
 			SetReady();
@@ -80,17 +82,20 @@ namespace Assets.Scripts.Main {
 			Tile t = CameraController.TileUnderCursor;
 			_infoRefreshFrame = 0;
 			_i.text = "";
-			_i.text += "\n" + DayNightCycle.LightLevel + "% lit";
+			_i.text += $"\n{DayNightCycle.LightLevel}% lit";
 
 			if (t != null) {
-				_i.text += "\n" + t.Chunk.name + " | " + t.name;
-				_i.text += "\n" + Enum.GetName(typeof(TileType), t.Type);
+				_i.text += $"\nPenalty: {t.Penalty}";
+				_i.text += $"\n{(t.Walkable ? "" : "not ")}walkable, ";
+				_i.text += $"{(t.Buildable ? "" : "not ")}buildable";
+				_i.text += $"\n{t.Chunk.name} | {t.name}";
+				_i.text += $"\n{Enum.GetName(typeof(TileType), t.Type)}";
 			} else {
 				_i.text += "\nVoid";
 			}
 
-			_i.text += "\nLoad: " + _loadTime.ToString("n2") + "s";
-			_i.text += "\nSeed: " + Seed;
+			_i.text += $"\nLoad: {_loadTime:n2}s";
+			_i.text += $"\nSeed: {Seed}";
 		}
 
 	}

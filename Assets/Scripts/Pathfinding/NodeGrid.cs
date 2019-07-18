@@ -39,7 +39,7 @@ namespace Assets.Scripts.Pathfinding {
 		}
 
 		[UsedImplicitly]
-		private void Awake () {
+		private void Start () {
 			_gridSize = new Vector2(Map.YTiles, Map.YTiles);
 			CreateGrid();
 		}

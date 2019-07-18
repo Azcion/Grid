@@ -18,7 +18,6 @@ namespace Assets.Scripts.Makers {
 
 		[UsedImplicitly, SerializeField] private GameObject _chunkPrefab = null;
 		[UsedImplicitly, SerializeField] private GameObject _container = null;
-		[UsedImplicitly, SerializeField] private GameObject _pathfinder = null;
 
 		public static GameObject Get (int x, int y) {
 			return GetTile(x, y)?.gameObject;
@@ -68,8 +67,6 @@ namespace Assets.Scripts.Makers {
 
 			_ready = true;
 			ApplicationController.NotifyReady();
-
-			_pathfinder.SetActive(true);
 		}
 
 		private void InitializeTile (Transform t) {
