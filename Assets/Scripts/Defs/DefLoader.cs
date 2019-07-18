@@ -21,7 +21,8 @@ namespace Assets.Scripts.Defs {
 
 		[UsedImplicitly]
 		private void Start () {
-			string path = Application.dataPath + "/Defs/";
+			string path = Application.isEditor ? Application.dataPath : System.IO.Directory.GetCurrentDirectory();
+			path += "/Defs/";
 			AnimalDefs = new DefContainer<AnimalDef>(path + "Animals.xml");
 			PlantDefs = new DefContainer<PlantDef>(path + "Plants.xml");
 
@@ -34,11 +35,8 @@ namespace Assets.Scripts.Defs {
 				Grass = def;
 				break;
 			}
-
 			AssetLoader.LoadDefs(AnimalDefs.Defs);
 			AssetLoader.LoadDefs(PlantDefs.Defs);
-
-			Debug.Log("Finished loading assets.");
 			SceneManager.LoadScene("Main");
 		}
 
