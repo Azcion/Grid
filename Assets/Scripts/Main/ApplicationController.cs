@@ -24,13 +24,13 @@ namespace Assets.Scripts.Main {
 		private int _infoRefreshFrame;
 		private Text _i;
 
-		[UsedImplicitly, SerializeField] private GameObject _background;
-		[UsedImplicitly, SerializeField] private GameObject _infoBox;
-		[UsedImplicitly, SerializeField] private GameObject _sun;
-		[UsedImplicitly, SerializeField] private GameObject _tileMaker;
-		[UsedImplicitly, SerializeField] private GameObject _wallMaker;
-		[UsedImplicitly, SerializeField] private GameObject _plantMaker;
-		[UsedImplicitly, SerializeField] private GameObject _animalMaker;
+		[UsedImplicitly, SerializeField] private GameObject _background = null;
+		[UsedImplicitly, SerializeField] private GameObject _infoBox = null;
+		[UsedImplicitly, SerializeField] private GameObject _sun = null;
+		[UsedImplicitly, SerializeField] private GameObject _tileMaker = null;
+		[UsedImplicitly, SerializeField] private GameObject _wallMaker = null;
+		[UsedImplicitly, SerializeField] private GameObject _plantMaker = null;
+		[UsedImplicitly, SerializeField] private GameObject _animalMaker = null;
 
 		[UsedImplicitly]
 		public void OnStart () {

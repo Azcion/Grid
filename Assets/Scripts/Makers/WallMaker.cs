@@ -13,7 +13,6 @@ namespace Assets.Scripts.Makers {
 		private static Linked[,] _walls;
 		private static bool _ready;
 
-		[UsedImplicitly, SerializeField] private GameObject _chunkContainer = null;
 		[UsedImplicitly, SerializeField] private GameObject _container = null;
 
 		public static Linked GetLinked (int x, int y) {

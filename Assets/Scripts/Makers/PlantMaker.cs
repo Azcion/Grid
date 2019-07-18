@@ -11,7 +11,6 @@ namespace Assets.Scripts.Makers {
 
 	public class PlantMaker : MonoBehaviour {
 
-		[UsedImplicitly, SerializeField] private GameObject _chunkContainer = null;
 		[UsedImplicitly, SerializeField] private GameObject _container = null;
 
 		[UsedImplicitly]

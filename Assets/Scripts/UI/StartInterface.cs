@@ -11,10 +11,10 @@ namespace Assets.Scripts.UI {
 		private static Text _seedText;
 		private static Text _mapSizeSliderHandleText;
 
-		[UsedImplicitly, SerializeField] private GameObject _seed;
-		[UsedImplicitly, SerializeField] private GameObject _mapSizeSlider;
-		[UsedImplicitly, SerializeField] private GameObject _mapSizeSliderText;
-		[UsedImplicitly, SerializeField] private GameObject _startButton;
+		[UsedImplicitly, SerializeField] private GameObject _seed = null;
+		[UsedImplicitly, SerializeField] private GameObject _mapSizeSlider = null;
+		[UsedImplicitly, SerializeField] private GameObject _mapSizeSliderText = null;
+		[UsedImplicitly, SerializeField] private GameObject _startButton = null;
 
 		public static string GetSeed => _seedText.text;
 		public static int GetMapSize => int.Parse(_mapSizeSliderHandleText.text);
