@@ -31,14 +31,14 @@ namespace Assets.Scripts.Graphics {
 		private TileType _type;
 
 		public static void LoadAssets () {
-			_side = new GameObject("Transition Side");
+			_side = new GameObject("Transition Side", typeof(SpriteRenderer));
 			_side.SetActive(false);
-			SpriteRenderer sideSr = _side.AddComponent<SpriteRenderer>();
+			SpriteRenderer sideSr = _side.GetComponent<SpriteRenderer>();
 			sideSr.sprite = AssetLoader.TransitionSide;
 			sideSr.sharedMaterial = AssetLoader.DiffuseMat;
-			_corner = new GameObject("Transition Corner");
+			_corner = new GameObject("Transition Corner", typeof(SpriteRenderer));
 			_corner.SetActive(false);
-			SpriteRenderer cornerSr = _corner.AddComponent<SpriteRenderer>();
+			SpriteRenderer cornerSr = _corner.GetComponent<SpriteRenderer>();
 			cornerSr.sprite = AssetLoader.TransitionCorner;
 			cornerSr.sharedMaterial = AssetLoader.DiffuseMat;
 		}

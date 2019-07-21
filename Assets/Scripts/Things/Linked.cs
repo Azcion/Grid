@@ -14,10 +14,10 @@ namespace Assets.Scripts.Things {
 		private LinkedType _type;
 
 		public static Linked Create (string name, int x, int y, int z, Transform parent, LinkedType type) {
-			GameObject go = new GameObject(name);
+			GameObject go = new GameObject(name, typeof(Linked));
 			go.transform.SetParent(parent);
 			go.transform.localPosition = new Vector3(x, y, z);
-			Linked linked = go.AddComponent<Linked>();
+			Linked linked = go.GetComponent<Linked>();
 			linked._type = type;
 
 			return linked;
@@ -168,11 +168,11 @@ namespace Assets.Scripts.Things {
 		}
 
 		private void Make (string label, Vector3 position, Vector3 scale) {
-			Transform t = new GameObject(label).transform;
+			Transform t = new GameObject(label, typeof(SpriteRenderer)).transform;
 			t.SetParent(Tf);
 			t.localPosition = position;
 			t.localScale = scale;
-			SpriteRenderer sr = t.gameObject.AddComponent<SpriteRenderer>();
+			SpriteRenderer sr = t.gameObject.GetComponent<SpriteRenderer>();
 			sr.sprite = _type == LinkedType.Rock ? AssetLoader.RockTop : AssetLoader.WoodTop;
 			sr.color = AdjustTint(_type);
 			sr.sharedMaterial = AssetLoader.DiffuseMat;
