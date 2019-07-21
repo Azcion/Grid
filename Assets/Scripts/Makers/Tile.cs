@@ -61,7 +61,7 @@ namespace Assets.Scripts.Makers {
 				RemoveGrass(true);
 			}
 
-			if (thing.ThingType() == ThingType.Structure) {
+			if (thing.Type == ThingType.Structure) {
 				Walkable = false;
 				Buildable = false;
 			}
@@ -75,12 +75,12 @@ namespace Assets.Scripts.Makers {
 		public void RemoveThings (bool destroy = false) {
 			if (destroy) {
 				foreach (IThing thing in _thingSlot) {
-					if (thing.ThingType() == ThingType.Structure) {
+					if (thing.Type == ThingType.Structure) {
 						Walkable = _originalWalkable;
 						Buildable = _originalBuildable;
 					}
 
-					Destroy(thing.GameObject());
+					Destroy(thing.Go);
 				}
 			}
 
@@ -92,7 +92,7 @@ namespace Assets.Scripts.Makers {
 		}
 
 		private bool IsGrass (IThing thing) {
-			if (thing.ThingType() != ThingType.Plant) {
+			if (thing.Type != ThingType.Plant) {
 				return false;
 			}
 
@@ -101,7 +101,7 @@ namespace Assets.Scripts.Makers {
 
 		private bool HasGrass () {
 			foreach (IThing thing in _thingSlot) {
-				if (thing.ThingType() != ThingType.Plant) {
+				if (thing.Type != ThingType.Plant) {
 					continue;
 				}
 
@@ -122,7 +122,7 @@ namespace Assets.Scripts.Makers {
 				_thingSlot.Remove(thing);
 
 				if (destroy) {
-					Destroy(thing.GameObject());
+					Destroy(thing.Go);
 				}
 
 				return;
@@ -151,7 +151,7 @@ namespace Assets.Scripts.Makers {
 
 			IThing thing = _thingSlot[0];
 
-			switch (thing.ThingType()) {
+			switch (thing.Type) {
 				case ThingType.Structure:
 					sum += 1000;
 					break;

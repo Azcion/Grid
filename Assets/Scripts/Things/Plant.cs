@@ -13,11 +13,12 @@ namespace Assets.Scripts.Things {
 		public PlantDef Def;
 		public PlantSize Size;
 
-		private const ThingType TYPE = Enums.ThingType.Plant;
-
 		private static GameObject _childPrefab;
 
 		private float _growth;
+
+		public GameObject Go => gameObject;
+		public ThingType Type => ThingType.Plant;
 
 		public static Plant Create (Plant plant, PlantDef def) {
 			plant.Def = def;
@@ -31,7 +32,7 @@ namespace Assets.Scripts.Things {
 			Size = Def.PlantSize;
 			_growth = growth;
 			AdjustTransform(growth);
-			SetSprite(AssetLoader.Get(TYPE, Def.DefName), Random.value < .5);
+			SetSprite(AssetLoader.Get(Type, Def.DefName), Random.value < .5);
 			IsSelectable = Def.DefName != "Plant_Grass";
 
 			if (Size == PlantSize.Small) {
@@ -40,14 +41,6 @@ namespace Assets.Scripts.Things {
 					CreateChildSprite();
 				}
 			}
-		}
-
-		public GameObject GameObject () {
-			return gameObject;
-		}
-
-		public ThingType ThingType () {
-			return Enums.ThingType.Plant;
 		}
 
 		[UsedImplicitly]

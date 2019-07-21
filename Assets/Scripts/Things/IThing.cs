@@ -5,9 +5,8 @@ namespace Assets.Scripts.Things {
 
 	public interface IThing {
 
-		GameObject GameObject ();
-
-		ThingType ThingType ();
+		GameObject Go { get; }
+		ThingType Type { get; }
 
 	}
 

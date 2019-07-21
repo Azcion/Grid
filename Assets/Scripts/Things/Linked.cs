@@ -13,6 +13,9 @@ namespace Assets.Scripts.Things {
 		private int _y;
 		private LinkedType _type;
 
+		public GameObject Go => gameObject;
+		public ThingType Type => ThingType.Structure;
+
 		public static Linked Create (string name, int x, int y, int z, Transform parent, LinkedType type) {
 			GameObject go = new GameObject(name, typeof(Linked));
 			go.transform.SetParent(parent);
@@ -44,14 +47,6 @@ namespace Assets.Scripts.Things {
 
 			InitializeSelf();
 			InitializeNeighbors();
-		}
-
-		public GameObject GameObject () {
-			return gameObject;
-		}
-
-		public ThingType ThingType () {
-			return Enums.ThingType.Structure;
 		}
 
 		private static Color AdjustTint (LinkedType type) {
@@ -177,7 +172,6 @@ namespace Assets.Scripts.Things {
 			sr.color = AdjustTint(_type);
 			sr.sharedMaterial = AssetLoader.DiffuseMat;
 		}
-		
 	}
 
 }

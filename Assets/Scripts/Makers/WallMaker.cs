@@ -38,7 +38,7 @@ namespace Assets.Scripts.Makers {
 			}
 
 			go = wall.gameObject;
-			go.name = Enum.GetName(typeof(ThingType), wall.ThingType());
+			go.name = Enum.GetName(typeof(ThingType), wall.Type);
 			go.transform.SetParent(_instance._container.transform);
 			go.transform.localPosition = new Vector3(x, y, Order.STRUCTURE);
 			_walls[x, y] = wall;

@@ -13,9 +13,10 @@ namespace Assets.Scripts.Things {
 
 		public AnimalDef Def;
 
-		private const ThingType TYPE = Enums.ThingType.Creature;
-
 		private bool _didInitialize;
+
+		public GameObject Go => gameObject;
+		public ThingType Type => ThingType.Creature;
 
 		public static Animal Create (Animal animal, AnimalDef def) {
 			animal.Def = def;
@@ -28,18 +29,10 @@ namespace Assets.Scripts.Things {
 
 			Child.localPosition = new Vector2(.5f, .5f);
 			Child.localScale = AdjustScale(Def.SpriteScale);
-			SetSprite(AssetLoader.Get(TYPE, Def.DefName), false);
+			SetSprite(AssetLoader.Get(Type, Def.DefName), false);
 			SetTint(AdjustTint(Def.Tint));
 			IsSelectable = true;
 			_didInitialize = true;
-		}
-
-		public GameObject GameObject () {
-			return gameObject;
-		}
-
-		public ThingType ThingType () {
-			return TYPE;
 		}
 
 		private static Vector3 AdjustScale (float s) {
@@ -69,7 +62,7 @@ namespace Assets.Scripts.Things {
 			}
 
 			if (DirectionChanged) {
-				SetSprite(AssetLoader.Get(TYPE, Def.DefName, Facing), Facing == Direction.West);
+				SetSprite(AssetLoader.Get(Type, Def.DefName, Facing), Facing == Direction.West);
 				DirectionChanged = false;
 			}
 
