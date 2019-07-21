@@ -17,11 +17,7 @@ namespace Assets.Scripts.Things {
 
 		private bool _didInitialize;
 
-		public static Animal Create (AnimalDef def, int x, int y, int z, Transform parent) {
-			GameObject go = new GameObject(def.DefName);
-			go.transform.SetParent(parent);
-			go.transform.position = new Vector3(x, y, z);
-			Animal animal = go.AddComponent<Animal>();
+		public static Animal Create (Animal animal, AnimalDef def) {
 			animal.Def = def;
 
 			return animal;

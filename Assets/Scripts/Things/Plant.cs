@@ -15,13 +15,11 @@ namespace Assets.Scripts.Things {
 
 		private const ThingType TYPE = Enums.ThingType.Plant;
 
+		private static GameObject _childPrefab;
+
 		private float _growth;
 
-		public static Plant Create (PlantDef def, int x, int y, int z, Transform parent) {
-			GameObject go = new GameObject(def.DefName);
-			go.transform.SetParent(parent);
-			go.transform.position = new Vector3(x, y, z);
-			Plant plant = go.AddComponent<Plant>();
+		public static Plant Create (Plant plant, PlantDef def) {
 			plant.Def = def;
 
 			return plant;
@@ -56,6 +54,14 @@ namespace Assets.Scripts.Things {
 
 		public void UpdateSortingOrder () {
 			ChildRenderer.sortingOrder = (int) (1024 - Tf.position.y - 1);
+		[UsedImplicitly]
+		private void Awake () {
+			if (_childPrefab != null) {
+				return;
+			}
+
+			_childPrefab = new GameObject("Child Prefab", typeof(SpriteRenderer));
+			_childPrefab.SetActive(false);
 		}
 
 		private void AdjustTransform (float growth) {
@@ -87,18 +93,16 @@ namespace Assets.Scripts.Things {
 			Child.localPosition = new Vector2(x, y);
 		}
 
-		private Transform CreateChildSprite () {
-			Transform newSprite = new GameObject("Sprite").transform;
-			newSprite.SetParent(Tf);
+		private void CreateChildSprite () {
 			float x = Random.Range(.1f, .9f);
 			float y = Random.Range(.1f, .9f);
 			float s = Mathf.Lerp(.65f, .85f, _growth);
-			newSprite.localPosition = new Vector2(x, y);
-			newSprite.localScale = new Vector3(s, s, 1);
-			SpriteRenderer sr = newSprite.gameObject.AddComponent<SpriteRenderer>();
+			Vector2 pos = new Vector3(x, y);
+			GameObject go = Instantiate(_childPrefab, pos, Quaternion.identity, Tf);
+			go.transform.localScale = new Vector3(s, s, 1);
+			SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
 			sr.sprite = ChildRenderer.sprite;
 			sr.sharedMaterial = ChildRenderer.sharedMaterial;
-			return newSprite;
 		}
 
 	}

@@ -10,6 +10,8 @@ namespace Assets.Scripts.Makers {
 
 	public class AnimalMaker : MonoBehaviour {
 
+		private static GameObject _animalPrefab;
+
 		[UsedImplicitly, SerializeField] private GameObject _chunkContainer = null;
 		[UsedImplicitly, SerializeField] private GameObject _container = null;
 
@@ -19,18 +21,24 @@ namespace Assets.Scripts.Makers {
 
 		[UsedImplicitly]
 		private void Start () {
-			Populate();
+			if (_animalPrefab == null) {
+				_animalPrefab = new GameObject("Animal Prefab", typeof(Animal), typeof(SpriteRenderer));
+				_animalPrefab.transform.SetParent(_container.transform);
+				_animalPrefab.SetActive(false);
+			}
+
+			Populate(_animalPrefab);
 		}
 
-		private void Populate () {
+		private void Populate (GameObject prefab) {
 			foreach (Transform c in _chunkContainer.transform) {
 				foreach (Transform t in c) {
-					Initialize(t);
+					Initialize(prefab, t);
 				}
 			}
 		}
 
-		private void Initialize (Transform t) {
+		private void Initialize (GameObject prefab, Transform t) {
 			if (Random.value < .998f) {
 				return;
 			}
@@ -43,7 +51,9 @@ namespace Assets.Scripts.Makers {
 			AnimalDef def = DefLoader.GetRandomAnimalDef();
 			int x = (int) t.position.x;
 			int y = (int) t.position.y;
-			Animal animal = Animal.Create(def, x, y, Order.THING, _container.transform);
+			Vector3 pos = new Vector3(x, y, Order.ANIMAL);
+			GameObject go = Instantiate(prefab, pos, Quaternion.identity, _container.transform);
+			Animal animal = Animal.Create(go.GetComponent<Animal>(), def);
 			animal.Initialize();
 		}
 

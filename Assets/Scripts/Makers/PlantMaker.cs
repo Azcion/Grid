@@ -11,24 +11,32 @@ namespace Assets.Scripts.Makers {
 
 	public class PlantMaker : MonoBehaviour {
 
+		private static GameObject _plantPrefab;
+
 		[UsedImplicitly, SerializeField] private GameObject _container = null;
 
 		[UsedImplicitly]
 		private void Start () {
-			Populate();
+			if (_plantPrefab == null) {
+				_plantPrefab = new GameObject("Plant Prefab", typeof(Plant), typeof(SpriteRenderer));
+				_plantPrefab.transform.SetParent(_container.transform);
+				_plantPrefab.SetActive(false);
+			}
+			
+			Populate(_plantPrefab);
 		}
 
-		private void Populate () {
+		private void Populate (GameObject prefab) {
 			for (int x = 0; x < Map.YTiles; ++x) {
 				for (int y = Map.YTiles - 1; y >= 0; --y) { 
-					Initialize(TileMaker.Get(x, y).transform);
+					Initialize(prefab, TileMaker.Get(x, y).transform);
 				}
 			}
 
 			ApplicationController.NotifyReady();
 		}
 
-		private void Initialize (Transform t) {
+		private void Initialize (GameObject prefab, Transform t) {
 			bool isGrass = false;
 
 			switch (t.GetComponent<Tile>().Type) {
@@ -66,7 +74,10 @@ namespace Assets.Scripts.Makers {
 			PlantDef def = isGrass ? DefLoader.Grass : DefLoader.GetRandomPlantDef();
 			int x = (int) t.position.x;
 			int y = (int) t.position.y;
-			Plant plant = Plant.Create(def, x, y, Order.THING, _container.transform);
+			Vector3 pos = new Vector3(x, y, Order.PLANT);
+			GameObject go = Instantiate(prefab, pos, Quaternion.identity, _container.transform);
+			go.name = def.DefName;
+			Plant plant = Plant.Create(go.GetComponent<Plant>(), def);
 			plant.Initialize(Calc.Round(Random.Range(.3f, 1), 2));
 
 			if (TileMaker.GetTile(x, y).TryAddThing(plant) == false) {
