@@ -32,8 +32,6 @@ namespace Assets.Scripts.Things {
 			SetTint(AdjustTint(Def.Tint));
 			IsSelectable = true;
 			_didInitialize = true;
-
-			UpdateSortingOrder();
 		}
 
 		public GameObject GameObject () {
@@ -42,10 +40,6 @@ namespace Assets.Scripts.Things {
 
 		public ThingType ThingType () {
 			return TYPE;
-		}
-
-		public void UpdateSortingOrder () {
-			ChildRenderer.sortingOrder = 1024 - Mathf.RoundToInt(Tf.position.y);
 		}
 
 		private static Vector3 AdjustScale (float s) {

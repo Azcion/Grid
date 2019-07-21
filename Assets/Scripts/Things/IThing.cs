@@ -9,8 +9,6 @@ namespace Assets.Scripts.Things {
 
 		ThingType ThingType ();
 
-		void UpdateSortingOrder ();
-
 	}
 
 }

@@ -68,7 +68,6 @@ namespace Assets.Scripts.Things {
 				float speed = _speed * Time.deltaTime;
 				Vector2 v = Vector2.MoveTowards(Tf.localPosition, currentWaypoint, speed);
 				Tf.localPosition = new Vector3(v.x, v.y, Tf.localPosition.z);
-				_thing.UpdateSortingOrder();
 
 				yield return null;
 			}

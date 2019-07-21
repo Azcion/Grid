@@ -40,8 +40,6 @@ namespace Assets.Scripts.Things {
 					CreateChildSprite();
 				}
 			}
-
-			UpdateSortingOrder();
 		}
 
 		public GameObject GameObject () {
@@ -52,8 +50,6 @@ namespace Assets.Scripts.Things {
 			return Enums.ThingType.Plant;
 		}
 
-		public void UpdateSortingOrder () {
-			ChildRenderer.sortingOrder = (int) (1024 - Tf.position.y - 1);
 		[UsedImplicitly]
 		private void Awake () {
 			if (_childPrefab != null) {
