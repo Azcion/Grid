@@ -8,7 +8,11 @@ namespace Assets.Scripts.Main {
 		[UsedImplicitly]
 		private void LateUpdate () {
 			if (Input.GetKeyUp("escape")) {
-				Application.Quit();
+				if (!Application.isEditor) {
+					System.Diagnostics.Process.GetCurrentProcess().Kill();
+				} else {
+					Application.Quit();
+				}
 			}
 		}
 
