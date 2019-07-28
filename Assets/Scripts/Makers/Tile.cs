@@ -53,23 +53,25 @@ namespace Assets.Scripts.Makers {
 		}
 
 		public bool TryAddThing (IThing thing, bool ignoreGrass = false) {
-			if (!ThingSlotVacant() && !ignoreGrass) {
+			if (ThingSlotVacant()) {
+				AddThing(thing);
+
+				return true;
+			}
+
+			if (!ignoreGrass) {
 				return false;
 			}
 
-			if (ignoreGrass && HasGrass()) {
-				RemoveGrass(true);
+			if (!HasGrass()) {
+				return false;
 			}
 
-			if (thing.Type == ThingType.Structure) {
-				Walkable = false;
-				Buildable = false;
-			}
-
-			_thingSlot.Add(thing);
-			UpdatePenalty();
+			RemoveGrass(true);
+			AddThing(thing);
 
 			return true;
+
 		}
 
 		public void RemoveThings (bool destroy = false) {
@@ -91,12 +93,22 @@ namespace Assets.Scripts.Makers {
 			UpdatePenalty();
 		}
 
-		private bool IsGrass (IThing thing) {
+		private static bool IsGrass (IThing thing) {
 			if (thing.Type != ThingType.Plant) {
 				return false;
 			}
 
 			return (thing as Plant)?.Def.DefName == "Plant_Grass";
+		}
+
+		private void AddThing (IThing thing) {
+			if (thing.Type == ThingType.Structure) {
+				Walkable = false;
+				Buildable = false;
+			}
+
+			_thingSlot.Add(thing);
+			UpdatePenalty();
 		}
 
 		private bool HasGrass () {

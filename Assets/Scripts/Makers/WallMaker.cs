@@ -27,7 +27,6 @@ namespace Assets.Scripts.Makers {
 			int x = (int) wall.transform.position.x;
 			int y = (int) wall.transform.position.y;
 			Tile tile = TileMaker.GetTile(x, y);
-			GameObject go;
 
 			if (tile == null || tile.Buildable == false) {
 				return false;
@@ -37,7 +36,7 @@ namespace Assets.Scripts.Makers {
 				return false;
 			}
 
-			go = wall.gameObject;
+			GameObject go = wall.gameObject;
 			go.name = Enum.GetName(typeof(ThingType), wall.Type);
 			go.transform.SetParent(_instance._container.transform);
 			go.transform.localPosition = new Vector3(x, y, Order.STRUCTURE);
