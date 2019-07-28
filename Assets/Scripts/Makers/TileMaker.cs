@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Graphics;
 using Assets.Scripts.Main;
 using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Makers {
 
+	[SuppressMessage("ReSharper", "SwitchStatementMissingSomeCases")]
 	public class TileMaker : MonoBehaviour {
 		
 		private static int _typeCount;
@@ -49,18 +52,32 @@ namespace Assets.Scripts.Makers {
 				_tiles.Add(row);
 			}
 
-			Create();
+			Create(Seed.IsDebugSurfaces);
 		}
 
-		private void Create () {
+		private void Create (bool debugSurfaces) {
 			for (int y = 0; y < Map.YChunks; ++y) {
 				for (int x = 0; x < Map.YChunks; ++x) {
 					Vector3 pos = new Vector3(Map.CSIZE * x, Map.CSIZE * y, Order.GROUND);
 					GameObject c = Instantiate(_chunkPrefab, pos, Quaternion.identity, _container.transform);
 					c.name = "Chunk " + y + "y " + x + "x";
 
-					foreach (Transform t in c.transform) {
-						InitializeTile(t);
+					if (debugSurfaces) {
+						foreach (Transform t in c.transform) {
+							int tx = (int) t.position.x;
+							int ty = (int) t.position.y;
+							int type = (tx + ty) / 3;
+
+							if (type >= _typeCount) {
+								type = Random.Range(0, _typeCount);
+							}
+
+							InitializeTile(t, type);
+						}
+					} else {
+						foreach (Transform t in c.transform) {
+							InitializeTile(t);
+						}
 					}
 				}
 			}
@@ -69,118 +86,25 @@ namespace Assets.Scripts.Makers {
 			ApplicationController.NotifyReady();
 		}
 
-		private void InitializeTile (Transform t) {
+		private static void InitializeTile (Transform t, int iType = -1) {
 			int x = (int) t.position.x;
 			int y = (int) t.position.y;
-			float v0 = Noise.Sum(x + _seed, y + _seed, .01f, 8, 2.2f, .5f);
-			TileType type;
-
-			if (v0 > .575) {
-				type = TileType.RoughHewnRock;
-			} else if (v0 > .55) {
-				type = TileType.RoughStone;
-			} else if (v0 > .53) {
-				type = TileType.Gravel;
-			} else if (v0 > .44) {
-				type = TileType.Soil;
-			} else if (v0 > .35) {
-				type = TileType.Sand;
-			} else if (v0 > .25) {
-				type = TileType.Soil;
-			} else if (v0 > .23) {
-				type = TileType.Gravel;
-			} else {
-				type = TileType.RoughStone;
-			}
-
-			float v1 = Noise.Sum(x + _seed, y + _seed, .005f, 6, 2.2f, .5f);
-			const float dw = .80f;
-			const float sw = dw - .015f;
-			const float m = sw - .015f;
-
-			if (type != TileType.RoughStone) {
-				if (v1 > dw) {
-					type = TileType.DeepWater;
-				} else if (v1 > sw) {
-					type = TileType.Marsh;
-				} else if (v1 > m) {
-					type = TileType.Mud;
-				} else if (v1 > 1 - m) {
-					if (v1 < .55 && v1 > .45) {
-						float v2 = Noise.Sum(x + _seed, y + _seed, .02f, 4, 2.2f, .5f);
-
-						if (type == TileType.Soil) {
-							if (v2 > .60) {
-								type = TileType.SoftSand;
-							} else if (v2 > .55) {
-								type = TileType.Sand;
-							}
-						} else if (type == TileType.Sand) {
-							if (v2 < .33) {
-								type = TileType.SoilRich;
-							} else if (v2 < .36) {
-								type = TileType.Soil;
-							}
-						}
-					}
-				} else if (v1 > 1 - sw) {
-					type = TileType.Mud;
-				} else if (v1 > 1 - dw) {
-					type = TileType.Marsh;
-				} else {
-					type = TileType.DeepWater;
-				}
-			}
-
-			int penalty = 0;
+			TileType type = iType == -1 ? GetType(x, y) : (TileType) iType;
+			int penalty = GetPenalty(type);
 			Material mat = AssetLoader.DiffuseMat;
 			Color color = Color.gray;
-
-			switch (type) {
-				case TileType.ShallowWater:
-				case TileType.MarshyTerrain:
-				case TileType.SoftSand:
-					penalty = 15;
-					break;
-				case TileType.Marsh:
-				case TileType.Mud:
-					penalty = 20;
-					break;
-				case TileType.Sand:
-					penalty = 8;
-					break;
-				case TileType.Mossy:
-				case TileType.Soil:
-				case TileType.SoilRich:
-					penalty = 5;
-					break;
-				case TileType.Gravel:
-					penalty = 2;
-					break;
-				case TileType.PackedDirt:
-				case TileType.Ice:
-				case TileType.RoughStone:
-				case TileType.RoughHewnRock:
-				case TileType.SmoothStone:
-				case TileType.Carpet:
-				case TileType.Concrete:
-				case TileType.Flagstone:
-				case TileType.GenericFloorTile:
-				case TileType.PavedTile:
-				case TileType.TileStone:
-				case TileType.WoodFloor:
-					penalty = 0;
-					break;
-			}
 
 			SpriteRenderer sr = t.GetComponent<SpriteRenderer>();
 			sr.sharedMaterial = mat;
 			sr.sprite = AssetLoader.Get(type, x, y);
 
 			switch (type) {
+				case TileType.DeepWater:
+				case TileType.ShallowWater:
 				case TileType.RoughStone:
 				case TileType.RoughHewnRock:
 				case TileType.SmoothStone:
+				case TileType.WoodFloor:
 					sr.color = TileTint.Get(type);
 					break;
 			}
@@ -225,6 +149,127 @@ namespace Assets.Scripts.Makers {
 
 			tile.Assign(t.parent.gameObject, x, y, type, walkable, buildable, penalty);
 			_tiles[y][x] = tile;
+		}
+
+		private static TileType GetType (int x, int y) {
+			float v0 = Noise.Sum(x + _seed, y + _seed, .01f, 8, 2.2f, .5f);
+			TileType type;
+
+			if (v0 > .575) {
+				type = TileType.RoughHewnRock;
+			} else if (v0 > .55) {
+				type = TileType.RoughStone;
+			} else if (v0 > .53) {
+				type = TileType.Gravel;
+			} else if (v0 > .44) {
+				type = TileType.Soil;
+			} else if (v0 > .35) {
+				type = TileType.Sand;
+			} else if (v0 > .25) {
+				type = TileType.Soil;
+			} else if (v0 > .23) {
+				type = TileType.Gravel;
+			} else {
+				type = TileType.RoughStone;
+			}
+
+			float v1 = Noise.Sum(x + _seed, y + _seed, .005f, 6, 2.2f, .5f);
+			const float dw = .80f;
+			const float sw = dw - .015f;
+			const float m = sw - .015f;
+
+			if (type == TileType.RoughStone) {
+				return type;
+			}
+
+			if (v1 > dw) {
+				type = TileType.DeepWater;
+			} else if (v1 > sw) {
+				type = TileType.Marsh;
+			} else if (v1 > m) {
+				type = TileType.Mud;
+			} else if (v1 > 1 - m) {
+				if (!(v1 < .55) || !(v1 > .45)) {
+					return type;
+				}
+
+				float v2 = Noise.Sum(x + _seed, y + _seed, .02f, 4, 2.2f, .5f);
+
+				switch (type) {
+					case TileType.Soil when v2 > .60:
+						type = TileType.SoftSand;
+						break;
+					case TileType.Soil: {
+						if (v2 > .55) {
+							type = TileType.Sand;
+						}
+
+						break;
+					}
+
+					case TileType.Sand when v2 < .33:
+						type = TileType.SoilRich;
+						break;
+					case TileType.Sand: {
+						if (v2 < .36) {
+							type = TileType.Soil;
+						}
+
+						break;
+					}
+				}
+			} else if (v1 > 1 - sw) {
+				type = TileType.Mud;
+			} else if (v1 > 1 - dw) {
+				type = TileType.Marsh;
+			} else {
+				type = TileType.DeepWater;
+			}
+
+			return type;
+		}
+
+		private static int GetPenalty (TileType type) {
+			int penalty = 0;
+
+			switch (type) {
+				case TileType.ShallowWater:
+				case TileType.MarshyTerrain:
+				case TileType.SoftSand:
+					penalty = 15;
+					break;
+				case TileType.Marsh:
+				case TileType.Mud:
+					penalty = 20;
+					break;
+				case TileType.Sand:
+					penalty = 8;
+					break;
+				case TileType.Mossy:
+				case TileType.Soil:
+				case TileType.SoilRich:
+					penalty = 5;
+					break;
+				case TileType.Gravel:
+					penalty = 2;
+					break;
+				case TileType.PackedDirt:
+				case TileType.Ice:
+				case TileType.RoughStone:
+				case TileType.RoughHewnRock:
+				case TileType.SmoothStone:
+				case TileType.Carpet:
+				case TileType.Concrete:
+				case TileType.Flagstone:
+				case TileType.GenericFloorTile:
+				case TileType.PavedTile:
+				case TileType.TileStone:
+				case TileType.WoodFloor:
+					penalty = 0;
+					break;
+			}
+
+			return penalty;
 		}
 
 	}

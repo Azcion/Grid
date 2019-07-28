@@ -7,7 +7,9 @@ using Random = UnityEngine.Random;
 namespace Assets.Scripts.Utils {
 
 	public static class Seed {
-		
+
+		public static bool IsDebugSurfaces;
+
 		public static int Get (string str) {
 			if (str == null) {
 				Debug.Log("Null seed. Generating random...");
@@ -17,6 +19,11 @@ namespace Assets.Scripts.Utils {
 			if (int.TryParse(str, out int seed)) {
 				Debug.Log("Valid seed: " + seed);
 				return seed;
+			}
+
+			if (str == "!debug surfaces") {
+				IsDebugSurfaces = true;
+				Debug.Log("Surface debug mode active.");
 			}
 
 			int hashed = Hash(str);
