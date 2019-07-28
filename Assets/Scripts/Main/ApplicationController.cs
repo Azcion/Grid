@@ -26,6 +26,7 @@ namespace Assets.Scripts.Main {
 
 		[UsedImplicitly, SerializeField] private GameObject _background = null;
 		[UsedImplicitly, SerializeField] private GameObject _infoBox = null;
+		[UsedImplicitly, SerializeField] private GameObject _architectButton = null;
 		[UsedImplicitly, SerializeField] private GameObject _sun = null;
 		[UsedImplicitly, SerializeField] private GameObject _tileMaker = null;
 		[UsedImplicitly, SerializeField] private GameObject _wallMaker = null;
@@ -43,6 +44,7 @@ namespace Assets.Scripts.Main {
 			Random.InitState(Seed);
 			_i = _infoBox.GetComponent<Text>();
 			StartInterface.Hide();
+			_architectButton.SetActive(true);
 			_background.SetActive(true);
 			CameraController.PointCameraAtMapCenter();
 			_sun.SetActive(true);

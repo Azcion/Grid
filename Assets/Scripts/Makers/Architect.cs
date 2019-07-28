@@ -35,6 +35,19 @@ namespace Assets.Scripts.Makers {
 			_transform = wall.gameObject.transform;
 		}
 
+		private static void BuildWall (int x, int y) {
+			Linked w = Linked.Create("Arc Wall", x, y, Order.SELECTOR, null, LinkedType.WallPlanks);
+			w.Initialize();
+
+			if (WallMaker.TryAdd(w)) {
+				w.Refresh();
+			} else {
+				w.gameObject.SetActive(false);
+				Destroy(w.gameObject);
+				//WallMaker.Remove(w);
+			}
+		}
+
 		[UsedImplicitly]
 		private void Start () {
 			Planning = false;
@@ -120,19 +133,6 @@ namespace Assets.Scripts.Makers {
 
 						break;
 				}
-			}
-		}
-
-		private void BuildWall (int x, int y) {
-			Linked w = Linked.Create("Arc Wall", x, y, Order.SELECTOR, null, LinkedType.WallPlanks);
-			w.Initialize();
-
-			if (WallMaker.TryAdd(w)) {
-				w.Refresh();
-			} else {
-				w.gameObject.SetActive(false);
-				Destroy(w.gameObject);
-				//WallMaker.Remove(w);
 			}
 		}
 
