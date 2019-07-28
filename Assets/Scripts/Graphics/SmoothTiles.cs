@@ -18,14 +18,6 @@ namespace Assets.Scripts.Graphics {
 		private static GameObject _side;
 		private static GameObject _corner;
 
-		private bool _canFadeU = true;
-		private bool _canFadeD = true;
-		private bool _canFadeL = true;
-		private bool _canFadeR = true;
-		private bool _canFadeUl = true;
-		private bool _canFadeUr = true;
-		private bool _canFadeDl = true;
-		private bool _canFadeDr = true;
 		private int _x;
 		private int _y;
 		private TileType _type;
@@ -42,40 +34,6 @@ namespace Assets.Scripts.Graphics {
 			cornerSr.sprite = AssetLoader.TransitionCorner;
 			cornerSr.sharedMaterial = AssetLoader.DiffuseMat;
 		}
-
-		#region Neighbor bools
-		private bool IsUp () {
-			return TileMaker.Get(_x, _y + 1);
-		}
-
-		private bool IsDown () {
-			return TileMaker.Get(_x, _y - 1);
-		}
-
-		private bool IsLeft () {
-			return TileMaker.Get(_x - 1, _y);
-		}
-
-		private bool IsRight () {
-			return TileMaker.Get(_x + 1, _y);
-		}
-
-		private bool IsUpLeft () {
-			return TileMaker.Get(_x - 1, _y + 1);
-		}
-
-		private bool IsUpRight () {
-			return TileMaker.Get(_x + 1, _y + 1);
-		}
-
-		private bool IsDownLeft () {
-			return TileMaker.Get(_x - 1, _y - 1);
-		}
-
-		private bool IsDownRight () {
-			return TileMaker.Get(_x + 1, _y - 1);
-		}
-		#endregion
 
 		#region Neighbor objects
 		private GameObject GetUp () {
@@ -124,60 +82,51 @@ namespace Assets.Scripts.Graphics {
 
 		private void Initialize () {
 			if (!CanTransition) {
-				_canFadeD = false;
-				_canFadeDl = false;
-				_canFadeDr = false;
-				_canFadeL = false;
-				_canFadeR = false;
-				_canFadeU = false;
-				_canFadeUl = false;
-				_canFadeUr = false;
-
 				return;
 			}
 
 			// Test for transferability
-			_canFadeU = Check(GetUp());
-			_canFadeD = Check(GetDown());
-			_canFadeL = Check(GetLeft());
-			_canFadeR = Check(GetRight());
-			_canFadeUl = Check(GetUpLeft());
-			_canFadeUr = Check(GetUpRight());
-			_canFadeDl = Check(GetDownLeft());
-			_canFadeDr = Check(GetDownRight());
+			bool canFadeU = Check(GetUp());
+			bool canFadeD = Check(GetDown());
+			bool canFadeL = Check(GetLeft());
+			bool canFadeR = Check(GetRight());
+			bool canFadeUl = Check(GetUpLeft());
+			bool canFadeUr = Check(GetUpRight());
+			bool canFadeDl = Check(GetDownLeft());
+			bool canFadeDr = Check(GetDownRight());
 
 			// Draw transitions
 			Vector3 t = transform.position;
 
-			if (IsUp() && _canFadeU) {
+			if (canFadeU && GetUp()) {
 				Create(0, t.x, (int) t.y + 1);
 			}
 
-			if (IsDown() && _canFadeD) {
+			if (canFadeD && GetDown()) {
 				Create(180, t.x, (int) t.y);
 			}
 
-			if (IsLeft() && _canFadeL) {
+			if (canFadeL && GetLeft()) {
 				Create(90, (int) t.x, t.y, special: true);
 			}
 
-			if (IsRight() && _canFadeR) {
+			if (canFadeR && GetRight()) {
 				Create(270, (int) t.x + 1, t.y, special: true);
 			}
 
-			if (IsUpLeft() && _canFadeUl && IsLeft() && _canFadeL && IsUp() && _canFadeU) {
+			if (canFadeUl && canFadeL && canFadeU && GetUpLeft() && GetLeft() && GetUp()) {
 				Create(90, (int) t.x, (int) t.y + 1, true);
 			}
 
-			if (IsUpRight() && _canFadeUr && IsRight() && _canFadeR && IsUp() && _canFadeU) {
+			if (canFadeUr && canFadeR && canFadeU && GetUpRight() && GetRight() && GetUp()) {
 				Create(0, (int) t.x + 1, (int) t.y + 1, true);
 			}
 
-			if (IsDownLeft() && _canFadeDl && IsLeft() && _canFadeL && IsDown() && _canFadeD) {
+			if (canFadeDl && canFadeL && canFadeD && GetDownLeft() && GetLeft() && GetDown()) {
 				Create(180, (int) t.x, (int) t.y, true);
 			}
 
-			if (IsDownRight() && _canFadeDr && IsRight() && _canFadeR && IsDown() && _canFadeD) {
+			if (canFadeDr && canFadeR && canFadeD && GetDownRight() && GetRight() && GetDown()) {
 				Create(270, (int) t.x + 1, (int) t.y, true);
 			}
 
@@ -203,108 +152,14 @@ namespace Assets.Scripts.Graphics {
 			t.SetActive(true);
 			t.transform.rotation = Quaternion.Euler(0, 0, r);
 			t.transform.position = new Vector3(x, y, Order.TRANSITION);
-			t.GetComponent<SpriteRenderer>().color = Color;
+			SpriteRenderer sr = t.GetComponent<SpriteRenderer>();
+			Color tint = TileTint.Get(_type);
+			sr.color = new Color(Color.r * tint.r, Color.g * tint.g, Color.b * tint.b);
 
-			Vector2 size = t.GetComponent<SpriteRenderer>().bounds.size;
+			Vector2 size = sr.bounds.size;
 			float yS = (special ? size.y : size.x) * (corner ? 2 : 1);
 			float xS = transform.GetComponent<SpriteRenderer>().bounds.size.x;
 			t.transform.localScale = new Vector3(xS / yS * (corner ? LENGTH : 1), xS / yS * LENGTH, 1);
-		}
-
-		// todo implement update
-		public void UpdateTransitions () {
-			Delete("all");
-			// todo
-		}
-
-		//Keywords are: all, left, right, top, bottom, topleft, topright, bottomleft, bottomright
-		public void Delete (params string[] direction) {
-			foreach (string d in direction) {
-				switch (d) {
-					case "all":
-						foreach (Transform child in gameObject.transform) {
-							if (child.gameObject.transform.IsChildOf(transform)) {
-								Destroy(child.gameObject);
-							}
-						}
-						break;
-					case "left":
-						for (int j = 0; j < transform.childCount; j++) {
-							if (transform.position.x > transform.GetChild(j).transform.position.x && transform.position.y == transform.GetChild(j).transform.position.y) {
-								if (transform.GetChild(j).gameObject.transform.IsChildOf(transform)) {
-									Destroy(transform.GetChild(j).transform.gameObject);
-								}
-							}
-						}
-						break;
-					case "right":
-						for (int j = 0; j < transform.childCount; j++) {
-							if (transform.position.x < transform.GetChild(j).transform.position.x && transform.position.y == transform.GetChild(j).transform.position.y) {
-								if (transform.GetChild(j).gameObject.transform.IsChildOf(transform)) {
-									Destroy(transform.GetChild(j).transform.gameObject);
-								}
-							}
-						}
-						break;
-					case "top":
-						for (int j = 0; j < transform.childCount; j++) {
-							if (transform.position.x == transform.GetChild(j).transform.position.x && transform.position.y < transform.GetChild(j).transform.position.y) {
-								if (transform.GetChild(j).gameObject.transform.IsChildOf(transform)) {
-									Destroy(transform.GetChild(j).transform.gameObject);
-								}
-							}
-						}
-						break;
-					case "bottom":
-						for (int j = 0; j < transform.childCount; j++) {
-							if (transform.position.x == transform.GetChild(j).transform.position.x && transform.position.y > transform.GetChild(j).transform.position.y) {
-								if (transform.GetChild(j).gameObject.transform.IsChildOf(transform)) {
-									Destroy(transform.GetChild(j).transform.gameObject);
-								}
-							}
-						}
-						break;
-					case "topleft":
-						for (int j = 0; j < transform.childCount; j++) {
-							if (transform.position.x > transform.GetChild(j).transform.position.x && transform.position.y < transform.GetChild(j).transform.position.y) {
-								if (transform.GetChild(j).gameObject.transform.IsChildOf(transform)) {
-									Destroy(transform.GetChild(j).transform.gameObject);
-								}
-							}
-						}
-						break;
-					case "topright":
-						for (int j = 0; j < transform.childCount; j++) {
-							if (transform.position.x < transform.GetChild(j).transform.position.x && transform.position.y < transform.GetChild(j).transform.position.y) {
-								if (transform.GetChild(j).gameObject.transform.IsChildOf(transform)) {
-									Destroy(transform.GetChild(j).transform.gameObject);
-								}
-							}
-						}
-						break;
-					case "bottomleft":
-						for (int j = 0; j < transform.childCount; j++) {
-							if (transform.position.x > transform.GetChild(j).transform.position.x && transform.position.y > transform.GetChild(j).transform.position.y) {
-								if (transform.GetChild(j).gameObject.transform.IsChildOf(transform)) {
-									Destroy(transform.GetChild(j).transform.gameObject);
-								}
-							}
-						}
-						break;
-					case "bottomright":
-						for (int j = 0; j < transform.childCount; j++) {
-							if (transform.position.x < transform.GetChild(j).transform.position.x && transform.position.y > transform.GetChild(j).transform.position.y) {
-								if (transform.GetChild(j).gameObject.transform.IsChildOf(transform)) {
-									Destroy(transform.GetChild(j).transform.gameObject);
-								}
-							}
-						}
-						break;
-					default:
-						Debug.LogError("SmoothTiles2d - Error: Parameters for Delete are invalid, LOL! Possible parameter values include: 'all' 'left' 'right' 'top' 'bottom' 'topleft' 'topright' 'bottomleft' 'bottomright'");
-						break;
-				}
-			}
 		}
 
 	}
