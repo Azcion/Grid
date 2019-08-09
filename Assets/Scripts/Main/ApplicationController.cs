@@ -49,9 +49,7 @@ namespace Assets.Scripts.Main {
 			_background.SetActive(true);
 			CameraController.PointCameraAtMapCenter();
 			_sun.SetActive(true);
-			AverageColor.Initialize();
 			TileTint.Initialize();
-			SmoothTiles.LoadAssets();
 			_tileMaker.SetActive(true);
 			_wallMaker.SetActive(true);
 			_plantMaker.SetActive(true);

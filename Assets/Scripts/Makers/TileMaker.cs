@@ -85,8 +85,6 @@ namespace Assets.Scripts.Makers {
 							InitializeTile(t);
 						}
 					}
-
-					Destroy(c);
 				}
 			}
 

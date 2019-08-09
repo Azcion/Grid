@@ -10,15 +10,9 @@ namespace Assets.Scripts.Graphics {
 	public static class AssetLoader {
 
 		public static readonly Material DiffuseMat;
-		public static readonly Sprite TransitionSide;
-		public static readonly Sprite TransitionCorner;
 
 		public static readonly Sprite RockTop;
 		public static readonly Sprite WoodTop;
-
-		private static readonly Sprite[][] TileSprites;
-		private static readonly string[] TileNames;
-		private static readonly int TileTypeCount;
 
 		private static readonly Sprite[][] LinkedSprites;
 		private static readonly string[] LinkedNames;
@@ -32,16 +26,9 @@ namespace Assets.Scripts.Graphics {
 
 		static AssetLoader () {
 			DiffuseMat = Resources.Load<Material>("Materials/Diffuse");
-			TransitionSide = Resources.Load<Sprite>("sprites/terrain/decals/TransitionSide");
-			TransitionCorner = Resources.Load<Sprite>("sprites/terrain/decals/TransitionCorner");
-
+			
 			RockTop = Resources.Load<Sprite>("sprites/other/RockTop");
 			WoodTop = Resources.Load<Sprite>("sprites/other/WoodTop");
-
-			TileNames = Enum.GetNames(typeof(TileType));
-			TileTypeCount = TileNames.Length;
-			TileSprites = new Sprite[TileTypeCount][];
-			LoadTiles();
 
 			LinkedNames = Enum.GetNames(typeof(LinkedType));
 			LinkedTypeCount = LinkedNames.Length;
@@ -52,14 +39,6 @@ namespace Assets.Scripts.Graphics {
 			AnimalSprites = new Dictionary<string, List<Sprite>>();
 			PlantNames = new Dictionary<string, string>();
 			PlantSprites = new Dictionary<string, List<Sprite>>();
-		}
-
-		public static Sprite Get (TileType tile, int x, int y) {
-			tile = tile == TileType.DeepWater ? TileType.ShallowWater : tile;
-			int i = (int) tile;
-			int size = (int) Mathf.Sqrt(TileSprites[i].Length);
-			int xy = size * (size - 1) - size * (y % size) + x % size;
-			return TileSprites[i][xy];
 		}
 
 		public static Sprite Get (LinkedType linked, int index) {
@@ -78,20 +57,6 @@ namespace Assets.Scripts.Graphics {
 
 			Debug.Log($"Couldn't retrieve [{thing}, {defName}, {direction}] in AssetLoader.");
 			return null;
-		}
-
-		private static void LoadTiles () {
-			for (int i = 0; i < TileTypeCount; ++i) {
-				string tile = TileNames[i];
-				string loc = $"sprites/terrain/surfaces/{tile}";
-				TileSprites[i] = Resources.LoadAll<Sprite>(loc);
-
-				foreach (Sprite s in TileSprites[i]) {
-					if (s == null) {
-						Debug.Log($"Couldn't load {tile} properly in AssetLoader.");
-					}
-				}
-			}
 		}
 
 		private static void LoadLinked () {
