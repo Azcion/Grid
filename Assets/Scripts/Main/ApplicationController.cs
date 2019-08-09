@@ -33,6 +33,7 @@ namespace Assets.Scripts.Main {
 		[UsedImplicitly, SerializeField] private GameObject _plantMaker = null;
 		[UsedImplicitly, SerializeField] private GameObject _animalMaker = null;
 		[UsedImplicitly, SerializeField] private GameObject _pathfinder = null;
+		[UsedImplicitly, SerializeField] private GameObject _terrainAppController = null;
 
 		[UsedImplicitly]
 		public void OnStart () {
@@ -58,6 +59,7 @@ namespace Assets.Scripts.Main {
 			_pathfinder.SetActive(true);
 			_ready = true;
 
+			_terrainAppController.SetActive(true);
 			SetReady();
 		}
 

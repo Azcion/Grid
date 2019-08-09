@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Graphics;
 using Assets.Scripts.Main;
+using Assets.Scripts.Terrain;
 using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -13,7 +14,9 @@ namespace Assets.Scripts.Makers {
 
 	[SuppressMessage("ReSharper", "SwitchStatementMissingSomeCases")]
 	public class TileMaker : MonoBehaviour {
-		
+
+		private static int[] _types;
+
 		private static int _typeCount;
 		private static List<List<Tile>> _tiles;
 		private static int _seed;
@@ -42,6 +45,8 @@ namespace Assets.Scripts.Makers {
 			_typeCount = Enum.GetValues(typeof(TileType)).Length;
 			_tiles = new List<List<Tile>>();
 
+			_types = new int[Map.YTiles * Map.YTiles];
+
 			for (int y = 0; y < Map.YTiles; ++y) {
 				List<Tile> row = new List<Tile>();
 
@@ -53,6 +58,7 @@ namespace Assets.Scripts.Makers {
 			}
 
 			Create(Seed.IsDebugSurfaces);
+			TerrainController.Assign(Map.YTiles, _types);
 		}
 
 		private void Create (bool debugSurfaces) {
@@ -79,6 +85,8 @@ namespace Assets.Scripts.Makers {
 							InitializeTile(t);
 						}
 					}
+
+					Destroy(c);
 				}
 			}
 
@@ -90,8 +98,9 @@ namespace Assets.Scripts.Makers {
 			int x = (int) t.position.x;
 			int y = (int) t.position.y;
 			TileType type = iType == -1 ? GetType(x, y) : (TileType) iType;
+			_types[x + y * Map.YTiles] = (int) type;
 			int penalty = GetPenalty(type);
-			Material mat = AssetLoader.DiffuseMat;
+			/*Material mat = AssetLoader.DiffuseMat;
 			Color color = Color.gray;
 
 			SpriteRenderer sr = t.GetComponent<SpriteRenderer>();
@@ -111,13 +120,13 @@ namespace Assets.Scripts.Makers {
 
 			SmoothTiles st = t.GetComponent<SmoothTiles>();
 			st.OverlapOrder = _typeCount - (int) type;
-			st.Color = color;
+			st.Color = color;*/
 
 			Tile tile = t.GetComponent<Tile>();
 			bool walkable = true;
 			bool buildable = true;
 
-			switch (type) {
+			/*switch (type) {
 				case TileType.DeepWater:
 					st.CanBeTransitionedTo = false;
 					walkable = false;
@@ -134,7 +143,7 @@ namespace Assets.Scripts.Makers {
 				case TileType.WoodFloor:
 					st.CanTransition = false;
 					break;
-			}
+			}*/
 
 			switch (type) {
 				case TileType.DeepWater:
