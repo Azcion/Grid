@@ -21,6 +21,11 @@ namespace Assets.Scripts.Makers {
 
 		[UsedImplicitly]
 		private void Start () {
+			if (!DefLoader.DidLoad) {
+				Debug.Log("Defs not loaded, AnimalMaker can't run.");
+				return;
+			}
+
 			if (_animalPrefab == null) {
 				_animalPrefab = new GameObject("Animal Prefab", typeof(Animal), typeof(SpriteRenderer));
 				_animalPrefab.transform.SetParent(_container.transform);

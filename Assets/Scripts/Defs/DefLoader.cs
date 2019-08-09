@@ -7,6 +7,7 @@ namespace Assets.Scripts.Defs {
 
 	public class DefLoader : MonoBehaviour {
 
+		public static bool DidLoad = false;
 		public static DefContainer<AnimalDef> AnimalDefs;
 		public static DefContainer<PlantDef> PlantDefs;
 		public static PlantDef Grass;
@@ -35,6 +36,8 @@ namespace Assets.Scripts.Defs {
 				Grass = def;
 				break;
 			}
+
+			DidLoad = true;
 			AssetLoader.LoadDefs(AnimalDefs.Defs);
 			AssetLoader.LoadDefs(PlantDefs.Defs);
 			SceneManager.LoadScene("Main");

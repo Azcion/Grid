@@ -17,12 +17,17 @@ namespace Assets.Scripts.Makers {
 
 		[UsedImplicitly]
 		private void Start () {
+			if (!DefLoader.DidLoad) {
+				Debug.Log("Defs not loaded, PlantMaker can't run.");
+				return;
+			}
+
 			if (_plantPrefab == null) {
 				_plantPrefab = new GameObject("Plant Prefab", typeof(Plant), typeof(SpriteRenderer));
 				_plantPrefab.transform.SetParent(_container.transform);
 				_plantPrefab.SetActive(false);
 			}
-			
+
 			Populate(_plantPrefab);
 		}
 
