@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Defs;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Main;
 using Assets.Scripts.Things;
@@ -55,6 +56,11 @@ namespace Assets.Scripts.Makers {
 
 		[UsedImplicitly]
 		private void Start () {
+			if (!DefLoader.DidLoad) {
+				Debug.Log("Defs not loaded, WallMaker can't run.");
+				return;
+			}
+
 			_instance = this;
 			_walls = new Linked[Map.YTiles, Map.YTiles];
 
