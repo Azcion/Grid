@@ -27,7 +27,7 @@ namespace Assets.Scripts.Makers {
 			}
 
 			if (_animalPrefab == null) {
-				_animalPrefab = new GameObject("Animal Prefab", typeof(Animal), typeof(SpriteRenderer));
+				_animalPrefab = new GameObject("Animal Prefab", typeof(Animal));
 				_animalPrefab.transform.SetParent(_container.transform);
 				_animalPrefab.SetActive(false);
 			}
@@ -58,6 +58,7 @@ namespace Assets.Scripts.Makers {
 			int y = (int) t.position.y;
 			Vector3 pos = new Vector3(x, y, Order.ANIMAL);
 			GameObject go = Instantiate(prefab, pos, Quaternion.identity, _container.transform);
+			go.name = def.DefName;
 			Animal animal = Animal.Create(go.GetComponent<Animal>(), def);
 			animal.Initialize();
 		}

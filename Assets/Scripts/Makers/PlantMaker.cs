@@ -23,7 +23,7 @@ namespace Assets.Scripts.Makers {
 			}
 
 			if (_plantPrefab == null) {
-				_plantPrefab = new GameObject("Plant Prefab", typeof(Plant), typeof(SpriteRenderer));
+				_plantPrefab = new GameObject("Plant Prefab", typeof(Plant));
 				_plantPrefab.transform.SetParent(_container.transform);
 				_plantPrefab.SetActive(false);
 			}
