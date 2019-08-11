@@ -36,7 +36,7 @@ namespace Assets.Scripts.Things {
 
 			if (Size == PlantSize.Small) {
 				//todo generate better random points
-				for (int i = 0; i < Random.Range(0, 4); ++i) {
+				for (int i = 0; i < Random.Range(2, 6); ++i) {
 					CreateChildSprite();
 				}
 			}
@@ -86,11 +86,14 @@ namespace Assets.Scripts.Things {
 			float y = Random.Range(.1f, .9f);
 			float s = Mathf.Lerp(.65f, .85f, _growth);
 			Vector2 pos = new Vector3(x, y);
-			GameObject go = Instantiate(_childPrefab, pos, Quaternion.identity, Tf);
+			GameObject go = Instantiate(_childPrefab, transform.position, Quaternion.identity, Tf);
+			go.transform.localPosition = pos;
 			go.transform.localScale = new Vector3(s, s, 1);
+			go.name = "Clone";
 			SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
 			sr.sprite = ChildRenderer.sprite;
 			sr.sharedMaterial = ChildRenderer.sharedMaterial;
+			go.SetActive(true);
 		}
 
 	}
