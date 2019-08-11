@@ -1,5 +1,6 @@
 ﻿using System;
 using Assets.Scripts.Enums;
+using Assets.Scripts.Graphics;
 using UnityEngine;
 
 namespace Assets.Scripts.Terrain {
@@ -28,8 +29,19 @@ namespace Assets.Scripts.Terrain {
 
 			textureArray.Apply();
 			float index = 1f / (textures.Length - 1);
+			int typeCount = Enum.GetNames(typeof(TileType)).Length;
+			Texture2D tints = new Texture2D(typeCount, 1, TextureFormat.RGBA32, false) {
+				filterMode = FilterMode.Point
+			};
+
+			for (int i = 0; i < typeCount; i++) {
+				tints.SetPixel(i, 0, TileTint.Get((TileType) i));
+			}
+
+			tints.Apply();
 			Material material = Resources.Load<Material>("Terrain Material");
 			material.SetTexture("_Textures", textureArray);
+			material.SetTexture("_Tints", tints);
 			material.SetFloat("_Index", index);
 
 			return new object[] { material, index };
