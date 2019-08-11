@@ -30,7 +30,7 @@ namespace Assets.Scripts.Things {
 
 			Child.localPosition = new Vector2(.5f, .5f);
 			Child.localScale = AdjustScale(Def.SpriteScale);
-			SetSprite(Utils.Assets.GetSprite(Def.DefName), false);
+			SetSprite(Assets.GetSprite(Def.DefName), false);
 			SetTint(AdjustTint(Def.Tint));
 			IsSelectable = true;
 			_didInitialize = true;
@@ -64,7 +64,7 @@ namespace Assets.Scripts.Things {
 
 			if (DirectionChanged) {
 				string suffix = DirectionSuffix[(int) Facing];
-				SetSprite(Utils.Assets.GetSprite(Def.DefName + suffix), Facing == Direction.West);
+				SetSprite(Assets.GetSprite(Def.DefName + suffix), Facing == Direction.West);
 				DirectionChanged = false;
 			}
 

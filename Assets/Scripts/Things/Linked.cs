@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Enums;
+﻿using System;
+using Assets.Scripts.Enums;
 using Assets.Scripts.Graphics;
 using Assets.Scripts.Makers;
 using JetBrains.Annotations;
@@ -8,6 +9,8 @@ namespace Assets.Scripts.Things {
 
 	[UsedImplicitly]
 	public class Linked : Thing, IThing {
+
+		private static readonly string[] TypeNames = Enum.GetNames(typeof(LinkedType));
 
 		private int _x;
 		private int _y;
@@ -34,7 +37,8 @@ namespace Assets.Scripts.Things {
 			ChildRenderer.color = AdjustTint(_type);
 
 			if (planning) {
-				SetSprite(AssetLoader.Get(_type, GetIndex(0)), false);
+				string assetName = $"{TypeNames[(int) _type]}_Atlas_{GetIndex(0)}";
+				SetSprite(Assets.GetSprite(assetName), false);
 				return;
 			}
 
@@ -64,7 +68,7 @@ namespace Assets.Scripts.Things {
 			}
 		}
 
-		private static int GetIndex (byte mask) {
+		private static int GetIndex (int mask) {
 			int mod = mask % 4;
 			return 12 - (mask - mod) + mod;
 		}
@@ -79,13 +83,10 @@ namespace Assets.Scripts.Things {
 			mask += _x == Map.YTiles - 1 ? 2 : 0;
 			mask += _y == 0 ? 4 : 0;
 			mask += _x == 0 ? 8 : 0;
-			int index = GetIndex((byte) mask);
+			int index = GetIndex(mask);
 
-			if (index < 0) {
-				return;
-			}
-			
-			SetSprite(AssetLoader.Get(_type, index), false);
+			string assetName = $"{TypeNames[(int) _type]}_Atlas";
+			SetSprite(Assets.GetAtlasSprite(assetName, index), false); 
 			CoverCenterGaps(index);
 			CoverEdgeGaps();
 		}
@@ -168,9 +169,9 @@ namespace Assets.Scripts.Things {
 			t.localPosition = position;
 			t.localScale = scale;
 			SpriteRenderer sr = t.gameObject.GetComponent<SpriteRenderer>();
-			sr.sprite = _type == LinkedType.Rock ? AssetLoader.RockTop : AssetLoader.WoodTop;
+			sr.sprite = _type == LinkedType.Rock ? Assets.GetSprite("RockTop") : Assets.GetSprite("WoodTop");
 			sr.color = AdjustTint(_type);
-			sr.sharedMaterial = AssetLoader.DiffuseMat;
+			sr.sharedMaterial = Assets.DiffuseMat;
 		}
 	}
 

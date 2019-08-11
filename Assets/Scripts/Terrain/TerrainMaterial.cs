@@ -39,7 +39,7 @@ namespace Assets.Scripts.Terrain {
 			}
 
 			tints.Apply();
-			Material material = Resources.Load<Material>("Materials/Terrain Material");
+			Material material = Assets.TerrainMat;
 			material.SetTexture("_Textures", textureArray);
 			material.SetTexture("_Tints", tints);
 			material.SetFloat("_Index", index);

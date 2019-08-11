@@ -31,7 +31,7 @@ namespace Assets.Scripts.Things {
 			Size = Def.PlantSize;
 			_growth = growth;
 			AdjustTransform(growth);
-			SetSprite(Utils.Assets.GetSprite(Def.DefName), Random.value < .5);
+			SetSprite(Assets.GetSprite(Def.DefName), Random.value < .5);
 			IsSelectable = Def.DefName != "Grass";
 
 			if (Size == PlantSize.Small) {

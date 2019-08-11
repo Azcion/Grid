@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Graphics;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.Things {
@@ -52,7 +51,7 @@ namespace Assets.Scripts.Things {
 			Child.SetParent(Tf);
 			Child.localPosition = Vector3.zero;
 			ChildRenderer = Child.gameObject.GetComponent<SpriteRenderer>();
-			ChildRenderer.sharedMaterial = AssetLoader.DiffuseMat;
+			ChildRenderer.sharedMaterial = Assets.DiffuseMat;
 		}
 
 	}

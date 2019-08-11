@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3514298140
+CRC: 1895072245
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 9b2e8e8090012f43c022d50f8039f91f
+    Hash: 3f611fa3197bbf14b0e1a27c6f3a0eb8
   TypeTreeHash:
     serializedVersion: 2
     Hash: cb3f6df5cbc4a2990c44c2787bc9553a
@@ -14,14 +14,20 @@ ClassTypes:
 - Class: 213
   Script: {instanceID: 0}
 Assets:
+- Assets/Sprites/Selector.png
+- Assets/Sprites/thing/building/linked/WallPlanks_Atlas.png
 - Assets/Sprites/thing/creature/tortoise/Tortoise_south.png
+- Assets/Sprites/thing/building/linked/Rock_Atlas.png
 - Assets/Sprites/thing/creature/gazelle/Gazelle_south.png
 - Assets/Sprites/thing/plant/grass/Grass.png
 - Assets/Sprites/thing/creature/elephant/Elephant_north.png
 - Assets/Sprites/thing/creature/tortoise/Tortoise_north.png
 - Assets/Sprites/thing/plant/treedrago/TreeDrago.png
 - Assets/Sprites/thing/plant/treepalm/TreePalm.png
+- Assets/Sprites/ui/ButtonSubtle.png
+- Assets/Sprites/other/WoodTop.png
 - Assets/Sprites/thing/creature/gazelle/Gazelle_north.png
+- Assets/Sprites/other/RockTop.png
 - Assets/Sprites/thing/creature/iguana/Iguana_south.png
 - Assets/Sprites/thing/creature/gazelle/Gazelle_east.png
 - Assets/Sprites/thing/creature/elephant/Elephant_east.png
@@ -30,5 +36,6 @@ Assets:
 - Assets/Sprites/thing/plant/agave/Agave.png
 - Assets/Sprites/thing/plant/saguarocactus/SaguaroCactus.png
 - Assets/Sprites/thing/creature/iguana/Iguana_north.png
+- Assets/Sprites/thing/building/linked/WallPlanks_UI.png
 - Assets/Sprites/thing/creature/iguana/Iguana_east.png
 Dependencies: []
