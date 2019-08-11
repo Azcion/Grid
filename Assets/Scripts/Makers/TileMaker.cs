@@ -146,7 +146,7 @@ namespace Assets.Scripts.Makers {
 				TypeAt(t, x + 1, y + 1)
 			};
 
-			List<int> neighborTypes = new List<int>();
+			List<int> neighborTypes = new List<int> { t };
 			int min = t;
 
 			foreach (int neighbor in neighbors) {
