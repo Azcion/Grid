@@ -16,6 +16,7 @@ namespace Assets.Scripts.Makers {
 	public class TileMaker : MonoBehaviour {
 
 		private static int[] _types;
+		private static bool[] _transitionFlags;
 
 		private static int _typeCount;
 		private static List<List<Tile>> _tiles;
@@ -44,7 +45,6 @@ namespace Assets.Scripts.Makers {
 			_seed = (int) Mathf.Lerp(0, maxSeed, t);
 			_typeCount = Enum.GetValues(typeof(TileType)).Length;
 			_tiles = new List<List<Tile>>();
-
 			_types = new int[Map.YTiles * Map.YTiles];
 
 			for (int y = 0; y < Map.YTiles; ++y) {
@@ -57,8 +57,43 @@ namespace Assets.Scripts.Makers {
 				_tiles.Add(row);
 			}
 
+			_transitionFlags = GetTransitionFlags();
 			Create(Seed.IsDebugSurfaces);
 			TerrainController.Assign(Map.YTiles, _types);
+		private static bool[] GetTransitionFlags () {
+			bool[] flags = new bool[Enum.GetValues(typeof(TileType)).Length];
+			
+			TileType[] noTransitionTypes = {
+				TileType.RoughStone,
+				TileType.RoughHewnRock,
+				TileType.SmoothStone,
+				TileType.Carpet,
+				TileType.Concrete,
+				TileType.Flagstone,
+				TileType.GenericFloorTile,
+				TileType.PavedTile,
+				TileType.TileStone,
+				TileType.WoodFloor
+			};
+
+			for (int i = 0; i < flags.Length; i++) {
+				TileType t = (TileType) i;
+				bool matched = false;
+
+				foreach (TileType other in noTransitionTypes) {
+					if (t != other) {
+						continue;
+					}
+
+					matched = true;
+					break;
+				}
+
+				flags[i] = !matched;
+			}
+
+			return flags;
+		}
 		}
 
 		private void Create (bool debugSurfaces) {
@@ -98,14 +133,8 @@ namespace Assets.Scripts.Makers {
 			TileType type = iType == -1 ? GetType(x, y) : (TileType) iType;
 			_types[x + y * Map.YTiles] = (int) type;
 			int penalty = GetPenalty(type);
-			/*Material mat = AssetLoader.DiffuseMat;
-			Color color = Color.gray;
 
-			SpriteRenderer sr = t.GetComponent<SpriteRenderer>();
-			sr.sharedMaterial = mat;
-			sr.sprite = AssetLoader.Get(type, x, y);
-
-			switch (type) {
+			/*switch (type) {
 				case TileType.DeepWater:
 				case TileType.ShallowWater:
 				case TileType.RoughStone:
@@ -119,29 +148,17 @@ namespace Assets.Scripts.Makers {
 			SmoothTiles st = t.GetComponent<SmoothTiles>();
 			st.OverlapOrder = _typeCount - (int) type;
 			st.Color = color;*/
+			}*/
 
 			Tile tile = t.GetComponent<Tile>();
 			bool walkable = true;
 			bool buildable = true;
 
-			/*switch (type) {
+			switch (type) {
 				case TileType.DeepWater:
-					st.CanBeTransitionedTo = false;
 					walkable = false;
 					break;
-				case TileType.RoughStone:
-				case TileType.RoughHewnRock:
-				case TileType.SmoothStone:
-				case TileType.Carpet:
-				case TileType.Concrete:
-				case TileType.Flagstone:
-				case TileType.GenericFloorTile:
-				case TileType.PavedTile:
-				case TileType.TileStone:
-				case TileType.WoodFloor:
-					st.CanTransition = false;
-					break;
-			}*/
+			}
 
 			switch (type) {
 				case TileType.DeepWater:

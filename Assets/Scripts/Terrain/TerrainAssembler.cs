@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.Terrain {
 
+	[UsedImplicitly]
 	public class TerrainAssembler : MonoBehaviour {
 
 		private static TerrainTile[] _tiles;
@@ -12,9 +14,9 @@ namespace Assets.Scripts.Terrain {
 		private static float _index;
 		private static int _y;
 
-		public void Initialize (int height, int[] types) {
+		public void Initialize (int height, int[] types, bool[] transitionFlags) {
 			transform.position = new Vector3(0, 0, Order.GROUND);
-			GridDef.Initialize(height, types);
+			GridDef.Initialize(height, types, transitionFlags);
 			InitializeSelf(height);
 
 			for (int y = 0; y < _y; ++y) {

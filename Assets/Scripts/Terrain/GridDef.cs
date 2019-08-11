@@ -13,7 +13,6 @@ namespace Assets.Scripts.Terrain {
 
 		}
 
-		public static int Y;
 		public static int[] Types;
 		public static int[][] MeshColors;
 		public static int[] MeshTypes;
@@ -99,28 +98,32 @@ namespace Assets.Scripts.Terrain {
 		private static readonly int[] MaskMul = { 1, 2, 4, 8 };
 		#endregion
 
-		public static void Initialize (int height, int[] types) {
-			Y = height;
-			int yy = Y * Y;
+		private static int _y;
+		private static bool[] _transitionFlags;
+
+		public static void Initialize (int height, int[] types, bool[] transitionFlags) {
+			_y = height;
+			_transitionFlags = transitionFlags;
+			int yy = _y * _y;
 			MeshTypes = new int[yy];
 			MeshRotations = new int[yy];
 			MeshColors = new int[yy][];
 			Types = types;
 			
-			for (int y = 0; y < Y; y++) {
-				for (int x = 0; x < Y; x++) {
-					int i = x + y * Y;
+			for (int y = 0; y < _y; y++) {
+				for (int x = 0; x < _y; x++) {
+					int i = x + y * _y;
 					int t = Types[i];
 
 					int[] neighbors = {
 						TypeAt(t, x - 1, y - 1),
-						TypeAt(t, x, y - 1),
+						TypeAt(t, x,     y - 1),
 						TypeAt(t, x + 1, y - 1),
 						TypeAt(t, x - 1, y),
 						t, 
 						TypeAt(t, x + 1, y),
 						TypeAt(t, x - 1, y + 1),
-						TypeAt(t, x, y + 1),
+						TypeAt(t, x,     y + 1),
 						TypeAt(t, x + 1, y + 1)
 					};
 
@@ -275,10 +278,10 @@ namespace Assets.Scripts.Terrain {
 					break;
 				default:
 					mr = 0;
-					n[0] = Max(n[0], n[1], n[3]);
-					n[2] = Max(n[1], n[2], n[5]);
-					n[6] = Max(n[3], n[6], n[7]);
-					n[8] = Max(n[5], n[7], n[8]);
+					n[0] = Min(n[0], n[1], n[3]);
+					n[2] = Min(n[1], n[2], n[5]);
+					n[6] = Min(n[3], n[6], n[7]);
+					n[8] = Min(n[5], n[7], n[8]);
 					mc = n;
 					break;
 			}
@@ -288,17 +291,22 @@ namespace Assets.Scripts.Terrain {
 			colors = mc;
 		}
 
-		private static int Max (int a, int b, int c) {
-			return Mathf.Max(a, Mathf.Max(b, c));
+		private static int Min (int a, int b, int c) {
+			return Mathf.Min(a, Mathf.Min(b, c));
 		}
 
 		private static int TypeAt (int t, int x, int y) {
-			if (x < 0 || x >= Y || y < 0 || y >= Y) {
-				return -1;
+			if (x < 0 || x >= _y || y < 0 || y >= _y) {
+				return t;
 			}
 
-			int type = Types[x + y * Y];
-			return t > type ? t : type;
+			int type = Types[x + y * _y];
+
+			if (_transitionFlags[type]) {
+				return t < type ? t : type;
+			}
+
+			return t;
 		}
 
 		private static int Rotation (int mask) {
