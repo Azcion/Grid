@@ -30,7 +30,8 @@ namespace Assets.Scripts.Things {
 
 			Child.localPosition = new Vector2(.5f, .5f);
 			Child.localScale = AdjustScale(Def.SpriteScale);
-			SetSprite(Assets.GetSprite(Def.DefName), false);
+			string suffix = DirectionSuffix[(int) Facing];
+			SetSprite(Assets.GetSprite(Def.DefName + suffix), false);
 			SetTint(AdjustTint(Def.Tint));
 			IsSelectable = true;
 			_didInitialize = true;
