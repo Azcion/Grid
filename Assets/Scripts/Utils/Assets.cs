@@ -15,13 +15,17 @@ namespace Assets.Scripts.Utils {
 			Bundles.Add(bundleName, bundle);
 		}
 
+		public static Material GetMaterial (string assetName) {
+			return GetAsset("materials", assetName) as Material;
+		}
+
+		public static Sprite GetSprite (string assetName) {
+			return GetAsset("sprites", assetName) as Sprite;
+		}
+
 		public static Object GetAsset (string bundleName, string assetName) {
 			bool didGetBundle = Bundles.TryGetValue(bundleName, out AssetBundle bundle);
 			return !didGetBundle ? null : bundle.LoadAsset(assetName);
-		}
-
-		public static Material GetMaterial (string bundleName, string assetName) {
-			return GetAsset(bundleName, assetName) as Material;
 		}
 
 	}

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Defs;
 using Assets.Scripts.Enums;
-using Assets.Scripts.Graphics;
 using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -12,6 +11,8 @@ namespace Assets.Scripts.Things {
 	public class Animal : Pathfinding, ICreature {
 
 		public AnimalDef Def;
+
+		private static readonly string[] DirectionSuffix = { "_north", "_south", "_east", "_east" };
 
 		private bool _didInitialize;
 
@@ -29,7 +30,7 @@ namespace Assets.Scripts.Things {
 
 			Child.localPosition = new Vector2(.5f, .5f);
 			Child.localScale = AdjustScale(Def.SpriteScale);
-			SetSprite(AssetLoader.Get(Type, Def.DefName), false);
+			SetSprite(Utils.Assets.GetSprite(Def.DefName), false);
 			SetTint(AdjustTint(Def.Tint));
 			IsSelectable = true;
 			_didInitialize = true;
@@ -62,7 +63,8 @@ namespace Assets.Scripts.Things {
 			}
 
 			if (DirectionChanged) {
-				SetSprite(AssetLoader.Get(Type, Def.DefName, Facing), Facing == Direction.West);
+				string suffix = DirectionSuffix[(int) Facing];
+				SetSprite(Utils.Assets.GetSprite(Def.DefName + suffix), Facing == Direction.West);
 				DirectionChanged = false;
 			}
 

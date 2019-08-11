@@ -1,0 +1,34 @@
+ManifestFileVersion: 0
+CRC: 3514298140
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9b2e8e8090012f43c022d50f8039f91f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: cb3f6df5cbc4a2990c44c2787bc9553a
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/Sprites/thing/creature/tortoise/Tortoise_south.png
+- Assets/Sprites/thing/creature/gazelle/Gazelle_south.png
+- Assets/Sprites/thing/plant/grass/Grass.png
+- Assets/Sprites/thing/creature/elephant/Elephant_north.png
+- Assets/Sprites/thing/creature/tortoise/Tortoise_north.png
+- Assets/Sprites/thing/plant/treedrago/TreeDrago.png
+- Assets/Sprites/thing/plant/treepalm/TreePalm.png
+- Assets/Sprites/thing/creature/gazelle/Gazelle_north.png
+- Assets/Sprites/thing/creature/iguana/Iguana_south.png
+- Assets/Sprites/thing/creature/gazelle/Gazelle_east.png
+- Assets/Sprites/thing/creature/elephant/Elephant_east.png
+- Assets/Sprites/thing/creature/elephant/Elephant_south.png
+- Assets/Sprites/thing/creature/tortoise/Tortoise_east.png
+- Assets/Sprites/thing/plant/agave/Agave.png
+- Assets/Sprites/thing/plant/saguarocactus/SaguaroCactus.png
+- Assets/Sprites/thing/creature/iguana/Iguana_north.png
+- Assets/Sprites/thing/creature/iguana/Iguana_east.png
+Dependencies: []

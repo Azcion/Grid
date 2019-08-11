@@ -98,7 +98,7 @@ namespace Assets.Scripts.Makers {
 				return false;
 			}
 
-			return (thing as Plant)?.Def.DefName == "Plant_Grass";
+			return (thing as Plant)?.Def.DefName == "Grass";
 		}
 
 		private void AddThing (IThing thing) {

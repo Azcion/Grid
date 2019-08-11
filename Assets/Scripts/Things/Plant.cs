@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.Defs;
 using Assets.Scripts.Enums;
-using Assets.Scripts.Graphics;
 using JetBrains.Annotations;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -32,8 +31,8 @@ namespace Assets.Scripts.Things {
 			Size = Def.PlantSize;
 			_growth = growth;
 			AdjustTransform(growth);
-			SetSprite(AssetLoader.Get(Type, Def.DefName), Random.value < .5);
-			IsSelectable = Def.DefName != "Plant_Grass";
+			SetSprite(Utils.Assets.GetSprite(Def.DefName), Random.value < .5);
+			IsSelectable = Def.DefName != "Grass";
 
 			if (Size == PlantSize.Small) {
 				//todo generate better random points

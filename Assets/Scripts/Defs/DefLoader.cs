@@ -29,7 +29,7 @@ namespace Assets.Scripts.Defs {
 
 			//Find grass def
 			foreach (PlantDef def in PlantDefs.Defs) {
-				if (def.DefName != "Plant_Grass") {
+				if (def.DefName != "Grass") {
 					continue;
 				}
 
@@ -38,8 +38,6 @@ namespace Assets.Scripts.Defs {
 			}
 
 			DidLoad = true;
-			AssetLoader.LoadDefs(AnimalDefs.Defs);
-			AssetLoader.LoadDefs(PlantDefs.Defs);
 			SceneManager.LoadScene("Main");
 		}
 

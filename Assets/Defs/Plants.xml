@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Defs>
 	<PlantDef>
-		<DefName>Plant_Grass</DefName>
+		<DefName>Grass</DefName>
 		<Label>grass</Label>
 		<StatBases>
 			<MaxHitPoints>30</MaxHitPoints>
@@ -12,7 +12,7 @@
 		<PlantSize>Small</PlantSize>
 	</PlantDef>
 	<PlantDef>
-		<DefName>Plant_Agave</DefName>
+		<DefName>Agave</DefName>
 		<Label>agave</Label>
 		<Description>A large-leafed desert plant with edible flowers and stalks.</Description>
 		<StatBases>
@@ -24,7 +24,7 @@
 		<PlantSize>Large</PlantSize>
 	</PlantDef>
 	<PlantDef>
-		<DefName>Plant_SaguaroCactus</DefName>
+		<DefName>SaguaroCactus</DefName>
 		<Label>saguaro cactus</Label>
 		<Description>A large cactus native to arid Earth environments. Though it is not a tree, it yields a small amount of fibrous material that can be used like wood.</Description>
 		<StatBases>
@@ -36,7 +36,7 @@
 		<PlantSize>Large</PlantSize>
 	</PlantDef>
 	<PlantDef>
-		<DefName>Plant_TreeDrago</DefName>
+		<DefName>TreeDrago</DefName>
 		<Label>drago tree</Label>
 		<Description>A hardy desert tree topped with thick, pointed leaves.</Description>
 		<StatBases>
@@ -48,7 +48,7 @@
 		<PlantSize>Large</PlantSize>
 	</PlantDef>
 	<PlantDef>
-		<DefName>Plant_TreePalm</DefName>
+		<DefName>TreePalm</DefName>
 		<Label>palm tree</Label>
 		<Description>A tropical tree with a tall, naked trunk topped by a cluster of very broad leaves. Unfortunately, this variety doesn't produce any edible coconuts.</Description>
 		<StatBases>
