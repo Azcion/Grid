@@ -84,6 +84,25 @@ namespace Assets.Scripts.Makers {
 			TerrainController.Assign(Map.YTiles, _types, _transitionFlags);
 		}
 
+		private void Create () {
+			for (int y = 0; y < Map.YChunks; ++y) {
+				for (int x = 0; x < Map.YChunks; ++x) {
+					Vector3 pos = new Vector3(Map.CSIZE * x, Map.CSIZE * y, Order.GROUND);
+					GameObject c = Instantiate(_chunkPrefab, pos, Quaternion.identity, _container.transform);
+					c.name = "Chunk " + y + "y " + x + "x";
+
+					foreach (Transform t in c.transform) {
+						int tx = (int) t.position.x;
+						int ty = (int) t.position.y;
+						InitializeTile(t, _types[Index(tx, ty)]);
+					}
+				}
+			}
+
+			_ready = true;
+			ApplicationController.NotifyReady();
+		}
+
 		private static bool[] GetTransitionFlags () {
 			bool[] flags = new bool[Enum.GetValues(typeof(TileType)).Length];
 			
@@ -186,25 +205,6 @@ namespace Assets.Scripts.Makers {
 			return x + y * Map.YTiles;
 		}
 
-		private void Create () {
-			for (int y = 0; y < Map.YChunks; ++y) {
-				for (int x = 0; x < Map.YChunks; ++x) {
-					Vector3 pos = new Vector3(Map.CSIZE * x, Map.CSIZE * y, Order.GROUND);
-					GameObject c = Instantiate(_chunkPrefab, pos, Quaternion.identity, _container.transform);
-					c.name = "Chunk " + y + "y " + x + "x";
-
-					foreach (Transform t in c.transform) {
-						int tx = (int) t.position.x;
-						int ty = (int) t.position.y;
-						InitializeTile(t, _types[Index(tx, ty)]);
-					}
-				}
-			}
-
-			_ready = true;
-			ApplicationController.NotifyReady();
-		}
-
 		private static void InitializeTile (Transform t, int iType = -1) {
 			int x = (int) t.position.x;
 			int y = (int) t.position.y;
@@ -286,14 +286,14 @@ namespace Assets.Scripts.Makers {
 			} else if (v1 > m) {
 				type = TileType.Mud;
 			} else if (v1 > 1 - m) {
-				if (!(v1 < .55) || !(v1 > .45)) {
-					return type;
+				if (!(v1 < .53) || !(v1 > .48)) {
+					//return type;
 				}
 
 				float v2 = Noise.Sum(x + _seed, y + _seed, .02f, 4, 2.2f, .5f);
 
 				switch (type) {
-					case TileType.Soil when v2 > .60:
+					case TileType.Soil when v2 > .58:
 						type = TileType.SoftSand;
 						break;
 					case TileType.Soil: {
