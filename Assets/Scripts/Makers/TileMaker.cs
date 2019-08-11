@@ -45,19 +45,31 @@ namespace Assets.Scripts.Makers {
 			_typeCount = Enum.GetValues(typeof(TileType)).Length;
 			_tiles = new List<List<Tile>>();
 			_types = new int[Map.YTiles * Map.YTiles];
+			_transitionFlags = GetTransitionFlags();
 
 			for (int y = 0; y < Map.YTiles; ++y) {
 				List<Tile> row = new List<Tile>();
 
 				for (int x = 0; x < Map.YTiles; ++x) {
 					row.Add(null);
+					int type;
+
+					if (Seed.IsDebugSurfaces) {
+						type = (x + y) / 3;
+
+						if (type >= _typeCount) {
+							type = Random.Range(0, _typeCount);
+						}
+					} else {
+						type = (int) GetType(x, y);
+					}
+
+					_types[Index(x, y)] = type;
 				}
 
 				_tiles.Add(row);
 			}
 
-			_transitionFlags = GetTransitionFlags();
-			Create(Seed.IsDebugSurfaces);
 			string changesDebug = "Type changes: ";
 
 			for (int i = 0; i < 5; i++) {
@@ -70,6 +82,7 @@ namespace Assets.Scripts.Makers {
 			}
 
 			Debug.Log(changesDebug);
+			Create();
 			TerrainController.Assign(Map.YTiles, _types, _transitionFlags);
 		}
 
@@ -175,29 +188,17 @@ namespace Assets.Scripts.Makers {
 			return x + y * Map.YTiles;
 		}
 
-		private void Create (bool debugSurfaces) {
+		private void Create () {
 			for (int y = 0; y < Map.YChunks; ++y) {
 				for (int x = 0; x < Map.YChunks; ++x) {
 					Vector3 pos = new Vector3(Map.CSIZE * x, Map.CSIZE * y, Order.GROUND);
 					GameObject c = Instantiate(_chunkPrefab, pos, Quaternion.identity, _container.transform);
 					c.name = "Chunk " + y + "y " + x + "x";
 
-					if (debugSurfaces) {
-						foreach (Transform t in c.transform) {
-							int tx = (int) t.position.x;
-							int ty = (int) t.position.y;
-							int type = (tx + ty) / 3;
-
-							if (type >= _typeCount) {
-								type = Random.Range(0, _typeCount);
-							}
-
-							InitializeTile(t, type);
-						}
-					} else {
-						foreach (Transform t in c.transform) {
-							InitializeTile(t);
-						}
+					foreach (Transform t in c.transform) {
+						int tx = (int) t.position.x;
+						int ty = (int) t.position.y;
+						InitializeTile(t, _types[Index(tx, ty)]);
 					}
 				}
 			}
