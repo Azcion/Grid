@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Main;
 using Assets.Scripts.Terrain;
@@ -11,7 +10,6 @@ using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Makers {
 
-	[SuppressMessage("ReSharper", "SwitchStatementMissingSomeCases")]
 	public class TileMaker : MonoBehaviour {
 
 		private static int[] _types;
