@@ -265,9 +265,13 @@ namespace Assets.Scripts.Makers {
 			} else if (v0 > .25) {
 				type = TileType.Soil;
 			} else if (v0 > .23) {
-				type = TileType.Gravel;
+				type = TileType.Mud;
+			} else if (v0 > .215) {
+				type = TileType.Marsh;
+			} else if (v0 > .185) {
+				type = TileType.ShallowWater;
 			} else {
-				type = TileType.RoughStone;
+				type = TileType.DeepWater;
 			}
 
 			float v1 = Noise.Sum(x + _seed, y + _seed, .005f, 6, 2.2f, .5f);
@@ -286,32 +290,23 @@ namespace Assets.Scripts.Makers {
 			} else if (v1 > m) {
 				type = TileType.Mud;
 			} else if (v1 > 1 - m) {
-				if (!(v1 < .53) || !(v1 > .48)) {
-					//return type;
-				}
-
 				float v2 = Noise.Sum(x + _seed, y + _seed, .02f, 4, 2.2f, .5f);
 
 				switch (type) {
+					case TileType.Gravel when v2 > .58:
+						type = TileType.SoilRich;
+						break;
 					case TileType.Soil when v2 > .58:
 						type = TileType.SoftSand;
 						break;
-					case TileType.Soil: {
-						if (v2 > .55) {
-							type = TileType.Sand;
-						}
-
+					case TileType.Soil when v2 > .55:
+						type = TileType.Sand;
 						break;
-					}
-
 					case TileType.Sand when v2 < .33:
 						type = TileType.SoilRich;
 						break;
-					case TileType.Sand: {
-						if (v2 < .36) {
-							type = TileType.Soil;
-						}
-
+					case TileType.Sand when v2 < .36: {
+						type = TileType.Soil;
 						break;
 					}
 				}
