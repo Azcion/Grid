@@ -8,7 +8,9 @@ namespace Assets.Scripts.Utils {
 		[UsedImplicitly] public string[] AssetBundleNames;
 
 		private static void LoadAssetBundle (string bundleName) {
-			AssetBundle loadedAssets = AssetBundle.LoadFromFile($"{Application.dataPath}/Bundles/{bundleName}");
+			string path = Application.isEditor ? Application.dataPath : System.IO.Directory.GetCurrentDirectory();
+			path += $"/Bundles/{bundleName}";
+			AssetBundle loadedAssets = AssetBundle.LoadFromFile(path);
 			Assets.Add(bundleName, loadedAssets);
 
 			Debug.Log(loadedAssets != null ? "Assets loaded" : "Asset loading failed");
