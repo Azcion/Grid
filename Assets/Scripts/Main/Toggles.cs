@@ -5,7 +5,7 @@ namespace Assets.Scripts.Main {
 
 	public class Toggles : MonoBehaviour {
 
-		public static bool DoCycle = true;
+		public static bool DoCycle;
 
 		[UsedImplicitly]
 		public void ToggleCycle () {
