@@ -7,19 +7,21 @@ namespace Assets.Scripts.Terrain {
 
 		private static int _height;
 		private static int[] _types;
+		private static bool[] _transitionFlags;
 
 		[SerializeField, UsedImplicitly] private GameObject _tileAssembler = null;
 		
-		public static void Assign (int height, int[] types) {
+		public static void Assign (int height, int[] types, bool[] transitionFlags) {
 			_height = height;
 			_types = types;
+			_transitionFlags = transitionFlags;
 		}
 
 		[UsedImplicitly]
 		private void Start () {
 			_tileAssembler.SetActive(true);
 			TerrainAssembler assembler = _tileAssembler.GetComponent<TerrainAssembler>();
-			assembler.Initialize(_height, _types);
+			assembler.Initialize(_height, _types, _transitionFlags);
 		}
 
 	}
