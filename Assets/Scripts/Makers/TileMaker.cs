@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Assets.Scripts.Enums;
-using Assets.Scripts.Graphics;
 using Assets.Scripts.Main;
 using Assets.Scripts.Terrain;
 using Assets.Scripts.Utils;
@@ -59,7 +58,21 @@ namespace Assets.Scripts.Makers {
 
 			_transitionFlags = GetTransitionFlags();
 			Create(Seed.IsDebugSurfaces);
-			TerrainController.Assign(Map.YTiles, _types);
+			string changesDebug = "Type changes: ";
+
+			for (int i = 0; i < 5; i++) {
+				int changes = FixNeighborhoods();
+				changesDebug += changes + " ";
+
+				if (changes == 0) {
+					break;
+				}
+			}
+
+			Debug.Log(changesDebug);
+			TerrainController.Assign(Map.YTiles, _types, _transitionFlags);
+		}
+
 		private static bool[] GetTransitionFlags () {
 			bool[] flags = new bool[Enum.GetValues(typeof(TileType)).Length];
 			
@@ -94,6 +107,72 @@ namespace Assets.Scripts.Makers {
 
 			return flags;
 		}
+
+		private static int FixNeighborhoods () {
+			int changes = 0;
+
+			for (int i = 0; i < _types.Length; ++i) {
+				if (FixTile(i % Map.YTiles, i / Map.YTiles)) {
+					++changes;
+				}
+			}
+
+			return changes;
+		}
+
+		private static bool FixTile (int x, int y) {
+			int i = Index(x, y);
+			int t = _types[i];
+				
+			int[] neighbors = {
+				TypeAt(t, x - 1, y - 1),
+				TypeAt(t, x,     y - 1),
+				TypeAt(t, x + 1, y - 1),
+				TypeAt(t, x - 1, y),
+				TypeAt(t, x + 1, y),
+				TypeAt(t, x - 1, y + 1),
+				TypeAt(t, x,     y + 1),
+				TypeAt(t, x + 1, y + 1)
+			};
+
+			List<int> neighborTypes = new List<int>();
+			int min = t;
+
+			foreach (int neighbor in neighbors) {
+				if (!neighborTypes.Contains(neighbor)) {
+					neighborTypes.Add(neighbor);
+				}
+
+				if (neighbor < min) {
+					min = neighbor;
+				}
+			}
+
+			// No fixing needed
+			if (neighborTypes.Count <= 3) {
+				return false;
+			}
+
+			_types[i] = min;
+			return true;
+		}
+
+		private static int TypeAt (int t, int x, int y) {
+			if (x < 0 || x >= Map.YTiles || y < 0 || y >= Map.YTiles) {
+				return t;
+			}
+
+			int type = _types[Index(x, y)];
+
+			if (_transitionFlags[type]) {
+				return t < type ? t : type;
+			}
+
+			return t;
+		}
+
+		private static int Index (int x, int y) {
+			return x + y * Map.YTiles;
 		}
 
 		private void Create (bool debugSurfaces) {
@@ -143,11 +222,6 @@ namespace Assets.Scripts.Makers {
 				case TileType.WoodFloor:
 					sr.color = TileTint.Get(type);
 					break;
-			}
-
-			SmoothTiles st = t.GetComponent<SmoothTiles>();
-			st.OverlapOrder = _typeCount - (int) type;
-			st.Color = color;*/
 			}*/
 
 			Tile tile = t.GetComponent<Tile>();
