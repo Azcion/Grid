@@ -15,9 +15,9 @@ namespace Assets.Scripts.Graphics {
 		private const int L_EVENING = 60;
 		private const int L_MIDNIGHT = -180;
 
-		private static readonly int[] C_MORNING = { 255, 255, 75 };
+		private static readonly int[] C_MORNING = { 255, 220, 0 };
 		private static readonly int[] C_MIDDAY = { 255 * 3, 255 * 3, 255 * 3 };
-		private static readonly int[] C_EVENING = { 255, 125, 20 };
+		private static readonly int[] C_EVENING = { 154, 89, 54 };
 		private static readonly int[] C_MIDNIGHT = { -255, -255, 20 };
 
 		private Light _sun;
