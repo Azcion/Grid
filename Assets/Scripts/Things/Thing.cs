@@ -51,7 +51,7 @@ namespace Assets.Scripts.Things {
 			Child.SetParent(Tf);
 			Child.localPosition = Vector3.zero;
 			ChildRenderer = Child.gameObject.GetComponent<SpriteRenderer>();
-			ChildRenderer.sharedMaterial = Assets.DiffuseMat;
+			ChildRenderer.sharedMaterial = Assets.ThingMat;
 		}
 
 	}

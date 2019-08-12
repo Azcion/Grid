@@ -171,7 +171,7 @@ namespace Assets.Scripts.Things {
 			SpriteRenderer sr = t.gameObject.GetComponent<SpriteRenderer>();
 			sr.sprite = _type == LinkedType.Rock ? Assets.GetSprite("RockTop") : Assets.GetSprite("WoodTop");
 			sr.color = AdjustTint(_type);
-			sr.sharedMaterial = Assets.DiffuseMat;
+			sr.sharedMaterial = Assets.ThingMat;
 		}
 	}
 
