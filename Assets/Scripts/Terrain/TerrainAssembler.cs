@@ -131,6 +131,8 @@ namespace Assets.Scripts.Terrain {
 			TerrainTile tile = t.GetComponent<TerrainTile>();
 			tile.Type = GridDef.Types[position];
 			_tiles[position] = tile;
+
+			t.isStatic = true;
 		}
 		
 	}
