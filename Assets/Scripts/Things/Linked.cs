@@ -39,6 +39,7 @@ namespace Assets.Scripts.Things {
 			if (planning) {
 				string assetName = $"{TypeNames[(int) _type]}_Atlas";
 				SetSprite(Assets.GetAtlasSprite(assetName, 12), false);
+				ChildRenderer.color = AdjustOpacity(ChildRenderer.color, .5f);
 				return;
 			}
 
@@ -51,6 +52,10 @@ namespace Assets.Scripts.Things {
 
 			InitializeSelf();
 			InitializeNeighbors();
+		}
+
+		private static Color AdjustOpacity (Color c, float opacity) {
+			return new Color(c.r, c.g, c.b, opacity);
 		}
 
 		private static Color AdjustTint (LinkedType type) {
