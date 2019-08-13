@@ -49,8 +49,6 @@
 				o.vc.a = (c - c % _Index) / _Index;
 
 				// Lighting
-				//half3 worldNormal = UnityObjectToWorldNormal(base.normal);
-				//half nl = max(0, dot(worldNormal, _WorldSpaceLightPos0.xyz));
 				half4 diff = _LightColor0;
 				half avg = (diff.r + diff.g + diff.b) / 3;
 				o.diff = clamp(half4(avg, avg, avg, 1) + diff, .2, 1);

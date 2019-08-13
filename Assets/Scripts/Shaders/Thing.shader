@@ -22,7 +22,7 @@
 			#include "UnityLightingCommon.cginc"
 
 			struct appdata {
-				float4 vertex : POSITION;
+				float4 v : POSITION;
 				float2 uv : TEXCOORD0;
 				fixed4 color : COLOR;
 			};
@@ -38,12 +38,12 @@
 			float4 _MainTex_ST;
 			fixed4 _Color;
 
-			v2f vert(appdata v) {
+			v2f vert(appdata IN) {
 				v2f o;
 
-				o.position = UnityObjectToClipPos(v.vertex);
-				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-				o.color = v.color;
+				o.position = UnityObjectToClipPos(IN.v);
+				o.uv = TRANSFORM_TEX(IN.uv, _MainTex);
+				o.color = IN.color;
 
 				// Lighting
 				half4 diff = _LightColor0;
