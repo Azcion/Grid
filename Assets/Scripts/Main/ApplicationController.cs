@@ -17,6 +17,13 @@ namespace Assets.Scripts.Main {
 
 		private const int INFO_REFRESH_FRAMES = 8;
 
+		private static readonly string[] TileLabels = {
+			"deep water", "shallow water", "marsh", "marshy terrain", "mud", "mossy",
+			"sand", "soft sand", "soil", "rich soil", "gravel", "packed dirt", "ice",
+			"rough stone", "rough-hewn rock", "smooth stone", "carpet", "concrete",
+			"flagstone", "generic floor tile", "paved tile", "stone tile", "wood floor"
+		};
+
 		private static bool _ready;
 		private static float _loadTime;
 		private static float _startTime;
@@ -87,17 +94,17 @@ namespace Assets.Scripts.Main {
 			_i.text += $"\n{DayNightCycle.LightLevel}% lit";
 
 			if (t != null) {
-				_i.text += $"\nPenalty: {t.Penalty}";
-				_i.text += $"\n{(t.Walkable ? "" : "not ")}walkable, ";
-				_i.text += $"{(t.Buildable ? "" : "not ")}buildable";
-				_i.text += $"\n{t.Chunk.name} | {t.name}";
-				_i.text += $"\n{Enum.GetName(typeof(TileType), t.Type)}";
+				//_i.text += $"\nPenalty: {t.Penalty}";
+				//_i.text += $"\n{(t.Walkable ? "" : "not ")}walkable, ";
+				//_i.text += $"{(t.Buildable ? "" : "not ")}buildable";
+				//_i.text += $"\n{t.Chunk.name} | {t.name}";
+				_i.text += $"\n{TileLabels[(int) t.Type]}";
 			} else {
 				_i.text += "\nVoid";
 			}
 
-			_i.text += $"\nLoad: {_loadTime:n2}s";
-			_i.text += $"\nSeed: {Seed}";
+			//_i.text += $"\nLoad: {_loadTime:n2}s";
+			//_i.text += $"\nSeed: {Seed}";
 		}
 
 	}
