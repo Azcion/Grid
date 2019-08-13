@@ -37,8 +37,8 @@ namespace Assets.Scripts.Things {
 			ChildRenderer.color = AdjustTint(_type);
 
 			if (planning) {
-				string assetName = $"{TypeNames[(int) _type]}_Atlas_{GetIndex(0)}";
-				SetSprite(Assets.GetSprite(assetName), false);
+				string assetName = $"{TypeNames[(int) _type]}_Atlas";
+				SetSprite(Assets.GetAtlasSprite(assetName, 12), false);
 				return;
 			}
 
