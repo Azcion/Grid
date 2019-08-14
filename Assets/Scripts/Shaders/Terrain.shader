@@ -37,7 +37,7 @@
 				v2f o;
 
                 o.v = UnityObjectToClipPos(IN.v);
-				o.uv.xy = mul(unity_ObjectToWorld, IN.v) * .125; // 8 tiles per tex
+				o.uv.xy = mul(unity_ObjectToWorld, IN.v) * .0625; // 16 tiles per tex
 
 				float a = IN.uv.z;
 				float b = IN.uv.a;
