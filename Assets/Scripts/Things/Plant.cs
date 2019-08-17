@@ -35,6 +35,7 @@ namespace Assets.Scripts.Things {
 			IsSelectable = Def.DefName != "Grass";
 
 			if (Size == PlantSize.Small) {
+				ChildRenderer.sharedMaterial = Assets.SwayMat;
 				//todo generate better random points
 				for (int i = 0; i < Random.Range(2, 6); ++i) {
 					CreateChildSprite();

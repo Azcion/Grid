@@ -7,6 +7,7 @@ namespace Assets.Scripts {
 
 		public static readonly Material TerrainMat;
 		public static readonly Material ThingMat;
+		public static readonly Material SwayMat;
 
 		private static readonly Dictionary<string, AssetBundle> Bundles;
 
@@ -14,6 +15,7 @@ namespace Assets.Scripts {
 			Bundles = new Dictionary<string, AssetBundle>();
 			TerrainMat = Resources.Load<Material>("Materials/Terrain");
 			ThingMat = Resources.Load<Material>("Materials/Thing");
+			SwayMat = Resources.Load<Material>("Materials/Sway");
 		}
 
 		public static void Add (string bundleName, AssetBundle bundle) {
