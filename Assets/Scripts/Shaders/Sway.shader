@@ -1,28 +1,24 @@
 ﻿Shader "Custom/Sway" {
-
 	Properties {
 		_Color("Main Color", Color) = (1,1,1,1)
 		_MainTex("Base (RGB) Trans (A)", 2D) = "white" {}
 		_Cutoff("Alpha cutoff", Range(0,1)) = 0.5
-		_ShakeDisplacement("Displacement", Range(0, 1.0)) = 1.0
-		_ShakeTime("Shake Time", Range(0, 1.0)) = 1.0
 		_ShakeWindspeed("Shake Windspeed", Range(0, 1.0)) = 1.0
 		_ShakeBending("Shake Bending", Range(0, 1.0)) = 1.0
 	}
-
 	SubShader {
-		Tags { "Queue" = "AlphaTest" "IgnoreProjector" = "True" "RenderType" = "TransparentCutout" }
-		LOD 200
-
+		Tags { 
+			"Queue" = "AlphaTest"
+			"IgnoreProjector" = "True"
+			"RenderType" = "TransparentCutout"
+		}
 		CGPROGRAM
-
-#pragma target 3.0
-#pragma surface surf Lambert alphatest:_Cutoff vertex:vert addshadow
+		#pragma surface surf NoLighting noambient alphatest:_Cutoff vertex:vert
+		#pragma target 3.5
+		#include "UnityLightingCommon.cginc"
 
 		sampler2D _MainTex;
 		fixed4 _Color;
-		float _ShakeDisplacement;
-		float _ShakeTime;
 		float _ShakeWindspeed;
 		float _ShakeBending;
 
@@ -41,22 +37,16 @@
 		}
 
 		void vert (inout appdata_full v) {
-			float factor = (1 - _ShakeDisplacement - v.color.r) * 0.5;
-
-			const float _WindSpeed = (_ShakeWindspeed + v.color.g);
-			const float _WaveScale = _ShakeDisplacement;
-
 			const float4 _waveXSize = float4(0.048, 0.06, 0.24, 0.096);
 			const float4 _waveYSize = float4(0.024, .08, 0.08, 0.2);
-			const float4 waveSpeed = float4(1.2, 2, 1.6, 4.8);
-
-			float4 _waveXMove = float4(0.024, 0.04, -0.12, 0.096);
-			float4 _waveYMove = float4(0.006, .02, -0.02, 0.1);
+			const float4 _waveSpeed = float4(1.2, 2, 1.6, 4.8);
+			const float4 _waveXMove = float4(0.024, 0.04, -0.12, 0.096);
+			const float4 _waveYMove = float4(0.006, .02, -0.02, 0.1);
 
 			float4 waves;
 			waves = v.vertex.x * _waveXSize;
 			waves += v.vertex.y * _waveYSize;
-			waves += _Time.x * (1 - _ShakeTime * 2 - v.color.b) * waveSpeed *_WindSpeed;
+			waves -= _Time.x * _waveSpeed * _ShakeWindspeed;
 
 			float4 s;
 			waves = frac(waves);
@@ -65,7 +55,7 @@
 			float waveAmount = v.texcoord.y * (v.color.a + _ShakeBending);
 			s *= waveAmount;
 
-			s *= normalize(waveSpeed);
+			s *= normalize(_waveSpeed);
 
 			s = s * s;
 			float fade = dot(s, 1.3);
@@ -82,8 +72,17 @@
 			o.Alpha = c.a;
 		}
 
+		fixed4 LightingNoLighting(SurfaceOutput s, fixed3 lightDir, fixed atten) {
+			half4 diff = _LightColor0;
+			half avg = (diff.r + diff.g + diff.b) / 3;
+			diff = clamp(half4(avg, avg, avg, 1) + diff, .2, 1);
+			
+			fixed4 c;
+			c.rgb = s.Albedo * diff;
+			c.a = s.Alpha;
+			
+			return c;
+		}
 		ENDCG
 	}
-
-	Fallback "Transparent/Cutout/VertexLit"
 }
