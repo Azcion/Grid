@@ -61,7 +61,7 @@ namespace Assets.Scripts.Things {
 			
 			switch (Size) {
 				case PlantSize.Small:
-					s = Mathf.Lerp(.65f, .85f, growth);
+					s = Mathf.Lerp(1, 1.5f, growth);
 					x = Random.Range(.1f, .9f);
 					y = Random.Range(.1f, .9f);
 					break;
@@ -84,8 +84,8 @@ namespace Assets.Scripts.Things {
 
 		private void CreateChildSprite () {
 			float x = Random.Range(.1f, .9f);
-			float y = Random.Range(.1f, .9f);
-			float s = Mathf.Lerp(.65f, .85f, _growth);
+			float y = Random.Range(.1f, .9f); 
+			float s = Mathf.Lerp(1, 1.5f, _growth);
 			Vector2 pos = new Vector3(x, y);
 			GameObject go = Instantiate(_childPrefab, transform.position, Quaternion.identity, Tf);
 			go.transform.localPosition = pos;
