@@ -72,7 +72,7 @@
 			o.Alpha = c.a;
 		}
 
-		fixed4 LightingNoLighting(SurfaceOutput s, fixed3 lightDir, fixed atten) {
+		fixed4 LightingNoLighting (SurfaceOutput s, fixed3 lightDir, fixed atten) {
 			half4 diff = _LightColor0;
 			half avg = (diff.r + diff.g + diff.b) / 3;
 			diff = clamp(half4(avg, avg, avg, 1) + diff, .2, 1);

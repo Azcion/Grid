@@ -33,7 +33,7 @@
 			float _Index;
 			sampler2D _Tints;
 
-			v2f vert(Input IN, appdata_base base) {
+			v2f vert (Input IN) {
 				v2f o;
 
                 o.v = UnityObjectToClipPos(IN.v);
@@ -58,7 +58,7 @@
 
 			UNITY_DECLARE_TEX2DARRAY(_Textures);
 
-			half4 frag(v2f i) : SV_Target {
+			half4 frag (v2f i) : SV_Target {
 				half4 aT = tex2D(_Tints, float2(i.uv.z * _Index, 0));
 				half4 bT = tex2D(_Tints, float2(i.uv.a * _Index, 0));
 				half4 cT = tex2D(_Tints, float2(i.vc.a * _Index, 0));
