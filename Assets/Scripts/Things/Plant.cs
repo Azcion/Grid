@@ -12,6 +12,15 @@ namespace Assets.Scripts.Things {
 		public PlantDef Def;
 		public PlantSize Size;
 
+		private static readonly Vector3[] Nodes = {
+			new Vector3(.30f, -.05f, 0),
+			new Vector3(.65f, .15f, .002f),
+			new Vector3(.25f, .45f, .005f),
+			new Vector3(.75f, 0,    .001f),
+			new Vector3(.40f, .20f, .003f),
+			new Vector3(.70f, .40f, .004f)
+		};
+
 		private static GameObject _childPrefab;
 
 		private float _growth;
@@ -30,11 +39,10 @@ namespace Assets.Scripts.Things {
 
 			Size = Def.PlantSize;
 			_growth = growth;
-			AdjustTransform(growth);
 			string suffix = "";
 
 			if (Def.TexCount > 1) {
-				suffix = ('A' + Random.Range(0, Def.TexCount)).ToString();
+				suffix = ((char) ('A' + Random.Range(0, Def.TexCount))).ToString();
 			}
 
 			bool isSmall = Size == PlantSize.Small;
@@ -42,16 +50,32 @@ namespace Assets.Scripts.Things {
 			SetSprite(Assets.GetSprite(Def.DefName + suffix), flipX);
 			IsSelectable = Def.Selectable;
 
-			if (isSmall) {
-				if (Def.DefName == "Grass") {
-					ChildRenderer.sharedMaterial = Assets.SwayMat;
-				}
-
-				//todo generate better random points
-				for (int i = 0; i < Random.Range(2, 6); ++i) {
-					CreateChildSprite();
-				}
+			if (!isSmall) {
+				AdjustTransform(growth);
+				return;
 			}
+
+			float nodeIndex = Random.Range(0, Nodes.Length);
+			AdjustTransform(growth, (int) nodeIndex);
+
+			if (Def.DefName == "Grass") {
+				ChildRenderer.sharedMaterial = Assets.SwayMat;
+			}
+
+			int cloneCount = Random.Range(0, 4);
+			float nodeOrder = Random.value > .5f ? 1 : -1;
+			nodeOrder *= Random.value > .8f ? 1.5f : 1;
+
+			for (int i = 0; i < cloneCount; ++i) {
+				nodeIndex += nodeOrder;
+				int index = Mod((int) nodeIndex, Nodes.Length);
+				CreateChildSprite(index);
+			}
+		}
+
+		private static int Mod (int n, int m) {
+			int r = n % m;
+			return r < 0 ? r + m : r;
 		}
 
 		[UsedImplicitly]
@@ -64,42 +88,38 @@ namespace Assets.Scripts.Things {
 			_childPrefab.SetActive(false);
 		}
 
-		private void AdjustTransform (float growth) {
+		private void AdjustTransform (float growth, int nodeIndex = 0) {
 			growth = Mathf.Clamp(growth, .15f, 1);
 			float s;
-			float x;
-			float y;
-			
+			float y = 0;
+
 			switch (Size) {
 				case PlantSize.Small:
 					s = Mathf.Lerp(1, 1.5f, growth);
-					x = Random.Range(.1f, .9f);
-					y = Random.Range(.1f, .9f);
 					break;
 				case PlantSize.Medium:
 					s = Mathf.Lerp(1, 1.5f, growth);
-					x = .5f;
 					y = Mathf.Lerp(.2f, .04f, growth);
 					break;
-				case PlantSize.Large:
-				default:
+				default: // Large
 					s = Mathf.Lerp(1.28f, 1.95f, growth);
-					x = .5f;
 					y = .04f;
 					break;
 			}
 
 			Child.localScale = new Vector3(s, s, 1);
-			Child.localPosition = new Vector2(x, y);
+			
+			if (Size == PlantSize.Small) {
+				Child.localPosition = Nodes[nodeIndex];
+			} else {
+				Child.localPosition = new Vector2(.5f, y);
+			}
 		}
 
-		private void CreateChildSprite () {
-			float x = Random.Range(.1f, .9f);
-			float y = Random.Range(.1f, .9f); 
+		private void CreateChildSprite (int nodeIndex) {
 			float s = Mathf.Lerp(1, 1.5f, _growth);
-			Vector2 pos = new Vector3(x, y);
 			GameObject go = Instantiate(_childPrefab, transform.position, Quaternion.identity, Tf);
-			go.transform.localPosition = pos;
+			go.transform.localPosition = Nodes[nodeIndex];
 			go.transform.localScale = new Vector3(s, s, 1);
 			go.name = "Clone";
 			SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
