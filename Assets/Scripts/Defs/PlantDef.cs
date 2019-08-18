@@ -9,6 +9,7 @@ namespace Assets.Scripts.Defs {
 	public class PlantDef : ThingDef, IThingDef {
 
 		[DefaultValue((PlantSize) 0)] public PlantSize PlantSize;
+		[DefaultValue(1)] public int TexCount;
 
 	}
 

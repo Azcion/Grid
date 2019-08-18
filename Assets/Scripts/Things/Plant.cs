@@ -31,9 +31,15 @@ namespace Assets.Scripts.Things {
 			Size = Def.PlantSize;
 			_growth = growth;
 			AdjustTransform(growth);
+			string suffix = "";
+
+			if (Def.TexCount > 1) {
+				suffix = ('A' + Random.Range(0, Def.TexCount)).ToString();
+			}
 
 			bool isSmall = Size == PlantSize.Small;
-			SetSprite(Assets.GetSprite(Def.DefName), !isSmall && Random.value < .5);
+			bool flipX = !isSmall && Random.value < .5;
+			SetSprite(Assets.GetSprite(Def.DefName + suffix), flipX);
 			IsSelectable = Def.Selectable;
 
 			if (isSmall) {
