@@ -9,6 +9,7 @@
 		</StatBases>
 		<TexPath>thing/plant/grass</TexPath>
 		<EcosystemWeight>0</EcosystemWeight>
+		<Selectable>false</Selectable>
 		<PlantSize>Small</PlantSize>
 	</PlantDef>
 	<PlantDef>

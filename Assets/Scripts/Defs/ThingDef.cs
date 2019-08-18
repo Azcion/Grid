@@ -13,6 +13,7 @@ namespace Assets.Scripts.Defs {
 		[DefaultValue(0)] public float EcosystemWeight;
 		[DefaultValue(0)] public float SpriteScale;
 		[DefaultValue(null)] public float[] Tint;
+		[DefaultValue(true)] public bool Selectable;
 
 	}
 

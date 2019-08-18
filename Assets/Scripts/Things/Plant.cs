@@ -34,7 +34,7 @@ namespace Assets.Scripts.Things {
 
 			bool isSmall = Size == PlantSize.Small;
 			SetSprite(Assets.GetSprite(Def.DefName), !isSmall && Random.value < .5);
-			IsSelectable = !isSmall;
+			IsSelectable = Def.Selectable;
 
 			if (isSmall) {
 				if (Def.DefName == "Grass") {
