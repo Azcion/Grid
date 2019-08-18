@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1895072245
+CRC: 1720172922
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 3f611fa3197bbf14b0e1a27c6f3a0eb8
+    Hash: 9afca025beba0e6016e5a2a60e877fd5
   TypeTreeHash:
     serializedVersion: 2
     Hash: cb3f6df5cbc4a2990c44c2787bc9553a
@@ -17,7 +17,9 @@ Assets:
 - Assets/Sprites/Selector.png
 - Assets/Sprites/thing/building/linked/WallPlanks_Atlas.png
 - Assets/Sprites/thing/creature/tortoise/Tortoise_south.png
+- Assets/Sprites/thing/plant/pincushioncactus/PincushionCactus.png
 - Assets/Sprites/thing/building/linked/Rock_Atlas.png
+- Assets/Sprites/thing/plant/bush/BushA.png
 - Assets/Sprites/thing/creature/gazelle/Gazelle_south.png
 - Assets/Sprites/thing/plant/grass/Grass.png
 - Assets/Sprites/thing/creature/elephant/Elephant_north.png
@@ -25,6 +27,7 @@ Assets:
 - Assets/Sprites/thing/plant/treedrago/TreeDrago.png
 - Assets/Sprites/thing/plant/treepalm/TreePalm.png
 - Assets/Sprites/ui/ButtonSubtle.png
+- Assets/Sprites/thing/plant/bush/BushB.png
 - Assets/Sprites/other/WoodTop.png
 - Assets/Sprites/thing/creature/gazelle/Gazelle_north.png
 - Assets/Sprites/other/RockTop.png

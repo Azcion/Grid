@@ -4,12 +4,23 @@
 		<DefName>Grass</DefName>
 		<Label>grass</Label>
 		<StatBases>
-			<MaxHitPoints>30</MaxHitPoints>
+			<MaxHitPoints>85</MaxHitPoints>
 			<Nutrition>0.15</Nutrition>
 		</StatBases>
 		<TexPath>thing/plant/grass</TexPath>
 		<EcosystemWeight>0</EcosystemWeight>
 		<Selectable>false</Selectable>
+		<PlantSize>Small</PlantSize>
+	</PlantDef>
+	<PlantDef>
+		<DefName>PincushionCactus</DefName>
+		<Label>pincushion cactus</Label>
+		<StatBases>
+			<MaxHitPoints>150</MaxHitPoints>
+			<Nutrition>0.25</Nutrition>
+		</StatBases>
+		<TexPath>thing/plant/pincushioncactus</TexPath>
+		<EcosystemWeight>0.25</EcosystemWeight>
 		<PlantSize>Small</PlantSize>
 	</PlantDef>
 	<PlantDef>
@@ -21,6 +32,19 @@
 			<Nutrition>0.2</Nutrition>
 		</StatBases>
 		<TexPath>thing/plant/agave</TexPath>
+		<EcosystemWeight>1</EcosystemWeight>
+		<PlantSize>Large</PlantSize>
+	</PlantDef>
+	<PlantDef>
+		<DefName>Bush</DefName>
+		<Label>bush</Label>
+		<Description>A short shrub. Does not typically talk.</Description>
+		<StatBases>
+			<MaxHitPoints>100</MaxHitPoints><!--Check in game-->
+			<Nutrition>0.2</Nutrition><!--Check in game-->
+		</StatBases>
+		<TexPath>thing/plant/bush</TexPath>
+		<TexCount>2</TexCount>
 		<EcosystemWeight>1</EcosystemWeight>
 		<PlantSize>Large</PlantSize>
 	</PlantDef>
