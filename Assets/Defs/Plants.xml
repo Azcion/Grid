@@ -21,6 +21,7 @@
 		</StatBases>
 		<TexPath>thing/plant/pincushioncactus</TexPath>
 		<EcosystemWeight>0.25</EcosystemWeight>
+		<Selectable>true</Selectable>
 		<PlantSize>Small</PlantSize>
 	</PlantDef>
 	<PlantDef>
@@ -33,6 +34,7 @@
 		</StatBases>
 		<TexPath>thing/plant/agave</TexPath>
 		<EcosystemWeight>1</EcosystemWeight>
+		<Selectable>true</Selectable>
 		<PlantSize>Large</PlantSize>
 	</PlantDef>
 	<PlantDef>
@@ -46,6 +48,7 @@
 		<TexPath>thing/plant/bush</TexPath>
 		<TexCount>2</TexCount>
 		<EcosystemWeight>1</EcosystemWeight>
+		<Selectable>true</Selectable>
 		<PlantSize>Large</PlantSize>
 	</PlantDef>
 	<PlantDef>
@@ -58,6 +61,7 @@
 		</StatBases>
 		<TexPath>thing/plant/saguarocactus</TexPath>
 		<EcosystemWeight>.25</EcosystemWeight>
+		<Selectable>true</Selectable>
 		<PlantSize>Large</PlantSize>
 	</PlantDef>
 	<PlantDef>
@@ -70,6 +74,7 @@
 		</StatBases>
 		<TexPath>thing/plant/treedrago</TexPath>
 		<EcosystemWeight>.75</EcosystemWeight>
+		<Selectable>true</Selectable>
 		<PlantSize>Large</PlantSize>
 	</PlantDef>
 	<PlantDef>
@@ -82,6 +87,7 @@
 		</StatBases>
 		<TexPath>thing/plant/treepalm</TexPath>
 		<EcosystemWeight>.75</EcosystemWeight>
+		<Selectable>true</Selectable>
 		<PlantSize>Large</PlantSize>
 	</PlantDef>
 </Defs>
