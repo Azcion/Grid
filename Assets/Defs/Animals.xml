@@ -11,6 +11,7 @@
 		</StatBases>
 		<TexPath>thing/creature/elephant</TexPath>
 		<EcosystemWeight>2</EcosystemWeight>
+		<Solitary>false</Solitary>
 		<SpriteScale>3</SpriteScale>
 		<Tint>
 			<float>0.5</float>
@@ -27,6 +28,7 @@
 		</StatBases>
 		<TexPath>thing/creature/gazelle</TexPath>
 		<EcosystemWeight>0.45</EcosystemWeight>
+		<Solitary>false</Solitary>
 	</AnimalDef>
 	<AnimalDef>
 		<DefName>Iguana</DefName>
@@ -39,6 +41,7 @@
 		</StatBases>
 		<TexPath>thing/creature/iguana</TexPath>
 		<EcosystemWeight>0.30</EcosystemWeight>
+		<Solitary>true</Solitary>
 	</AnimalDef>
 	<AnimalDef>
 		<DefName>Tortoise</DefName>
@@ -51,5 +54,6 @@
 		</StatBases>
 		<TexPath>thing/creature/tortoise</TexPath>
 		<EcosystemWeight>0.40</EcosystemWeight>
+		<Solitary>true</Solitary>
 	</AnimalDef>
 </Defs>
