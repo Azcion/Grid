@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Assets.Scripts.Defs;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Things;

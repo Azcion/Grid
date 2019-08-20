@@ -1,6 +1,4 @@
-﻿using System;
-using Assets.Scripts.Enums;
-using Assets.Scripts.Graphics;
+﻿using Assets.Scripts.Graphics;
 using Assets.Scripts.Makers;
 using Assets.Scripts.UI;
 using JetBrains.Annotations;
