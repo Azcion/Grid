@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2144772514
+CRC: 1720526476
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 1f80b9a98fc6c17064e23e1ed5b59eb7
+    Hash: 0e61392b5c197df703ccb3c60913a87f
   TypeTreeHash:
     serializedVersion: 2
     Hash: cb3f6df5cbc4a2990c44c2787bc9553a
@@ -27,6 +27,7 @@ Assets:
 - Assets/Sprites/thing/plant/treedrago/TreeDrago.png
 - Assets/Sprites/thing/plant/treepalm/TreePalm.png
 - Assets/Sprites/ui/ButtonSubtle.png
+- Assets/Sprites/thing/plant/healroot/HealrootA.png
 - Assets/Sprites/thing/plant/bush/BushB.png
 - Assets/Sprites/other/WoodTop.png
 - Assets/Sprites/thing/creature/gazelle/Gazelle_north.png
@@ -41,4 +42,7 @@ Assets:
 - Assets/Sprites/thing/creature/iguana/Iguana_north.png
 - Assets/Sprites/thing/building/linked/WallPlanks_UI.png
 - Assets/Sprites/thing/creature/iguana/Iguana_east.png
+- Assets/Sprites/thing/plant/healroot/HealrootB.png
+- Assets/Sprites/thing/plant/brambles/BramblesA.png
+- Assets/Sprites/thing/plant/brambles/BramblesB.png
 Dependencies: []
