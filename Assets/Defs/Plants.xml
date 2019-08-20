@@ -15,6 +15,7 @@
 	<PlantDef>
 		<DefName>PincushionCactus</DefName>
 		<Label>pincushion cactus</Label>
+    <Description>A short cactus. It is so named because it resembles a pincushion.</Description>
 		<StatBases>
 			<MaxHitPoints>150</MaxHitPoints>
 			<Nutrition>0.25</Nutrition>
