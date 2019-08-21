@@ -10,7 +10,8 @@ namespace Assets.Scripts.Defs {
 
 		[DefaultValue((PlantSize) 0)] public PlantSize PlantSize;
 		[DefaultValue(1)] public int TexCount;
+        [DefaultValue(true)] public bool Cluster;
 
-	}
+    }
 
 }
