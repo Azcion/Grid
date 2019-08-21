@@ -31,7 +31,7 @@ namespace Assets.Scripts.Things {
         static Plant () {
             for (int i = 0; i < Nodes.Length; i++) {
                 Vector3 v = Nodes[i];
-                Nodes[i] = new Vector3(v.x, v.y, Map.SubY * Map.UNIT * v.y);
+                Nodes[i] = new Vector3(v.x, v.y, Map.SubY * v.y);
             }
         }
 
