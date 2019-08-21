@@ -13,12 +13,12 @@ namespace Assets.Scripts.Things {
 		public PlantSize Size;
 
 		private static readonly Vector3[] Nodes = {
-			new Vector3(.30f, -.05f, 0),
-			new Vector3(.65f, .15f, .002f),
-			new Vector3(.25f, .45f, .005f),
-			new Vector3(.75f, 0,    .001f),
-			new Vector3(.40f, .20f, .003f),
-			new Vector3(.70f, .40f, .004f)
+			new Vector3(.30f, -.05f),
+			new Vector3(.65f, .15f),
+			new Vector3(.25f, .45f),
+			new Vector3(.75f, 0),
+			new Vector3(.40f, .20f),
+			new Vector3(.70f, .40f)
 		};
 
 		private static GameObject _childPrefab;
@@ -27,6 +27,13 @@ namespace Assets.Scripts.Things {
 
 		public GameObject Go => gameObject;
 		public ThingType Type => ThingType.Plant;
+
+        static Plant () {
+            for (int i = 0; i < Nodes.Length; i++) {
+                Vector3 v = Nodes[i];
+                Nodes[i] = new Vector3(v.x, v.y, Map.SubY * Map.UNIT * v.y);
+            }
+        }
 
 		public static Plant Create (Plant plant, PlantDef def) {
 			plant.Def = def;
@@ -46,22 +53,24 @@ namespace Assets.Scripts.Things {
 			}
 
 			bool isSmall = Size == PlantSize.Small;
-			bool flipX = !isSmall && Random.value < .5;
-			SetSprite(Assets.GetSprite(Def.DefName + suffix), flipX);
-			IsSelectable = Def.Selectable;
+			bool flipX = Random.value < .5;
+            IsSelectable = Def.Selectable;
 
 			if (!isSmall) {
+                SetSprite(Assets.GetSprite(Def.DefName + suffix), flipX);
 				AdjustTransform(growth);
-				return;
+                return;
 			}
 
 			float nodeIndex = Random.Range(0, Nodes.Length);
 			AdjustTransform(growth, (int) nodeIndex);
 
 			if (Def.DefName == "Grass") {
+                flipX = false;
 				ChildRenderer.sharedMaterial = Assets.SwayMat;
 			}
 
+            SetSprite(Assets.GetSprite(Def.DefName + suffix), flipX);
 			int cloneCount = Random.Range(0, 4);
 			float nodeOrder = Random.value > .5f ? 1 : -1;
 			nodeOrder *= Random.value > .8f ? 1.5f : 1;
@@ -102,7 +111,7 @@ namespace Assets.Scripts.Things {
 					y = Mathf.Lerp(.2f, .04f, growth);
 					break;
 				default: // Large
-					s = Mathf.Lerp(1.28f, 1.95f, growth);
+					s = Mathf.Lerp(1, 1.95f, growth);
 					y = .04f;
 					break;
 			}
