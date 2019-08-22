@@ -17,9 +17,9 @@ namespace Assets.Scripts.Things {
 			new Vector3(.65f, .15f),
 			new Vector3(.25f, .45f),
 			new Vector3(.75f, 0),
-			new Vector3(.40f, .20f),
-			new Vector3(.70f, .40f)
-		};
+			new Vector3(.70f, .40f),
+            new Vector3(.40f, .20f)
+        };
 
 		private static GameObject _childPrefab;
 
