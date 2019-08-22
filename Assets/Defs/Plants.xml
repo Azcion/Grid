@@ -12,6 +12,7 @@
     <Cluster>false</Cluster>
 		<Selectable>false</Selectable>
 		<PlantSize>Small</PlantSize>
+    <CanBuildOver>true</CanBuildOver>
 	</PlantDef>
   <PlantDef>
     <DefName>Brambles</DefName>
@@ -27,6 +28,7 @@
     <Cluster>true</Cluster>
     <Selectable>true</Selectable>
     <PlantSize>Small</PlantSize>
+    <CanBuildOver>true</CanBuildOver>
   </PlantDef>
 	<PlantDef>
 		<DefName>PincushionCactus</DefName>
@@ -41,6 +43,7 @@
     <Cluster>true</Cluster>
 		<Selectable>true</Selectable>
 		<PlantSize>Small</PlantSize>
+    <CanBuildOver>true</CanBuildOver>
 	</PlantDef>
 	<PlantDef>
 		<DefName>Agave</DefName>

@@ -177,7 +177,7 @@ namespace Assets.Scripts.Makers {
             Plant plant = Plant.Create(go.GetComponent<Plant>(), def);
             plant.Initialize(Calc.Round(Random.Range(.3f, 1), 2));
 
-            if (TileMaker.GetTile(x, y).TryAddThing(plant, true) == false) {
+            if (TileMaker.GetTile(x, y).TryAddThing(plant) == false) {
                 Destroy(go);
             }
         }

@@ -52,27 +52,20 @@ namespace Assets.Scripts.Makers {
 			UpdatePenalty();
 		}
 
-		public bool TryAddThing (IThing thing, bool ignoreGrass = false) {
+		public bool TryAddThing (IThing thing) {
 			if (ThingSlotVacant()) {
 				AddThing(thing);
 
 				return true;
 			}
 
-			if (!ignoreGrass) {
+            if (!TryRemoveIgnorablePlants()) {
 				return false;
 			}
 
-			if (!HasGrass()) {
-				return false;
-			}
-
-			RemoveGrass(true);
 			AddThing(thing);
-
-			return true;
-
-		}
+            return true;
+        }
 
 		public void RemoveThings (bool destroy = false) {
 			if (destroy) {
@@ -93,13 +86,9 @@ namespace Assets.Scripts.Makers {
 			UpdatePenalty();
 		}
 
-		private static bool IsGrass (IThing thing) {
-			if (thing.Type != ThingType.Plant) {
-				return false;
-			}
-
-			return (thing as Plant)?.Def.DefName == "Grass";
-		}
+		private static bool CanBuildOver (IThing thing) {
+            return thing.Type == ThingType.Plant && ((Plant) thing).Def.CanBuildOver;
+        }
 
 		private void AddThing (IThing thing) {
 			if (thing.Type == ThingType.Structure) {
@@ -111,35 +100,20 @@ namespace Assets.Scripts.Makers {
 			UpdatePenalty();
 		}
 
-		private bool HasGrass () {
+        private bool TryRemoveIgnorablePlants () {
 			foreach (IThing thing in _thingSlot) {
-				if (thing.Type != ThingType.Plant) {
-					continue;
-				}
-
-				if (IsGrass(thing)) {
-					return true;
-				}
-			}
-
-			return false;
-		}
-
-		private void RemoveGrass (bool destroy = false) {
-			foreach (IThing thing in _thingSlot) {
-				if (!IsGrass(thing)) {
+				if (!CanBuildOver(thing)) {
 					continue;
 				}
 
 				_thingSlot.Remove(thing);
+                Destroy(thing.Go);
 
-				if (destroy) {
-					Destroy(thing.Go);
-				}
+                return true;
+            }
 
-				return;
-			}
-		}
+            return false;
+        }
 
 		public bool IsBarren () {
 			return ThingSlotVacant() && AnyCreaturesOnTile() == false;

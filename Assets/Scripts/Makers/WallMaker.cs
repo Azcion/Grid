@@ -33,7 +33,7 @@ namespace Assets.Scripts.Makers {
 				return false;
 			}
 
-			if (!tile.TryAddThing(wall, true)) {
+			if (!tile.TryAddThing(wall)) {
 				return false;
 			}
 
