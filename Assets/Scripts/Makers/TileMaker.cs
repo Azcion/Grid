@@ -279,16 +279,18 @@ namespace Assets.Scripts.Makers {
 			const float sw = dw - .015f;
 			const float m = sw - .015f;
 
-			if (type == TileType.RoughStone) {
+			if (type == TileType.RoughHewnRock) {
 				return type;
 			}
 
 			if (v1 > dw) {
 				type = TileType.DeepWater;
 			} else if (v1 > sw) {
-				type = TileType.Marsh;
+				type = TileType.ShallowWater;
 			} else if (v1 > m) {
-				type = TileType.Mud;
+                if (type != TileType.Sand && type != TileType.SoftSand) {
+                    type = TileType.Mud;
+                }
 			} else if (v1 > 1 - m) {
 				float v2 = Noise.Sum(x + _seed, y + _seed, .02f, 4, 2.2f, .5f);
 
@@ -311,9 +313,11 @@ namespace Assets.Scripts.Makers {
 					}
 				}
 			} else if (v1 > 1 - sw) {
-				type = TileType.Mud;
-			} else if (v1 > 1 - dw) {
-				type = TileType.Marsh;
+                if (type != TileType.Sand && type != TileType.SoftSand) {
+                    type = TileType.Mud;
+                }
+            } else if (v1 > 1 - dw) {
+				type = TileType.ShallowWater;
 			} else {
 				type = TileType.DeepWater;
 			}
