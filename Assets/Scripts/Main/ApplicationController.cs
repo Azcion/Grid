@@ -44,8 +44,7 @@ namespace Assets.Scripts.Main {
 		public void OnStart () {
 			_startTime = Time.realtimeSinceStartup;
 
-			string seedInput = StartInterface.GetSeed;
-			Seed = Utils.Seed.Get(seedInput);
+			Seed = Utils.Seed.Get(StartInterface.GetSeed);
 			Map.InitializeMapMeasurements(StartInterface.GetMapSize / Map.CSIZE);
 			Random.InitState(Seed);
 			_i = _infoBox.GetComponent<Text>();
@@ -56,13 +55,13 @@ namespace Assets.Scripts.Main {
 			_sun.SetActive(true);
 			TileTint.Initialize();
 			_tileMaker.SetActive(true);
+            _terrainAppController.SetActive(true);
 			_wallMaker.SetActive(true);
 			_plantMaker.SetActive(true);
 			_animalMaker.SetActive(true);
 			_pathfinder.SetActive(true);
 			_ready = true;
 
-			_terrainAppController.SetActive(true);
 			SetReady();
 		}
 

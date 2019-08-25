@@ -99,6 +99,7 @@
 		</StatBases>
 		<TexPath>thing/plant/saguarocactus</TexPath>
 		<EcosystemWeight>.25</EcosystemWeight>
+    <Cluster>true</Cluster>
 		<Selectable>true</Selectable>
 		<PlantSize>Large</PlantSize>
 	</PlantDef>
@@ -112,7 +113,7 @@
 		</StatBases>
 		<TexPath>thing/plant/treedrago</TexPath>
 		<EcosystemWeight>.75</EcosystemWeight>
-    <Cluster>false</Cluster>
+    <Cluster>true</Cluster>
 		<Selectable>true</Selectable>
 		<PlantSize>Large</PlantSize>
 	</PlantDef>
@@ -126,7 +127,6 @@
 		</StatBases>
 		<TexPath>thing/plant/treepalm</TexPath>
 		<EcosystemWeight>.75</EcosystemWeight>
-    <Cluster>false</Cluster>
 		<Selectable>true</Selectable>
 		<PlantSize>Large</PlantSize>
 	</PlantDef>
