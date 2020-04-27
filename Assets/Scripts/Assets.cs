@@ -27,7 +27,7 @@ namespace Assets.Scripts {
 		}
 
 		public static Sprite GetAtlasSprite (string assetName, int index) {
-			return GetAtlasAsset("sprites", assetName)[index] as Sprite;
+			return GetAtlasAsset("sprites", assetName)[index + 1] as Sprite;
 		}
 
 		private static Object GetAsset (string bundleName, string assetName) {
