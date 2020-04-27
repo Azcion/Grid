@@ -250,7 +250,21 @@ namespace Assets.Scripts.Makers {
 
 		private static TileType GetType (int x, int y) {
 			float v0 = Noise.Sum(x + _seed, y + _seed, .01f, 8, 2.2f, .5f);
-			TileType type;
+
+			if (true) {
+				float percent = y / (float) Map.YTiles;
+				const float water = .20f;
+				const float mountains = .60f;
+
+				if (percent <= water) {
+					v0 -= .5f - percent / water * .5f;
+				} else if (percent >= mountains) {
+					v0 += (percent - mountains) / mountains;
+				}
+			}
+
+			v0 = Mathf.Clamp01(v0 + v0 * .25f);
+            TileType type;
 
 			if (v0 > .575) {
 				type = TileType.RoughHewnRock;
@@ -260,7 +274,7 @@ namespace Assets.Scripts.Makers {
 				type = TileType.Gravel;
 			} else if (v0 > .44) {
 				type = TileType.Soil;
-			} else if (v0 > .35) {
+			} else if (v0 > .40) {
 				type = TileType.Sand;
 			} else if (v0 > .25) {
 				type = TileType.Soil;
@@ -268,20 +282,20 @@ namespace Assets.Scripts.Makers {
 				type = TileType.Mud;
 			} else if (v0 > .215) {
 				type = TileType.Marsh;
-			} else if (v0 > .185) {
+			} else if (v0 > .10) {
 				type = TileType.ShallowWater;
 			} else {
 				type = TileType.DeepWater;
+			}
+			
+			if (type == TileType.RoughHewnRock) {
+				return type;
 			}
 
 			float v1 = Noise.Sum(x + _seed, y + _seed, .005f, 6, 2.2f, .5f);
 			const float dw = .80f;
 			const float sw = dw - .015f;
 			const float m = sw - .015f;
-
-			if (type == TileType.RoughHewnRock) {
-				return type;
-			}
 
 			if (v1 > dw) {
 				type = TileType.DeepWater;
