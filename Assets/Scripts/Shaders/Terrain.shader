@@ -37,12 +37,11 @@
 
 			v2f vert (Input IN) {
 				v2f o;
-
-                o.v = TransformObjectToHClip(IN.v.xyz);
+				o.v = TransformObjectToHClip(IN.v.xyz);
 				o.uv.xy = mul(unity_ObjectToWorld, IN.v).xy * .0625; // 16 tiles per tex
 				o.vc = IN.vc;
 
-                o.uv.z = (IN.uv.z - IN.uv.z % _Index) / _Index;
+				o.uv.z = (IN.uv.z - IN.uv.z % _Index) / _Index;
 				o.uv.a = (IN.uv.a - IN.uv.a % _Index) / _Index;
 				o.vc.a = (IN.vc.a - IN.vc.a % _Index) / _Index;
 
@@ -54,7 +53,7 @@
 				// half3 to half4
 				o.diff = half4(d.r, d.g, d.b, 1);
 
-                return o;
+				return o;
 			}
 
 			UNITY_DECLARE_TEX2DARRAY(_Textures);
