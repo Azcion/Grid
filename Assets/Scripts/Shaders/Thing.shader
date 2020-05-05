@@ -5,6 +5,7 @@
 	}
 	SubShader {
 		Tags { 
+			"RenderPipeline" = "UniversalRenderPipeline"
 			"RenderType" = "Transparent" 
 			"Queue" = "Transparent"
 		}
@@ -12,55 +13,58 @@
 		ZWrite off
 		Cull off
 		Pass {
-			CGPROGRAM
+			HLSLPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
-			#include "UnityCG.cginc"
-			#include "UnityLightingCommon.cginc"
+			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 
 			struct appdata {
 				float4 v : POSITION;
 				float2 uv : TEXCOORD0;
-				fixed4 color : COLOR;
+				half4 color : COLOR;
 			};
 
 			struct v2f {
 				float4 position : SV_POSITION;
 				float2 uv : TEXCOORD0;
-				fixed4 color : COLOR;
-				fixed4 diff : COLOR1;
+				half4 color : COLOR;
+				half4 diff : COLOR1;
 			};
 
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
-			fixed4 _Color;
+			half4 _Color;
 
 			v2f vert (appdata IN) {
 				v2f o;
 
-				o.position = UnityObjectToClipPos(IN.v);
+				o.position = TransformObjectToHClip(IN.v.xyz);
 				o.uv = TRANSFORM_TEX(IN.uv, _MainTex);
 				o.color = IN.color;
 
-				// Lighting
-				half4 diff = _LightColor0;
+				//// Lighting ////
+				half3 diff = GetMainLight().color;
+				// muten sun color
 				half avg = (diff.r + diff.g + diff.b) / 3;
-				o.diff = clamp(half4(avg, avg, avg, 1) + diff, .2, 1);
+				half3 d = clamp(half3(avg, avg, avg) + diff, .2, 1);
+				// half3 to half4
+				o.diff = half4(d.r, d.g, d.b, 1);
 
 				return o;
 			}
 
-			fixed4 frag (v2f i) : SV_TARGET {
-				fixed4 t = tex2D(_MainTex, i.uv);
+			half4 frag (v2f i) : SV_TARGET {
+				half4 t = tex2D(_MainTex, i.uv);
 				t *= _Color;
 				t *= i.color;
 				
-				// Lighting
+				//// Lighting ////
 				t *= i.diff;
 
 				return t;
 			}
-			ENDCG
+			ENDHLSL
 		}
 	}
 }

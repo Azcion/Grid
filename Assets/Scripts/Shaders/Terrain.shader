@@ -6,22 +6,24 @@
 	}
 	SubShader {
 		Tags { 
+			"RenderPipeline" = "UniversalRenderPipeline"
 			"RenderType" = "Opaque"
-			"LightMode" = "ForwardBase"
+			"LightMode" = "UniversalForward"
 		}
 		Pass {
-			CGPROGRAM
+			HLSLPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
-			#pragma target 3.5
-			#include "UnityCG.cginc"
-			#include "UnityLightingCommon.cginc"
+			#pragma target 2.0
+			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+			#include "HLSLSupport.cginc"
 
 			struct v2f {
 				float4 uv : TEXCOORD0;
 				float4 v : SV_POSITION;
 				float4 vc : COLOR;
-				fixed4 diff : COLOR1;
+				half4 diff : COLOR1;
 			};
 
 			struct Input {
@@ -36,23 +38,22 @@
 			v2f vert (Input IN) {
 				v2f o;
 
-                o.v = UnityObjectToClipPos(IN.v);
-				o.uv.xy = mul(unity_ObjectToWorld, IN.v) * .0625; // 16 tiles per tex
-
-				float a = IN.uv.z;
-				float b = IN.uv.a;
-                o.uv.z = (a - a % _Index) / _Index;
-				o.uv.a = (b - b % _Index) / _Index;
-
+                o.v = TransformObjectToHClip(IN.v.xyz);
+				o.uv.xy = mul(unity_ObjectToWorld, IN.v).xy * .0625; // 16 tiles per tex
 				o.vc = IN.vc;
-				float c = o.vc.a;
-				o.vc.a = (c - c % _Index) / _Index;
 
-				// Lighting
-				half4 diff = _LightColor0;
+                o.uv.z = (IN.uv.z - IN.uv.z % _Index) / _Index;
+				o.uv.a = (IN.uv.a - IN.uv.a % _Index) / _Index;
+				o.vc.a = (IN.vc.a - IN.vc.a % _Index) / _Index;
+
+				//// Lighting ////
+				half3 diff = GetMainLight().color;
+				// muten sun color
 				half avg = (diff.r + diff.g + diff.b) / 3;
-				o.diff = clamp(half4(avg, avg, avg, 1) + diff, .2, 1);
-				
+				half3 d = clamp(half3(avg, avg, avg) + diff, .2, 1);
+				// half3 to half4
+				o.diff = half4(d.r, d.g, d.b, 1);
+
                 return o;
 			}
 
@@ -70,12 +71,12 @@
 				half4 tC = UNITY_SAMPLE_TEX2DARRAY(_Textures, i.uv) * i.vc.b * cT;
 				half4 t = tA + tB + tC;
 				
-				// Lighting
+				//// Lighting ////
 				t *= i.diff;
 
 				return t;
 			}
-			ENDCG
+			ENDHLSL
 		}
 	}
 }

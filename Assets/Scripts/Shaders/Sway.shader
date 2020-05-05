@@ -8,6 +8,7 @@
 	}
 	SubShader {
 		Tags { 
+			"RenderPipeline" = "UniversalRenderPipeline"
 			"Queue" = "AlphaTest"
 			"IgnoreProjector" = "True"
 			"RenderType" = "TransparentCutout"
