@@ -81,7 +81,7 @@ namespace Assets.Scripts.Makers {
 
 			Debug.Log(changesDebug);
 			Create();
-			TerrainController.Assign(Map.YTiles, _types, _transitionFlags);
+			TerrainController.Assign(_types, _transitionFlags);
 		}
 
 		private void Create () {

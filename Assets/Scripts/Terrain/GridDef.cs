@@ -98,21 +98,19 @@ namespace Assets.Scripts.Terrain {
 		private static readonly int[] MaskMul = { 1, 2, 4, 8 };
 		#endregion
 
-		private static int _y;
 		private static bool[] _transitionFlags;
 
-		public static void Initialize (int height, int[] types, bool[] transitionFlags) {
-			_y = height;
+		public static void Initialize (int[] types, bool[] transitionFlags) {
 			_transitionFlags = transitionFlags;
-			int yy = _y * _y;
+			int yy = Map.YTiles * Map.YTiles;
 			MeshTypes = new int[yy];
 			MeshRotations = new int[yy];
 			MeshColors = new int[yy][];
 			Types = types;
 			
-			for (int y = 0; y < _y; y++) {
-				for (int x = 0; x < _y; x++) {
-					int i = x + y * _y;
+			for (int y = 0; y < Map.YTiles; y++) {
+				for (int x = 0; x < Map.YTiles; x++) {
+					int i = x + y * Map.YTiles;
 					int t = Types[i];
 
 					int[] neighbors = {
@@ -296,11 +294,11 @@ namespace Assets.Scripts.Terrain {
 		}
 
 		private static int TypeAt (int t, int x, int y) {
-			if (x < 0 || x >= _y || y < 0 || y >= _y) {
+			if (x < 0 || x >= Map.YTiles || y < 0 || y >= Map.YTiles) {
 				return t;
 			}
 
-			int type = Types[x + y * _y];
+			int type = Types[x + y * Map.YTiles];
 
 			if (_transitionFlags[type]) {
 				return t < type ? t : type;
