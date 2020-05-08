@@ -7,31 +7,49 @@ namespace Assets.Scripts.Terrain {
 	[UsedImplicitly]
 	public class TerrainAssembler : MonoBehaviour {
 
-		private static TerrainTile[] _tiles;
 		private static GameObject _prefab;
+        private static GameObject[] _chunks;
 		private static Mesh[][] _meshes;
 		private static Material _material;
 		private static float _index;
-		private static int _y;
 
-		public void Initialize (int height, int[] types, bool[] transitionFlags) {
-			transform.position = new Vector3(0, 0, Order.GROUND);
-			GridDef.Initialize(height, types, transitionFlags);
-			InitializeSelf(height);
+		public void Initialize (int[] types, bool[] transitionFlags) {
+			GridDef.Initialize(types, transitionFlags);
+			InitializeSelf(); 
+			CombineInstance[] chunkMeshCombines = new CombineInstance[Map.CSIZE * Map.CSIZE];
 
-			for (int y = 0; y < _y; ++y) {
-				for (int x = 0; x < _y; x++) {
-					Create(x, y);
-				}
-			}
-		}
+            for (int yc = 0; yc < Map.YChunks; ++yc) {
+                for (int xc = 0; xc < Map.YChunks; xc++) {
+					Vector3 position = new Vector3(xc * Map.CSIZE, yc * Map.CSIZE, Order.GROUND);
+                    GameObject chunk = Instantiate(_prefab, position, Quaternion.identity, transform);
+                    chunk.name = $"Chunk {yc} {xc}";
+					chunk.GetComponent<MeshRenderer>().sharedMaterial = _material;
+                    MeshFilter mf = chunk.GetComponent<MeshFilter>();
+
+                    for (int yt = 0; yt < Map.CSIZE; yt++) {
+                        for (int xt = 0; xt < Map.CSIZE; xt++) {
+                            int tilePosition = yc * Map.CSIZE * Map.YTiles + xc * Map.CSIZE + Map.YTiles * yt + xt;
+                            CombineInstance mesh = Create(mf, tilePosition, xt, yt);
+                            chunkMeshCombines[yt * Map.CSIZE + xt] = mesh;
+                        }
+                    }
+
+                    Mesh chunkMesh = new Mesh();
+					chunkMesh.CombineMeshes(chunkMeshCombines, true, true);
+                    chunkMesh.name = chunk.name;
+                    mf.mesh = chunkMesh;
+					chunk.SetActive(true);
+                    _chunks[yc * Map.YChunks + xc] = chunk;
+                }
+            }
+        }
 		
-		private static void InitializeSelf (int height) {
-			_y = height;
-			_tiles = new TerrainTile[_y * _y];
-			_prefab = new GameObject("Tile", typeof(MeshFilter), typeof(MeshRenderer), typeof(TerrainTile));
+		private static void InitializeSelf () {
+			_chunks = new GameObject[Map.YChunks * Map.YChunks];
+			_prefab = new GameObject("Chunk Prefab", typeof(MeshFilter), typeof(MeshRenderer));
+            _prefab.SetActive(false);
 
-			_meshes = new[] {
+            _meshes = new[] {
 				new[] {
 					MeshBuilder.GetQuad()
 				},
@@ -55,15 +73,9 @@ namespace Assets.Scripts.Terrain {
 			_index = (float) mi[1];
 		}
 
-		private void Create (int x, int y) {
-			Vector3 p = transform.position;
-			Vector3 pos = p + new Vector3(x, y);
-			GameObject t = Instantiate(_prefab, pos, Quaternion.identity, transform);
-			t.GetComponent<MeshRenderer>().sharedMaterial = _material;
-			int position = x + y * _y;
+		private CombineInstance Create (MeshFilter mf, int position, int xt, int yt) {
 			int type = GridDef.MeshTypes[position];
 			int rotation = GridDef.MeshRotations[position];
-			t.name = $"T {position} {type} {rotation}";
 			Mesh mesh = _meshes[type][rotation];
 
 			// Paint vertices
@@ -123,17 +135,16 @@ namespace Assets.Scripts.Terrain {
 			}
 
 			mesh.colors = col;
-			MeshFilter mf = t.GetComponent<MeshFilter>();
-			mf.mesh = mesh;
-			mf.mesh.SetUVs(0, new List<Vector4>(uv4));
+            mf.mesh = mesh;
+            mf.mesh.SetUVs(0, new List<Vector4>(uv4));
 
-			// Add type to tile
-			TerrainTile tile = t.GetComponent<TerrainTile>();
-			tile.Type = GridDef.Types[position];
-			_tiles[position] = tile;
+            CombineInstance combine = new CombineInstance {
+                mesh = mf.mesh,
+                transform = Matrix4x4.TRS(new Vector3(xt, yt), transform.localRotation, transform.localScale)
+            };
 
-			t.isStatic = true;
-		}
+            return combine;
+        }
 		
 	}
 
