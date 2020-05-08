@@ -41,16 +41,16 @@ namespace Assets.Scripts.Main {
 		[UsedImplicitly, SerializeField] private GameObject _pathfinder = null;
 		[UsedImplicitly, SerializeField] private GameObject _terrainAppController = null;
 
-        public static void NotifyReady () {
+		public static void NotifyReady () {
 			_loadTime = Time.realtimeSinceStartup - _startTime;
 		}
 
-        [UsedImplicitly]
-        public void OnStart () {
-            StartCoroutine(Initialize());
-        }
+		[UsedImplicitly]
+		public void OnStart () {
+			StartCoroutine(Initialize());
+		}
 
-        [UsedImplicitly]
+		[UsedImplicitly]
 		private void LateUpdate () {
 			if (!_ready) {
 				return;
@@ -81,30 +81,30 @@ namespace Assets.Scripts.Main {
 			//_i.text += $"\nSeed: {Seed}";
 		}
 
-        private IEnumerator Initialize () {
-            _startTime = Time.realtimeSinceStartup;
-            Seed = Utils.Seed.Get(StartInterface.GetSeed);
-            Map.InitializeMapMeasurements(StartInterface.GetMapSize / Map.CSIZE);
-            Random.InitState(Seed);
-            _i = _infoBox.GetComponent<Text>();
-            StartInterface.Hide();
+		private IEnumerator Initialize () {
+			_startTime = Time.realtimeSinceStartup;
+			Seed = Utils.Seed.Get(StartInterface.GetSeed);
+			Map.InitializeMapMeasurements(StartInterface.GetMapSize / Map.CSIZE);
+			Random.InitState(Seed);
+			_i = _infoBox.GetComponent<Text>();
+			StartInterface.Hide();
 
-            yield return new WaitForSeconds(.05f);
+			yield return new WaitForSeconds(.05f);
 
-            _architectButton.SetActive(true);
-            _background.SetActive(true);
-            CameraController.PointCameraAtMapCenter();
-            _sun.SetActive(true);
-            TileTint.Initialize();
-            _tileMaker.SetActive(true);
-            _terrainAppController.SetActive(true);
-            _wallMaker.SetActive(true);
-            _plantMaker.SetActive(true);
-            _animalMaker.SetActive(true);
-            _pathfinder.SetActive(true);
-            _ready = true;
-            Ready = true;
-        }
+			_architectButton.SetActive(true);
+			_background.SetActive(true);
+			CameraController.PointCameraAtMapCenter();
+			_sun.SetActive(true);
+			TileTint.Initialize();
+			_tileMaker.SetActive(true);
+			_terrainAppController.SetActive(true);
+			_wallMaker.SetActive(true);
+			_plantMaker.SetActive(true);
+			_animalMaker.SetActive(true);
+			_pathfinder.SetActive(true);
+			_ready = true;
+			Ready = true;
+		}
 
 	}
 

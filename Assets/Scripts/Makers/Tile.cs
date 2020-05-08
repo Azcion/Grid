@@ -59,13 +59,13 @@ namespace Assets.Scripts.Makers {
 				return true;
 			}
 
-            if (!TryRemoveIgnorablePlants()) {
+			if (!TryRemoveIgnorablePlants()) {
 				return false;
 			}
 
 			AddThing(thing);
-            return true;
-        }
+			return true;
+		}
 
 		public void RemoveThings (bool destroy = false) {
 			if (destroy) {
@@ -87,8 +87,8 @@ namespace Assets.Scripts.Makers {
 		}
 
 		private static bool CanBuildOver (IThing thing) {
-            return thing.Type == ThingType.Plant && ((Plant) thing).Def.CanBuildOver;
-        }
+			return thing.Type == ThingType.Plant && ((Plant) thing).Def.CanBuildOver;
+		}
 
 		private void AddThing (IThing thing) {
 			if (thing.Type == ThingType.Structure) {
@@ -100,20 +100,20 @@ namespace Assets.Scripts.Makers {
 			UpdatePenalty();
 		}
 
-        private bool TryRemoveIgnorablePlants () {
+		private bool TryRemoveIgnorablePlants () {
 			foreach (IThing thing in _thingSlot) {
 				if (!CanBuildOver(thing)) {
 					continue;
 				}
 
 				_thingSlot.Remove(thing);
-                Destroy(thing.Go);
+				Destroy(thing.Go);
 
-                return true;
-            }
+				return true;
+			}
 
-            return false;
-        }
+			return false;
+		}
 
 		public bool IsBarren () {
 			return ThingSlotVacant() && AnyCreaturesOnTile() == false;

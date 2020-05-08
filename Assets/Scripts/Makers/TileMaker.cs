@@ -264,7 +264,7 @@ namespace Assets.Scripts.Makers {
 			}
 
 			v0 = Mathf.Clamp01(v0 + v0 * .25f);
-            TileType type;
+			TileType type;
 
 			if (v0 > .575) {
 				type = TileType.RoughHewnRock;
@@ -302,9 +302,9 @@ namespace Assets.Scripts.Makers {
 			} else if (v1 > sw) {
 				type = TileType.ShallowWater;
 			} else if (v1 > m) {
-                if (type != TileType.Sand && type != TileType.SoftSand) {
-                    type = TileType.Mud;
-                }
+				if (type != TileType.Sand && type != TileType.SoftSand) {
+					type = TileType.Mud;
+				}
 			} else if (v1 > 1 - m) {
 				float v2 = Noise.Sum(x + _seed, y + _seed, .02f, 4, 2.2f, .5f);
 
@@ -327,10 +327,10 @@ namespace Assets.Scripts.Makers {
 					}
 				}
 			} else if (v1 > 1 - sw) {
-                if (type != TileType.Sand && type != TileType.SoftSand) {
-                    type = TileType.Mud;
-                }
-            } else if (v1 > 1 - dw) {
+				if (type != TileType.Sand && type != TileType.SoftSand) {
+					type = TileType.Mud;
+				}
+			} else if (v1 > 1 - dw) {
 				type = TileType.ShallowWater;
 			} else {
 				type = TileType.DeepWater;

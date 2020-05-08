@@ -9,41 +9,41 @@
 		</StatBases>
 		<TexPath>thing/plant/grass</TexPath>
 		<EcosystemWeight>0</EcosystemWeight>
-    <Cluster>false</Cluster>
+	<Cluster>false</Cluster>
 		<Selectable>false</Selectable>
 		<PlantSize>Small</PlantSize>
-    <CanBuildOver>true</CanBuildOver>
+	<CanBuildOver>true</CanBuildOver>
 	</PlantDef>
   <PlantDef>
-    <DefName>Brambles</DefName>
-    <Label>brambles</Label>
-    <Description>Tangled, thorny, woody shoots covered with leaves. Brambles grow in clusters, and slow down anyone moving over them.</Description>
-    <StatBases>
-      <MaxHitPoints>100</MaxHitPoints>
-      <Nutrition>0.2</Nutrition>
-    </StatBases>
-    <TexPath>thing/plant/brambles</TexPath>
-    <TexCount>2</TexCount>
-    <EcosystemWeight>0.25</EcosystemWeight>
-    <Cluster>true</Cluster>
-    <Selectable>true</Selectable>
-    <PlantSize>Small</PlantSize>
-    <CanBuildOver>true</CanBuildOver>
+	<DefName>Brambles</DefName>
+	<Label>brambles</Label>
+	<Description>Tangled, thorny, woody shoots covered with leaves. Brambles grow in clusters, and slow down anyone moving over them.</Description>
+	<StatBases>
+	  <MaxHitPoints>100</MaxHitPoints>
+	  <Nutrition>0.2</Nutrition>
+	</StatBases>
+	<TexPath>thing/plant/brambles</TexPath>
+	<TexCount>2</TexCount>
+	<EcosystemWeight>0.25</EcosystemWeight>
+	<Cluster>true</Cluster>
+	<Selectable>true</Selectable>
+	<PlantSize>Small</PlantSize>
+	<CanBuildOver>true</CanBuildOver>
   </PlantDef>
 	<PlantDef>
 		<DefName>PincushionCactus</DefName>
 		<Label>pincushion cactus</Label>
-    <Description>A short cactus. It is so named because it resembles a pincushion.</Description>
+	<Description>A short cactus. It is so named because it resembles a pincushion.</Description>
 		<StatBases>
 			<MaxHitPoints>150</MaxHitPoints>
 			<Nutrition>0.25</Nutrition>
 		</StatBases>
 		<TexPath>thing/plant/pincushioncactus</TexPath>
 		<EcosystemWeight>0.25</EcosystemWeight>
-    <Cluster>true</Cluster>
+	<Cluster>true</Cluster>
 		<Selectable>true</Selectable>
 		<PlantSize>Small</PlantSize>
-    <CanBuildOver>true</CanBuildOver>
+	<CanBuildOver>true</CanBuildOver>
 	</PlantDef>
 	<PlantDef>
 		<DefName>Agave</DefName>
@@ -55,7 +55,7 @@
 		</StatBases>
 		<TexPath>thing/plant/agave</TexPath>
 		<EcosystemWeight>1</EcosystemWeight>
-    <Cluster>true</Cluster>
+	<Cluster>true</Cluster>
 		<Selectable>true</Selectable>
 		<PlantSize>Large</PlantSize>
 	</PlantDef>
@@ -70,24 +70,24 @@
 		<TexPath>thing/plant/bush</TexPath>
 		<TexCount>2</TexCount>
 		<EcosystemWeight>1</EcosystemWeight>
-    <Cluster>true</Cluster>
+	<Cluster>true</Cluster>
 		<Selectable>true</Selectable>
 		<PlantSize>Large</PlantSize>
 	</PlantDef>
   <PlantDef>
-    <DefName>Healroot</DefName>
-    <Label>healroot</Label>
-    <Description>A slow-growing plant which yields herbal medicine when harvested.\n\nThis wild breed of healroot is hardier than domesticated healroot, but too difficult to cultivate. It is prized by tribespeople in colder climates.</Description>
-    <StatBases>
-      <MaxHitPoints>120</MaxHitPoints>
-      <Nutrition>0.2</Nutrition>
-    </StatBases>
-    <TexPath>thing/plant/healroot</TexPath>
-    <TexCount>2</TexCount>
-    <EcosystemWeight>1</EcosystemWeight>
-    <Cluster>true</Cluster>
-    <Selectable>true</Selectable>
-    <PlantSize>Large</PlantSize>
+	<DefName>Healroot</DefName>
+	<Label>healroot</Label>
+	<Description>A slow-growing plant which yields herbal medicine when harvested.\n\nThis wild breed of healroot is hardier than domesticated healroot, but too difficult to cultivate. It is prized by tribespeople in colder climates.</Description>
+	<StatBases>
+	  <MaxHitPoints>120</MaxHitPoints>
+	  <Nutrition>0.2</Nutrition>
+	</StatBases>
+	<TexPath>thing/plant/healroot</TexPath>
+	<TexCount>2</TexCount>
+	<EcosystemWeight>1</EcosystemWeight>
+	<Cluster>true</Cluster>
+	<Selectable>true</Selectable>
+	<PlantSize>Large</PlantSize>
   </PlantDef>
 	<PlantDef>
 		<DefName>SaguaroCactus</DefName>
@@ -99,7 +99,7 @@
 		</StatBases>
 		<TexPath>thing/plant/saguarocactus</TexPath>
 		<EcosystemWeight>.25</EcosystemWeight>
-    <Cluster>true</Cluster>
+	<Cluster>true</Cluster>
 		<Selectable>true</Selectable>
 		<PlantSize>Large</PlantSize>
 	</PlantDef>
@@ -113,7 +113,7 @@
 		</StatBases>
 		<TexPath>thing/plant/treedrago</TexPath>
 		<EcosystemWeight>.75</EcosystemWeight>
-    <Cluster>true</Cluster>
+	<Cluster>true</Cluster>
 		<Selectable>true</Selectable>
 		<PlantSize>Large</PlantSize>
 	</PlantDef>

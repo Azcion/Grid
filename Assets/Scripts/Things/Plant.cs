@@ -18,8 +18,8 @@ namespace Assets.Scripts.Things {
 			new Vector3(.25f, .45f),
 			new Vector3(.75f, 0),
 			new Vector3(.70f, .40f),
-            new Vector3(.40f, .20f)
-        };
+			new Vector3(.40f, .20f)
+		};
 
 		private static GameObject _childPrefab;
 
@@ -28,12 +28,12 @@ namespace Assets.Scripts.Things {
 		public GameObject Go => gameObject;
 		public ThingType Type => ThingType.Plant;
 
-        static Plant () {
-            for (int i = 0; i < Nodes.Length; i++) {
-                Vector3 v = Nodes[i];
-                Nodes[i] = new Vector3(v.x, v.y, Map.SubY * v.y);
-            }
-        }
+		static Plant () {
+			for (int i = 0; i < Nodes.Length; i++) {
+				Vector3 v = Nodes[i];
+				Nodes[i] = new Vector3(v.x, v.y, Map.SubY * v.y);
+			}
+		}
 
 		public static Plant Create (Plant plant, PlantDef def) {
 			plant.Def = def;
@@ -54,23 +54,23 @@ namespace Assets.Scripts.Things {
 
 			bool isSmall = Size == PlantSize.Small;
 			bool flipX = Random.value < .5;
-            IsSelectable = Def.Selectable;
+			IsSelectable = Def.Selectable;
 
 			if (!isSmall) {
-                SetSprite(Assets.GetSprite(Def.DefName + suffix), flipX);
+				SetSprite(Assets.GetSprite(Def.DefName + suffix), flipX);
 				AdjustTransform(growth);
-                return;
+				return;
 			}
 
 			float nodeIndex = Random.Range(0, Nodes.Length);
 			AdjustTransform(growth, (int) nodeIndex);
 
 			if (Def.DefName == "Grass") {
-                flipX = false;
+				flipX = false;
 				ChildRenderer.sharedMaterial = Assets.SwayMat;
 			}
 
-            SetSprite(Assets.GetSprite(Def.DefName + suffix), flipX);
+			SetSprite(Assets.GetSprite(Def.DefName + suffix), flipX);
 			int cloneCount = Random.Range(0, 4);
 			float nodeOrder = Random.value > .5f ? 1 : -1;
 			nodeOrder *= Random.value > .8f ? 1.5f : 1;

@@ -8,7 +8,7 @@ namespace Assets.Scripts.Terrain {
 	public class TerrainAssembler : MonoBehaviour {
 
 		private static GameObject _prefab;
-        private static GameObject[] _chunks;
+		private static GameObject[] _chunks;
 		private static Mesh[][] _meshes;
 		private static Material _material;
 		private static float _index;
@@ -18,38 +18,38 @@ namespace Assets.Scripts.Terrain {
 			InitializeSelf(); 
 			CombineInstance[] chunkMeshCombines = new CombineInstance[Map.CSIZE * Map.CSIZE];
 
-            for (int yc = 0; yc < Map.YChunks; ++yc) {
-                for (int xc = 0; xc < Map.YChunks; xc++) {
+			for (int yc = 0; yc < Map.YChunks; ++yc) {
+				for (int xc = 0; xc < Map.YChunks; xc++) {
 					Vector3 position = new Vector3(xc * Map.CSIZE, yc * Map.CSIZE, Order.GROUND);
-                    GameObject chunk = Instantiate(_prefab, position, Quaternion.identity, transform);
-                    chunk.name = $"Chunk {yc} {xc}";
+					GameObject chunk = Instantiate(_prefab, position, Quaternion.identity, transform);
+					chunk.name = $"Chunk {yc} {xc}";
 					chunk.GetComponent<MeshRenderer>().sharedMaterial = _material;
-                    MeshFilter mf = chunk.GetComponent<MeshFilter>();
+					MeshFilter mf = chunk.GetComponent<MeshFilter>();
 
-                    for (int yt = 0; yt < Map.CSIZE; yt++) {
-                        for (int xt = 0; xt < Map.CSIZE; xt++) {
-                            int tilePosition = yc * Map.CSIZE * Map.YTiles + xc * Map.CSIZE + Map.YTiles * yt + xt;
-                            CombineInstance mesh = Create(mf, tilePosition, xt, yt);
-                            chunkMeshCombines[yt * Map.CSIZE + xt] = mesh;
-                        }
-                    }
+					for (int yt = 0; yt < Map.CSIZE; yt++) {
+						for (int xt = 0; xt < Map.CSIZE; xt++) {
+							int tilePosition = yc * Map.CSIZE * Map.YTiles + xc * Map.CSIZE + Map.YTiles * yt + xt;
+							CombineInstance mesh = Create(mf, tilePosition, xt, yt);
+							chunkMeshCombines[yt * Map.CSIZE + xt] = mesh;
+						}
+					}
 
-                    Mesh chunkMesh = new Mesh();
+					Mesh chunkMesh = new Mesh();
 					chunkMesh.CombineMeshes(chunkMeshCombines, true, true);
-                    chunkMesh.name = chunk.name;
-                    mf.mesh = chunkMesh;
+					chunkMesh.name = chunk.name;
+					mf.mesh = chunkMesh;
 					chunk.SetActive(true);
-                    _chunks[yc * Map.YChunks + xc] = chunk;
-                }
-            }
-        }
+					_chunks[yc * Map.YChunks + xc] = chunk;
+				}
+			}
+		}
 		
 		private static void InitializeSelf () {
 			_chunks = new GameObject[Map.YChunks * Map.YChunks];
 			_prefab = new GameObject("Chunk Prefab", typeof(MeshFilter), typeof(MeshRenderer));
-            _prefab.SetActive(false);
+			_prefab.SetActive(false);
 
-            _meshes = new[] {
+			_meshes = new[] {
 				new[] {
 					MeshBuilder.GetQuad()
 				},
@@ -135,16 +135,16 @@ namespace Assets.Scripts.Terrain {
 			}
 
 			mesh.colors = col;
-            mf.mesh = mesh;
-            mf.mesh.SetUVs(0, new List<Vector4>(uv4));
+			mf.mesh = mesh;
+			mf.mesh.SetUVs(0, new List<Vector4>(uv4));
 
-            CombineInstance combine = new CombineInstance {
-                mesh = mf.mesh,
-                transform = Matrix4x4.TRS(new Vector3(xt, yt), transform.localRotation, transform.localScale)
-            };
+			CombineInstance combine = new CombineInstance {
+				mesh = mf.mesh,
+				transform = Matrix4x4.TRS(new Vector3(xt, yt), transform.localRotation, transform.localScale)
+			};
 
-            return combine;
-        }
+			return combine;
+		}
 		
 	}
 

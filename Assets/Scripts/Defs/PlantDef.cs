@@ -10,9 +10,9 @@ namespace Assets.Scripts.Defs {
 
 		[DefaultValue((PlantSize) 0)] public PlantSize PlantSize;
 		[DefaultValue(1)] public int TexCount;
-        [DefaultValue(false)] public bool Cluster;
-        [DefaultValue(false)] public bool CanBuildOver;
+		[DefaultValue(false)] public bool Cluster;
+		[DefaultValue(false)] public bool CanBuildOver;
 
-    }
+	}
 
 }
