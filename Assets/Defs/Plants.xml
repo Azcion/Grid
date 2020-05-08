@@ -14,13 +14,13 @@
 		<PlantSize>Small</PlantSize>
 	<CanBuildOver>true</CanBuildOver>
 	</PlantDef>
-  <PlantDef>
+	<PlantDef>
 	<DefName>Brambles</DefName>
 	<Label>brambles</Label>
 	<Description>Tangled, thorny, woody shoots covered with leaves. Brambles grow in clusters, and slow down anyone moving over them.</Description>
 	<StatBases>
-	  <MaxHitPoints>100</MaxHitPoints>
-	  <Nutrition>0.2</Nutrition>
+		<MaxHitPoints>100</MaxHitPoints>
+		<Nutrition>0.2</Nutrition>
 	</StatBases>
 	<TexPath>thing/plant/brambles</TexPath>
 	<TexCount>2</TexCount>
@@ -29,7 +29,7 @@
 	<Selectable>true</Selectable>
 	<PlantSize>Small</PlantSize>
 	<CanBuildOver>true</CanBuildOver>
-  </PlantDef>
+	</PlantDef>
 	<PlantDef>
 		<DefName>PincushionCactus</DefName>
 		<Label>pincushion cactus</Label>
@@ -74,13 +74,13 @@
 		<Selectable>true</Selectable>
 		<PlantSize>Large</PlantSize>
 	</PlantDef>
-  <PlantDef>
+	<PlantDef>
 	<DefName>Healroot</DefName>
 	<Label>healroot</Label>
 	<Description>A slow-growing plant which yields herbal medicine when harvested.\n\nThis wild breed of healroot is hardier than domesticated healroot, but too difficult to cultivate. It is prized by tribespeople in colder climates.</Description>
 	<StatBases>
-	  <MaxHitPoints>120</MaxHitPoints>
-	  <Nutrition>0.2</Nutrition>
+		<MaxHitPoints>120</MaxHitPoints>
+		<Nutrition>0.2</Nutrition>
 	</StatBases>
 	<TexPath>thing/plant/healroot</TexPath>
 	<TexCount>2</TexCount>
@@ -88,7 +88,7 @@
 	<Cluster>true</Cluster>
 	<Selectable>true</Selectable>
 	<PlantSize>Large</PlantSize>
-  </PlantDef>
+	</PlantDef>
 	<PlantDef>
 		<DefName>SaguaroCactus</DefName>
 		<Label>saguaro cactus</Label>
