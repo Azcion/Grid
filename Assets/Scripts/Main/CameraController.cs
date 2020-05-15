@@ -9,6 +9,7 @@ namespace Assets.Scripts.Main {
 
 		public static Tile TileUnderCursor;
 
+		private const float KEYBOARD_PAN_SPEED = .01f;
 		private const float ZOOM_SPEED = 10;
 		private const int ZOOM_RATE = 10;
 		private const int MAX_SIZE = 35;
@@ -41,18 +42,46 @@ namespace Assets.Scripts.Main {
 				return;
 			}
 
+			DoKeyboard();
 			DoZoom();
 			DoPan();
 			DoHover();
 		}
 
+		private void DoKeyboard () {
+			if (!Input.anyKey) {
+				return;
+			}
+
+			float speed = KEYBOARD_PAN_SPEED * _newSize;
+			Vector3 target = transform.position;
+
+			if (Input.GetKey(KeyCode.W)) {
+				target.y += speed;
+			}
+
+			if (Input.GetKey(KeyCode.S)) {
+				target.y -= speed;
+			}
+
+			if (Input.GetKey(KeyCode.A)) {
+				target.x -= speed;
+			}
+
+			if (Input.GetKey(KeyCode.D)) {
+				target.x += speed;
+			}
+
+			transform.position = target;
+		}
+
 		private void DoZoom () {
 			float scroll = Input.GetAxis("Mouse ScrollWheel");
 
-			if (Math.Abs(scroll) > .0001) {
+			if (Math.Abs(scroll) > .0001f) {
 				_newSize -= scroll * ZOOM_SPEED;
 				_newSize = Mathf.Clamp(_newSize, MIN_SIZE, MAX_SIZE);
-			} else if (Math.Abs(_camera.orthographicSize - _newSize) < .0001) {
+			} else if (Math.Abs(_camera.orthographicSize - _newSize) < .0001f) {
 				_camera.orthographicSize = _newSize;
 				return;
 			}
@@ -75,17 +104,17 @@ namespace Assets.Scripts.Main {
 				transform.Translate(delta * sensitivity);
 
 				Vector3 p = transform.position;
-				
-				transform.position = new Vector3(
-						Mathf.Clamp(p.x, _cHalf, Map.YTiles - _cHalf),
-						Mathf.Clamp(p.y, _cHalf, Map.YTiles - _cHalf),
-						p.z);
+				transform.position = new Vector3(Clamp(p.x), Clamp(p.y), p.z);
 			}
 		}
 
 		private void DoHover () {
 			Vector2 pos = _camera.ScreenToWorldPoint(Input.mousePosition);
 			TileUnderCursor = TileMaker.GetTile((int) pos.x, (int) pos.y);
+		}
+
+		private float Clamp (float value) {
+			return Mathf.Clamp(value, _cHalf, Map.YTiles - _cHalf);
 		}
 
 	}
