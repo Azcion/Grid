@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<Defs>
+	<HumanoidDef>
+		<DefName>Scyther</DefName>
+		<Label>scyther</Label>
+		<Description>Fast, spindly, human-sized combat mechanoids specializing in rapid approach and close-range combat. Their bodies are covered in points and blades, but their mostly use two arm blades to lop off limbs or gut their victims alive.</Description>
+		<StatBases>
+			<MoveSpeed>6</MoveSpeed>
+			<ComfyTemperatureMin>-100</ComfyTemperatureMin>
+			<ComfyTemperatureMax>250</ComfyTemperatureMax>
+		</StatBases>
+		<TexPath>thing/humanoid/scyther</TexPath>
+	</HumanoidDef>
+</Defs>
