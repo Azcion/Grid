@@ -39,9 +39,15 @@ namespace Assets.Scripts.UI {
 		[UsedImplicitly]
 		private void Start () {
 			_instance = this;
-			_mapSizeSliderComponent = _mapSizeSlider.transform.GetComponent<Slider>();
 			_seedText = _seed.transform.Find("Text")?.GetComponent<Text>();
 			_mapSizeSliderHandleText = _mapSizeSliderText.GetComponent<Text>();
+			_mapSizeSliderComponent = _mapSizeSlider.transform.GetComponent<Slider>();
+			
+			if (!Application.isEditor) {
+				// Set default value to 240 tiles
+				_mapSizeSliderComponent.SetValueWithoutNotify(5);
+			}
+
 			OnSliderMove();
 		}
 
