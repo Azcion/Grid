@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2447436462
+CRC: 284579894
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 3a8fdd2a08975afe523ffd3afad1aa78
+    Hash: 4f4a06ef1c93f18b223d8fee3bbdd6d5
   TypeTreeHash:
     serializedVersion: 2
     Hash: 9e6ad29cbd2df8fbe1a15315db0e51ab
@@ -22,14 +22,16 @@ Assets:
 - Assets/Sprites/thing/plant/bush/BushA.png
 - Assets/Sprites/thing/humanoid/scyther/Scyther_north.png
 - Assets/Sprites/thing/creature/gazelle/Gazelle_south.png
-- Assets/Sprites/thing/plant/grass/Grass.png
+- Assets/Sprites/thing/plant/agave/AgaveA.png
+- Assets/Sprites/thing/plant/grass/GrassA.png
 - Assets/Sprites/thing/creature/elephant/Elephant_north.png
 - Assets/Sprites/thing/creature/tortoise/Tortoise_north.png
 - Assets/Sprites/thing/plant/treedrago/TreeDrago.png
 - Assets/Sprites/thing/plant/treepalm/TreePalm.png
+- Assets/Sprites/thing/plant/grass/GrassB.png
+- Assets/Sprites/thing/plant/healroot/Healroot.png
 - Assets/Sprites/thing/humanoid/scyther/Scyther_east.png
 - Assets/Sprites/ui/ButtonSubtle.png
-- Assets/Sprites/thing/plant/healroot/HealrootA.png
 - Assets/Sprites/thing/plant/bush/BushB.png
 - Assets/Sprites/other/WoodTop.png
 - Assets/Sprites/thing/creature/gazelle/Gazelle_north.png
@@ -37,14 +39,13 @@ Assets:
 - Assets/Sprites/thing/creature/iguana/Iguana_south.png
 - Assets/Sprites/thing/creature/gazelle/Gazelle_east.png
 - Assets/Sprites/thing/creature/elephant/Elephant_east.png
+- Assets/Sprites/thing/plant/agave/AgaveB.png
 - Assets/Sprites/thing/creature/elephant/Elephant_south.png
 - Assets/Sprites/thing/creature/tortoise/Tortoise_east.png
-- Assets/Sprites/thing/plant/agave/Agave.png
 - Assets/Sprites/thing/plant/saguarocactus/SaguaroCactus.png
 - Assets/Sprites/thing/creature/iguana/Iguana_north.png
 - Assets/Sprites/thing/building/linked/WallPlanks_UI.png
 - Assets/Sprites/thing/creature/iguana/Iguana_east.png
-- Assets/Sprites/thing/plant/healroot/HealrootB.png
 - Assets/Sprites/thing/humanoid/scyther/Scyther_south.png
 - Assets/Sprites/thing/plant/brambles/BramblesA.png
 - Assets/Sprites/thing/plant/brambles/BramblesB.png
