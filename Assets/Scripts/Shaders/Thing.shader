@@ -33,8 +33,11 @@
 			};
 
 			sampler2D _MainTex;
-			float4 _MainTex_ST;
-			half4 _Color;
+
+			CBUFFER_START(UnityPerMaterial)
+				float4 _MainTex_ST;
+				half4 _Color;
+			CBUFFER_END
 
 			v2f vert (appdata IN) {
 				v2f o;

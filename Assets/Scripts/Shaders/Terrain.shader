@@ -32,8 +32,11 @@
 				float4 vc : COLOR;
 			};
 
-			float _Index;
 			sampler2D _Tints;
+
+			CBUFFER_START(UnityPerMaterial)
+				float _Index;
+			CBUFFER_END
 
 			v2f vert (Input IN) {
 				v2f o;

@@ -35,10 +35,13 @@
 			};
 
 			sampler2D _MainTex;
-			float4 _MainTex_ST;
-			half4 _Color;
-			float _ShakeWindspeed;
-			float _ShakeBending;
+
+			CBUFFER_START(UnityPerMaterial)
+				float4 _MainTex_ST;
+				half4 _Color;
+				float _ShakeWindspeed;
+				float _ShakeBending;
+			CBUFFER_END
 
 			void fsin (float4 val, out float4 s) {
 				val = val * 6.408849 - 3.1415927;
