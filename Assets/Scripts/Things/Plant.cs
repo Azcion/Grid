@@ -52,11 +52,10 @@ namespace Assets.Scripts.Things {
 				suffix = ((char) ('A' + Random.Range(0, Def.TexCount))).ToString();
 			}
 
-			bool isSmall = Size == PlantSize.Small;
-			bool flipX = Random.value < .5;
 			IsSelectable = Def.Selectable;
+			bool flipX = Random.value < .5;
 
-			if (!isSmall) {
+			if (Size != PlantSize.Small) {
 				SetSprite(Assets.GetSprite(Def.DefName + suffix), flipX);
 				AdjustTransform(growth);
 				return;
@@ -65,10 +64,10 @@ namespace Assets.Scripts.Things {
 			float nodeIndex = Random.Range(0, Nodes.Length);
 			AdjustTransform(growth, (int) nodeIndex);
 
-			if (Def.DefName == "Grass") {
+			/*if (Def.DefName == "Grass") {
 				flipX = false;
 				ChildRenderer.sharedMaterial = Assets.SwayMat;
-			}
+			}*/
 
 			SetSprite(Assets.GetSprite(Def.DefName + suffix), flipX);
 			int cloneCount = Random.Range(0, 4);
