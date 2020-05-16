@@ -17,7 +17,6 @@
 			#pragma target 2.0
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-			#include "HLSLSupport.cginc"
 
 			struct v2f {
 				float4 uv : TEXCOORD0;
@@ -59,18 +58,21 @@
 				return o;
 			}
 
-			UNITY_DECLARE_TEX2DARRAY(_Textures);
+			TEXTURE2D_ARRAY(_Textures);
+			SAMPLER(sampler_Textures);
 
 			half4 frag (v2f i) : SV_Target {
 				half4 aT = tex2D(_Tints, float2(i.uv.z * _Index, 0));
 				half4 bT = tex2D(_Tints, float2(i.uv.a * _Index, 0));
 				half4 cT = tex2D(_Tints, float2(i.vc.a * _Index, 0));
 
-				half4 tA = UNITY_SAMPLE_TEX2DARRAY(_Textures, i.uv) * i.vc.r * aT;
-				i.uv.z = i.uv.a;
-				half4 tB = UNITY_SAMPLE_TEX2DARRAY(_Textures, i.uv) * i.vc.g * bT;
-				i.uv.z = i.vc.a;
-				half4 tC = UNITY_SAMPLE_TEX2DARRAY(_Textures, i.uv) * i.vc.b * cT;
+				half4 color;
+				color = SAMPLE_TEXTURE2D_ARRAY(_Textures, sampler_Textures, half2(i.uv.x, i.uv.y), half1(i.uv.z));
+				half4 tA =  color * i.vc.r * aT;
+				color = SAMPLE_TEXTURE2D_ARRAY(_Textures, sampler_Textures, half2(i.uv.x, i.uv.y), half1(i.uv.a));
+				half4 tB =  color * i.vc.g * bT;
+				color = SAMPLE_TEXTURE2D_ARRAY(_Textures, sampler_Textures, half2(i.uv.x, i.uv.y), half1(i.vc.a));
+				half4 tC =  color * i.vc.b * cT;
 				half4 t = tA + tB + tC;
 				
 				//// Lighting ////
