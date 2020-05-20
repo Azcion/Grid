@@ -70,7 +70,7 @@ namespace Assets.Scripts.Makers {
 		private void Populate () {
 			for (int x = 0; x < Map.YTiles; ++x) {
 				for (int y = Map.YTiles - 1; y >= 0; --y) {
-					Initialize(TileMaker.Get(x, y).transform);
+					Initialize(TileMaker.GetTile(x, y));
 				}
 			}
 
@@ -92,15 +92,15 @@ namespace Assets.Scripts.Makers {
 		}
 
 		// Cover RoughHewnRock with Rock Wall
-		private void Initialize (Transform t) {
-			if (t.GetComponent<Tile>().Type != TileType.RoughHewnRock) {
+		private void Initialize (Tile t) {
+			if (t.Type != TileType.RoughHewnRock) {
 				return;
 			}
 
 			LinkedType type = LinkedType.Rock;
 			string name = Enum.GetName(typeof(LinkedType), type);
-			int x = (int) t.position.x;
-			int y = (int) t.position.y;
+			int x = t.X;
+			int y = t.Y;
 			Linked linked = Linked.Create(name, x, y, Order.STRUCTURE, _container.transform, type);
 			_walls[x, y] = linked;
 

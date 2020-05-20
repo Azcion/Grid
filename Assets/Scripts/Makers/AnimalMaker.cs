@@ -13,7 +13,6 @@ namespace Assets.Scripts.Makers {
 
 		private static GameObject _animalPrefab;
 
-		[UsedImplicitly, SerializeField] private GameObject _chunkContainer = null;
 		[UsedImplicitly, SerializeField] private GameObject _container = null;
 
 		private static readonly ulong ValidTilesMask;
@@ -52,19 +51,18 @@ namespace Assets.Scripts.Makers {
 		}
 
 		private void Populate (GameObject prefab) {
-			foreach (Transform c in _chunkContainer.transform) {
-				foreach (Transform t in c) {
+			for (int y = 0; y < Map.YTiles; y++) {
+				for (int x = 0; x < Map.YTiles; x++) {
+					
 					if (Random.value < .998f) {
 						continue;
 					}
 
-					if (!IsValid(t.GetComponent<Tile>().Type)) {
+					if (!IsValid(TileMaker.GetTile(x, y).Type)) {
 						continue;
 					}
 
 					AnimalDef def = DefLoader.GetRandomAnimalDef();
-					int x = (int) t.transform.position.x;
-					int y = (int) t.transform.position.y;
 
 					if (def.Solitary) {
 						Initialize(prefab, def, x, y);

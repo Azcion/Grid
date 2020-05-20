@@ -20,13 +20,6 @@ namespace Assets.Scripts.Makers {
 		private static int _seed;
 		private static bool _ready;
 
-		[UsedImplicitly, SerializeField] private GameObject _chunkPrefab = null;
-		[UsedImplicitly, SerializeField] private GameObject _container = null;
-
-		public static GameObject Get (int x, int y) {
-			return GetTile(x, y)?.gameObject;
-		}
-
 		public static Tile GetTile (int x, int y) {
 			if (!_ready || x < 0 || x >= Map.YTiles || y < 0 || y >= Map.YTiles) {
 				return null;
@@ -84,18 +77,10 @@ namespace Assets.Scripts.Makers {
 			TerrainController.Assign(_types, _transitionFlags);
 		}
 
-		private void Create () {
-			for (int y = 0; y < Map.YChunks; ++y) {
-				for (int x = 0; x < Map.YChunks; ++x) {
-					Vector3 pos = new Vector3(Map.CSIZE * x, Map.CSIZE * y, Order.GROUND);
-					GameObject c = Instantiate(_chunkPrefab, pos, Quaternion.identity, _container.transform);
-					c.name = "Chunk " + y + "y " + x + "x";
-
-					foreach (Transform t in c.transform) {
-						int tx = (int) t.position.x;
-						int ty = (int) t.position.y;
-						InitializeTile(t, _types[Index(tx, ty)]);
-					}
+		private static void Create () {
+			for (int y = 0; y < Map.YTiles; y++) {
+				for (int x = 0; x < Map.YTiles; x++) {
+					InitializeTile(x, y);
 				}
 			}
 
@@ -205,25 +190,9 @@ namespace Assets.Scripts.Makers {
 			return x + y * Map.YTiles;
 		}
 
-		private static void InitializeTile (Transform t, int iType = -1) {
-			int x = (int) t.position.x;
-			int y = (int) t.position.y;
-			TileType type = iType == -1 ? GetType(x, y) : (TileType) iType;
-			_types[x + y * Map.YTiles] = (int) type;
-			int penalty = GetPenalty(type);
-
-			/*switch (type) {
-				case TileType.DeepWater:
-				case TileType.ShallowWater:
-				case TileType.RoughStone:
-				case TileType.RoughHewnRock:
-				case TileType.SmoothStone:
-				case TileType.WoodFloor:
-					sr.color = TileTint.Get(type);
-					break;
-			}*/
-
-			Tile tile = t.GetComponent<Tile>();
+		private static void InitializeTile (int x, int y) {
+			int intType = _types[Index(x, y)];
+			TileType type = (TileType) intType;
 			bool walkable = true;
 			bool buildable = true;
 
@@ -244,8 +213,8 @@ namespace Assets.Scripts.Makers {
 					break;
 			}
 
-			tile.Assign(t.parent.gameObject, x, y, type, walkable, buildable, penalty);
-			_tiles[y][x] = tile;
+			int penalty = GetPenalty(type);
+			_tiles[y][x] = new Tile(x, y, type, walkable, buildable, penalty);
 		}
 
 		private static TileType GetType (int x, int y) {
@@ -276,13 +245,13 @@ namespace Assets.Scripts.Makers {
 				type = TileType.Soil;
 			} else if (v0 > .40) {
 				type = TileType.Sand;
-			} else if (v0 > .25) {
+			} /*else if (v0 > .25) {
 				type = TileType.Soil;
 			} else if (v0 > .23) {
 				type = TileType.Mud;
 			} else if (v0 > .215) {
 				type = TileType.Marsh;
-			} else if (v0 > .10) {
+			} */else if (v0 > .10) {
 				type = TileType.ShallowWater;
 			} else {
 				type = TileType.DeepWater;
