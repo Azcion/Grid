@@ -164,7 +164,7 @@ namespace Assets.Scripts.Makers {
 			}
 
 			// No fixing needed
-			if (neighborTypes.Count <= 3) {
+			if (neighborTypes.Count <= 4) {
 				return false;
 			}
 

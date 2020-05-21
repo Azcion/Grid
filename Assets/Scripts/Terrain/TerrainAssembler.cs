@@ -83,14 +83,14 @@ namespace Assets.Scripts.Terrain {
 			List<int> surfaces = new List<int> { surfaceType };
 			Vector4[] uv2 = new Vector4[mesh.vertexCount];
 			Vector4[] uv3 = new Vector4[mesh.vertexCount];
+			float baseColorIndex = surfaceType * _index;
 
 			for (int i = 0; i < mesh.vertexCount; ++i) {
 				int c = GridDef.MeshColors[position][i];
-				float uvz = surfaceType * _index;
 
 				if (c == -1 || c == surfaceType) {
 					foreach (int j in GridDef.Neighborhood(type, i, rotation)) {
-						uv3[j].x = uvz;
+						uv3[j].x = baseColorIndex;
 					}
 
 					uv2[i].x = 1;
@@ -101,29 +101,33 @@ namespace Assets.Scripts.Terrain {
 					surfaces.Add(c);
 				}
 
-				float uva = c * _index;
+				float transitionColorIndex = c * _index;
 				int indexOf = surfaces.IndexOf(c);
 
 				switch (indexOf) {
 					case 1:
 						foreach (int j in GridDef.Neighborhood(type, i, rotation)) {
-							uv3[j].y = uva;
+							uv3[j].y = transitionColorIndex;
 						}
 
 						uv2[i].y = 1;
 						break;
 					case 2:
 						foreach (int j in GridDef.Neighborhood(type, i, rotation)) {
-							uv3[j].z = uva;
+							uv3[j].z = transitionColorIndex;
 						}
 
 						uv2[i].z = 1;
 						break;
+					case 3:
+						foreach (int j in GridDef.Neighborhood(type, i, rotation)) {
+							uv3[j].w = transitionColorIndex;
 						}
 
+						uv2[i].w = 1;
 						break;
 					default:
-						Debug.Log("Too many surfaces on one tile: " + surfaces.Count);
+						Debug.LogWarning($"Too many surfaces on one tile: {surfaces.Count}");
 						break;
 				}
 				

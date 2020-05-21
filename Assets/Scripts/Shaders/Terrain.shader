@@ -47,6 +47,7 @@
 				o.uv3.x = (IN.uv3.x - IN.uv3.x % _Index) / _Index;
 				o.uv3.y = (IN.uv3.y - IN.uv3.y % _Index) / _Index;
 				o.uv3.z = (IN.uv3.z - IN.uv3.z % _Index) / _Index;
+				o.uv3.w = (IN.uv3.w - IN.uv3.w % _Index) / _Index;
 
 				//// Lighting ////
 				half3 diff = GetMainLight().color;
@@ -63,19 +64,21 @@
 			SAMPLER(sampler_Textures);
 
 			half4 frag (v2f i) : SV_Target {
-				half4 aT = tex2D(_Tints, float2(i.uv3.x * _Index, 0));
-				half4 bT = tex2D(_Tints, float2(i.uv3.y * _Index, 0));
-				half4 cT = tex2D(_Tints, float2(i.uv3.z * _Index, 0));
+				half4 tintA = tex2D(_Tints, float2(i.uv3.x * _Index, 0));
+				half4 tintB = tex2D(_Tints, float2(i.uv3.y * _Index, 0));
+				half4 tintC = tex2D(_Tints, float2(i.uv3.z * _Index, 0));
+				half4 tintD = tex2D(_Tints, float2(i.uv3.w * _Index, 0));
 
-				half2 uv = half2(i.uv.x, i.uv.y);
 				half4 color;
-				color = SAMPLE_TEXTURE2D_ARRAY(_Textures, sampler_Textures, uv, half1(i.uv3.x));
-				half4 tA =  color * i.uv2.x * aT;
-				color = SAMPLE_TEXTURE2D_ARRAY(_Textures, sampler_Textures, uv, half1(i.uv3.y));
-				half4 tB =  color * i.uv2.y * bT;
-				color = SAMPLE_TEXTURE2D_ARRAY(_Textures, sampler_Textures, uv, half1(i.uv3.z));
-				half4 tC =  color * i.uv2.z * cT;
-				half4 t = tA + tB + tC;
+				color = SAMPLE_TEXTURE2D_ARRAY(_Textures, sampler_Textures, i.uv, half1(i.uv3.x));
+				half4 textureA =  color * i.uv2.x * tintA;
+				color = SAMPLE_TEXTURE2D_ARRAY(_Textures, sampler_Textures, i.uv, half1(i.uv3.y));
+				half4 textureB =  color * i.uv2.y * tintB;
+				color = SAMPLE_TEXTURE2D_ARRAY(_Textures, sampler_Textures, i.uv, half1(i.uv3.z));
+				half4 textureC =  color * i.uv2.z * tintC;
+				color = SAMPLE_TEXTURE2D_ARRAY(_Textures, sampler_Textures, i.uv, half1(i.uv3.w));
+				half4 textureD =  color * i.uv2.w * tintD;
+				half4 t = textureA + textureB + textureC + textureD;
 				
 				//// Lighting ////
 				t *= i.diff;
