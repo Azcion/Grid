@@ -19,10 +19,20 @@ namespace Assets.Scripts.Things {
 		public GameObject Go => gameObject;
 		public ThingType Type => ThingType.Structure;
 
+		public static Linked Create (Linked linked, LinkedType type) {
+			linked._type = type;
+
+			return linked;
+		}
+
 		public static Linked Create (string name, int x, int y, int z, Transform parent, LinkedType type) {
-			GameObject go = new GameObject(name, typeof(Linked));
+			GameObject go = new GameObject(name, typeof(Linked), typeof(BoxCollider2D));
 			go.transform.SetParent(parent);
 			go.transform.localPosition = new Vector3(x, y, z);
+			BoxCollider2D bc = go.GetComponent<BoxCollider2D>();
+			bc.isTrigger = true;
+			bc.offset = new Vector2(.5f, .5f);
+			bc.size = Vector2.one;
 			Linked linked = go.GetComponent<Linked>();
 			linked._type = type;
 

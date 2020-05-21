@@ -21,9 +21,6 @@ namespace Assets.Scripts.Makers {
 		}
 
 		private static GameObject _plantPrefab;
-
-		[UsedImplicitly, SerializeField] private GameObject _container = null;
-
 		private static readonly ulong ValidTilesMask;
 		private static readonly ulong LowFertilityMask;
 
@@ -99,9 +96,13 @@ namespace Assets.Scripts.Makers {
 			}
 
 			if (_plantPrefab == null) {
-				_plantPrefab = new GameObject("Plant Prefab", typeof(Plant));
-				_plantPrefab.transform.SetParent(_container.transform);
+				_plantPrefab = new GameObject("Plant Prefab", typeof(Plant), typeof(BoxCollider2D));
 				_plantPrefab.SetActive(false);
+				_plantPrefab.transform.SetParent(transform);
+				BoxCollider2D bc = _plantPrefab.GetComponent<BoxCollider2D>();
+				bc.isTrigger = true;
+				bc.offset = new Vector2(.5f, .5f);
+				bc.size = Vector2.one;
 			}
 
 			Populate(_plantPrefab);
@@ -172,7 +173,7 @@ namespace Assets.Scripts.Makers {
 
 		private void Initialize (GameObject prefab, PlantDef def, int x, int y) {
 			Vector3 pos = new Vector3(x, y, Order.PLANT + Map.SubY * y);
-			GameObject go = Instantiate(prefab, pos, Quaternion.identity, _container.transform);
+			GameObject go = Instantiate(prefab, pos, Quaternion.identity, transform);
 			go.name = def.DefName;
 			Plant plant = Plant.Create(go.GetComponent<Plant>(), def);
 			plant.Initialize(Calc.Round(Random.Range(.3f, 1), 2));

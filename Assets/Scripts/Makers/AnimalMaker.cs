@@ -12,9 +12,6 @@ namespace Assets.Scripts.Makers {
 	public class AnimalMaker : MonoBehaviour {
 
 		private static GameObject _animalPrefab;
-
-		[UsedImplicitly, SerializeField] private GameObject _container = null;
-
 		private static readonly ulong ValidTilesMask;
 
 		private static readonly List<TileType> ValidTiles = new List<TileType> {
@@ -42,9 +39,13 @@ namespace Assets.Scripts.Makers {
 			}
 
 			if (_animalPrefab == null) {
-				_animalPrefab = new GameObject("Animal Prefab", typeof(Animal));
-				_animalPrefab.transform.SetParent(_container.transform);
+				_animalPrefab = new GameObject("Animal Prefab", typeof(Animal), typeof(BoxCollider2D));
 				_animalPrefab.SetActive(false);
+				_animalPrefab.transform.SetParent(transform);
+				BoxCollider2D bc = _animalPrefab.GetComponent<BoxCollider2D>();
+				bc.isTrigger = true;
+				bc.offset = new Vector2(.5f, .5f);
+				bc.size = Vector2.one;
 			}
 
 			Populate(_animalPrefab);
@@ -100,7 +101,7 @@ namespace Assets.Scripts.Makers {
 
 		private void Initialize (GameObject prefab, AnimalDef def, int x, int y) {
 			Vector3 pos = new Vector3(x, y, Order.ANIMAL);
-			GameObject go = Instantiate(prefab, pos, Quaternion.identity, _container.transform);
+			GameObject go = Instantiate(prefab, pos, Quaternion.identity, transform);
 			go.name = def.DefName;
 			Animal animal = Animal.Create(go.GetComponent<Animal>(), def);
 			animal.Initialize();

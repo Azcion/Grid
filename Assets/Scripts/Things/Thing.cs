@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Assets.Scripts.Things {
 
-	[RequireComponent(typeof(BoxCollider2D))]
 	public class Thing : MonoBehaviour {
 
 		public bool IsSelectable { get; protected set; }
@@ -18,9 +17,9 @@ namespace Assets.Scripts.Things {
 		}
 
 		protected void InitializeThing () {
-			gameObject.SetActive(true);
 			Tf = transform;
-			AssertRequiredComponents();
+			CreateChildSprite();
+			gameObject.SetActive(true);
 		}
 
 		protected void SetSprite (Sprite sprite, bool flipX) {
@@ -36,14 +35,6 @@ namespace Assets.Scripts.Things {
 		private void OnMouseDown () {
 			Selector.Select(Tf, this);
 			Selected = true;
-		}
-
-		private void AssertRequiredComponents () {
-			BoxCollider2D bc = Tf.GetComponent<BoxCollider2D>();
-			bc.isTrigger = true;
-			bc.offset = new Vector2(.5f, .5f);
-			bc.size = Vector2.one;
-			CreateChildSprite();
 		}
 
 		private void CreateChildSprite () {

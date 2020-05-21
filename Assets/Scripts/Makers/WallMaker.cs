@@ -14,7 +14,9 @@ namespace Assets.Scripts.Makers {
 		private static Linked[,] _walls;
 		private static bool _ready;
 
-		[UsedImplicitly, SerializeField] private GameObject _container = null;
+		private static GameObject _wallPrefab;
+
+		[UsedImplicitly, SerializeField] private GameObject _coverContainer = null;
 
 		public static Linked GetLinked (int x, int y) {
 			if (!_ready || x < 0 || x >= Map.YTiles || y < 0 || y >= Map.YTiles) {
@@ -39,7 +41,7 @@ namespace Assets.Scripts.Makers {
 
 			GameObject go = wall.gameObject;
 			go.name = Enum.GetName(typeof(ThingType), wall.Type);
-			go.transform.SetParent(_instance._container.transform);
+			go.transform.SetParent(_instance.transform);
 			go.transform.localPosition = new Vector3(x, y, Order.STRUCTURE);
 			_walls[x, y] = wall;
 
@@ -61,16 +63,26 @@ namespace Assets.Scripts.Makers {
 				return;
 			}
 
+			if (_wallPrefab == null) {
+				_wallPrefab = new GameObject("Wall Prefab", typeof(Linked), typeof(BoxCollider2D));
+				_wallPrefab.SetActive(false);
+				_wallPrefab.transform.SetParent(transform);
+				BoxCollider2D bc = _wallPrefab.GetComponent<BoxCollider2D>();
+				bc.isTrigger = true;
+				bc.offset = new Vector2(.5f, .5f);
+				bc.size = Vector2.one;
+			}
+
 			_instance = this;
 			_walls = new Linked[Map.YTiles, Map.YTiles];
 
-			Populate();
+			Populate(_wallPrefab);
 		}
 
-		private void Populate () {
+		private void Populate (GameObject prefab) {
 			for (int x = 0; x < Map.YTiles; ++x) {
 				for (int y = Map.YTiles - 1; y >= 0; --y) {
-					Initialize(TileMaker.GetTile(x, y));
+					Initialize(prefab, TileMaker.GetTile(x, y), x, y);
 				}
 			}
 
@@ -92,16 +104,16 @@ namespace Assets.Scripts.Makers {
 		}
 
 		// Cover RoughHewnRock with Rock Wall
-		private void Initialize (Tile t) {
+		private void Initialize (GameObject prefab, Tile t, int x, int y) {
 			if (t.Type != TileType.RoughHewnRock) {
 				return;
 			}
 
+			Vector3 pos = new Vector3(x, y, Order.STRUCTURE);
+			GameObject go = Instantiate(prefab, pos, Quaternion.identity, transform);
 			LinkedType type = LinkedType.Rock;
-			string name = Enum.GetName(typeof(LinkedType), type);
-			int x = t.X;
-			int y = t.Y;
-			Linked linked = Linked.Create(name, x, y, Order.STRUCTURE, _container.transform, type);
+			go.name = Enum.GetName(typeof(LinkedType), type);
+			Linked linked = Linked.Create(go.GetComponent<Linked>(), type);
 			_walls[x, y] = linked;
 
 			if (TileMaker.GetTile(x, y).TryAddThing(linked) == false) {
