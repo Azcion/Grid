@@ -79,25 +79,21 @@ namespace Assets.Scripts.Terrain {
 			Mesh mesh = _meshes[type][rotation];
 
 			// Paint vertices
-			Color[] col = new Color[mesh.vertexCount];
 			int surfaceType = GridDef.Types[position];
 			List<int> surfaces = new List<int> { surfaceType };
-			Vector4[] uv4 = new Vector4[mesh.vertexCount];
+			Vector4[] uv2 = new Vector4[mesh.vertexCount];
+			Vector4[] uv3 = new Vector4[mesh.vertexCount];
 
 			for (int i = 0; i < mesh.vertexCount; ++i) {
 				int c = GridDef.MeshColors[position][i];
 				float uvz = surfaceType * _index;
-				Color ic;
-				Vector4 iv;
 
 				if (c == -1 || c == surfaceType) {
 					foreach (int j in GridDef.Neighborhood(type, i, rotation)) {
-						iv = uv4[j];
-						uv4[j] = new Vector4(iv.x, iv.y, uvz, iv.w);
+						uv3[j].x = uvz;
 					}
 
-					ic = col[i];
-					col[i] = new Color(1, ic.g, ic.b, ic.a);
+					uv2[i].x = 1;
 					continue;
 				}
 
@@ -111,21 +107,20 @@ namespace Assets.Scripts.Terrain {
 				switch (indexOf) {
 					case 1:
 						foreach (int j in GridDef.Neighborhood(type, i, rotation)) {
-							iv = uv4[j];
-							uv4[j] = new Vector4(iv.x, iv.y, iv.z, uva);
+							uv3[j].y = uva;
 						}
 
-						ic = col[i];
-						col[i] = new Color(ic.r, 1, ic.b, ic.a);
+						uv2[i].y = 1;
 						break;
 					case 2:
 						foreach (int j in GridDef.Neighborhood(type, i, rotation)) {
-							ic = col[j];
-							col[j] = new Color(ic.r, ic.g, ic.b, uva);
+							uv3[j].z = uva;
 						}
 
-						ic = col[i];
-						col[i] = new Color(ic.r, ic.g, 1, ic.a);
+						uv2[i].z = 1;
+						break;
+						}
+
 						break;
 					default:
 						Debug.Log("Too many surfaces on one tile: " + surfaces.Count);
@@ -134,9 +129,9 @@ namespace Assets.Scripts.Terrain {
 				
 			}
 
-			mesh.colors = col;
 			mf.mesh = mesh;
-			mf.mesh.SetUVs(0, new List<Vector4>(uv4));
+			mf.mesh.SetUVs(2, new List<Vector4>(uv2));
+			mf.mesh.SetUVs(3, new List<Vector4>(uv3));
 
 			CombineInstance combine = new CombineInstance {
 				mesh = mf.mesh,
