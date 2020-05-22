@@ -42,8 +42,8 @@ namespace Assets.Scripts.Things {
 		public void Initialize (bool planning = false) {
 			InitializeThing();
 			
-			_x = (int) Tf.position.x;
-			_y = (int) Tf.position.y;
+			_x = (int) transform.position.x;
+			_y = (int) transform.position.y;
 			ChildRenderer.color = AdjustTint(_type);
 
 			if (planning) {
@@ -57,8 +57,8 @@ namespace Assets.Scripts.Things {
 		}
 
 		public void Refresh () {
-			_x = (int) Tf.position.x;
-			_y = (int) Tf.position.y;
+			_x = (int) transform.position.x;
+			_y = (int) transform.position.y;
 
 			InitializeSelf();
 			InitializeNeighbors();
@@ -180,13 +180,13 @@ namespace Assets.Scripts.Things {
 
 		private void Make (string label, Vector3 position, Vector3 scale) {
 			Transform t = new GameObject(label, typeof(SpriteRenderer)).transform;
-			t.SetParent(Tf);
+			t.SetParent(transform);
 			t.localPosition = position;
 			t.localScale = scale;
 			SpriteRenderer sr = t.gameObject.GetComponent<SpriteRenderer>();
 			sr.sprite = _type == LinkedType.Rock ? Assets.GetSprite("RockTop") : Assets.GetSprite("WoodTop");
 			sr.color = AdjustTint(_type);
-			sr.sharedMaterial = Assets.ThingMat;
+			sr.sharedMaterial = Assets.CoverMat;
 		}
 	}
 

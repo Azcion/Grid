@@ -7,7 +7,6 @@ namespace Assets.Scripts.Things {
 
 		public bool IsSelectable { get; protected set; }
 
-		protected Transform Tf;
 		protected Transform Child;
 		protected SpriteRenderer ChildRenderer;
 		protected bool Selected;
@@ -17,7 +16,6 @@ namespace Assets.Scripts.Things {
 		}
 
 		protected void InitializeThing () {
-			Tf = transform;
 			CreateChildSprite();
 			gameObject.SetActive(true);
 		}
@@ -33,13 +31,13 @@ namespace Assets.Scripts.Things {
 
 		[UsedImplicitly]
 		private void OnMouseDown () {
-			Selector.Select(Tf, this);
+			Selector.Select(transform, this);
 			Selected = true;
 		}
 
 		private void CreateChildSprite () {
 			Child = new GameObject("Sprite", typeof(SpriteRenderer)).transform;
-			Child.SetParent(Tf);
+			Child.SetParent(transform);
 			Child.localPosition = Vector3.zero;
 			ChildRenderer = Child.gameObject.GetComponent<SpriteRenderer>();
 			ChildRenderer.sharedMaterial = Assets.ThingMat;

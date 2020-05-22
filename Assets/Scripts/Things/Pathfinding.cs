@@ -21,7 +21,6 @@ namespace Assets.Scripts.Things {
 			_thing = thing;
 			InitializeThing();
 
-			Tf = transform;
 			Moving = false;
 			DirectionChanged = false;
 			_speed = speed / 3;
@@ -32,7 +31,7 @@ namespace Assets.Scripts.Things {
 				return false;
 			}
 			
-			PathRequestManager.RequestPath(new PathRequest(Tf.localPosition, target, OnPathFound));
+			PathRequestManager.RequestPath(new PathRequest(transform.localPosition, target, OnPathFound));
 
 			return true;
 		}
@@ -55,7 +54,7 @@ namespace Assets.Scripts.Things {
 			AdjustDirection(currentWaypoint);
 
 			while (true) {
-				if ((Vector2) Tf.position == currentWaypoint) {
+				if ((Vector2) transform.position == currentWaypoint) {
 					if (++_targetIndex >= _path.Length) {
 						Moving = false;
 						yield break;
@@ -66,16 +65,16 @@ namespace Assets.Scripts.Things {
 				}
 
 				float speed = _speed * Time.deltaTime;
-				Vector2 v = Vector2.MoveTowards(Tf.localPosition, currentWaypoint, speed);
-				Tf.localPosition = new Vector3(v.x, v.y, Tf.localPosition.z);
+				Vector2 v = Vector2.MoveTowards(transform.localPosition, currentWaypoint, speed);
+				transform.localPosition = new Vector3(v.x, v.y, transform.localPosition.z);
 
 				yield return null;
 			}
 		}
 
 		private void AdjustDirection (Vector2 waypoint) {
-			int x0 = (int) Tf.position.x;
-			int y0 = (int) Tf.position.y;
+			int x0 = (int) transform.position.x;
+			int y0 = (int) transform.position.y;
 			int x1 = (int) waypoint.x;
 			int y1 = (int) waypoint.y;
 			Direction newDirection;

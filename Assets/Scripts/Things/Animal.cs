@@ -75,7 +75,7 @@ namespace Assets.Scripts.Things {
 			}
 
 			//todo implement smarter targeting
-			Vector3 v = Tf.localPosition;
+			Vector3 v = transform.localPosition;
 			v += new Vector3(Random.Range(-5, 6), Random.Range(-5, 6), 0);
 			v = Calc.Clamp(v);
 

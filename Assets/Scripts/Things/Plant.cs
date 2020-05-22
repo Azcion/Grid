@@ -126,7 +126,7 @@ namespace Assets.Scripts.Things {
 
 		private void CreateChildSprite (int nodeIndex) {
 			float s = Mathf.Lerp(1, 1.5f, _growth);
-			GameObject go = Instantiate(_childPrefab, transform.position, Quaternion.identity, Tf);
+			GameObject go = Instantiate(_childPrefab, transform.position, Quaternion.identity, transform);
 			go.transform.localPosition = Nodes[nodeIndex];
 			go.transform.localScale = new Vector3(s, s, 1);
 			go.name = "Clone";
