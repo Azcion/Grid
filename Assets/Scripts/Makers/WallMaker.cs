@@ -66,6 +66,7 @@ namespace Assets.Scripts.Makers {
 			if (_wallPrefab == null) {
 				_wallPrefab = new GameObject("Wall Prefab", typeof(Linked), typeof(BoxCollider2D));
 				_wallPrefab.SetActive(false);
+				_wallPrefab.GetComponent<Linked>().Prepare();
 				_wallPrefab.transform.SetParent(transform);
 				BoxCollider2D bc = _wallPrefab.GetComponent<BoxCollider2D>();
 				bc.isTrigger = true;

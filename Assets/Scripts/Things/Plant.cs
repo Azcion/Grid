@@ -42,8 +42,7 @@ namespace Assets.Scripts.Things {
 		}
 
 		public void Initialize (float growth) {
-			InitializeThing();
-
+			PrepareChild();
 			Size = Def.PlantSize;
 			_growth = growth;
 			string suffix = "";
@@ -58,6 +57,7 @@ namespace Assets.Scripts.Things {
 			if (Size != PlantSize.Small) {
 				SetSprite(Assets.GetSprite(Def.DefName + suffix), flipX);
 				AdjustTransform(growth);
+				gameObject.SetActive(true);
 				return;
 			}
 
@@ -79,6 +79,8 @@ namespace Assets.Scripts.Things {
 				int index = Mod((int) nodeIndex, Nodes.Length);
 				CreateChildSprite(index);
 			}
+
+			gameObject.SetActive(true);
 		}
 
 		private static int Mod (int n, int m) {

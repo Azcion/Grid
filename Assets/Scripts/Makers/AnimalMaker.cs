@@ -41,6 +41,7 @@ namespace Assets.Scripts.Makers {
 			if (_animalPrefab == null) {
 				_animalPrefab = new GameObject("Animal Prefab", typeof(Animal), typeof(BoxCollider2D));
 				_animalPrefab.SetActive(false);
+				_animalPrefab.GetComponent<Animal>().Prepare();
 				_animalPrefab.transform.SetParent(transform);
 				BoxCollider2D bc = _animalPrefab.GetComponent<BoxCollider2D>();
 				bc.isTrigger = true;

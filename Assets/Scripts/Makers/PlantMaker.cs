@@ -98,6 +98,7 @@ namespace Assets.Scripts.Makers {
 			if (_plantPrefab == null) {
 				_plantPrefab = new GameObject("Plant Prefab", typeof(Plant), typeof(BoxCollider2D));
 				_plantPrefab.SetActive(false);
+				_plantPrefab.GetComponent<Plant>().Prepare();
 				_plantPrefab.transform.SetParent(transform);
 				BoxCollider2D bc = _plantPrefab.GetComponent<BoxCollider2D>();
 				bc.isTrigger = true;

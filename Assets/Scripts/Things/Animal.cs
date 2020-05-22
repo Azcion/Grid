@@ -26,7 +26,8 @@ namespace Assets.Scripts.Things {
 		}
 
 		public void Initialize () {
-			InitializePathfinding(this, Def.StatBases.MoveSpeed);
+			PrepareChild();
+			InitializePathfinding(Def.StatBases.MoveSpeed);
 
 			Child.localPosition = new Vector2(.5f, .5f);
 			Child.localScale = AdjustScale(Def.SpriteScale);
@@ -35,6 +36,7 @@ namespace Assets.Scripts.Things {
 			SetTint(AdjustTint(Def.Tint));
 			IsSelectable = true;
 			_didInitialize = true;
+			gameObject.SetActive(true);
 		}
 
 		private static Vector3 AdjustScale (float s) {

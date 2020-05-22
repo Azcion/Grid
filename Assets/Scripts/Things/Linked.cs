@@ -40,9 +40,8 @@ namespace Assets.Scripts.Things {
 		}
 
 		public void Initialize (bool planning = false) {
-			InitializeThing();
+			PrepareChild();
 			gameObject.isStatic = true;
-			
 			_x = (int) transform.position.x;
 			_y = (int) transform.position.y;
 			ChildRenderer.color = AdjustTint(_type);
@@ -55,6 +54,7 @@ namespace Assets.Scripts.Things {
 			}
 
 			InitializeSelf();
+			gameObject.SetActive(true);
 		}
 
 		public void Refresh () {

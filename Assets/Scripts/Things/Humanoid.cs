@@ -17,7 +17,7 @@ namespace Assets.Scripts.Things {
 		public ThingType Type => ThingType.Creature;
 
 		public void Initialize () {
-			InitializePathfinding(this, _def.StatBases.MoveSpeed);
+			InitializePathfinding(_def.StatBases.MoveSpeed);
 
 			Child.localPosition = new Vector2(.5f, .5f);
 			string suffix = DirectionSuffix[(int) Facing];

@@ -12,15 +12,11 @@ namespace Assets.Scripts.Things {
 		protected Direction Facing;
 		protected bool DirectionChanged;
 
-		private IThing _thing;
 		private Vector2[] _path;
 		private int _targetIndex;
 		private float _speed;
 
-		protected void InitializePathfinding (IThing thing, float speed) {
-			_thing = thing;
-			InitializeThing();
-
+		protected void InitializePathfinding (float speed) {
 			Moving = false;
 			DirectionChanged = false;
 			_speed = speed / 3;

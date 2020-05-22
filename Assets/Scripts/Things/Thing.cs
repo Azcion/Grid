@@ -11,13 +11,17 @@ namespace Assets.Scripts.Things {
 		protected SpriteRenderer ChildRenderer;
 		protected bool Selected;
 
+		public void Prepare () {
+			CreateChildSprite();
+		}
+
 		public void Deselect () {
 			Selected = false;
 		}
 
-		protected void InitializeThing () {
-			CreateChildSprite();
-			gameObject.SetActive(true);
+		protected void PrepareChild () {
+			Child = transform.GetChild(0);
+			ChildRenderer = Child.gameObject.GetComponent<SpriteRenderer>();
 		}
 
 		protected void SetSprite (Sprite sprite, bool flipX) {
