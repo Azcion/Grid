@@ -41,6 +41,7 @@ namespace Assets.Scripts.Things {
 
 		public void Initialize (bool planning = false) {
 			InitializeThing();
+			gameObject.isStatic = true;
 			
 			_x = (int) transform.position.x;
 			_y = (int) transform.position.y;
@@ -181,6 +182,7 @@ namespace Assets.Scripts.Things {
 		private void Make (string label, Vector3 position, Vector3 scale) {
 			Transform t = new GameObject(label, typeof(SpriteRenderer)).transform;
 			t.SetParent(transform);
+			t.gameObject.isStatic = true;
 			t.localPosition = position;
 			t.localScale = scale;
 			SpriteRenderer sr = t.gameObject.GetComponent<SpriteRenderer>();
