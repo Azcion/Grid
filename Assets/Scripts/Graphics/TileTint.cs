@@ -1,5 +1,4 @@
-﻿using System;
-using Assets.Scripts.Enums;
+﻿using Assets.Scripts.Enums;
 using UnityEngine;
 
 namespace Assets.Scripts.Graphics {
@@ -9,7 +8,7 @@ namespace Assets.Scripts.Graphics {
 		private static readonly Color[] TileTints;
 
 		static TileTint () {
-			TileTints = new Color[Enum.GetNames(typeof(TileType)).Length];
+			TileTints = new Color[Name.TileType.Length];
 
 			for (int i = 0; i < TileTints.Length; i++) {
 				TileTints[i] = Color.white;

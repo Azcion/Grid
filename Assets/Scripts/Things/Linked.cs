@@ -1,5 +1,4 @@
-﻿using System;
-using Assets.Scripts.Enums;
+﻿using Assets.Scripts.Enums;
 using Assets.Scripts.Graphics;
 using Assets.Scripts.Makers;
 using JetBrains.Annotations;
@@ -9,8 +8,6 @@ namespace Assets.Scripts.Things {
 
 	[UsedImplicitly]
 	public class Linked : Thing, IThing {
-
-		private static readonly string[] TypeNames = Enum.GetNames(typeof(LinkedType));
 
 		private int _x;
 		private int _y;
@@ -47,7 +44,7 @@ namespace Assets.Scripts.Things {
 			ChildRenderer.color = AdjustTint(_type);
 
 			if (planning) {
-				string assetName = $"{TypeNames[(int) _type]}_Atlas";
+				string assetName = $"{Name.Get(_type)}_Atlas";
 				SetSprite(Assets.GetAtlasSprite(assetName, 12), false);
 				ChildRenderer.color = AdjustOpacity(ChildRenderer.color, .5f);
 				return;
@@ -101,7 +98,7 @@ namespace Assets.Scripts.Things {
 			mask += _x == 0 ? 8 : 0;
 			int index = GetIndex(mask);
 
-			string assetName = $"{TypeNames[(int) _type]}_Atlas";
+			string assetName = $"{Name.Get(_type)}_Atlas";
 			SetSprite(Assets.GetAtlasSprite(assetName, index), false); 
 			CoverCenterGaps(index);
 			CoverEdgeGaps();

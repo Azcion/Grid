@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Main;
 using Assets.Scripts.Terrain;
@@ -33,7 +32,7 @@ namespace Assets.Scripts.Makers {
 			const float maxSeed = 2 << 22;
 			float t = (float)(uint) ApplicationController.Seed / uint.MaxValue;
 			_seed = (int) Mathf.Lerp(0, maxSeed, t);
-			_typeCount = Enum.GetValues(typeof(TileType)).Length;
+			_typeCount = Name.TileType.Length;
 			_tiles = new List<List<Tile>>();
 			_types = new int[Map.YTiles * Map.YTiles];
 			_transitionFlags = GetTransitionFlags();
@@ -89,7 +88,7 @@ namespace Assets.Scripts.Makers {
 		}
 
 		private static bool[] GetTransitionFlags () {
-			bool[] flags = new bool[Enum.GetValues(typeof(TileType)).Length];
+			bool[] flags = new bool[Name.TileType.Length];
 
 			HashSet<TileType> noTransitionTypes = new HashSet<TileType> {
 				TileType.RoughStone,

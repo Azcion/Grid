@@ -1,5 +1,4 @@
-﻿using System;
-using Assets.Scripts.Defs;
+﻿using Assets.Scripts.Defs;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Main;
 using Assets.Scripts.Things;
@@ -40,7 +39,7 @@ namespace Assets.Scripts.Makers {
 			}
 
 			GameObject go = wall.gameObject;
-			go.name = Enum.GetName(typeof(ThingType), wall.Type);
+			go.name = Name.Get(wall.Type);
 			go.transform.SetParent(_instance.transform);
 			go.transform.localPosition = new Vector3(x, y, Order.STRUCTURE);
 			_walls[x, y] = wall;
@@ -113,7 +112,7 @@ namespace Assets.Scripts.Makers {
 			Vector3 pos = new Vector3(x, y, Order.STRUCTURE);
 			GameObject go = Instantiate(prefab, pos, Quaternion.identity, transform);
 			LinkedType type = LinkedType.Rock;
-			go.name = Enum.GetName(typeof(LinkedType), type);
+			go.name = Name.Get(type);
 			Linked linked = Linked.Create(go.GetComponent<Linked>(), type);
 			_walls[x, y] = linked;
 
