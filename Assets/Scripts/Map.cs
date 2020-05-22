@@ -2,7 +2,7 @@
 
 	public static class Map {
 
-		public const int CSIZE = 8;
+		public const int CSIZE = 16;
 		
 		public static int YChunks;
 		public static int YTiles;
