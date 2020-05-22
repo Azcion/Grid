@@ -90,8 +90,8 @@ namespace Assets.Scripts.Makers {
 
 		private static bool[] GetTransitionFlags () {
 			bool[] flags = new bool[Enum.GetValues(typeof(TileType)).Length];
-			
-			TileType[] noTransitionTypes = {
+
+			HashSet<TileType> noTransitionTypes = new HashSet<TileType> {
 				TileType.RoughStone,
 				TileType.RoughHewnRock,
 				TileType.SmoothStone,
@@ -105,19 +105,7 @@ namespace Assets.Scripts.Makers {
 			};
 
 			for (int i = 0; i < flags.Length; i++) {
-				TileType t = (TileType) i;
-				bool matched = false;
-
-				foreach (TileType other in noTransitionTypes) {
-					if (t != other) {
-						continue;
-					}
-
-					matched = true;
-					break;
-				}
-
-				flags[i] = !matched;
+				flags[i] = !noTransitionTypes.Contains((TileType) i);
 			}
 
 			return flags;
