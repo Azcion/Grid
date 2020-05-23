@@ -22,20 +22,6 @@ namespace Assets.Scripts.Things {
 			return linked;
 		}
 
-		public static Linked Create (string name, int x, int y, int z, Transform parent, LinkedType type) {
-			GameObject go = new GameObject(name, typeof(Linked), typeof(BoxCollider2D));
-			go.transform.SetParent(parent);
-			go.transform.localPosition = new Vector3(x, y, z);
-			BoxCollider2D bc = go.GetComponent<BoxCollider2D>();
-			bc.isTrigger = true;
-			bc.offset = new Vector2(.5f, .5f);
-			bc.size = Vector2.one;
-			Linked linked = go.GetComponent<Linked>();
-			linked._type = type;
-
-			return linked;
-		}
-
 		public void Initialize (bool planning = false) {
 			PrepareChild();
 			gameObject.isStatic = true;
@@ -47,6 +33,8 @@ namespace Assets.Scripts.Things {
 				string assetName = $"{Name.Get(_type)}_Atlas";
 				SetSprite(Assets.GetAtlasSprite(assetName, 12), false);
 				ChildRenderer.color = AdjustOpacity(ChildRenderer.color, .5f);
+				gameObject.SetActive(true);
+
 				return;
 			}
 

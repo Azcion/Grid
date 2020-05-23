@@ -17,6 +17,14 @@ namespace Assets.Scripts.Makers {
 
 		[UsedImplicitly, SerializeField] private GameObject _coverContainer = null;
 
+		public static Linked Make (LinkedType type, Vector3 pos, Transform parent) {
+			GameObject go = Instantiate(_wallPrefab, pos, Quaternion.identity, parent);
+			go.name = Name.Get(type);
+			Linked linked = Linked.Create(go.GetComponent<Linked>(), type);
+
+			return linked;
+		}
+
 		public static Linked GetLinked (int x, int y) {
 			if (!_ready || x < 0 || x >= Map.YTiles || y < 0 || y >= Map.YTiles) {
 				return null;
@@ -76,13 +84,13 @@ namespace Assets.Scripts.Makers {
 			_instance = this;
 			_walls = new Linked[Map.YTiles, Map.YTiles];
 
-			Populate(_wallPrefab);
+			Populate();
 		}
 
-		private void Populate (GameObject prefab) {
+		private void Populate () {
 			for (int x = 0; x < Map.YTiles; ++x) {
 				for (int y = Map.YTiles - 1; y >= 0; --y) {
-					Initialize(prefab, TileMaker.GetTile(x, y), x, y);
+					Initialize(TileMaker.GetTile(x, y), x, y);
 				}
 			}
 
@@ -104,16 +112,13 @@ namespace Assets.Scripts.Makers {
 		}
 
 		// Cover RoughHewnRock with Rock Wall
-		private void Initialize (GameObject prefab, Tile t, int x, int y) {
+		private void Initialize (Tile t, int x, int y) {
 			if (t.Type != TileType.RoughHewnRock) {
 				return;
 			}
 
 			Vector3 pos = new Vector3(x, y, Order.STRUCTURE);
-			GameObject go = Instantiate(prefab, pos, Quaternion.identity, transform);
-			LinkedType type = LinkedType.Rock;
-			go.name = Name.Get(type);
-			Linked linked = Linked.Create(go.GetComponent<Linked>(), type);
+			Linked linked = Make(LinkedType.Rock, pos, transform);
 			_walls[x, y] = linked;
 
 			if (TileMaker.GetTile(x, y).TryAddThing(linked) == false) {

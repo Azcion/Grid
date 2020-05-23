@@ -29,22 +29,23 @@ namespace Assets.Scripts.Makers {
 			Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			int x = (int) mousePos.x;
 			int y = (int) mousePos.y;
-			Linked wall = Linked.Create("Arc Wall", x, y, Order.SELECTOR, null, LinkedType.WallPlanks);
-			wall.Initialize(true);
-			_thing = wall;
-			_transform = wall.gameObject.transform;
+			Vector3 pos = new Vector3(x, y, Order.SELECTOR);
+			Linked linked = WallMaker.Make(LinkedType.WallPlanks, pos, null);
+			linked.Initialize(true);
+			_thing = linked;
+			_transform = linked.gameObject.transform;
 		}
 
 		private static void BuildWall (int x, int y) {
-			Linked w = Linked.Create("Arc Wall", x, y, Order.SELECTOR, null, LinkedType.WallPlanks);
-			w.Initialize();
+			Vector3 pos = new Vector3(x, y, Order.SELECTOR);
+			Linked linked = WallMaker.Make(LinkedType.WallPlanks, pos, null);
+			linked.Initialize();
 
-			if (WallMaker.TryAdd(w)) {
-				w.Refresh();
+			if (WallMaker.TryAdd(linked)){
+				linked.Refresh();
 			} else {
-				w.gameObject.SetActive(false);
-				Destroy(w.gameObject);
-				//WallMaker.Remove(w);
+				linked.gameObject.SetActive(false);
+				Destroy(linked.gameObject);
 			}
 		}
 
