@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.Terrain {
+namespace Assets.Scripts.Utils {
 
 	public static class MeshBuilder {
 
