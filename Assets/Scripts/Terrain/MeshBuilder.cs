@@ -211,7 +211,8 @@ namespace Assets.Scripts.Terrain {
 			Vector2[] arr2 = new Vector2[arr3.Count];
 
 			for (int i = 0; i < arr3.Count; i++) {
-				arr2[i] = arr3[i];
+				Vector3 v = arr3[i];
+				arr2[i] = new Vector2(v.x, v.y);
 			}
 
 			return arr2;
