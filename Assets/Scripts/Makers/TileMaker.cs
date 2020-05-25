@@ -50,6 +50,8 @@ namespace Assets.Scripts.Makers {
 						if (type >= _typeCount) {
 							type = Random.Range(0, _typeCount);
 						}
+					} else if (Seed.IsDebugSingleSurface) {
+						type = Seed.DebugSingleSurfaceType;
 					} else {
 						type = (int) GetType(x, y);
 					}

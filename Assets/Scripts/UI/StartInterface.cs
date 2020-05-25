@@ -8,7 +8,7 @@ namespace Assets.Scripts.UI {
 
 		private static StartInterface _instance;
 		private static Slider _mapSizeSliderComponent;
-		private static Text _seedText;
+		private static InputField _seedInput;
 		private static Text _mapSizeSliderHandleText;
 
 		[UsedImplicitly, SerializeField] private GameObject _seed = null;
@@ -16,7 +16,7 @@ namespace Assets.Scripts.UI {
 		[UsedImplicitly, SerializeField] private GameObject _mapSizeSliderText = null;
 		[UsedImplicitly, SerializeField] private GameObject _startButton = null;
 
-		public static string GetSeed => _seedText.text;
+		public static string GetSeed => _seedInput.text;
 		public static int GetMapSize => int.Parse(_mapSizeSliderHandleText.text);
 
 		[UsedImplicitly]
@@ -39,7 +39,7 @@ namespace Assets.Scripts.UI {
 		[UsedImplicitly]
 		private void Start () {
 			_instance = this;
-			_seedText = _seed.transform.Find("Text")?.GetComponent<Text>();
+			_seedInput = _seed.GetComponent<InputField>();
 			_mapSizeSliderHandleText = _mapSizeSliderText.GetComponent<Text>();
 			_mapSizeSliderComponent = _mapSizeSlider.transform.GetComponent<Slider>();
 			

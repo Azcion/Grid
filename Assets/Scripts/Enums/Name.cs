@@ -12,6 +12,16 @@ namespace Assets.Scripts.Enums {
 		public static readonly string[] ThingType = Enum.GetNames(typeof(ThingType));
 		public static readonly string[] TileType = Enum.GetNames(typeof(TileType));
 
+		public static int StringToTileType (string s) {
+			for (int i = 0; i < TileType.Length; ++i) {
+				if (TileType[i] == s) {
+					return i;
+				}
+			}
+
+			return -1;
+		}
+
 		public static string Get (Direction e) {
 			return Direction[(int) e];
 		}
