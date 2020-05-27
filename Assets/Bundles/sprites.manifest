@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 284579894
+CRC: 2912390005
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 4f4a06ef1c93f18b223d8fee3bbdd6d5
+    Hash: c1894e5325a3cf3b25bd036baa4e8d16
   TypeTreeHash:
     serializedVersion: 2
     Hash: 9e6ad29cbd2df8fbe1a15315db0e51ab
@@ -15,7 +15,7 @@ ClassTypes:
   Script: {instanceID: 0}
 Assets:
 - Assets/Sprites/Selector.png
-- Assets/Sprites/thing/building/linked/WallPlanks_Atlas.png
+- Assets/Sprites/thing/building/linked/Planks_Atlas.png
 - Assets/Sprites/thing/creature/tortoise/Tortoise_south.png
 - Assets/Sprites/thing/plant/pincushioncactus/PincushionCactus.png
 - Assets/Sprites/thing/building/linked/Rock_Atlas.png
@@ -33,9 +33,7 @@ Assets:
 - Assets/Sprites/thing/humanoid/scyther/Scyther_east.png
 - Assets/Sprites/ui/ButtonSubtle.png
 - Assets/Sprites/thing/plant/bush/BushB.png
-- Assets/Sprites/other/WoodTop.png
 - Assets/Sprites/thing/creature/gazelle/Gazelle_north.png
-- Assets/Sprites/other/RockTop.png
 - Assets/Sprites/thing/creature/iguana/Iguana_south.png
 - Assets/Sprites/thing/creature/gazelle/Gazelle_east.png
 - Assets/Sprites/thing/creature/elephant/Elephant_east.png
@@ -44,7 +42,7 @@ Assets:
 - Assets/Sprites/thing/creature/tortoise/Tortoise_east.png
 - Assets/Sprites/thing/plant/saguarocactus/SaguaroCactus.png
 - Assets/Sprites/thing/creature/iguana/Iguana_north.png
-- Assets/Sprites/thing/building/linked/WallPlanks_UI.png
+- Assets/Sprites/thing/building/linked/Planks_UI.png
 - Assets/Sprites/thing/creature/iguana/Iguana_east.png
 - Assets/Sprites/thing/humanoid/scyther/Scyther_south.png
 - Assets/Sprites/thing/plant/brambles/BramblesA.png
