@@ -33,7 +33,7 @@ namespace Assets.Scripts.Terrain {
 			};
 
 			for (int i = 0; i < typeCount; i++) {
-				tints.SetPixel(i, 0, TileTint.Get((TileType) i));
+				tints.SetPixel(i, 0, Tint.Get((TileType) i));
 			}
 
 			tints.Apply();

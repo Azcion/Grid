@@ -35,6 +35,7 @@ namespace Assets.Scripts.Main {
 		[UsedImplicitly, SerializeField] private GameObject _architectButton = null;
 		[UsedImplicitly, SerializeField] private GameObject _sun = null;
 		[UsedImplicitly, SerializeField] private GameObject _tileMaker = null;
+		[UsedImplicitly, SerializeField] private GameObject _coverAssembler = null;
 		[UsedImplicitly, SerializeField] private GameObject _wallMaker = null;
 		[UsedImplicitly, SerializeField] private GameObject _plantMaker = null;
 		[UsedImplicitly, SerializeField] private GameObject _animalMaker = null;
@@ -95,9 +96,10 @@ namespace Assets.Scripts.Main {
 			_background.SetActive(true);
 			CameraController.PointCameraAtMapCenter();
 			_sun.SetActive(true);
-			TileTint.Initialize();
+			Tint.Initialize();
 			_tileMaker.SetActive(true);
 			_terrainAppController.SetActive(true);
+			_coverAssembler.SetActive(true);
 			_wallMaker.SetActive(true);
 			_plantMaker.SetActive(true);
 			_animalMaker.SetActive(true);

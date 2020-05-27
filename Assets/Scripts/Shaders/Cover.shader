@@ -1,7 +1,7 @@
 ﻿Shader "Custom/Cover" {
 	Properties {
-		_Texture("Texture", 2D) = "" {}
-		//_Tints
+		_Bases("Bases", 2D) = "" {}
+		_Tints("Tints", 2D) = "" {}
 	}
 	SubShader {
 		Tags { 
@@ -20,18 +20,21 @@
 			struct v2f {
 				float4 v : SV_POSITION;
 				half4 diff : COLOR;
-				float4 uv2 : TEXCOORD2;
+				float1 uv2 : TEXCOORD2;
+				float1 uv3 : TEXCOORD3;
 			};
 
 			struct Input {
 				float4 v : POSITION;
-				float4 uv2 : TEXCOORD2;
+				float1 uv2 : TEXCOORD2;
+				float1 uv3 : TEXCOORD3;
 			};
 
 			v2f vert (Input IN) {
 				v2f o;
 				o.v = TransformObjectToHClip(IN.v.xyz);
-				o.uv2 = IN.uv2;
+				o.uv2.x = IN.uv2.x;
+				o.uv3.x = IN.uv3.x;
 
 				//// Lighting ////
 				half3 diff = GetMainLight().color;
@@ -44,17 +47,18 @@
 				return o;
 			}
 
-			sampler2D _Texture;
+			sampler2D _Bases;
+			sampler2D _Tints;
 
 			half4 frag (v2f i) : SV_Target {
-				const float2 uv = float2(0, 0);
-				half4 color = tex2D(_Texture, uv);
-				color.a = i.uv2.x;
+				half4 base = tex2D(_Bases, float2(i.uv2.x, 0));
+				half4 tint = tex2D(_Tints, float2(i.uv3.x, 0));
+				half4 t = base * tint;
 				
 				//// Lighting ////
-				color *= i.diff;
+				t *= i.diff;
 
-				return color;
+				return t;
 			}
 			ENDHLSL
 		}

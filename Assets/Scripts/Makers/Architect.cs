@@ -16,6 +16,7 @@ namespace Assets.Scripts.Makers {
 		private Transform _transform;
 		private Vector3Int _dragStart;
 
+
 		[UsedImplicitly]
 		public void SelectThing_Wall () {
 			if (Planning) {
@@ -30,7 +31,7 @@ namespace Assets.Scripts.Makers {
 			int x = (int) mousePos.x;
 			int y = (int) mousePos.y;
 			Vector3 pos = new Vector3(x, y, Order.SELECTOR);
-			Linked linked = WallMaker.Make(LinkedType.WallPlanks, pos, null);
+			Linked linked = WallMaker.Make(LinkedType.Planks, ThingMaterial.Wood, pos, null);
 			linked.Initialize(true);
 			_thing = linked;
 			_transform = linked.gameObject.transform;
@@ -38,7 +39,7 @@ namespace Assets.Scripts.Makers {
 
 		private static void BuildWall (int x, int y) {
 			Vector3 pos = new Vector3(x, y, Order.SELECTOR);
-			Linked linked = WallMaker.Make(LinkedType.WallPlanks, pos, null);
+			Linked linked = WallMaker.Make(LinkedType.Planks, ThingMaterial.Wood, pos, null);
 			linked.Initialize();
 
 			if (WallMaker.TryAdd(linked)){
@@ -128,6 +129,7 @@ namespace Assets.Scripts.Makers {
 							BuildWall(v.x, v.y);
 						}
 
+						CoverAssembler.Apply();
 						// Destroy architect wall
 						_transform.gameObject.SetActive(false);
 						Destroy(_transform.gameObject);

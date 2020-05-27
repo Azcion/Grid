@@ -15,12 +15,10 @@ namespace Assets.Scripts.Makers {
 
 		private static GameObject _wallPrefab;
 
-		[UsedImplicitly, SerializeField] private GameObject _coverContainer = null;
-
-		public static Linked Make (LinkedType type, Vector3 pos, Transform parent) {
+		public static Linked Make (LinkedType type, ThingMaterial material, Vector3 pos, Transform parent) {
 			GameObject go = Instantiate(_wallPrefab, pos, Quaternion.identity, parent);
 			go.name = Name.Get(type);
-			Linked linked = Linked.Create(go.GetComponent<Linked>(), type);
+			Linked linked = Linked.Create(go.GetComponent<Linked>(), type, material);
 
 			return linked;
 		}
@@ -108,6 +106,7 @@ namespace Assets.Scripts.Makers {
 				}
 			}
 
+			CoverAssembler.Apply();
 			ApplicationController.NotifyReady();
 		}
 
@@ -118,7 +117,7 @@ namespace Assets.Scripts.Makers {
 			}
 
 			Vector3 pos = new Vector3(x, y, Order.STRUCTURE);
-			Linked linked = Make(LinkedType.Rock, pos, transform);
+			Linked linked = Make(LinkedType.Rock, ThingMaterial.Rock, pos, transform);
 			_walls[x, y] = linked;
 
 			if (TileMaker.GetTile(x, y).TryAddThing(linked) == false) {

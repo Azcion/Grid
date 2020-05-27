@@ -12,12 +12,14 @@ namespace Assets.Scripts.Things {
 		private int _x;
 		private int _y;
 		private LinkedType _type;
+		private ThingMaterial _material;
 
 		public GameObject Go => gameObject;
 		public ThingType Type => ThingType.Structure;
 
-		public static Linked Create (Linked linked, LinkedType type) {
+		public static Linked Create (Linked linked, LinkedType type, ThingMaterial material) {
 			linked._type = type;
+			linked._material = material;
 
 			return linked;
 		}
@@ -27,7 +29,7 @@ namespace Assets.Scripts.Things {
 			gameObject.isStatic = true;
 			_x = (int) transform.position.x;
 			_y = (int) transform.position.y;
-			ChildRenderer.color = AdjustTint(_type);
+			ChildRenderer.color = Tint.Get(_material);
 
 			if (planning) {
 				string assetName = $"{Name.Get(_type)}_Atlas";
@@ -52,21 +54,6 @@ namespace Assets.Scripts.Things {
 
 		private static Color AdjustOpacity (Color c, float opacity) {
 			return new Color(c.r, c.g, c.b, opacity);
-		}
-
-		private static Color AdjustTint (LinkedType type) {
-			switch (type) {
-				case LinkedType.Rock:
-					return TileTint.Get(TileType.RoughStone);
-				case LinkedType.WallPlanks:
-					return TileTint.Get(TileType.WoodFloor);
-				case LinkedType.WallTiles:
-					return TileTint.Get(TileType.SmoothStone);
-				case LinkedType.WallSmooth:
-					return TileTint.Get(TileType.SmoothStone);
-				default:
-					return Color.magenta;
-			}
 		}
 
 		private static int GetIndex (int mask) {
@@ -121,7 +108,7 @@ namespace Assets.Scripts.Things {
 				case 10:
 				case 11:
 					if (WallMaker.GetLinked(_x + 1, _y - 1)?._type == _type) {
-						Make("Cover", new Vector3(1, .25f, -.5f), Vector3.one);
+						CoverAssembler.Make(_type, _material, _x, _y, .5f, -.25f, 1, 1);
 					}
 
 					break;
@@ -133,48 +120,45 @@ namespace Assets.Scripts.Things {
 
 			if (_x == 0) {
 				if (_y == 0) {
-					Make("Left Bottom Corner Cover", new Vector3(.25f, .25f, -.5f), new Vector3(.5f, .5f, 1));
+					// Left bottom corner
+					CoverAssembler.Make(_type, _material, _x, _y, 0, 0, .5f, .75f);
 				} else if (_y == max) {
-					Make("Left Top Corner Cover", new Vector3(.25f, .75f, -.5f), new Vector3(.5f, .5f, 1));
+					// Left top corner
+					CoverAssembler.Make(_type, _material, _x, _y, 0, .75f, .5f, .25f);
 				}
 
 				if (WallMaker.GetLinked(0, _y - 1)?._type == _type) {
-					Make("Left Edge Cover", new Vector3(.25f, .25f, -.5f), new Vector3(.5f, 1, 1));
+					// Left edge
+					CoverAssembler.Make(_type, _material, _x, _y, 0, -.25f, .5f, 1);
 				}
 			} else if (_x == max) {
 				if (_y == 0) {
-					Make("Right Bottom Corner Cover", new Vector3(.75f, .25f, -.5f), new Vector3(.5f, .5f, 1));
+					// Right bottom corner
+					CoverAssembler.Make(_type, _material, _x, _y, .5f, 0, .5f, .75f);
 				} else if (_y == max) {
-					Make("Right Top Corner Cover", new Vector3(.75f, .75f, -.5f), new Vector3(.5f, .5f, 1));
+					// Right top corner
+					CoverAssembler.Make(_type, _material, _x, _y, .5f, .75f, .5f, .25f);
 				}
 
 				if (WallMaker.GetLinked(max, _y - 1)?._type == _type) {
-					Make("Right Edge Cover", new Vector3(.75f, .25f, -.5f), new Vector3(.5f, 1, 1));
+					// Right edge
+					CoverAssembler.Make(_type, _material, _x, _y, .5f, -.25f, .5f, 1);
 				}
 			}
 
 			if (_y == 0) {
 				if (WallMaker.GetLinked(_x - 1, 0)?._type == _type) {
-					Make("Bottom Edge Cover", new Vector3(0, .25f, -.5f), new Vector3(1, .5f, 1));
+					// Bottom edge
+					CoverAssembler.Make(_type, _material, _x, _y, -.5f, 0, 1, .75f);
 				}
 			} else if (_y == max) {
 				if (WallMaker.GetLinked(_x - 1, max)?._type == _type) {
-					Make("Top Edge Cover", new Vector3(0, .75f, -.5f), new Vector3(1, .5f, 1));
+					// Top edge
+					CoverAssembler.Make(_type, _material, _x, _y, -.5f, .75f, 1, .25f);
 				}
 			}
 		}
 
-		private void Make (string label, Vector3 position, Vector3 scale) {
-			Transform t = new GameObject(label, typeof(SpriteRenderer)).transform;
-			t.SetParent(transform);
-			t.gameObject.isStatic = true;
-			t.localPosition = position;
-			t.localScale = scale;
-			SpriteRenderer sr = t.gameObject.GetComponent<SpriteRenderer>();
-			sr.sprite = _type == LinkedType.Rock ? Assets.GetSprite("RockTop") : Assets.GetSprite("WoodTop");
-			sr.color = AdjustTint(_type);
-			sr.sharedMaterial = Assets.CoverMat;
-		}
 	}
 
 }
