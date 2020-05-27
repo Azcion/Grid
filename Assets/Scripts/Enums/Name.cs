@@ -9,6 +9,7 @@ namespace Assets.Scripts.Enums {
 		public static readonly string[] PathfinderMode = Enum.GetNames(typeof(PathfinderMode));
 		public static readonly string[] PlantSize = Enum.GetNames(typeof(PlantSize));
 		public static readonly string[] TerrainType = Enum.GetNames(typeof(TerrainType));
+		public static readonly string[] ThingMaterial = Enum.GetNames(typeof(ThingMaterial));
 		public static readonly string[] ThingType = Enum.GetNames(typeof(ThingType));
 		public static readonly string[] TileType = Enum.GetNames(typeof(TileType));
 
@@ -40,6 +41,10 @@ namespace Assets.Scripts.Enums {
 
 		public static string Get (TerrainType e) {
 			return TerrainType[(int) e];
+		}
+
+		public static string Get (ThingMaterial e) {
+			return ThingMaterial[(int) e];
 		}
 
 		public static string Get (ThingType e) {
