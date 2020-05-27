@@ -3,9 +3,7 @@
 	public enum LinkedType {
 		
 		Rock,
-		WallPlanks,
-		WallTiles,
-		WallSmooth
+		Planks
 
 	}
 
