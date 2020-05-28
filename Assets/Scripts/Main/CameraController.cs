@@ -9,16 +9,16 @@ namespace Assets.Scripts.Main {
 
 		public static Tile TileUnderCursor;
 
-		private const float KEYBOARD_PAN_SPEED = .01f;
+		private const float KEYBOARD_PAN_SPEED = .015f;
+		private const float MOUSE_PAN_SPEED = 0.002f;
 		private const float ZOOM_SPEED = 10;
-		private const int ZOOM_RATE = 10;
+		private const int ZOOM_RATE = 20;
 		private const int MAX_SIZE = 35;
 		private const int MIN_SIZE = 5;
 		private const int INITIAL_SIZE = 10;
 
 		private static CameraController _instance;
 
-		private int _cHalf;
 		private float _newSize;
 		private Camera _camera;
 		private Vector3 _lastPosition;
@@ -33,7 +33,6 @@ namespace Assets.Scripts.Main {
 			_camera = GetComponent<Camera>();
 			_camera.orthographicSize = INITIAL_SIZE;
 			_newSize = _camera.orthographicSize;
-			_cHalf = Map.CSIZE / 2;
 		}
 
 		[UsedImplicitly]
@@ -91,14 +90,12 @@ namespace Assets.Scripts.Main {
 		}
 
 		private void DoPan () {
-			const float magicSensitivity = -.002f;
-
 			if (Input.GetMouseButtonDown(2)) {
 				_lastPosition = Input.mousePosition;
 			}
 
 			if (Input.GetMouseButton(2)) {
-				float sensitivity = magicSensitivity * _camera.orthographicSize;
+				float sensitivity = -MOUSE_PAN_SPEED * _camera.orthographicSize;
 				Vector2 delta = Input.mousePosition - _lastPosition;
 				_lastPosition = Input.mousePosition;
 				transform.Translate(delta * sensitivity);
@@ -114,7 +111,7 @@ namespace Assets.Scripts.Main {
 		}
 
 		private float Clamp (float value) {
-			return Mathf.Clamp(value, _cHalf, Map.YTiles - _cHalf);
+			return Mathf.Clamp(value, 1, Map.YTiles - 1);
 		}
 
 	}
