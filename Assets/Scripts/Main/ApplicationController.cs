@@ -1,7 +1,10 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using Assets.Scripts.Enums;
 using Assets.Scripts.Graphics;
 using Assets.Scripts.Makers;
 using Assets.Scripts.UI;
+using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,12 +19,7 @@ namespace Assets.Scripts.Main {
 
 		private const int INFO_REFRESH_FRAMES = 8;
 
-		private static readonly string[] TileLabels = {
-			"deep water", "shallow water", "marsh", "marshy terrain", "mud", "mossy",
-			"sand", "soft sand", "soil", "rich soil", "gravel", "packed dirt", "ice",
-			"rough stone", "rough-hewn rock", "smooth stone", "carpet", "concrete",
-			"flagstone", "generic floor tile", "paved tile", "stone tile", "wood floor"
-		};
+		private static readonly Dictionary<TileType, string> TileLabels;
 
 		private static bool _ready;
 		private static float _loadTime;
@@ -41,6 +39,16 @@ namespace Assets.Scripts.Main {
 		[UsedImplicitly, SerializeField] private GameObject _animalMaker = null;
 		[UsedImplicitly, SerializeField] private GameObject _pathfinder = null;
 		[UsedImplicitly, SerializeField] private GameObject _terrainAppController = null;
+
+		static ApplicationController () {
+			TileLabels = new Dictionary<TileType, string>();
+
+			for (int i = 0; i < Name.TileType.Length; ++i) {
+				string label = Name.TileType[i];
+				label = Format.SeparateAtCapitalLetters(label, ' ');
+				TileLabels.Add((TileType) i, label.ToLower());
+			}
+		}
 
 		public static void NotifyReady () {
 			_loadTime = Time.realtimeSinceStartup - _startTime;
@@ -73,7 +81,7 @@ namespace Assets.Scripts.Main {
 				//_i.text += $"\n{(t.Walkable ? "" : "not ")}walkable, ";
 				//_i.text += $"{(t.Buildable ? "" : "not ")}buildable";
 				//_i.text += $"\n{t.Chunk.name} | {t.name}";
-				_i.text += $"\n{TileLabels[(int) t.Type]}";
+				_i.text += $"\n{TileLabels[t.Type]}";
 			} else {
 				_i.text += "\nVoid";
 			}
