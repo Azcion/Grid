@@ -28,6 +28,24 @@ namespace Assets.Scripts.Things {
 					ThingMaterial.Marble,
 					ThingMaterial.Sandstone
 				}},
+				{LinkedType.Bricks, new HashSet<ThingMaterial> {
+					ThingMaterial.Granite,
+					ThingMaterial.Limestone,
+					ThingMaterial.Marble,
+					ThingMaterial.Sandstone
+				}},
+				{LinkedType.Planks, new HashSet<ThingMaterial> {
+					ThingMaterial.Wood
+				}},
+				{LinkedType.Smooth, new HashSet<ThingMaterial> {
+					ThingMaterial.Wood // todo remove
+				}},
+				{LinkedType.SmoothRock, new HashSet<ThingMaterial> {
+					ThingMaterial.Granite,
+					ThingMaterial.Limestone,
+					ThingMaterial.Marble,
+					ThingMaterial.Sandstone
+				}}
 			};
 
 			Meshes = new Dictionary<LinkedType, Dictionary<ThingMaterial, Mesh>>();

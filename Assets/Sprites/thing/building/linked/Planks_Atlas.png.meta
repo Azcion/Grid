@@ -4,52 +4,52 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: 21300000
-    second: WallPlanks_Atlas_0
+    second: Planks_Atlas_0
   - first:
       213: 21300002
-    second: WallPlanks_Atlas_1
+    second: Planks_Atlas_1
   - first:
       213: 21300004
-    second: WallPlanks_Atlas_2
+    second: Planks_Atlas_2
   - first:
       213: 21300006
-    second: WallPlanks_Atlas_3
+    second: Planks_Atlas_3
   - first:
       213: 21300008
-    second: WallPlanks_Atlas_4
+    second: Planks_Atlas_4
   - first:
       213: 21300010
-    second: WallPlanks_Atlas_5
+    second: Planks_Atlas_5
   - first:
       213: 21300012
-    second: WallPlanks_Atlas_6
+    second: Planks_Atlas_6
   - first:
       213: 21300014
-    second: WallPlanks_Atlas_7
+    second: Planks_Atlas_7
   - first:
       213: 21300016
-    second: WallPlanks_Atlas_8
+    second: Planks_Atlas_8
   - first:
       213: 21300018
-    second: WallPlanks_Atlas_9
+    second: Planks_Atlas_9
   - first:
       213: 21300020
-    second: WallPlanks_Atlas_10
+    second: Planks_Atlas_10
   - first:
       213: 21300022
-    second: WallPlanks_Atlas_11
+    second: Planks_Atlas_11
   - first:
       213: 21300024
-    second: WallPlanks_Atlas_12
+    second: Planks_Atlas_12
   - first:
       213: 21300026
-    second: WallPlanks_Atlas_13
+    second: Planks_Atlas_13
   - first:
       213: 21300028
-    second: WallPlanks_Atlas_14
+    second: Planks_Atlas_14
   - first:
       213: 21300030
-    second: WallPlanks_Atlas_15
+    second: Planks_Atlas_15
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -68,7 +68,7 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   grayScaleToAlpha: 0
@@ -79,7 +79,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 1
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -96,8 +96,8 @@ TextureImporter:
   spritePixelsToUnits: 56
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 0
-  alphaUsage: 0
-  alphaIsTransparency: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
@@ -147,7 +147,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WallPlanks_Atlas_0
+      name: Planks_Atlas_0
       rect:
         serializedVersion: 2
         x: 12
@@ -168,7 +168,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallPlanks_Atlas_1
+      name: Planks_Atlas_1
       rect:
         serializedVersion: 2
         x: 92
@@ -189,7 +189,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallPlanks_Atlas_2
+      name: Planks_Atlas_2
       rect:
         serializedVersion: 2
         x: 172
@@ -210,7 +210,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallPlanks_Atlas_3
+      name: Planks_Atlas_3
       rect:
         serializedVersion: 2
         x: 252
@@ -231,7 +231,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallPlanks_Atlas_4
+      name: Planks_Atlas_4
       rect:
         serializedVersion: 2
         x: 12
@@ -252,7 +252,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallPlanks_Atlas_5
+      name: Planks_Atlas_5
       rect:
         serializedVersion: 2
         x: 92
@@ -273,7 +273,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallPlanks_Atlas_6
+      name: Planks_Atlas_6
       rect:
         serializedVersion: 2
         x: 172
@@ -294,7 +294,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallPlanks_Atlas_7
+      name: Planks_Atlas_7
       rect:
         serializedVersion: 2
         x: 252
@@ -315,7 +315,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallPlanks_Atlas_8
+      name: Planks_Atlas_8
       rect:
         serializedVersion: 2
         x: 12
@@ -336,7 +336,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallPlanks_Atlas_9
+      name: Planks_Atlas_9
       rect:
         serializedVersion: 2
         x: 92
@@ -357,7 +357,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallPlanks_Atlas_10
+      name: Planks_Atlas_10
       rect:
         serializedVersion: 2
         x: 172
@@ -378,7 +378,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallPlanks_Atlas_11
+      name: Planks_Atlas_11
       rect:
         serializedVersion: 2
         x: 252
@@ -399,7 +399,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallPlanks_Atlas_12
+      name: Planks_Atlas_12
       rect:
         serializedVersion: 2
         x: 12
@@ -420,7 +420,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallPlanks_Atlas_13
+      name: Planks_Atlas_13
       rect:
         serializedVersion: 2
         x: 92
@@ -441,7 +441,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallPlanks_Atlas_14
+      name: Planks_Atlas_14
       rect:
         serializedVersion: 2
         x: 172
@@ -462,7 +462,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WallPlanks_Atlas_15
+      name: Planks_Atlas_15
       rect:
         serializedVersion: 2
         x: 252

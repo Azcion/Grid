@@ -3,7 +3,11 @@
 	public enum LinkedType {
 		
 		Rock,
-		Planks
+		Bricks,
+		Planks,
+		Smooth,
+		SmoothRock,
+		Blueprint
 
 	}
 
