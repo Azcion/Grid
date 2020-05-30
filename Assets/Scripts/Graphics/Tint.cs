@@ -32,24 +32,38 @@ namespace Assets.Scripts.Graphics {
 			Tiles[TileType.DeepWater] = new Color32(100, 112, 145, 255);
 			Tiles[TileType.ShallowWater] = new Color32(120, 143, 155, 255);
 			Tiles[TileType.RoughStone] = new Color32(143, 148, 142, 255);
+			Tiles[TileType.RoughGranite] = new Color32(106, 93, 97, 255);
+			Tiles[TileType.RoughLimestone] = new Color32(160, 153, 131, 255);
+			Tiles[TileType.RoughMarble] = new Color32(129, 135, 129, 255);
+			Tiles[TileType.RoughSandstone] = new Color32(129, 102, 91, 255);
+			Tiles[TileType.RoughHewnRock] = new Color32(143, 148, 142, 255);
+			Tiles[TileType.RoughHewnGranite] = new Color32(106, 93, 97, 255);
+			Tiles[TileType.RoughHewnLimestone] = new Color32(160, 153, 131, 255);
+			Tiles[TileType.RoughHewnMarble] = new Color32(129, 135, 129, 255);
+			Tiles[TileType.RoughHewnSandstone] = new Color32(129, 102, 91, 255);
+			Tiles[TileType.SmoothStone] = new Color32(143, 148, 142, 255);
+			Tiles[TileType.SmoothGranite] = new Color32(106, 93, 97, 255);
+			Tiles[TileType.SmoothLimestone] = new Color32(160, 153, 131, 255);
+			Tiles[TileType.SmoothMarble] = new Color32(129, 135, 129, 255);
+			Tiles[TileType.SmoothSandstone] = new Color32(129, 102, 91, 255);
 			Tiles[TileType.WoodFloor] = new Color32(189, 126, 75, 255);
 
 			Bases[LinkedType.Rock] = new Color32(132, 132, 132, 255);
+			Bases[LinkedType.Bricks] = new Color32(102, 102, 102, 255);
 			Bases[LinkedType.Planks] = new Color32(109, 109, 109, 255);
+			Bases[LinkedType.Smooth] = new Color32(127, 127, 127, 255);
+			Bases[LinkedType.SmoothRock] = new Color32(127, 127, 127, 255);
+			Bases[LinkedType.Blueprint] = new Color32(255, 255, 255, 255);
 
-			Materials[ThingMaterial.Rock] = new Color32(143, 148, 142, 255);
+			Materials[ThingMaterial.Granite] = new Color32(106, 93, 97, 255);
+			Materials[ThingMaterial.Limestone] = new Color32(160, 153, 131, 255);
+			Materials[ThingMaterial.Marble] = new Color32(129, 135, 129, 255);
+			Materials[ThingMaterial.Sandstone] = new Color32(129, 102, 91, 255);
 			Materials[ThingMaterial.Wood] = new Color32(189, 126, 75, 255);
 		}
 
 		public static Color Get (TileType type) {
-			switch (type) {
-				case TileType.RoughStone:
-				case TileType.RoughHewnRock:
-				case TileType.SmoothStone:
-					return Tiles[TileType.RoughStone];
-				default:
-					return Tiles[type];
-			}
+			return Tiles[type];
 		}
 
 		public static Color Get (LinkedType type) {

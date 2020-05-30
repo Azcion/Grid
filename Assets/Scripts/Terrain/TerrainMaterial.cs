@@ -10,7 +10,7 @@ namespace Assets.Scripts.Terrain {
 			Texture2D[] textures = new Texture2D[Name.TileType.Length];
 
 			for (int i = 0; i < textures.Length; i++) {
-				int j = RemapDuplicate(i);
+				int j = (int) RemapDuplicate((TileType) i);
 				string path = "Terrain/" + Name.Get((TileType) j);
 				textures[i] = Resources.Load<Texture2D>(path);
 			}
@@ -45,12 +45,28 @@ namespace Assets.Scripts.Terrain {
 			return new object[] { material, index };
 		}
 
-		private static int RemapDuplicate (int i) {
-			if ((TileType) i == TileType.DeepWater) {
-				return (int) TileType.ShallowWater;
+		private static TileType RemapDuplicate (TileType type) {
+			switch (type) {
+				case TileType.DeepWater:
+					return TileType.ShallowWater;
+				case TileType.RoughGranite:
+				case TileType.RoughLimestone:
+				case TileType.RoughMarble:
+				case TileType.RoughSandstone:
+					return TileType.RoughStone;
+				case TileType.RoughHewnGranite:
+				case TileType.RoughHewnLimestone:
+				case TileType.RoughHewnMarble:
+				case TileType.RoughHewnSandstone:
+					return TileType.RoughHewnRock;
+				case TileType.SmoothGranite:
+				case TileType.SmoothLimestone:
+				case TileType.SmoothMarble:
+				case TileType.SmoothSandstone:
+					return TileType.SmoothStone;
 			}
 
-			return i;
+			return type;
 		}
 
 	}

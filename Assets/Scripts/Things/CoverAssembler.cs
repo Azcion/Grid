@@ -22,8 +22,12 @@ namespace Assets.Scripts.Things {
 
 		static CoverAssembler () {
 			Combinations = new Dictionary<LinkedType, HashSet<ThingMaterial>> {
-				{LinkedType.Rock, new HashSet<ThingMaterial> {ThingMaterial.Rock}},
-				{LinkedType.Planks, new HashSet<ThingMaterial> {ThingMaterial.Wood}}
+				{LinkedType.Rock, new HashSet<ThingMaterial> {
+					ThingMaterial.Granite,
+					ThingMaterial.Limestone,
+					ThingMaterial.Marble,
+					ThingMaterial.Sandstone
+				}},
 			};
 
 			Meshes = new Dictionary<LinkedType, Dictionary<ThingMaterial, Mesh>>();

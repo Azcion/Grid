@@ -2,8 +2,12 @@
 
 	public enum ThingMaterial {
 
-		Rock,
+		Granite,
+		Limestone,
+		Marble,
+		Sandstone,
 		Wood
+
 	}
 
 }

@@ -93,9 +93,16 @@ namespace Assets.Scripts.Makers {
 			bool[] flags = new bool[Name.TileType.Length];
 
 			HashSet<TileType> noTransitionTypes = new HashSet<TileType> {
-				TileType.RoughStone,
 				TileType.RoughHewnRock,
+				TileType.RoughHewnGranite,
+				TileType.RoughHewnLimestone,
+				TileType.RoughHewnMarble,
+				TileType.RoughHewnSandstone,
 				TileType.SmoothStone,
+				TileType.SmoothGranite,
+				TileType.SmoothLimestone,
+				TileType.SmoothMarble,
+				TileType.SmoothSandstone,
 				TileType.Carpet,
 				TileType.Concrete,
 				TileType.Flagstone,
@@ -234,19 +241,25 @@ namespace Assets.Scripts.Makers {
 				type = TileType.Soil;
 			} else if (v0 > .40) {
 				type = TileType.Sand;
-			} /*else if (v0 > .25) {
-				type = TileType.Soil;
-			} else if (v0 > .23) {
-				type = TileType.Mud;
-			} else if (v0 > .215) {
-				type = TileType.Marsh;
-			} */else if (v0 > .10) {
+			} else if (v0 > .10) {
 				type = TileType.ShallowWater;
 			} else {
 				type = TileType.DeepWater;
 			}
+
+			float v3;
 			
 			if (type == TileType.RoughHewnRock) {
+				v3 = Noise.Sum(x + _seed, y + _seed, .03f, 4, 3f, .25f);
+
+				if (v3 > .6f) {
+					type = TileType.RoughHewnGranite;
+				} else if (v3 > .4f) {
+					type = TileType.RoughHewnMarble;
+				} else {
+					type = TileType.RoughHewnLimestone;
+				}
+
 				return type;
 			}
 
@@ -294,6 +307,20 @@ namespace Assets.Scripts.Makers {
 				type = TileType.DeepWater;
 			}
 
+			if (type != TileType.RoughStone) {
+				return type;
+			}
+
+			v3 = Noise.Sum(x + _seed, y + _seed, .03f, 4, 3f, .25f);
+
+			if (v3 > .6f) {
+				type = TileType.RoughGranite;
+			} else if (v3 > .4f) {
+				type = TileType.RoughMarble;
+			} else {
+				type = TileType.RoughLimestone;
+			}
+
 			return type;
 		}
 
@@ -320,20 +347,6 @@ namespace Assets.Scripts.Makers {
 					break;
 				case TileType.Gravel:
 					penalty = 2;
-					break;
-				case TileType.PackedDirt:
-				case TileType.Ice:
-				case TileType.RoughStone:
-				case TileType.RoughHewnRock:
-				case TileType.SmoothStone:
-				case TileType.Carpet:
-				case TileType.Concrete:
-				case TileType.Flagstone:
-				case TileType.GenericFloorTile:
-				case TileType.PavedTile:
-				case TileType.TileStone:
-				case TileType.WoodFloor:
-					penalty = 0;
 					break;
 			}
 

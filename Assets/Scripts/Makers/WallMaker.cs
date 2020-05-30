@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Defs;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Defs;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Main;
 using Assets.Scripts.Things;
@@ -9,11 +10,22 @@ namespace Assets.Scripts.Makers {
 
 	public class WallMaker : MonoBehaviour {
 
+		private static readonly HashSet<TileType> AllowedSurfaces;
+
 		private static WallMaker _instance;
 		private static Linked[,] _walls;
 		private static bool _ready;
 
 		private static GameObject _wallPrefab;
+
+		static WallMaker () {
+			AllowedSurfaces = new HashSet<TileType> {
+				TileType.RoughHewnGranite,
+				TileType.RoughHewnLimestone,
+				TileType.RoughHewnMarble,
+				TileType.RoughHewnSandstone
+			};
+		}
 
 		public static Linked Make (LinkedType type, ThingMaterial material, Vector3 pos, Transform parent) {
 			GameObject go = Instantiate(_wallPrefab, pos, Quaternion.identity, parent);
@@ -88,7 +100,7 @@ namespace Assets.Scripts.Makers {
 		private void Populate () {
 			for (int x = 0; x < Map.YTiles; ++x) {
 				for (int y = Map.YTiles - 1; y >= 0; --y) {
-					Initialize(TileMaker.GetTile(x, y), x, y);
+					Initialize(TileMaker.GetTile(x, y).Type, x, y);
 				}
 			}
 
@@ -110,14 +122,33 @@ namespace Assets.Scripts.Makers {
 			ApplicationController.NotifyReady();
 		}
 
-		// Cover RoughHewnRock with Rock Wall
-		private void Initialize (Tile t, int x, int y) {
-			if (t.Type != TileType.RoughHewnRock) {
+		private void Initialize (TileType type, int x, int y) {
+			if (!AllowedSurfaces.Contains(type)) {
 				return;
 			}
 
+			ThingMaterial material;
+
+			switch (type) {
+				case TileType.RoughHewnGranite: 
+					material = ThingMaterial.Granite;
+					break;
+				case TileType.RoughHewnLimestone: 
+					material = ThingMaterial.Limestone;
+					break;
+				case TileType.RoughHewnMarble: 
+					material = ThingMaterial.Marble;
+					break;
+				case TileType.RoughHewnSandstone: 
+					material = ThingMaterial.Sandstone;
+					break;
+				default:
+					Debug.LogWarning($"Material not found for {type}.");
+					return;
+			}
+
 			Vector3 pos = new Vector3(x, y, Order.STRUCTURE);
-			Linked linked = Make(LinkedType.Rock, ThingMaterial.Rock, pos, transform);
+			Linked linked = Make(LinkedType.Rock, material, pos, transform);
 			_walls[x, y] = linked;
 
 			if (TileMaker.GetTile(x, y).TryAddThing(linked) == false) {
