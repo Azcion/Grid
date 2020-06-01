@@ -63,7 +63,8 @@ namespace Assets.Scripts.Things {
 					MeshFilter meshFilter;
 
 					if (chunkObject == null) {
-						chunkObject = Instantiate(_prefab, Vector3.zero, Quaternion.identity, _container);
+						chunkObject = Instantiate(_prefab, new Vector3(0, 0, Order.COVER), Quaternion.identity, _container);
+						chunkObject.transform.localPosition = Vector3.zero;
 						chunkObject.name = $"Chunk {y} {x}";
 						meshFilter = chunkObject.GetComponent<MeshFilter>();
 						_chunkObjects[y, x] = chunkObject;
@@ -111,7 +112,6 @@ namespace Assets.Scripts.Things {
 
 		[UsedImplicitly]
 		private void Start () {
-			transform.position = new Vector3(0, 0, Order.STRUCTURE - .5f);
 			_chunks = new List<CombineInstance>[Map.YChunks, Map.YChunks];
 
 			for (int y = 0; y < Map.YChunks; ++y) {
