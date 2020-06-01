@@ -30,6 +30,11 @@
 				float2 uv : TEXCOORD;
 			};
 
+			CBUFFER_START(UnityPerMaterial)
+				half3 _Color;
+				half _Alpha;
+			CBUFFER_END
+
 			v2f vert (Input IN) {
 				v2f o;
 				o.v = TransformObjectToHClip(IN.v.xyz);
@@ -82,17 +87,11 @@
 				return value;
 			}
 
-			CBUFFER_START(UnityPerMaterial)
-				half3 _Color;
-				half _Alpha;
-			CBUFFER_END
-
 			half4 frag (v2f i) : SV_Target {
 				half2 uv = i.uv * 10;
 				half motion = fbm(uv + -_Time.x * 2);
 				half ripple = fbm(uv + motion);
 				half4 t = half4(_Color, (motion + ripple) * _Alpha);
-
 
 				//// Lighting ////
 				t *= i.diff;

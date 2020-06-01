@@ -1,9 +1,9 @@
 ﻿Shader "Custom/Sway" {
 	Properties {
-		_MainTex("Base (RGB) Trans (A)", 2D) = "white" {}
-		_Color("Main Color", Color) = (1,1,1,1)
-		_ShakeWindspeed("Shake Windspeed", Range(0, 10.0)) = 1.0
-		_ShakeBending("Shake Bending", Range(0, 10.0)) = 1.0
+		_MainTex("Texture", 2D) = "white" {}
+		_Color("Main Color", Color) = (1, 1, 1, 1)
+		_ShakeWindspeed("Shake Windspeed", Range(0, 10)) = 1
+		_ShakeBending("Shake Bending", Range(0, 10)) = 1
 	}
 	SubShader {
 		Tags { 

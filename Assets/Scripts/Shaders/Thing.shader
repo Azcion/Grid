@@ -1,7 +1,7 @@
 ﻿Shader "Custom/Thing" {
 	Properties{
-		_MainTex ("Texture", 2D) = "white" {}
-		_Color ("Tint", Color) = (0, 0, 0, 1)
+		_MainTex("Texture", 2D) = "white" {}
+		_Color("Tint", Color) = (0, 0, 0, 1)
 	}
 	SubShader {
 		Tags { 

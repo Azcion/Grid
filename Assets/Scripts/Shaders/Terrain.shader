@@ -33,6 +33,8 @@
 			};
 
 			sampler2D _Tints;
+			TEXTURE2D_ARRAY(_Textures);
+			SAMPLER(sampler_Textures);
 
 			CBUFFER_START(UnityPerMaterial)
 				float _Index;
@@ -59,9 +61,6 @@
 
 				return o;
 			}
-
-			TEXTURE2D_ARRAY(_Textures);
-			SAMPLER(sampler_Textures);
 
 			half4 frag (v2f i) : SV_Target {
 				half4 tintA = tex2D(_Tints, float2(i.uv3.x * _Index, 0));
