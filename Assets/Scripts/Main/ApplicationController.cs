@@ -39,6 +39,7 @@ namespace Assets.Scripts.Main {
 		[UsedImplicitly, SerializeField] private GameObject _animalMaker = null;
 		[UsedImplicitly, SerializeField] private GameObject _pathfinder = null;
 		[UsedImplicitly, SerializeField] private GameObject _terrainAppController = null;
+		[UsedImplicitly, SerializeField] private GameObject _weather = null;
 
 		static ApplicationController () {
 			TileLabels = new Dictionary<TileType, string>();
@@ -112,6 +113,7 @@ namespace Assets.Scripts.Main {
 			_plantMaker.SetActive(true);
 			_animalMaker.SetActive(true);
 			_pathfinder.SetActive(true);
+			_weather.SetActive(true);
 			_ready = true;
 			Ready = true;
 		}
