@@ -64,7 +64,6 @@ namespace Assets.Scripts.Things {
 
 					if (chunkObject == null) {
 						chunkObject = Instantiate(_prefab, new Vector3(0, 0, Order.COVER), Quaternion.identity, _container);
-						chunkObject.transform.localPosition = Vector3.zero;
 						chunkObject.name = $"Chunk {y} {x}";
 						meshFilter = chunkObject.GetComponent<MeshFilter>();
 						_chunkObjects[y, x] = chunkObject;
