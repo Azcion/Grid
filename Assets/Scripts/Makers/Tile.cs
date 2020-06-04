@@ -48,8 +48,12 @@ namespace Assets.Scripts.Makers {
 			return true;
 		}
 
-		private static bool CanBuildOver (IThing thing) {
-			return thing.Type == ThingType.Plant && ((Plant) thing).Def.CanBuildOver;
+		public bool CanAddThing () {
+			return ThingSlotVacant() || CanBuildOver();
+		}
+
+		private bool CanBuildOver () {
+			return _thingSlot.Type == ThingType.Plant && ((Plant) _thingSlot).Def.CanBuildOver;
 		}
 
 		private void AddThing (IThing thing) {
@@ -63,7 +67,7 @@ namespace Assets.Scripts.Makers {
 		}
 
 		private bool TryRemoveIgnorablePlants () {
-			if (!CanBuildOver(_thingSlot)) {
+			if (!CanBuildOver()) {
 				return false;
 			}
 

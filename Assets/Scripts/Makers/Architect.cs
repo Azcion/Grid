@@ -1,5 +1,8 @@
-﻿using Assets.Scripts.Enums;
+﻿using System;
+using System.Collections.Generic;
+using Assets.Scripts.Enums;
 using Assets.Scripts.Things;
+using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -9,50 +12,49 @@ namespace Assets.Scripts.Makers {
 
 		public static bool Planning;
 
+		private static readonly List<GameObject> DragCellPoolAvailable;
+		private static readonly List<GameObject> DragCellPoolUsed;
+		
+		private static bool[,] _isDesignated;
+
 		private bool _didStartPlanningThisCycle;
+		private int _oldMx;
+		private int _oldMy;
 		private ThingType _selectedType;
 		private LinkedType _linkedType;
-		private IThing _thing;
-		private Transform _transform;
 		private Vector3Int _dragStart;
+		private Transform _designator;
+		private GameObject _dragCellPrefab;
 
+		[UsedImplicitly, SerializeField] private GameObject _dragCellsContainer = null;
+
+		static Architect () {
+			DragCellPoolAvailable = new List<GameObject>();
+			DragCellPoolUsed = new List<GameObject>();
+		}
 
 		[UsedImplicitly]
 		public void SelectThing_Wall () {
-			if (Planning) {
-				_transform.gameObject.SetActive(false);
-				Destroy(_transform.gameObject);
-			}
+			StartSelect();
+			_selectedType = ThingType.Structure;
+		}
 
+		private void StartSelect () {
 			Planning = true;
 			_didStartPlanningThisCycle = true;
-			_selectedType = ThingType.Structure;
 			Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			int x = (int) mousePos.x;
 			int y = (int) mousePos.y;
-			Vector3 pos = new Vector3(x, y, Order.SELECTOR);
-			Linked linked = WallMaker.Make(LinkedType.Planks, ThingMaterial.Wood, pos, null);
-			linked.Initialize(true);
-			_thing = linked;
-			_transform = linked.gameObject.transform;
-		}
-
-		private static void BuildWall (int x, int y) {
-			Vector3 pos = new Vector3(x, y, Order.SELECTOR);
-			Linked linked = WallMaker.Make(LinkedType.Planks, ThingMaterial.Wood, pos, null);
-			linked.Initialize();
-
-			if (WallMaker.TryAdd(linked)){
-				linked.Refresh();
-			} else {
-				linked.gameObject.SetActive(false);
-				Destroy(linked.gameObject);
-			}
+			_designator.position = new Vector3(x, y, Order.SELECTOR);
+			_designator.gameObject.SetActive(true);
 		}
 
 		[UsedImplicitly]
 		private void Start () {
 			Planning = false;
+			_designator = Create("Designator", "DesignatedGeneric").transform;
+			_dragCellPrefab = Create("Drag Cell", "DragHighlightCell");
+			_isDesignated = new bool[Map.YTiles, Map.YTiles];
 		}
 
 		[UsedImplicitly]
@@ -61,13 +63,62 @@ namespace Assets.Scripts.Makers {
 				return;
 			}
 
-			Vector2 cv = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			Vector3Int v = new Vector3Int((int) cv.x, (int) cv.y, Order.SELECTOR);
-			_transform.position = v;
+			Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			int mx = (int) mousePos.x;
+			int my = (int) mousePos.y;
+			Vector3Int v = new Vector3Int(mx, my, Order.SELECTOR);
+			_designator.position = v + new Vector3(.5f, .5f);
 
 			if (_didStartPlanningThisCycle) {
+				_oldMx = mx;
+				_oldMy = my;
 				_didStartPlanningThisCycle = false;
 				return;
+			}
+
+			int dx = mx - _dragStart.x;
+			int dy = my - _dragStart.y;
+			int dxAbs = Mathf.Abs(dx);
+			int dyAbs = Mathf.Abs(dy);
+			Direction direction;
+
+			if (dxAbs >= dyAbs) {
+				direction = dx > 0 ? Direction.East : Direction.West;
+			} else {
+				direction = dy > 0 ? Direction.North : Direction.South;
+			}
+
+			if (Input.GetMouseButton(0) && !Input.GetMouseButtonDown(0) && (mx != _oldMx || my != _oldMy)) {
+				_oldMx = mx;
+				_oldMy = my;
+				RetireDesignators();
+
+				switch (direction) {
+					case Direction.North:
+						for (int y = _dragStart.y; y <= my; ++y) {
+							Designate(_dragStart.x, y);
+						}
+
+						break;
+					case Direction.South:
+						for (int y = _dragStart.y; y >= my; --y) {
+							Designate(_dragStart.x, y);
+						}
+
+						break;
+					case Direction.East:
+						for (int x = _dragStart.x; x <= mx; ++x) {
+							Designate(x, _dragStart.y);
+						}
+
+						break;
+					case Direction.West:
+						for (int x = _dragStart.x; x >= mx; --x) {
+							Designate(x, _dragStart.y);
+						}
+
+						break;
+				}
 			}
 
 			if (Input.GetMouseButtonDown(0)) {
@@ -76,29 +127,15 @@ namespace Assets.Scripts.Makers {
 			} else if (Input.GetMouseButtonUp(1)) {
 				// Right click
 				Planning = false;
-				_transform.gameObject.SetActive(false);
-				Destroy(_transform.gameObject);
+				RetireDesignators();
 			} else if (Input.GetMouseButtonUp(0)) {
 				// Left click release
 				Planning = false;
+				RetireDesignators();
 
 				switch (_selectedType) {
 					case ThingType.Structure:
-						Linked wall = _thing as Linked;
-
-						if (wall == null) {
-							Debug.Log("Tried to place null.");
-							return;
-						}
-
-						int dx = v.x - _dragStart.x;
-						int dy = v.y - _dragStart.y;
-						
 						if (_dragStart.x != v.x || _dragStart.y != v.y) {
-							Direction directionX = dx > 0 ? Direction.East : Direction.West;
-							Direction directionY = dy > 0 ? Direction.North : Direction.South;
-							Direction direction = Mathf.Abs(dx) >= Mathf.Abs(dy) ? directionX : directionY;
-
 							switch (direction) {
 								case Direction.North:
 									for (int y = _dragStart.y; y <= v.y; ++y) {
@@ -130,12 +167,73 @@ namespace Assets.Scripts.Makers {
 						}
 
 						CoverAssembler.Apply();
-						// Destroy architect wall
-						_transform.gameObject.SetActive(false);
-						Destroy(_transform.gameObject);
-
 						break;
 				}
+			}
+		}
+
+		private void Designate (int x, int y) {
+			if (_isDesignated[y, x]) {
+				return;
+			}
+
+			Tile tile = TileMaker.GetTile(x, y);
+			bool canAdd = tile?.CanAddThing() ?? false;
+
+			if (!canAdd) {
+				return;
+			}
+
+			GameObject go;
+
+			if (DragCellPoolAvailable.Count > 0) {
+				go = DragCellPoolAvailable[0];
+				DragCellPoolAvailable.RemoveAt(0);
+			} else {
+				go = Instantiate(_dragCellPrefab);
+				go.transform.SetParent(_dragCellsContainer.transform);
+			}
+
+			go.transform.position = new Vector3(x + .5f, y + .5f, Order.SELECTOR);
+			go.SetActive(true);
+			DragCellPoolUsed.Add(go);
+			_isDesignated[y, x] = true;
+		}
+
+		private void RetireDesignators () {
+			foreach (GameObject go in DragCellPoolUsed) {
+				go.SetActive(false);
+				int x = (int) go.transform.position.x;
+				int y = (int) go.transform.position.y;
+				_isDesignated[y, x] = false;
+			}
+
+			DragCellPoolAvailable.AddRange(DragCellPoolUsed);
+			DragCellPoolUsed.Clear();
+			_designator.gameObject.SetActive(false);
+		}
+
+		private GameObject Create (string label, string sprite) {
+			GameObject go = new GameObject(label, typeof(SpriteRenderer));
+			go.SetActive(false);
+			go.transform.SetParent(_dragCellsContainer.transform);
+			SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
+			sr.sprite = Assets.GetSprite(sprite);
+			sr.sharedMaterial = Assets.ThingMat;
+
+			return go;
+		}
+
+		private static void BuildWall (int x, int y) {
+			Vector3 pos = new Vector3(x, y, Order.SELECTOR);
+			Linked linked = WallMaker.Make(LinkedType.Planks, ThingMaterial.Wood, pos, null);
+			linked.Initialize();
+
+			if (WallMaker.TryAdd(linked)){
+				linked.Refresh();
+			} else {
+				linked.gameObject.SetActive(false);
+				Destroy(linked.gameObject);
 			}
 		}
 
