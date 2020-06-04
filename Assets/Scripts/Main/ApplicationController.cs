@@ -97,7 +97,7 @@ namespace Assets.Scripts.Main {
 			Map.InitializeMapMeasurements(StartInterface.GetMapSize / Map.CSIZE);
 			Random.InitState(Seed);
 			_i = _infoBox.GetComponent<Text>();
-			StartInterface.Hide();
+			StartInterface.TriggerStart();
 
 			yield return new WaitForSeconds(.05f);
 

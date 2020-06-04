@@ -15,6 +15,8 @@ namespace Assets.Scripts.UI {
 		[UsedImplicitly, SerializeField] private GameObject _mapSizeSlider = null;
 		[UsedImplicitly, SerializeField] private GameObject _mapSizeSliderText = null;
 		[UsedImplicitly, SerializeField] private GameObject _startButton = null;
+		[UsedImplicitly, SerializeField] private GameObject _architect = null;
+		[UsedImplicitly, SerializeField] private GameObject _toggles = null;
 
 		public static string GetSeed => _seedInput.text;
 		public static int GetMapSize => int.Parse(_mapSizeSliderHandleText.text);
@@ -26,14 +28,16 @@ namespace Assets.Scripts.UI {
 			_mapSizeSliderHandleText.text = value.ToString();
 		}
 
-		public static void Hide () {
-			_instance.DestroyAll();
+		public static void TriggerStart () {
+			_instance.OnStart();
 		}
 
-		private void DestroyAll () {
+		private void OnStart () {
 			Destroy(_seed);
 			Destroy(_mapSizeSlider);
 			Destroy(_startButton);
+			_architect.SetActive(true);
+			_toggles.SetActive(true);
 		}
 
 		[UsedImplicitly]
