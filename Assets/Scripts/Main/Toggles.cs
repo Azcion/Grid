@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Graphics;
+﻿using Assets.Scripts.Weather;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -18,7 +18,12 @@ namespace Assets.Scripts.Main {
 		[UsedImplicitly]
 		public void ToggleWeather () {
 			_showWeather = !_showWeather;
-			Weather.SetActive(_showWeather);
+			WeatherController.SetActive(_showWeather);
+		}
+
+		[UsedImplicitly]
+		public void CycleWeather () {
+			WeatherController.Next();
 		}
 
 	}

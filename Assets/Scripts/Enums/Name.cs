@@ -12,6 +12,7 @@ namespace Assets.Scripts.Enums {
 		public static readonly string[] ThingMaterial = Enum.GetNames(typeof(ThingMaterial));
 		public static readonly string[] ThingType = Enum.GetNames(typeof(ThingType));
 		public static readonly string[] TileType = Enum.GetNames(typeof(TileType));
+		public static readonly string[] WeatherType = Enum.GetNames(typeof(WeatherType));
 
 		public static int StringToTileType (string s) {
 			for (int i = 0; i < TileType.Length; ++i) {
@@ -53,6 +54,10 @@ namespace Assets.Scripts.Enums {
 
 		public static string Get (TileType e) {
 			return TileType[(int) e];
+		}
+
+		public static string Get (WeatherType e) {
+			return WeatherType[(int) e];
 		}
 		
 	}
