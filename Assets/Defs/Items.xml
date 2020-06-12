@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<Defs>
+	<ItemDef>
+		<DefName>WoodLog</DefName>
+		<Label>wood</Label>
+		<Description>Wood from trees or other fibrous plants. Useful for building structures and weapons. It is a good fuel for campfires and generators, and can be refined into chemfuel. In a pinch, a piece of wood can be used as a weapon or a leg.</Description>
+		<StatBases>
+			<MarketValue>1.2</MarketValue>
+			<MaxHitPoints>150</MaxHitPoints>
+		</StatBases>
+		<TexPath>thing/item/resource/woodlog</TexPath>
+		<TexCount>3</TexCount>
+		<StackLimit>75</StackLimit>
+	</ItemDef>
+</Defs>

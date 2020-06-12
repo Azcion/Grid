@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Assets.Scripts.Defs {
@@ -12,17 +13,36 @@ namespace Assets.Scripts.Defs {
 
 		public readonly List<T> Defs;
 
+		private readonly Dictionary<string, T> _defs;
+
 		public DefContainer (string path) {
 			Type t = typeof(T);
 
 			if (t == typeof(AnimalDef) ||
 			    t == typeof(PlantDef) ||
-			    t == typeof(HumanoidDef)) {
+			    t == typeof(HumanoidDef) ||
+			    t == typeof(ItemDef)) {
 				Defs = Load(path);
+				_defs = new Dictionary<string, T>();
+
+				foreach (T def in Defs) {
+					if (!(def is ThingDef thingDef)) {
+						Debug.Log("def is null");
+						continue;
+					}
+
+					string defName = thingDef.DefName;
+					_defs.Add(defName, def);
+				}
+
 				return;
 			}
 
 			throw new AssertionException($"{t} is not a valid def type.", "");
+		}
+
+		public T Get (string defName) {
+			return _defs[defName];
 		}
 
 		public void Save (string path) {

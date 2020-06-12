@@ -10,6 +10,7 @@ namespace Assets.Scripts.Defs {
 		public static DefContainer<AnimalDef> AnimalDefs;
 		public static DefContainer<PlantDef> PlantDefs;
 		public static DefContainer<HumanoidDef> HumanoidDefs;
+		public static DefContainer<ItemDef> ItemDefs;
 		public static PlantDef Grass;
 		public static HumanoidDef Human;
 
@@ -25,6 +26,10 @@ namespace Assets.Scripts.Defs {
 			return HumanoidDefs.Defs[Random.Range(0, HumanoidDefs.Defs.Count)];
 		}
 
+		public static ItemDef Get (string defName) {
+			return ItemDefs.Get(defName);
+		}
+
 		[UsedImplicitly]
 		private void Start () {
 			string path = Application.isEditor ? Application.dataPath : System.IO.Directory.GetCurrentDirectory();
@@ -32,6 +37,7 @@ namespace Assets.Scripts.Defs {
 			AnimalDefs = new DefContainer<AnimalDef>(path + "Animals.xml");
 			PlantDefs = new DefContainer<PlantDef>(path + "Plants.xml");
 			HumanoidDefs = new DefContainer<HumanoidDef>(path + "Humanoids.xml");
+			ItemDefs = new DefContainer<ItemDef>(path + "Items.xml");
 
 			//Find grass def
 			foreach (PlantDef def in PlantDefs.Defs) {
