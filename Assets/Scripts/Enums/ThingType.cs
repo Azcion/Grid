@@ -5,7 +5,8 @@
 		Structure,
 		Object,
 		Plant,
-		Creature
+		Creature,
+		Item
 		
 	}
 

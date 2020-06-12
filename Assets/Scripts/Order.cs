@@ -7,7 +7,8 @@
 		public const int STRUCTURE = 8;
 		public const int COVER = 7;
 		public const int PLANT = 6;
-		public const int ANIMAL = 5;
+		public const int ITEM = 5;
+		public const int ANIMAL = 4;
 		public const int WEATHER = 1;
 		public const int SELECTOR = 0;
 		public const int CAMERA = -10;
