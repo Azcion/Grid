@@ -1,5 +1,6 @@
 ﻿using System;
 using Assets.Scripts.Makers;
+using Assets.Scripts.UI;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -75,6 +76,10 @@ namespace Assets.Scripts.Main {
 		}
 
 		private void DoZoom () {
+			if (SelectedInfo.IsHoveringOver) {
+				return;
+			}
+
 			float scroll = Input.GetAxis("Mouse ScrollWheel");
 
 			if (Math.Abs(scroll) > .0001f) {

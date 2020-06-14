@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Main;
 using Assets.Scripts.Makers;
+using Assets.Scripts.UI;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace Assets.Scripts.Things {
 		private static bool _didSelect;
 		
 		public static void Select (Transform target, Thing thing) {
-			if (!thing.IsSelectable || Architect.Planning) {
+			if (Architect.Planning) {
 				return;
 			}
 
@@ -24,12 +25,16 @@ namespace Assets.Scripts.Things {
 			Instance.transform.position = new Vector3(v.x + .5f, v.y, Order.SELECTOR);
 			Instance.SetActive(true);
 			Thing = thing;
+
+			SelectedInfo.Set(thing.ThingDef);
+			SelectedInfo.Show();
 		}
 
 		public static void Deselect () {
 			Instance.SetActive(false);
 			Instance.transform.SetParent(null);
 			Thing.Deselect();
+			SelectedInfo.Hide();
 		}
 
 		[UsedImplicitly]

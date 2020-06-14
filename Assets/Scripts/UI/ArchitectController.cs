@@ -5,11 +5,15 @@ namespace Assets.Scripts.UI {
 
 	public class ArchitectController : MonoBehaviour {
 
-		private GameObject _architect;
-		private GameObject _structure;
-		private GameObject _production;
-		private GameObject _debug;
-		private GameObject _activeCategory;
+		private static GameObject _architect;
+		private static GameObject _structure;
+		private static GameObject _production;
+		private static GameObject _debug;
+		private static GameObject _activeCategory;
+
+		public static void Hide () {
+			_architect.SetActive(false);
+		}
 
 		[UsedImplicitly]
 		public void Toggle () {
