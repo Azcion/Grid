@@ -52,7 +52,6 @@
 				return o;
 			}
 
-
 			half4 frag (v2f i) : SV_Target {
 				half2 uv = i.uv * 10;
 				half motion = valueFBM4(uv + -_Time.x);
