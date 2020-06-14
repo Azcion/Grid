@@ -1,14 +1,16 @@
-﻿using JetBrains.Annotations;
+﻿using Assets.Scripts.Defs;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Assets.Scripts.Things {
 
 	public class Thing : MonoBehaviour {
 
-		public bool IsSelectable { get; protected set; }
+		public IThingDef ThingDef { get; protected set; }
 
 		protected Transform Child;
 		protected SpriteRenderer ChildRenderer;
+		protected bool IsSelectable;
 		protected bool Selected;
 
 		public void Prepare () {
@@ -35,6 +37,10 @@ namespace Assets.Scripts.Things {
 
 		[UsedImplicitly]
 		private void OnMouseDown () {
+			if (!IsSelectable) {
+				return;
+			}
+
 			Selector.Select(transform, this);
 			Selected = true;
 		}

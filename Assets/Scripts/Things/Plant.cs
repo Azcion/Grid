@@ -37,6 +37,7 @@ namespace Assets.Scripts.Things {
 
 		public static Plant Create (Plant plant, PlantDef def) {
 			plant.Def = def;
+			plant.ThingDef = def;
 
 			return plant;
 		}

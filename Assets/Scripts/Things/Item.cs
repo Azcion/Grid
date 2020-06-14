@@ -14,6 +14,7 @@ namespace Assets.Scripts.Things {
 
 		public static Item Create (Item item, ItemDef def) {
 			item.Def = def;
+			item.ThingDef = def;
 
 			return item;
 		}
@@ -23,7 +24,6 @@ namespace Assets.Scripts.Things {
 			Count = count;
 			float capacity = (float) count / Def.StackLimit;
 			string suffix = GetSuffix(Def.TexCount, capacity);
-			Debug.Log(suffix + " " + count + " " + capacity);
 			SetSprite(Assets.GetSprite(Def.DefName + suffix), false);
 			Child.localPosition = new Vector2(.5f, .5f);
 			Child.localScale = new Vector3(1.5f, 1.5f, 1);

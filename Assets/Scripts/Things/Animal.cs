@@ -21,6 +21,7 @@ namespace Assets.Scripts.Things {
 
 		public static Animal Create (Animal animal, AnimalDef def) {
 			animal.Def = def;
+			animal.ThingDef = def;
 
 			return animal;
 		}
