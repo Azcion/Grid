@@ -9,6 +9,14 @@ namespace Assets.Scripts.Defs {
 
 		[DefaultValue(true)] public bool Solitary;
 
+		public string GetLabel () {
+			return Label;
+		}
+
+		public string GetDescription () {
+			return Description;
+		}
+
 	}
 
 }

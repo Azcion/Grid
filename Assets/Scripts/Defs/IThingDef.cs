@@ -2,6 +2,9 @@
 
 	public interface IThingDef {
 
+		string GetLabel ();
+		string GetDescription ();
+
 	}
 
 }

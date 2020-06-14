@@ -13,6 +13,13 @@ namespace Assets.Scripts.Defs {
 		[DefaultValue(false)] public bool Cluster;
 		[DefaultValue(false)] public bool CanBuildOver;
 
+		public string GetLabel () {
+			return Label;
+		}
+
+		public string GetDescription () {
+			return Description;
+		}
 	}
 
 }
