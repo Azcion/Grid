@@ -42,11 +42,11 @@ namespace Assets.Scripts.Things {
 
 		[UsedImplicitly]
 		private void OnMouseUp () {
-			if (!IsSelectable) {
+			if (!IsSelectable || Selected) {
 				return;
 			}
 
-			Selector.Select(transform, this);
+			Selector.Select(this);
 			Selected = true;
 		}
 
