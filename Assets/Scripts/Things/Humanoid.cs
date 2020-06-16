@@ -8,20 +8,21 @@ namespace Assets.Scripts.Things {
 
 	public class Humanoid : Pathfinding, ICreature {
 
+		public HumanoidDef Def { get; private set; }
+
 		private static readonly string[] DirectionSuffix = { "_north", "_south", "_east", "_east" };
 
-		private HumanoidDef _def;
 		private bool _didInitialize;
 
 		public GameObject Go => gameObject;
 		public ThingType Type => ThingType.Creature;
 
 		public void Initialize () {
-			InitializePathfinding(_def.StatBases.MoveSpeed);
+			InitializePathfinding(Def.StatBases.MoveSpeed);
 
 			Child.localPosition = new Vector2(.5f, .5f);
 			string suffix = DirectionSuffix[(int) Facing];
-			SetSprite(Assets.GetSprite(_def.DefName + suffix), false);
+			SetSprite(Assets.GetSprite(Def.DefName + suffix), false);
 			IsSelectable = true;
 			_didInitialize = true;
 		}
@@ -31,7 +32,7 @@ namespace Assets.Scripts.Things {
 		private void OnEnable () {
 			if (_didInitialize == false) {
 				transform.position = new Vector3(transform.position.x, transform.position.y, Order.ANIMAL);
-				_def = DefLoader.GetRandomHumanoidDef();
+				Def = DefLoader.GetRandomHumanoidDef();
 				Initialize();
 			}
 		}
@@ -45,7 +46,7 @@ namespace Assets.Scripts.Things {
 
 			if (DirectionChanged) {
 				string suffix = DirectionSuffix[(int) Facing];
-				SetSprite(Assets.GetSprite(_def.DefName + suffix), Facing == Direction.West);
+				SetSprite(Assets.GetSprite(Def.DefName + suffix), Facing == Direction.West);
 				DirectionChanged = false;
 			}
 

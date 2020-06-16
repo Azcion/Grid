@@ -20,6 +20,7 @@ namespace Assets.Scripts.Things {
 		public static Linked Create (Linked linked, LinkedType type, ThingMaterial material) {
 			linked._type = type;
 			linked._material = material;
+			linked.Heir = linked;
 
 			return linked;
 		}

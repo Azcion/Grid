@@ -10,7 +10,7 @@ namespace Assets.Scripts.Things {
 
 	public class Animal : Pathfinding, ICreature {
 
-		public AnimalDef Def;
+		public AnimalDef Def { get; private set; }
 
 		private static readonly string[] DirectionSuffix = { "_north", "_south", "_east", "_east" };
 
@@ -22,6 +22,7 @@ namespace Assets.Scripts.Things {
 		public static Animal Create (Animal animal, AnimalDef def) {
 			animal.Def = def;
 			animal.ThingDef = def;
+			animal.Heir = animal;
 
 			return animal;
 		}
