@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1209518144
+CRC: 2387571221
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 29a1ae628a110d3a3efeb3fb42e6dcde
+    Hash: 8a4e9406fb181835acca7cde83a24e19
   TypeTreeHash:
     serializedVersion: 2
     Hash: 9e6ad29cbd2df8fbe1a15315db0e51ab
@@ -25,6 +25,8 @@ Assets:
 - Assets/Sprites/thing/creature/gazelle/Gazelle_south.png
 - Assets/Sprites/thing/plant/agave/AgaveA.png
 - Assets/Sprites/thing/plant/grass/GrassA.png
+- Assets/Sprites/thing/item/manufactured/medicineherbal/MedicineHerbalC.png
+- Assets/Sprites/thing/item/manufactured/medicineherbal/MedicineHerbalB.png
 - Assets/Sprites/ui/DragHighlightThing.png
 - Assets/Sprites/thing/building/linked/Blueprint_Atlas.png
 - Assets/Sprites/thing/creature/elephant/Elephant_north.png
@@ -34,14 +36,19 @@ Assets:
 - Assets/Sprites/thing/plant/grass/GrassB.png
 - Assets/Sprites/thing/plant/healroot/Healroot.png
 - Assets/Sprites/thing/humanoid/scyther/Scyther_east.png
+- Assets/Sprites/ui/Cancel.png
+- Assets/Sprites/thing/item/food/rawagave/RawAgave.png
 - Assets/Sprites/thing/plant/bush/BushB.png
 - Assets/Sprites/ui/Cursor.png
+- Assets/Sprites/ui/Harvest.png
 - Assets/Sprites/thing/creature/gazelle/Gazelle_north.png
 - Assets/Sprites/ui/DragHighlightCell.png
 - Assets/Sprites/thing/item/resource/woodlog/WoodLogA.png
 - Assets/Sprites/thing/creature/iguana/Iguana_south.png
 - Assets/Sprites/thing/creature/gazelle/Gazelle_east.png
+- Assets/Sprites/thing/item/manufactured/medicineherbal/MedicineHerbalA.png
 - Assets/Sprites/thing/creature/elephant/Elephant_east.png
+- Assets/Sprites/ui/HarvestWood.png
 - Assets/Sprites/thing/item/resource/woodlog/WoodLogB.png
 - Assets/Sprites/thing/plant/agave/AgaveB.png
 - Assets/Sprites/ui/ItemBackground.png
@@ -55,7 +62,7 @@ Assets:
 - Assets/Sprites/thing/building/linked/Bricks_Atlas.png
 - Assets/Sprites/thing/creature/iguana/Iguana_north.png
 - Assets/Sprites/ui/SelectorBracket.png
-- Assets/Sprites/thing/building/linked/Planks_UI.png
+- Assets/Sprites/ui/Planks_UI.png
 - Assets/Sprites/thing/creature/iguana/Iguana_east.png
 - Assets/Sprites/thing/building/linked/SmoothRock_Atlas.png
 - Assets/Sprites/thing/humanoid/scyther/Scyther_south.png
