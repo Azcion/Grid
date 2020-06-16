@@ -6,13 +6,8 @@ namespace Assets.Scripts.Defs {
 	[XmlType("HumanoidDef")]
 	public class HumanoidDef : ThingDef, IThingDef {
 
-		public string GetLabel () {
-			return Label;
-		}
-
-		public string GetDescription () {
-			return Description;
-		}
+		public string GetLabel => Label;
+		public string GetDescription => Description;
 
 	}
 

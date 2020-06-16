@@ -15,13 +15,8 @@ namespace Assets.Scripts.Defs {
 		[DefaultValue(null)] public string Resource;
 		[DefaultValue(0)] public int ResourceYield;
 
-		public string GetLabel () {
-			return Label;
-		}
-
-		public string GetDescription () {
-			return Description;
-		}
+		public string GetLabel => Label;
+		public string GetDescription => Description;
 	}
 
 }

@@ -10,13 +10,8 @@ namespace Assets.Scripts.Defs {
 		[DefaultValue(1)] public int TexCount;
 		[DefaultValue(75)] public int StackLimit;
 
-		public string GetLabel () {
-			return Label;
-		}
-
-		public string GetDescription () {
-			return Description;
-		}
+		public string GetLabel => Label;
+		public string GetDescription => Description;
 
 	}
 

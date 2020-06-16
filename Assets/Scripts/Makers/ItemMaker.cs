@@ -40,6 +40,16 @@ namespace Assets.Scripts.Makers {
 			return true;
 		}
 
+		public static void Make (string type, int count, int x, int y) {
+			Vector3 pos = new Vector3(x, y, Order.ITEM);
+			GameObject go = Instantiate(_itemPrefab, pos, Quaternion.identity, _container);
+			go.name = type;
+			ItemDef def = DefLoader.Get(type);
+			Item item = Item.Create(go.GetComponent<Item>(), def);
+			item.Initialize(count);
+			_items[y, x] = item;
+		}
+
 		[UsedImplicitly]
 		private void Start () {
 			if (!DefLoader.DidLoad) {
