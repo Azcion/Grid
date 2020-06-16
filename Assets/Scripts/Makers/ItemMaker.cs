@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Defs;
-using Assets.Scripts.Enums;
 using Assets.Scripts.Things;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -13,16 +12,15 @@ namespace Assets.Scripts.Makers {
 		private static Transform _container;
 		private static GameObject _itemPrefab;
 
-		public static bool TryMake (ItemType type, int x, int y) {
+		public static bool TryMake (string type, int x, int y) {
 			if (_items[y, x] != null) {
 				return false;
 			}
 
 			Vector3 pos = new Vector3(x, y, Order.ITEM);
 			GameObject go = Instantiate(_itemPrefab, pos, Quaternion.identity, _container);
-			string typeName = Name.Get(type);
-			go.name = typeName;
-			ItemDef def = DefLoader.Get(typeName);
+			go.name = type;
+			ItemDef def = DefLoader.Get(type);
 			Item item = Item.Create(go.GetComponent<Item>(), def);
 			int count;
 

@@ -20,7 +20,7 @@ namespace Assets.Scripts.Makers {
 		private int _oldMy;
 		private ThingType _selectedType;
 		private LinkedType _linkedType;
-		private ItemType _itemType;
+		private string _itemType;
 		private Vector3Int _dragStart;
 		private Transform _designator;
 		private GameObject _dragCellPrefab;
@@ -38,11 +38,11 @@ namespace Assets.Scripts.Makers {
 			_selectedType = ThingType.Structure;
 		}
 
-		[UsedImplicitly]
+		[UsedImplicitly] // Debug
 		public void SelectThing_Wood () {
 			StartSelect();
 			_selectedType = ThingType.Item;
-			_itemType = ItemType.WoodLog;
+			_itemType = "WoodLog";
 		}
 
 		private void StartSelect () {
@@ -246,11 +246,11 @@ namespace Assets.Scripts.Makers {
 			}
 		}
 
-		private static void PlaceItem (int x, int y, ItemType type) {
+		private static void PlaceItem (int x, int y, string type) {
 			if (ItemMaker.TryMake(type, x, y)) {
 				//todo
 			} else {
-				Debug.Log($"Couldn't place {Name.Get(type)} at xy: {x} {y}");
+				Debug.Log($"Couldn't place {type} at xy: {x} {y}");
 			}
 		}
 
