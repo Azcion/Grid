@@ -4,6 +4,7 @@ namespace Assets.Scripts.Enums {
 
 	public static class Name {
 
+		public static readonly string[] Action = Enum.GetNames(typeof(Action));
 		public static readonly string[] Direction = Enum.GetNames(typeof(Direction));
 		public static readonly string[] LinkedType = Enum.GetNames(typeof(LinkedType));
 		public static readonly string[] PathfinderMode = Enum.GetNames(typeof(PathfinderMode));
@@ -24,8 +25,8 @@ namespace Assets.Scripts.Enums {
 			return -1;
 		}
 
-		public static string Get (Direction e) {
-			return Direction[(int) e];
+		public static string Get (Action e) {
+			return Action[(int) e];
 		}
 
 		public static string Get (Direction e) {
