@@ -1,4 +1,7 @@
-﻿using Assets.Scripts.Defs;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Defs;
+using Assets.Scripts.Enums;
+using Assets.Scripts.Things;
 using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -13,10 +16,16 @@ namespace Assets.Scripts.UI {
 		private static GameObject _container;
 		private static Text _name;
 		private static Text _description;
+		private static Dictionary<string, GameObject> _actions;
+		private static List<GameObject> _visibleButtons;
+		private static Thing _thing;
 
-		public static void Set (IThingDef def) {
-			_name.text = Format.Capitalize(def.GetLabel());
-			_description.text = def.GetDescription();
+		public static void Set (Thing thing) {
+			_thing = thing;
+			IThingDef def = thing.ThingDef;
+			_name.text = Format.Capitalize(def.GetLabel);
+			_description.text = def.GetDescription;
+			SetActions(thing.ValidActions);
 		}
 
 		public static void Show () {
@@ -25,8 +34,30 @@ namespace Assets.Scripts.UI {
 		}
 
 		public static void Hide () {
+			_thing = null;
 			_container.SetActive(false);
+			HideButtons();
 			IsHoveringOver = false;
+		}
+
+		[UsedImplicitly]
+		public void Action_ChopWood () {
+			if (_thing.Heir.Type != ThingType.Plant) {
+				return;
+			}
+
+			Plant plant = _thing.Heir as Plant;
+			plant?.Action_ChopWood();
+		}
+
+		[UsedImplicitly]
+		public void Action_Harvest () {
+			if (_thing.Heir.Type != ThingType.Plant) {
+				return;
+			}
+
+			Plant plant = _thing.Heir as Plant;
+			plant?.Action_Harvest();
 		}
 
 		[UsedImplicitly]
@@ -41,10 +72,38 @@ namespace Assets.Scripts.UI {
 
 		[UsedImplicitly]
 		private void Start () {
-			_container = transform.GetChild(0).gameObject;
-			Text[] components = _container.GetComponentsInChildren<Text>();
-			_name = components[0];
-			_description = components[1];
+			Transform root = transform.GetChild(0);
+			_container = root.gameObject;
+			_name = root.Find("Name").GetComponent<Text>();
+			_description = root.Find("Description Scroll View").GetChild(0).GetComponent<Text>();
+			_visibleButtons = new List<GameObject>();
+			_actions = new Dictionary<string, GameObject>();
+			Transform actionsContainer = root.Find("Actions");
+
+			for (int i = 0; i < actionsContainer.childCount; ++i) {
+				string actionStr = Name.Action[i];
+				Transform child = actionsContainer.Find(actionStr);
+				_actions.Add(actionStr, child.gameObject);
+			}
+		}
+
+		private static void SetActions (IEnumerable<Action> actions) {
+			HideButtons();
+
+			foreach (Action action in actions) {
+				string actionStr = Name.Get(action);
+				GameObject button = _actions[actionStr];
+				button.SetActive(true);
+				_visibleButtons.Add(button);
+			}
+		}
+
+		private static void HideButtons () {
+			foreach (GameObject button in _visibleButtons) {
+				button.SetActive(false);
+			}
+
+			_visibleButtons.Clear();
 		}
 
 	}

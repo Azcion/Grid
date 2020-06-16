@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Defs;
 using Assets.Scripts.Enums;
+using Assets.Scripts.Makers;
 using JetBrains.Annotations;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -38,8 +39,30 @@ namespace Assets.Scripts.Things {
 		public static Plant Create (Plant plant, PlantDef def) {
 			plant.Def = def;
 			plant.ThingDef = def;
+			plant.Heir = plant;
 
 			return plant;
+		}
+
+		public void Action_ChopWood () {
+			Go.SetActive(false);
+			int count = (int) (Def.ResourceYield * _growth);
+			int x = (int) transform.position.x;
+			int y = (int) transform.position.y;
+			ItemMaker.Make(Def.Resource, count, x, y);
+			Selector.Deselect(true);
+			//todo disable and move to pool
+			Destroy(Go);
+		}
+
+		public void Action_Harvest () {
+			int count = (int) (Def.ResourceYield * _growth);
+			int x = (int) transform.position.x;
+			int y = (int) transform.position.y;
+			//todo try place near
+			ItemMaker.Make(Def.Resource, count, x, y);
+			_growth = 0;
+			AdjustTransform(0);
 		}
 
 		public void Initialize (float growth) {
@@ -53,6 +76,7 @@ namespace Assets.Scripts.Things {
 			}
 
 			IsSelectable = Def.Selectable;
+			SetValidActions();
 			bool flipX = Random.value < .5;
 
 			if (Size != PlantSize.Small) {
@@ -82,6 +106,21 @@ namespace Assets.Scripts.Things {
 			}
 
 			gameObject.SetActive(true);
+		}
+
+		private void SetValidActions () {
+			if (string.IsNullOrEmpty(Def.Resource)) {
+				return;
+			}
+
+			switch (Def.Resource) {
+				case "WoodLog":
+					ValidActions.Add(Action.ChopWood);
+					break;
+				default:
+					ValidActions.Add(Action.Harvest);
+					break;
+			}
 		}
 
 		private static int Mod (int n, int m) {

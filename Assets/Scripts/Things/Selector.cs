@@ -26,11 +26,15 @@ namespace Assets.Scripts.Things {
 			Instance.SetActive(true);
 			Thing = thing;
 
-			SelectedInfo.Set(thing.ThingDef);
+			SelectedInfo.Set(thing);
 			SelectedInfo.Show();
 		}
 
-		public static void Deselect () {
+		public static void Deselect (bool force = false) {
+			if (!force && SelectedInfo.IsHoveringOver) {
+				return;
+			}
+
 			Instance.SetActive(false);
 			Instance.transform.SetParent(null);
 			Thing.Deselect();
