@@ -60,6 +60,8 @@
 		<Cluster>true</Cluster>
 		<Selectable>true</Selectable>
 		<PlantSize>Large</PlantSize>
+		<Resource>RawAgave</Resource>
+		<ResourceYield>10</ResourceYield>
 	</PlantDef>
 	<PlantDef>
 		<DefName>Bush</DefName>
@@ -89,6 +91,8 @@
 		<Cluster>true</Cluster>
 		<Selectable>true</Selectable>
 		<PlantSize>Large</PlantSize>
+		<Resource>MedicineHerbal</Resource>
+		<ResourceYield>1</ResourceYield>
 	</PlantDef>
 	<PlantDef>
 		<DefName>SaguaroCactus</DefName>
@@ -103,6 +107,8 @@
 		<Cluster>true</Cluster>
 		<Selectable>true</Selectable>
 		<PlantSize>Large</PlantSize>
+		<Resource>WoodLog</Resource>
+		<ResourceYield>15</ResourceYield>
 	</PlantDef>
 	<PlantDef>
 		<DefName>TreeDrago</DefName>
@@ -117,6 +123,8 @@
 		<Cluster>true</Cluster>
 		<Selectable>true</Selectable>
 		<PlantSize>Large</PlantSize>
+		<Resource>WoodLog</Resource>
+		<ResourceYield>25</ResourceYield>
 	</PlantDef>
 	<PlantDef>
 		<DefName>TreePalm</DefName>
@@ -130,5 +138,7 @@
 		<EcosystemWeight>.75</EcosystemWeight>
 		<Selectable>true</Selectable>
 		<PlantSize>Large</PlantSize>
+		<Resource>WoodLog</Resource>
+		<ResourceYield>18</ResourceYield>
 	</PlantDef>
 </Defs>

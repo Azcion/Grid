@@ -12,4 +12,28 @@
 		<TexCount>3</TexCount>
 		<StackLimit>75</StackLimit>
 	</ItemDef>
+	<ItemDef>
+		<DefName>RawAgave</DefName>
+		<Label>agave fruit</Label>
+		<Description>Raw agave fruit.</Description>
+		<StatBases>
+			<MarketValue>1.1</MarketValue>
+			<MaxHitPoints>150</MaxHitPoints>
+		</StatBases>
+		<TexPath>thing/item/food/rawagave</TexPath>
+		<TexCount>1</TexCount>
+		<StackLimit>75</StackLimit>
+	</ItemDef>
+	<ItemDef>
+		<DefName>MedicineHerbal</DefName>
+		<Label>herbal medicine</Label>
+		<Description>A pack of herbal concoctions extracted from the healroot plant. It is less potent than industrial pharmaceuticals, but much better than nothing.</Description>
+		<StatBases>
+			<MarketValue>10</MarketValue>
+			<MaxHitPoints>150</MaxHitPoints>
+		</StatBases>
+		<TexPath>thing/item/manufactured/medicineherbal</TexPath>
+		<TexCount>3</TexCount>
+		<StackLimit>75</StackLimit>
+	</ItemDef>
 </Defs>

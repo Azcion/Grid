@@ -12,6 +12,8 @@ namespace Assets.Scripts.Defs {
 		[DefaultValue(1)] public int TexCount;
 		[DefaultValue(false)] public bool Cluster;
 		[DefaultValue(false)] public bool CanBuildOver;
+		[DefaultValue(null)] public string Resource;
+		[DefaultValue(0)] public int ResourceYield;
 
 		public string GetLabel () {
 			return Label;
