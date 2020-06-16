@@ -56,7 +56,7 @@ namespace Assets.Scripts.Things {
 			}
 
 			if (ApplicationController.Ready) {
-				if (Input.GetMouseButtonDown(0)) {
+				if (Input.GetMouseButtonUp(0)) {
 					Deselect();
 				}
 			}

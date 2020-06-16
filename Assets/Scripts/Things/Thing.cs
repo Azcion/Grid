@@ -41,7 +41,7 @@ namespace Assets.Scripts.Things {
 		}
 
 		[UsedImplicitly]
-		private void OnMouseDown () {
+		private void OnMouseUp () {
 			if (!IsSelectable) {
 				return;
 			}
