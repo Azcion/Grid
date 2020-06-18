@@ -15,7 +15,7 @@ namespace Assets.Scripts.Things {
 		private bool _didInitialize;
 
 		public GameObject Go => gameObject;
-		public ThingType Type => ThingType.Creature;
+		public ThingType Type => Selected ? ThingType.Player : ThingType.Creature;
 
 		public void Initialize () {
 			InitializePathfinding(Def.StatBases.MoveSpeed);

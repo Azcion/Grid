@@ -6,7 +6,8 @@
 		Object,
 		Plant,
 		Creature,
-		Item
+		Item,
+		Player
 		
 	}
 
