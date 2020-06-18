@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Defs;
 using Assets.Scripts.Enums;
+using Assets.Scripts.Main;
 using Assets.Scripts.Utils;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -18,6 +19,7 @@ namespace Assets.Scripts.Things {
 		public ThingType Type => Selected ? ThingType.Player : ThingType.Creature;
 
 		public void Initialize () {
+			PrepareChild();
 			InitializePathfinding(Def.StatBases.MoveSpeed);
 
 			Child.localPosition = new Vector2(.5f, .5f);
@@ -33,6 +35,8 @@ namespace Assets.Scripts.Things {
 			if (_didInitialize == false) {
 				transform.position = new Vector3(transform.position.x, transform.position.y, Order.ANIMAL);
 				Def = DefLoader.GetRandomHumanoidDef();
+				ThingDef = Def;
+				Heir = this;
 				Initialize();
 			}
 		}
@@ -49,27 +53,18 @@ namespace Assets.Scripts.Things {
 				SetSprite(Assets.GetSprite(Def.DefName + suffix), Facing == Direction.West);
 				DirectionChanged = false;
 			}
+		}
 
-			if (Selected) {
-				if (Input.GetMouseButtonUp(1)) {
-					FindPath(Calc.Clamp(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
-				}
-
+		[UsedImplicitly]
+		private void LateUpdate () {
+			if (!Selected || DidDesignateAction) {
+				DidDesignateAction = false;
 				return;
 			}
 
-			return;
-
-			/*if (Moving || Random.value < .985f) {
-				return;
+			if (Input.GetMouseButtonUp(1)) {
+				FindPath(Calc.Clamp(CameraController.Main.ScreenToWorldPoint(Input.mousePosition)));
 			}
-
-			//todo implement smarter targeting
-			Vector3 v = Tf.localPosition;
-			v += new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), 0);
-			v = Calc.Clamp(v);
-
-			FindPath(v);*/
 		}
 
 	}

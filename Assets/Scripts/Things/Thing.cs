@@ -41,13 +41,20 @@ namespace Assets.Scripts.Things {
 		}
 
 		[UsedImplicitly]
-		private void OnMouseUp () {
-			if (!IsSelectable || Selected) {
-				return;
-			}
+		private void OnMouseOver () {
+			if (IsSelectable && !Selected && Input.GetMouseButtonUp(0)) {
+				// select on left click
+				Selector.Select(this);
+				Selected = true;
+			} else if (ValidActions.Count > 0 && Selector.Active && Selector.Thing.Heir.Type == ThingType.Player && Input.GetMouseButtonUp(1)) {
+				// designate path and action on right click
+				Humanoid humanoid = Selector.Thing.Heir as Humanoid;
+				bool found = humanoid?.FindPath(this, ValidActions[0]) ?? false;
 
-			Selector.Select(this);
-			Selected = true;
+				if (found) {
+					humanoid.DidDesignateAction = true;
+				}
+			}
 		}
 
 		private void CreateChildSprite () {
