@@ -8,23 +8,26 @@ namespace Assets.Scripts.Things {
 
 	[RequireComponent(typeof(SpriteRenderer))]
 	public class Selector : MonoBehaviour {
-		
+
+		public static bool Active;
 		public static Thing Thing;
-		
+
 		private static GameObject _instance;
 		private static bool _didSelect;
-		
+
 		public static void Select (Thing thing) {
 			if (Architect.Planning) {
 				return;
 			}
 
+			Thing?.Deselect();
 			_didSelect = true;
 			_instance.transform.SetParent(thing.transform);
 			Vector2 v = thing.transform.position;
 			_instance.transform.position = new Vector3(v.x + .5f, v.y, Order.SELECTOR);
 			_instance.SetActive(true);
 			Thing = thing;
+			Active = true;
 
 			SelectedInfo.Set(thing);
 			SelectedInfo.Show();
@@ -38,6 +41,7 @@ namespace Assets.Scripts.Things {
 			_instance.SetActive(false);
 			_instance.transform.SetParent(null);
 			Thing.Deselect();
+			Active = false;
 			SelectedInfo.Hide();
 		}
 
