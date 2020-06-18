@@ -8,6 +8,7 @@ namespace Assets.Scripts.Main {
 
 	public class CameraController : MonoBehaviour {
 
+		public static Camera Main;
 		public static Tile TileUnderCursor;
 
 		private const float KEYBOARD_PAN_SPEED = .015f;
@@ -21,7 +22,6 @@ namespace Assets.Scripts.Main {
 		private static CameraController _instance;
 
 		private float _newSize;
-		private Camera _camera;
 		private Vector3 _lastPosition;
 
 		public static void PointCameraAtMapCenter () {
@@ -31,9 +31,9 @@ namespace Assets.Scripts.Main {
 		[UsedImplicitly]
 		private void Start () {
 			_instance = this;
-			_camera = GetComponent<Camera>();
-			_camera.orthographicSize = INITIAL_SIZE;
-			_newSize = _camera.orthographicSize;
+			Main = GetComponent<Camera>();
+			Main.orthographicSize = INITIAL_SIZE;
+			_newSize = Main.orthographicSize;
 		}
 
 		[UsedImplicitly]
@@ -85,13 +85,13 @@ namespace Assets.Scripts.Main {
 			if (Math.Abs(scroll) > .0001f) {
 				_newSize -= scroll * ZOOM_SPEED;
 				_newSize = Mathf.Clamp(_newSize, MIN_SIZE, MAX_SIZE);
-			} else if (Math.Abs(_camera.orthographicSize - _newSize) < .0001f) {
-				_camera.orthographicSize = _newSize;
+			} else if (Math.Abs(Main.orthographicSize - _newSize) < .0001f) {
+				Main.orthographicSize = _newSize;
 				return;
 			}
 
 			float delta = ZOOM_RATE * Time.deltaTime;
-			_camera.orthographicSize = Mathf.MoveTowards(_camera.orthographicSize, _newSize, delta);
+			Main.orthographicSize = Mathf.MoveTowards(Main.orthographicSize, _newSize, delta);
 		}
 
 		private void DoPan () {
@@ -100,7 +100,7 @@ namespace Assets.Scripts.Main {
 			}
 
 			if (Input.GetMouseButton(2)) {
-				float sensitivity = -MOUSE_PAN_SPEED * _camera.orthographicSize;
+				float sensitivity = -MOUSE_PAN_SPEED * Main.orthographicSize;
 				Vector2 delta = Input.mousePosition - _lastPosition;
 				_lastPosition = Input.mousePosition;
 				transform.Translate(delta * sensitivity);
@@ -111,7 +111,7 @@ namespace Assets.Scripts.Main {
 		}
 
 		private void DoHover () {
-			Vector2 pos = _camera.ScreenToWorldPoint(Input.mousePosition);
+			Vector2 pos = Main.ScreenToWorldPoint(Input.mousePosition);
 			TileUnderCursor = TileMaker.GetTile((int) pos.x, (int) pos.y);
 		}
 
