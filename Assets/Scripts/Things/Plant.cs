@@ -50,7 +50,11 @@ namespace Assets.Scripts.Things {
 			int x = (int) transform.position.x;
 			int y = (int) transform.position.y;
 			ItemMaker.Make(Def.Resource, count, x, y);
-			Selector.Deselect(true);
+
+			if (Selector.Thing.Heir as Plant == this) {
+				Selector.Deselect(true);
+			}
+
 			//todo disable and move to pool
 			Destroy(Go);
 		}
