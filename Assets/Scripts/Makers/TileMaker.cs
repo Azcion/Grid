@@ -85,6 +85,7 @@ namespace Assets.Scripts.Makers {
 				}
 			}
 
+			WaterAssembler.Apply();
 			_ready = true;
 			ApplicationController.NotifyReady();
 		}
@@ -206,6 +207,13 @@ namespace Assets.Scripts.Makers {
 				case TileType.MarshyTerrain:
 				case TileType.SoftSand:
 					buildable = false;
+					break;
+			}
+
+			switch (type) {
+				case TileType.DeepWater:
+				case TileType.ShallowWater:
+					WaterAssembler.Make(x, y);
 					break;
 			}
 
