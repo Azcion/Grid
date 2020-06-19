@@ -9,6 +9,7 @@ namespace Assets.Scripts {
 		public static readonly Material ThingMat;
 		public static readonly Material CoverMat;
 		public static readonly Material SwayMat;
+		public static readonly Material WaterMat;
 		public static readonly Material[] Weather;
 
 		private static readonly Dictionary<string, AssetBundle> Bundles;
@@ -19,6 +20,7 @@ namespace Assets.Scripts {
 			ThingMat = Resources.Load<Material>("Materials/Thing");
 			CoverMat = Resources.Load<Material>("Materials/Cover");
 			SwayMat = Resources.Load<Material>("Materials/Sway");
+			WaterMat = Resources.Load<Material>("Materials/Water");
 			Weather = Resources.LoadAll<Material>("Materials/Weather");
 		}
 
