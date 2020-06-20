@@ -5,7 +5,8 @@
 		Clear,
 		Cloudy,
 		Overcast,
-		Foggy
+		Foggy,
+		Rainy
 
 	}
 
