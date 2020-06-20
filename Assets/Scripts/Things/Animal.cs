@@ -41,23 +41,12 @@ namespace Assets.Scripts.Things {
 			gameObject.SetActive(true);
 		}
 
-		private static Vector3 AdjustScale (float s) {
-			return s > 0 ? new Vector3(s, s, 1) : Vector3.one;
+		private static Color AdjustTint (Color t) {
+			return t == Color.clear ? Color.white : new Color(t.r, t.g, t.b, 1);
 		}
 
-		private static Color AdjustTint (IReadOnlyList<byte> t) {
-			if (t == null) {
-				return Color.white;
-			}
-
-			switch (t.Count) {
-				case 3:
-					return new Color32(t[0], t[1], t[2], 255);
-				case 1:
-					return new Color32(t[0], t[0], t[0], 255);
-				default:
-					return Color.white;
-			}
+		private static Vector3 AdjustScale (float s) {
+			return s > 0 ? new Vector3(s, s, 1) : Vector3.one;
 		}
 
 		[UsedImplicitly]

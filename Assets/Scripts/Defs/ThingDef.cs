@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using UnityEngine;
+
 // ReSharper disable UnassignedField.Global
 
 namespace Assets.Scripts.Defs {
@@ -12,7 +14,7 @@ namespace Assets.Scripts.Defs {
 		[DefaultValue(null)] public string TexPath;
 		[DefaultValue(0)] public float EcosystemWeight;
 		[DefaultValue(0)] public float SpriteScale;
-		[DefaultValue(null)] public byte[] Tint;
+		[DefaultValue(null)] public Color32 Tint;
 		[DefaultValue(true)] public bool Selectable;
 
 	}
