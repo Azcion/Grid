@@ -16,6 +16,7 @@ namespace Assets.Scripts.UI {
 		private static GameObject _container;
 		private static Text _name;
 		private static Text _description;
+		private static Scrollbar _scrollbar;
 		private static Dictionary<string, GameObject> _actions;
 		private static List<GameObject> _visibleButtons;
 		private static Thing _thing;
@@ -25,6 +26,7 @@ namespace Assets.Scripts.UI {
 			IThingDef def = thing.ThingDef;
 			_name.text = Format.Capitalize(def.GetLabel);
 			_description.text = def.GetDescription.Replace("\\n", "\n");
+			_scrollbar.value = 1;
 			SetActions(thing.ValidActions);
 		}
 
@@ -76,6 +78,7 @@ namespace Assets.Scripts.UI {
 			_container = root.gameObject;
 			_name = root.Find("Name").GetComponent<Text>();
 			_description = root.Find("Description Scroll View").GetChild(0).GetComponent<Text>();
+			_scrollbar = root.Find("Description Scrollbar").GetComponent<Scrollbar>();
 			_visibleButtons = new List<GameObject>();
 			_actions = new Dictionary<string, GameObject>();
 			Transform actionsContainer = root.Find("Actions");
