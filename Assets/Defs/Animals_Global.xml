@@ -12,10 +12,38 @@
 		<TexPath>thing/creature/capybara</TexPath>
 		<EcosystemWeight>0.35</EcosystemWeight>
 		<Solitary>false</Solitary>
+		<SpriteScale>1.5</SpriteScale>
 		<Tint>
 			<r>109</r>
 			<g>84</g>
 			<b>49</b>
 		</Tint>
+	</AnimalDef>
+	<AnimalDef>
+		<DefName>Megasloth</DefName>
+		<Label>megasloth</Label>
+		<Description>A giant, solitary herbivore with two giant claws for warding off threats. Long extinct after being wiped out by the natives of Earth's American continent, the megasloth was later brought back using advanced cloning and artificial gestators. Its thick hide is exceptionally strong and insulating, and makes a great leather for cold-weather clothing. It is peaceful if left alone, but will shred anyone who disturbs it with its giant claws.</Description>
+		<StatBases>
+			<MoveSpeed>4.8</MoveSpeed>
+			<ComfyTemperatureMin>-55</ComfyTemperatureMin>
+			<ComfyTemperatureMax>40</ComfyTemperatureMax>
+		</StatBases>
+		<TexPath>thing/creature/megasloth</TexPath>
+		<EcosystemWeight>2</EcosystemWeight>
+		<Solitary>true</Solitary>
+		<SpriteScale>3.8</SpriteScale>
+	</AnimalDef>
+	<AnimalDef>
+		<DefName>Tortoise</DefName>
+		<Label>tortoise</Label>
+		<Description>This heavily armored land-dwelling reptile is known for its slow moving speed and surprisingly vicious bite. Because of its natural armor, it is tough to kill and can do serious damage during drawn-out melee fights.</Description>
+		<StatBases>
+			<MoveSpeed>1</MoveSpeed>
+			<ComfyTemperatureMin>0</ComfyTemperatureMin>
+			<ComfyTemperatureMax>50</ComfyTemperatureMax>
+		</StatBases>
+		<TexPath>thing/creature/tortoise</TexPath>
+		<EcosystemWeight>0.40</EcosystemWeight>
+		<Solitary>true</Solitary>
 	</AnimalDef>
 </Defs>

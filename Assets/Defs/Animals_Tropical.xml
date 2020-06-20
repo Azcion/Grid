@@ -1,0 +1,22 @@
+﻿<?xml version="1.0"?>
+<Defs>
+	<AnimalDef>
+		<DefName>Cobra</DefName>
+		<Label>cobra</Label>
+		<Description>A large predatory snake. Cobras can be highly aggressive if provoked, and their bite injects toxic venom into the victim.</Description>
+		<StatBases>
+			<MoveSpeed>3.5</MoveSpeed>
+			<ComfyTemperatureMin>0</ComfyTemperatureMin>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
+		</StatBases>
+		<TexPath>thing/creature/cobra</TexPath>
+		<EcosystemWeight>.25</EcosystemWeight>
+		<Solitary>true</Solitary>
+		<SpriteScale>1.5</SpriteScale>
+		<Tint>
+			<r>178</r>
+			<g>170</g>
+			<b>158</b>
+		</Tint>
+	</AnimalDef>
+</Defs>

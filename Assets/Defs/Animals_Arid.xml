@@ -1,6 +1,25 @@
 <?xml version="1.0"?>
 <Defs>
 	<AnimalDef>
+		<DefName>Chinchilla</DefName>
+		<Label>chinchilla</Label>
+		<Description>A small, nimble rodent. Its fur is softer than just about anything in the universe, making it very valuable as a trade good.</Description>
+		<StatBases>
+			<MoveSpeed>5</MoveSpeed>
+			<ComfyTemperatureMin>-15</ComfyTemperatureMin>
+			<ComfyTemperatureMax>55</ComfyTemperatureMax>
+		</StatBases>
+		<TexPath>thing/creature/chinchilla</TexPath>
+		<EcosystemWeight>0.3</EcosystemWeight>
+		<Solitary>true</Solitary>
+		<SpriteScale>.85</SpriteScale>
+		<Tint>
+			<r>178</r>
+			<g>170</g>
+			<b>158</b>
+		</Tint>
+	</AnimalDef>
+	<AnimalDef>
 		<DefName>Dromedary</DefName>
 		<Label>dromedary</Label>
 		<Description>A large land mammal adapted to arid environments. Domesticated since ancient times, its wool and leather are both exceptionally good at insulating against the desert heat, and its milk is quite nourishing. It can be used as a pack animal, but its bouncing gait makes it too uncomfortable to ride for any distance.\n\nBy storing water in its large humps and reclaiming moisture from its breath as it exhales, it can go weeks without drinking.</Description>
@@ -61,16 +80,17 @@
 		<Solitary>true</Solitary>
 	</AnimalDef>
 	<AnimalDef>
-		<DefName>Tortoise</DefName>
-		<Label>tortoise</Label>
-		<Description>This heavily armored land-dwelling reptile is known for its slow moving speed and surprisingly vicious bite. Because of its natural armor, it is tough to kill and can do serious damage during drawn-out melee fights.</Description>
+		<DefName>Rhino</DefName>
+		<Label>rhinoceros</Label>
+		<Description>Despite being herbivorous, this large mammal is very easy to enrage. Once angered, its massive strength and sharp horn make it a brutal opponent. It has more muscle in one leg than most humans do in their whole body.</Description>
 		<StatBases>
-			<MoveSpeed>1</MoveSpeed>
-			<ComfyTemperatureMin>0</ComfyTemperatureMin>
-			<ComfyTemperatureMax>50</ComfyTemperatureMax>
+			<MoveSpeed>5</MoveSpeed>
+			<ComfyTemperatureMin>-8</ComfyTemperatureMin>
+			<ComfyTemperatureMax>40</ComfyTemperatureMax>
 		</StatBases>
-		<TexPath>thing/creature/tortoise</TexPath>
-		<EcosystemWeight>0.40</EcosystemWeight>
+		<TexPath>thing/creature/rhino</TexPath>
+		<EcosystemWeight>1.5</EcosystemWeight>
 		<Solitary>true</Solitary>
+		<SpriteScale>3</SpriteScale>
 	</AnimalDef>
 </Defs>
