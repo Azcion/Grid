@@ -16,29 +16,29 @@ namespace Assets.Scripts.Defs {
 		private readonly Dictionary<string, T> _defs;
 
 		public DefContainer (string path) {
-			Type t = typeof(T);
-
-			if (t == typeof(AnimalDef) ||
-			    t == typeof(PlantDef) ||
-			    t == typeof(HumanoidDef) ||
-			    t == typeof(ItemDef)) {
-				Defs = Load(path);
-				_defs = new Dictionary<string, T>();
-
-				foreach (T def in Defs) {
-					if (!(def is ThingDef thingDef)) {
-						Debug.Log("def is null");
-						continue;
-					}
-
-					string defName = thingDef.DefName;
-					_defs.Add(defName, def);
-				}
-
-				return;
+			if (!typeof(IThingDef).IsAssignableFrom(typeof(T))) {
+				throw new AssertionException($"{typeof(T)} is not a valid def type.", "");
 			}
 
-			throw new AssertionException($"{t} is not a valid def type.", "");
+			Defs = new List<T>();
+			_defs = new Dictionary<string, T>();
+			Add(path);
+		}
+
+		public void Add (string path) {
+			List<T> defs = Load(path);
+
+			foreach (T def in defs) {
+				if (!(def is ThingDef thingDef)) {
+					Debug.Log("Invalid def");
+					continue;
+				}
+
+				string defName = thingDef.DefName;
+				_defs.Add(defName, def);
+			}
+
+			Defs.AddRange(defs);
 		}
 
 		public T Get (string defName) {
