@@ -14,7 +14,9 @@
 		<Solitary>false</Solitary>
 		<SpriteScale>3</SpriteScale>
 		<Tint>
-			<float>0.5</float>
+			<byte>130</byte>
+			<byte>126</byte>
+			<byte>119</byte>
 		</Tint>
 	</AnimalDef>
 	<AnimalDef>

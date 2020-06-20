@@ -45,16 +45,16 @@ namespace Assets.Scripts.Things {
 			return s > 0 ? new Vector3(s, s, 1) : Vector3.one;
 		}
 
-		private static Color AdjustTint (IReadOnlyList<float> t) {
+		private static Color AdjustTint (IReadOnlyList<byte> t) {
 			if (t == null) {
 				return Color.white;
 			}
 
 			switch (t.Count) {
 				case 3:
-					return new Color(t[0], t[1], t[2], 1);
+					return new Color32(t[0], t[1], t[2], 255);
 				case 1:
-					return new Color(t[0], t[0], t[0], 1);
+					return new Color32(t[0], t[0], t[0], 255);
 				default:
 					return Color.white;
 			}
