@@ -1,0 +1,21 @@
+﻿<?xml version="1.0"?>
+<Defs>
+	<AnimalDef>
+		<DefName>Capybara</DefName>
+		<Label>capybara</Label>
+		<Description>The largest natural rodent, the capybara is well-adapted for steaming jungle environments.</Description>
+		<StatBases>
+			<MoveSpeed>3.9</MoveSpeed>
+			<ComfyTemperatureMin>-10</ComfyTemperatureMin>
+			<ComfyTemperatureMax>50</ComfyTemperatureMax>
+		</StatBases>
+		<TexPath>thing/creature/capybara</TexPath>
+		<EcosystemWeight>0.35</EcosystemWeight>
+		<Solitary>false</Solitary>
+		<Tint>
+			<r>109</r>
+			<g>84</g>
+			<b>49</b>
+		</Tint>
+	</AnimalDef>
+</Defs>

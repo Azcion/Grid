@@ -34,7 +34,8 @@ namespace Assets.Scripts.Defs {
 		private void Start () {
 			string path = Application.isEditor ? Application.dataPath : System.IO.Directory.GetCurrentDirectory();
 			path += "/Defs/";
-			AnimalDefs = new DefContainer<AnimalDef>(path + "Animals.xml");
+			AnimalDefs = new DefContainer<AnimalDef>(path + "Animals_Arid.xml");
+			AnimalDefs.Add(path + "Animals_Global.xml");
 			PlantDefs = new DefContainer<PlantDef>(path + "Plants.xml");
 			HumanoidDefs = new DefContainer<HumanoidDef>(path + "Humanoids.xml");
 			ItemDefs = new DefContainer<ItemDef>(path + "Items.xml");
