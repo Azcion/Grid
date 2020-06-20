@@ -28,7 +28,7 @@ namespace Assets.Scripts.Terrain {
 					MeshFilter meshFilter;
 
 					if (chunkObject == null) {
-						chunkObject = Instantiate(_prefab, new Vector3(0, 0, Order.COVER), Quaternion.identity, _container);
+						chunkObject = Instantiate(_prefab, new Vector3(0, 0, Order.GROUND - .5f), Quaternion.identity, _container);
 						chunkObject.name = $"Chunk {y} {x}";
 						meshFilter = chunkObject.GetComponent<MeshFilter>();
 						_chunkObjects[y, x] = chunkObject;
