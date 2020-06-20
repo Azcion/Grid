@@ -24,7 +24,7 @@ namespace Assets.Scripts.UI {
 			_thing = thing;
 			IThingDef def = thing.ThingDef;
 			_name.text = Format.Capitalize(def.GetLabel);
-			_description.text = def.GetDescription;
+			_description.text = def.GetDescription.Replace("\\n", "\n");
 			SetActions(thing.ValidActions);
 		}
 
