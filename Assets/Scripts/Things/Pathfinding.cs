@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Assets.Scripts.Enums;
+using Assets.Scripts.Jobs;
 using Assets.Scripts.Pathfinding;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -14,8 +15,8 @@ namespace Assets.Scripts.Things {
 		protected Direction Facing;
 		protected bool DirectionChanged;
 
-		private Thing _target;
-		private Action _action;
+		private Job _job;
+		private Coroutine _activeJob;
 		private Vector2[] _path;
 		private float _speed;
 		private bool _actionOnComplete;
@@ -28,8 +29,7 @@ namespace Assets.Scripts.Things {
 
 		public bool FindPath (Thing target, Action action) {
 			bool found = FindPath(target.transform.position, true);
-			_target = target;
-			_action = action;
+			_job = new Job(this, target, action, 30);
 
 			return found;
 		}
@@ -39,6 +39,11 @@ namespace Assets.Scripts.Things {
 				return false;
 			}
 
+			if (_activeJob != null) {
+				JobManager.End(_activeJob);
+				_activeJob = null;
+			}
+			
 			_actionOnComplete = actionOnComplete;
 			PathRequestManager.RequestPath(new PathRequest(transform.localPosition, target, OnPathFound));
 
@@ -58,7 +63,6 @@ namespace Assets.Scripts.Things {
 
 		[UsedImplicitly]
 		private IEnumerator FollowPath () {
-			if (_actionOnComplete) Debug.Log($"{name} {Name.Get(_action)} {(_target as Thing)?.name}");
 			Vector2 currentWaypoint = _path[0];
 			AdjustDirection(currentWaypoint);
 			int pathLength = _path.Length - (_actionOnComplete ? 1 : 0);
@@ -76,22 +80,7 @@ namespace Assets.Scripts.Things {
 						}
 
 						_actionOnComplete = false;
-
-						switch (_target.Heir.Type) {
-							case ThingType.Plant:
-								Plant plant = _target.Heir as Plant;
-
-								switch (_action) {
-									case Action.ChopWood:
-										plant?.Action_ChopWood();
-										break;
-									case Action.Harvest:
-										plant?.Action_Harvest();
-										break;
-								}
-
-								break;
-						}
+						_activeJob = JobManager.Begin(_job);
 
 						yield break;
 					}
