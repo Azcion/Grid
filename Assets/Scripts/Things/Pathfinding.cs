@@ -16,7 +16,7 @@ namespace Assets.Scripts.Things {
 		protected bool DirectionChanged;
 
 		private Job _job;
-		private Coroutine _activeJob;
+		private uint _activeJobId;
 		private Vector2[] _path;
 		private float _speed;
 		private bool _actionOnComplete;
@@ -39,9 +39,9 @@ namespace Assets.Scripts.Things {
 				return false;
 			}
 
-			if (_activeJob != null) {
-				JobManager.End(_activeJob);
-				_activeJob = null;
+			if (_activeJobId != 0) {
+				JobManager.End(_activeJobId);
+				_activeJobId = 0;
 			}
 			
 			_actionOnComplete = actionOnComplete;
@@ -80,7 +80,7 @@ namespace Assets.Scripts.Things {
 						}
 
 						_actionOnComplete = false;
-						_activeJob = JobManager.Begin(_job);
+						_activeJobId = JobManager.Begin(_job);
 
 						yield break;
 					}
