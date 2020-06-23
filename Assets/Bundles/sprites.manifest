@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3266218730
+CRC: 1722359833
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: bcfcc5149d1d2b0c8b03d44fdbeafb4c
+    Hash: 4acbb4066d41c6f18cf95eb08f1da37d
   TypeTreeHash:
     serializedVersion: 2
     Hash: 9e6ad29cbd2df8fbe1a15315db0e51ab
@@ -22,6 +22,7 @@ Assets:
 - Assets/Sprites/thing/building/linked/Smooth_Atlas.png
 - Assets/Sprites/thing/creature/cobra/Cobra_east.png
 - Assets/Sprites/thing/creature/rhino/Rhino_north.png
+- Assets/Sprites/ui/ProgressBackground.png
 - Assets/Sprites/thing/plant/bush/BushA.png
 - Assets/Sprites/thing/humanoid/scyther/Scyther_north.png
 - Assets/Sprites/thing/creature/gazelle/Gazelle_south.png
@@ -43,6 +44,7 @@ Assets:
 - Assets/Sprites/thing/plant/healroot/Healroot.png
 - Assets/Sprites/thing/humanoid/scyther/Scyther_east.png
 - Assets/Sprites/thing/creature/dromedary/Dromedary_north.png
+- Assets/Sprites/ui/ProgressForeground.png
 - Assets/Sprites/ui/Cancel.png
 - Assets/Sprites/thing/item/food/rawagave/RawAgave.png
 - Assets/Sprites/thing/creature/capybara/Capybara_east.png
