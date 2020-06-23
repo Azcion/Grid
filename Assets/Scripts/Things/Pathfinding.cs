@@ -29,7 +29,7 @@ namespace Assets.Scripts.Things {
 
 		public bool FindPath (Thing target, Action action) {
 			bool found = FindPath(target.transform.position, true);
-			_job = new Job(this, target, action, 30);
+			_job = new Job(this, target, action);
 
 			return found;
 		}
