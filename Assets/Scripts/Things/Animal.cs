@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Assets.Scripts.Defs;
+﻿using Assets.Scripts.Defs;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Utils;
 using JetBrains.Annotations;
