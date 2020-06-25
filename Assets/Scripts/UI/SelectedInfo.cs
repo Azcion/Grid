@@ -43,26 +43,6 @@ namespace Assets.Scripts.UI {
 		}
 
 		[UsedImplicitly]
-		public void Action_ChopWood () {
-			if (_thing.Heir.Type != ThingType.Plant) {
-				return;
-			}
-
-			Plant plant = _thing.Heir as Plant;
-			plant?.Action_ChopWood();
-		}
-
-		[UsedImplicitly]
-		public void Action_Harvest () {
-			if (_thing.Heir.Type != ThingType.Plant) {
-				return;
-			}
-
-			Plant plant = _thing.Heir as Plant;
-			plant?.Action_Harvest();
-		}
-
-		[UsedImplicitly]
 		public void OnPointerEnter () {
 			IsHoveringOver = true;
 		}
@@ -82,12 +62,23 @@ namespace Assets.Scripts.UI {
 			_visibleButtons = new List<GameObject>();
 			_actions = new Dictionary<string, GameObject>();
 			Transform actionsContainer = root.Find("Actions");
+			Transform actionPrefab = actionsContainer.GetChild(0);
 
-			for (int i = 0; i < actionsContainer.childCount; ++i) {
-				string actionStr = Name.Action[i];
-				Transform child = actionsContainer.Find(actionStr);
-				_actions.Add(actionStr, child.gameObject);
+			for (int i = 0; i < Name.Action.Length; ++i) {
+				GameObject go = Instantiate(actionPrefab.gameObject);
+				go.transform.SetParent(actionsContainer);
+				Action action = (Action) i;
+				string label = Name.Get(action);
+				go.name = label;
+				go.GetComponent<Button>().onClick.AddListener(() => Action_OnClick(action));
+				string text = Format.Capitalize(Format.SeparateAtCapitalLetters(label, ' ').ToLower());
+				go.transform.GetChild(0).GetComponent<Text>().text = text;
+				string asset = label;
+				go.transform.GetChild(1).GetComponent<Image>().sprite = Assets.GetSprite(asset);
+				_actions.Add(label, go);
 			}
+
+			actionPrefab.gameObject.SetActive(false);
 		}
 
 		private static void SetActions (IEnumerable<Action> actions) {
@@ -107,6 +98,24 @@ namespace Assets.Scripts.UI {
 			}
 
 			_visibleButtons.Clear();
+		}
+
+		private static void Action_OnClick (Action action) {
+			switch (_thing.Heir.Type) {
+				case ThingType.Plant:
+					Plant plant = _thing.Heir as Plant;
+
+					switch (action) {
+						case Enums.Action.Harvest:
+							plant?.Action_Harvest();
+							break;
+						case Enums.Action.ChopWood:
+							plant?.Action_ChopWood();
+							break;
+					}
+
+					break;
+			}
 		}
 
 	}
