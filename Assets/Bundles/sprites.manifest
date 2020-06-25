@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1722359833
+CRC: 1008369608
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 4acbb4066d41c6f18cf95eb08f1da37d
+    Hash: b762523e570ef1a5c2580c87b21ad72d
   TypeTreeHash:
     serializedVersion: 2
     Hash: 9e6ad29cbd2df8fbe1a15315db0e51ab
@@ -51,7 +51,7 @@ Assets:
 - Assets/Sprites/thing/plant/bush/BushB.png
 - Assets/Sprites/thing/creature/megasloth/Megasloth_north.png
 - Assets/Sprites/ui/Cursor.png
-- Assets/Sprites/ui/Harvest.png
+- Assets/Sprites/ui/action/Harvest.png
 - Assets/Sprites/thing/creature/gazelle/Gazelle_north.png
 - Assets/Sprites/ui/DragHighlightCell.png
 - Assets/Sprites/thing/item/resource/woodlog/WoodLogA.png
@@ -59,7 +59,7 @@ Assets:
 - Assets/Sprites/thing/creature/gazelle/Gazelle_east.png
 - Assets/Sprites/thing/item/manufactured/medicineherbal/MedicineHerbalA.png
 - Assets/Sprites/thing/creature/elephant/Elephant_east.png
-- Assets/Sprites/ui/HarvestWood.png
+- Assets/Sprites/ui/action/ChopWood.png
 - Assets/Sprites/thing/item/resource/woodlog/WoodLogB.png
 - Assets/Sprites/thing/creature/rhino/Rhino_east.png
 - Assets/Sprites/thing/plant/agave/AgaveB.png
