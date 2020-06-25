@@ -106,10 +106,10 @@ namespace Assets.Scripts.UI {
 					Plant plant = _thing.Heir as Plant;
 
 					switch (action) {
-						case Enums.Action.Harvest:
+						case Action.Harvest:
 							plant?.Action_Harvest();
 							break;
-						case Enums.Action.ChopWood:
+						case Action.ChopWood:
 							plant?.Action_ChopWood();
 							break;
 					}

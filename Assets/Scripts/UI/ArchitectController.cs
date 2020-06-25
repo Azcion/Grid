@@ -41,7 +41,7 @@ namespace Assets.Scripts.UI {
 			ToggleActive();
 		}
 
-		private void ToggleActive () {
+		private static void ToggleActive () {
 			if (_activeCategory == null) {
 				return;
 			}

@@ -13,33 +13,26 @@ namespace Assets.Scripts.Things {
 		private int _y;
 		private LinkedType _type;
 		private ThingMaterial _material;
+		private bool _isBlueprint;
 
 		public GameObject Go => gameObject;
 		public ThingType Type => ThingType.Structure;
 
-		public static Linked Create (Linked linked, LinkedType type, ThingMaterial material) {
+		public static Linked Create (Linked linked, LinkedType type, ThingMaterial material, bool blueprint) {
 			linked._type = type;
 			linked._material = material;
+			linked._isBlueprint = blueprint;
 			linked.Heir = linked;
 
 			return linked;
 		}
 
-		public void Initialize (bool planning = false) {
+		public void Initialize () {
 			PrepareChild();
 			gameObject.isStatic = true;
 			_x = (int) transform.position.x;
 			_y = (int) transform.position.y;
 			ChildRenderer.color = Tint.Get(_material);
-
-			if (planning) {
-				string assetName = $"{Name.Get(_type)}_Atlas";
-				SetSprite(Assets.GetAtlasSprite(assetName, 12), false);
-				ChildRenderer.color = AdjustOpacity(ChildRenderer.color, .5f);
-				gameObject.SetActive(true);
-
-				return;
-			}
 
 			InitializeSelf();
 			gameObject.SetActive(true);
@@ -51,10 +44,6 @@ namespace Assets.Scripts.Things {
 
 			InitializeSelf();
 			InitializeNeighbors();
-		}
-
-		private static Color AdjustOpacity (Color c, float opacity) {
-			return new Color(c.r, c.g, c.b, opacity);
 		}
 
 		private static int GetIndex (int mask) {
@@ -73,11 +62,18 @@ namespace Assets.Scripts.Things {
 			mask += _y == 0 ? 4 : 0;
 			mask += _x == 0 ? 8 : 0;
 			int index = GetIndex(mask);
+			string assetName;
 
-			string assetName = $"{Name.Get(_type)}_Atlas";
-			SetSprite(Assets.GetAtlasSprite(assetName, index), false); 
-			CoverCenterGaps(index);
-			CoverEdgeGaps();
+			if (!_isBlueprint) {
+				assetName = $"{Name.Get(_type)}_Atlas";
+				CoverCenterGaps(index);
+				CoverEdgeGaps();
+			} else {
+				assetName = "Blueprint_Atlas";
+				ChildRenderer.color = Color.white;
+			}
+
+			SetSprite(Assets.GetAtlasSprite(assetName, index), false);
 		}
 
 		private void InitializeNeighbors () {

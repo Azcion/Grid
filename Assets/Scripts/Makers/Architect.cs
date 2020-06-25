@@ -235,7 +235,7 @@ namespace Assets.Scripts.Makers {
 
 		private static void BuildWall (int x, int y) {
 			Vector3 pos = new Vector3(x, y, Order.SELECTOR);
-			Linked linked = WallMaker.Make(LinkedType.Planks, ThingMaterial.Wood, pos, null);
+			Linked linked = WallMaker.Make(LinkedType.Planks, ThingMaterial.Wood, pos, true, null);
 			linked.Initialize();
 
 			if (WallMaker.TryAdd(linked)){
