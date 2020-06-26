@@ -8,7 +8,7 @@ using UnityEngine.Assertions;
 namespace Assets.Scripts.Defs {
 
 	[SuppressMessage("ReSharper", "ConvertToUsingDeclaration")]
-	public class DefContainer<T> {
+	public class DefContainer<T> where T : ThingDef {
 
 		public readonly List<T> Defs;
 
