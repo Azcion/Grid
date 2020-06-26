@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Enums;
+﻿using Assets.Scripts.Defs;
+using Assets.Scripts.Enums;
 using Assets.Scripts.Graphics;
 using Assets.Scripts.Makers;
 using JetBrains.Annotations;
@@ -9,6 +10,8 @@ namespace Assets.Scripts.Things {
 	[UsedImplicitly]
 	public class Linked : Thing, IThing {
 
+		public BuildingDef Def;
+
 		private int _x;
 		private int _y;
 		private LinkedType _type;
@@ -18,8 +21,10 @@ namespace Assets.Scripts.Things {
 		public GameObject Go => gameObject;
 		public ThingType Type => ThingType.Structure;
 
-		public static Linked Create (Linked linked, LinkedType type, ThingMaterial material, bool blueprint) {
-			linked._type = type;
+		public static Linked Create (Linked linked, BuildingDef def, ThingMaterial material, bool blueprint) {
+			linked.Def = def;
+			linked.ThingDef = def;
+			linked._type = def.LinkedType;
 			linked._material = material;
 			linked._isBlueprint = blueprint;
 			linked.Heir = linked;
@@ -33,6 +38,7 @@ namespace Assets.Scripts.Things {
 			_x = (int) transform.position.x;
 			_y = (int) transform.position.y;
 			ChildRenderer.color = Tint.Get(_material);
+			IsSelectable = Def.Selectable;
 
 			InitializeSelf();
 			gameObject.SetActive(true);

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0"?>
+<Defs>
+	<BuildingDef>
+		<DefName>Wall</DefName>
+		<Label>wall</Label>
+		<Description>An impassable wall. Capable of holding up a roof.</Description>
+		<TexPath>thing/building/linked</TexPath>
+		<LinkedType>Planks</LinkedType>
+		<Selectable>true</Selectable>
+	</BuildingDef>
+</Defs>

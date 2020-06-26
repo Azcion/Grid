@@ -27,10 +27,10 @@ namespace Assets.Scripts.Makers {
 			};
 		}
 
-		public static Linked Make (LinkedType type, ThingMaterial material, Vector3 pos, bool blueprint, Transform parent) {
+		public static Linked Make (BuildingDef def, ThingMaterial material, Vector3 pos, bool blueprint, Transform parent) {
 			GameObject go = Instantiate(_wallPrefab, pos, Quaternion.identity, parent);
-			go.name = Name.Get(type);
-			Linked linked = Linked.Create(go.GetComponent<Linked>(), type, material, blueprint);
+			go.name = Name.Get(def.LinkedType);
+			Linked linked = Linked.Create(go.GetComponent<Linked>(), def, material, blueprint);
 
 			return linked;
 		}
@@ -148,7 +148,8 @@ namespace Assets.Scripts.Makers {
 			}
 
 			Vector3 pos = new Vector3(x, y, Order.STRUCTURE);
-			Linked linked = Make(LinkedType.Rock, material, pos, false, transform);
+			BuildingDef def = DefLoader.GetBuilding("Mineral");
+			Linked linked = Make(def, material, pos, false, transform);
 			_walls[x, y] = linked;
 
 			if (TileMaker.GetTile(x, y).TryAddThing(linked) == false) {

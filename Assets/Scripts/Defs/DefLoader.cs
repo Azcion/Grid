@@ -6,10 +6,11 @@ namespace Assets.Scripts.Defs {
 
 	public class DefLoader : MonoBehaviour {
 
-		public static bool DidLoad = false;
+		public static bool DidLoad;
 		public static DefContainer<AnimalDef> AnimalDefs;
 		public static DefContainer<PlantDef> PlantDefs;
 		public static DefContainer<HumanoidDef> HumanoidDefs;
+		public static DefContainer<BuildingDef> BuildingDefs;
 		public static DefContainer<ItemDef> ItemDefs;
 		public static PlantDef Grass;
 		public static HumanoidDef Human;
@@ -26,7 +27,11 @@ namespace Assets.Scripts.Defs {
 			return HumanoidDefs.Defs[Random.Range(0, HumanoidDefs.Defs.Count)];
 		}
 
-		public static ItemDef Get (string defName) {
+		public static BuildingDef GetBuilding (string defName) {
+			return BuildingDefs.Get(defName);
+		}
+
+		public static ItemDef GetItem (string defName) {
 			return ItemDefs.Get(defName);
 		}
 
@@ -39,27 +44,12 @@ namespace Assets.Scripts.Defs {
 			AnimalDefs.Add(path + "Animals_Tropical.xml");
 			PlantDefs = new DefContainer<PlantDef>(path + "Plants.xml");
 			HumanoidDefs = new DefContainer<HumanoidDef>(path + "Humanoids.xml");
+			BuildingDefs = new DefContainer<BuildingDef>(path + "Buildings_Structure.xml");
+			BuildingDefs.Add(path + "Buildings_Natural.xml");
 			ItemDefs = new DefContainer<ItemDef>(path + "Items.xml");
 
-			//Find grass def
-			foreach (PlantDef def in PlantDefs.Defs) {
-				if (def.DefName != "Grass") {
-					continue;
-				}
-
-				Grass = def;
-				break;
-			}
-
-			//Find human def
-			foreach (HumanoidDef def in HumanoidDefs.Defs) {
-				if (def.DefName != "Human") {
-					continue;
-				}
-
-				Human = def;
-				break;
-			}
+			Grass = PlantDefs.Get("Grass");
+			Human = HumanoidDefs.Get("Scyther");
 
 			DidLoad = true;
 			SceneManager.LoadScene("Main");

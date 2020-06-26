@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.Defs;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Things;
 using JetBrains.Annotations;
@@ -235,7 +236,8 @@ namespace Assets.Scripts.Makers {
 
 		private static void BuildWall (int x, int y) {
 			Vector3 pos = new Vector3(x, y, Order.SELECTOR);
-			Linked linked = WallMaker.Make(LinkedType.Planks, ThingMaterial.Wood, pos, true, null);
+			BuildingDef def = DefLoader.GetBuilding("Wall");
+			Linked linked = WallMaker.Make(def, ThingMaterial.Wood, pos, true, null);
 			linked.Initialize();
 
 			if (WallMaker.TryAdd(linked)){
