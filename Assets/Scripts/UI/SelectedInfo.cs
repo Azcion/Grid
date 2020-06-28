@@ -24,7 +24,18 @@ namespace Assets.Scripts.UI {
 		public static void Set (Thing thing) {
 			_thing = thing;
 			IThingDef def = thing.ThingDef;
-			_name.text = Format.Capitalize(def.GetLabel);
+			string label = def.GetLabel;
+
+			if (thing.ShowMaterial) {
+				string material = Name.Get(thing.Material);
+				label = string.IsNullOrEmpty(label) ? material : $"{material} {label}";
+			}
+
+			if (thing.IsBlueprint) {
+				label += " (blueprint)";
+			}
+
+			_name.text = Format.Capitalize(label);
 			_description.text = def.GetDescription.Replace("\\n", "\n");
 			_scrollbar.value = 1;
 			SetActions(thing.ValidActions);

@@ -11,6 +11,9 @@ namespace Assets.Scripts.Things {
 		public IThing Heir { get; protected set; }
 		public IThingDef ThingDef { get; protected set; }
 		public List<Action> ValidActions { get; private set; }
+		public bool ShowMaterial { get; protected set; }
+		public ThingMaterial Material { get; protected set; }
+		public bool IsBlueprint { get; protected set; }
 
 		protected Transform Child;
 		protected SpriteRenderer ChildRenderer;

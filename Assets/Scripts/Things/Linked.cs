@@ -15,8 +15,6 @@ namespace Assets.Scripts.Things {
 		private int _x;
 		private int _y;
 		private LinkedType _type;
-		private ThingMaterial _material;
-		private bool _isBlueprint;
 
 		public GameObject Go => gameObject;
 		public ThingType Type => ThingType.Structure;
@@ -25,8 +23,9 @@ namespace Assets.Scripts.Things {
 			linked.Def = def;
 			linked.ThingDef = def;
 			linked._type = def.LinkedType;
-			linked._material = material;
-			linked._isBlueprint = blueprint;
+			linked.ShowMaterial = true;
+			linked.Material = material;
+			linked.IsBlueprint = blueprint;
 			linked.Heir = linked;
 
 			return linked;
@@ -37,7 +36,7 @@ namespace Assets.Scripts.Things {
 			gameObject.isStatic = true;
 			_x = (int) transform.position.x;
 			_y = (int) transform.position.y;
-			ChildRenderer.color = Tint.Get(_material);
+			ChildRenderer.color = Tint.Get(Material);
 			IsSelectable = Def.Selectable;
 
 			InitializeSelf();
@@ -70,7 +69,7 @@ namespace Assets.Scripts.Things {
 			int index = GetIndex(mask);
 			string assetName;
 
-			if (!_isBlueprint) {
+			if (!IsBlueprint) {
 				assetName = $"{Name.Get(_type)}_Atlas";
 				CoverCenterGaps(index);
 				CoverEdgeGaps();
@@ -111,7 +110,7 @@ namespace Assets.Scripts.Things {
 				case 10:
 				case 11:
 					if (WallMaker.GetLinked(_x + 1, _y - 1)?._type == _type) {
-						CoverAssembler.Make(_type, _material, _x, _y, .5f, -.25f, 1, 1);
+						CoverAssembler.Make(_type, Material, _x, _y, .5f, -.25f, 1, 1);
 					}
 
 					break;
@@ -124,40 +123,40 @@ namespace Assets.Scripts.Things {
 			if (_x == 0) {
 				if (_y == 0) {
 					// Left bottom corner
-					CoverAssembler.Make(_type, _material, _x, _y, 0, 0, .5f, .75f);
+					CoverAssembler.Make(_type, Material, _x, _y, 0, 0, .5f, .75f);
 				} else if (_y == max) {
 					// Left top corner
-					CoverAssembler.Make(_type, _material, _x, _y, 0, .75f, .5f, .25f);
+					CoverAssembler.Make(_type, Material, _x, _y, 0, .75f, .5f, .25f);
 				}
 
 				if (WallMaker.GetLinked(0, _y - 1)?._type == _type) {
 					// Left edge
-					CoverAssembler.Make(_type, _material, _x, _y, 0, -.25f, .5f, 1);
+					CoverAssembler.Make(_type, Material, _x, _y, 0, -.25f, .5f, 1);
 				}
 			} else if (_x == max) {
 				if (_y == 0) {
 					// Right bottom corner
-					CoverAssembler.Make(_type, _material, _x, _y, .5f, 0, .5f, .75f);
+					CoverAssembler.Make(_type, Material, _x, _y, .5f, 0, .5f, .75f);
 				} else if (_y == max) {
 					// Right top corner
-					CoverAssembler.Make(_type, _material, _x, _y, .5f, .75f, .5f, .25f);
+					CoverAssembler.Make(_type, Material, _x, _y, .5f, .75f, .5f, .25f);
 				}
 
 				if (WallMaker.GetLinked(max, _y - 1)?._type == _type) {
 					// Right edge
-					CoverAssembler.Make(_type, _material, _x, _y, .5f, -.25f, .5f, 1);
+					CoverAssembler.Make(_type, Material, _x, _y, .5f, -.25f, .5f, 1);
 				}
 			}
 
 			if (_y == 0) {
 				if (WallMaker.GetLinked(_x - 1, 0)?._type == _type) {
 					// Bottom edge
-					CoverAssembler.Make(_type, _material, _x, _y, -.5f, 0, 1, .75f);
+					CoverAssembler.Make(_type, Material, _x, _y, -.5f, 0, 1, .75f);
 				}
 			} else if (_y == max) {
 				if (WallMaker.GetLinked(_x - 1, max)?._type == _type) {
 					// Top edge
-					CoverAssembler.Make(_type, _material, _x, _y, -.5f, .75f, 1, .25f);
+					CoverAssembler.Make(_type, Material, _x, _y, -.5f, .75f, 1, .25f);
 				}
 			}
 		}

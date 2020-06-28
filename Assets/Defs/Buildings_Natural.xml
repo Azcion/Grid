@@ -2,7 +2,6 @@
 <Defs>
 	<BuildingDef>
 		<DefName>Mineral</DefName>
-		<Label>mineral</Label>
 		<Description></Description>
 		<TexPath>thing/building/linked</TexPath>
 		<LinkedType>Rock</LinkedType>
