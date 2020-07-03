@@ -34,7 +34,7 @@ namespace Assets.Scripts.Things {
 		}
 
 		public static void Deselect (bool force = false) {
-			if (!force && SelectedInfo.IsHoveringOver) {
+			if (!force && GUI.Busy) {
 				return;
 			}
 

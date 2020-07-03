@@ -45,7 +45,7 @@ namespace Assets.Scripts.Things {
 
 		[UsedImplicitly]
 		private void OnMouseOver () {
-			if (IsSelectable && !Selected && Input.GetMouseButtonUp(0)) {
+			if (!GUI.Busy && IsSelectable && !Selected && Input.GetMouseButtonUp(0)) {
 				// select on left click
 				Selector.Select(this);
 				Selected = true;

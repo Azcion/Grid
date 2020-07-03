@@ -1,6 +1,5 @@
 ﻿using System;
 using Assets.Scripts.Makers;
-using Assets.Scripts.UI;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -76,7 +75,7 @@ namespace Assets.Scripts.Main {
 		}
 
 		private void DoZoom () {
-			if (SelectedInfo.IsHoveringOver) {
+			if (GUI.Busy) {
 				return;
 			}
 
