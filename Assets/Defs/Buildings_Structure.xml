@@ -7,5 +7,6 @@
 		<TexPath>thing/building/linked</TexPath>
 		<LinkedType>Planks</LinkedType>
 		<Selectable>true</Selectable>
+		<ShowMaterial>true</ShowMaterial>
 	</BuildingDef>
 </Defs>

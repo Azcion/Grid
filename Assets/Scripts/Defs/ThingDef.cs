@@ -16,6 +16,7 @@ namespace Assets.Scripts.Defs {
 		[DefaultValue(0)] public float SpriteScale;
 		[DefaultValue(null)] public Color32 Tint;
 		[DefaultValue(true)] public bool Selectable;
+		[DefaultValue(false)] public bool ShowMaterial;
 
 	}
 
