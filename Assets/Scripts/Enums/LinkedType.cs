@@ -2,6 +2,7 @@
 
 	public enum LinkedType {
 		
+		None,
 		Rock,
 		Bricks,
 		Planks,

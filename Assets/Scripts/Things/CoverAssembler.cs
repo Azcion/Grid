@@ -132,7 +132,7 @@ namespace Assets.Scripts.Things {
 			_quad = MeshBuilder.GetQuad();
 			_container = transform;
 
-			for (int i = 0; i < Combinations.Count; ++i) {
+			for (int i = 1; i < Combinations.Count; ++i) {
 				LinkedType type = (LinkedType) i;
 				HashSet<ThingMaterial> materials = Combinations[type];
 				Dictionary<ThingMaterial, Mesh> typeMaterials = new Dictionary<ThingMaterial, Mesh>();
