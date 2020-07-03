@@ -15,15 +15,14 @@ namespace Assets.Scripts.Makers {
 		private static readonly List<GameObject> DragCellPoolUsed;
 		
 		private static bool[,] _isDesignated;
+		private static bool _didStartPlanningThisCycle;
+		private static Transform _designator;
+		private static BuildingDef _selectedDef;
+		private static ThingType _selectedType;
 
-		private bool _didStartPlanningThisCycle;
 		private int _oldMx;
 		private int _oldMy;
-		private ThingType _selectedType;
-		private LinkedType _linkedType;
-		private string _itemType;
 		private Vector3Int _dragStart;
-		private Transform _designator;
 		private GameObject _dragCellPrefab;
 
 		[UsedImplicitly, SerializeField] private GameObject _dragCellsContainer = null;
@@ -33,20 +32,13 @@ namespace Assets.Scripts.Makers {
 			DragCellPoolUsed = new List<GameObject>();
 		}
 
-		[UsedImplicitly]
-		public void SelectThing_Wall () {
+		public static void SelectThing (BuildingDef def) {
 			StartSelect();
+			_selectedDef = def;
 			_selectedType = ThingType.Structure;
 		}
 
-		[UsedImplicitly] // Debug
-		public void SelectThing_Wood () {
-			StartSelect();
-			_selectedType = ThingType.Item;
-			_itemType = "WoodLog";
-		}
-
-		private void StartSelect () {
+		private static void StartSelect () {
 			Planning = true;
 			_didStartPlanningThisCycle = true;
 			Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -174,9 +166,6 @@ namespace Assets.Scripts.Makers {
 						}
 
 						CoverAssembler.Apply();
-						break;
-					case ThingType.Item:
-						PlaceItem(v.x, v.y, _itemType);
 						break;
 				}
 			}
