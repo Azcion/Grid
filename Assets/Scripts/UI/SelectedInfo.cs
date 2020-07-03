@@ -11,8 +11,6 @@ namespace Assets.Scripts.UI {
 
 	public class SelectedInfo : MonoBehaviour {
 
-		public static bool IsHoveringOver;
-
 		private static GameObject _container;
 		private static Text _name;
 		private static Text _description;
@@ -26,7 +24,7 @@ namespace Assets.Scripts.UI {
 			IThingDef def = thing.ThingDef;
 			string label = def.GetLabel;
 
-			if (thing.ShowMaterial) {
+			if ((def as ThingDef)?.ShowMaterial ?? false) {
 				string material = Name.Get(thing.Material);
 				label = string.IsNullOrEmpty(label) ? material : $"{material} {label}";
 			}
@@ -50,17 +48,7 @@ namespace Assets.Scripts.UI {
 			_thing = null;
 			_container.SetActive(false);
 			HideButtons();
-			IsHoveringOver = false;
-		}
-
-		[UsedImplicitly]
-		public void OnPointerEnter () {
-			IsHoveringOver = true;
-		}
-
-		[UsedImplicitly]
-		public void OnPointerExit () {
-			IsHoveringOver = false;
+			//GUI.Busy = false;
 		}
 
 		[UsedImplicitly]
@@ -82,7 +70,7 @@ namespace Assets.Scripts.UI {
 				string label = Name.Get(action);
 				go.name = label;
 				go.GetComponent<Button>().onClick.AddListener(() => Action_OnClick(action));
-				string text = Format.Capitalize(Format.SeparateAtCapitalLetters(label, ' ').ToLower());
+				string text = Format.Capitalize(Format.SeparateAtCapitalLetters(label).ToLower());
 				go.transform.GetChild(0).GetComponent<Text>().text = text;
 				string asset = label;
 				go.transform.GetChild(1).GetComponent<Image>().sprite = Assets.GetSprite(asset);
