@@ -30,7 +30,7 @@ namespace Assets.Scripts.Main {
 
 		[UsedImplicitly, SerializeField] private GameObject _background = null;
 		[UsedImplicitly, SerializeField] private GameObject _infoBox = null;
-		[UsedImplicitly, SerializeField] private GameObject _architectButton = null;
+		[UsedImplicitly, SerializeField] private GameObject _architect = null;
 		[UsedImplicitly, SerializeField] private GameObject _sun = null;
 		[UsedImplicitly, SerializeField] private GameObject _tileMaker = null;
 		[UsedImplicitly, SerializeField] private GameObject _waterAssembler = null;
@@ -49,7 +49,7 @@ namespace Assets.Scripts.Main {
 
 			for (int i = 0; i < Name.TileType.Length; ++i) {
 				string label = Name.TileType[i];
-				label = Format.SeparateAtCapitalLetters(label, ' ');
+				label = Format.SeparateAtCapitalLetters(label);
 				TileLabels.Add((TileType) i, label.ToLower());
 			}
 		}
@@ -104,7 +104,6 @@ namespace Assets.Scripts.Main {
 
 			yield return new WaitForSeconds(.05f);
 
-			_architectButton.SetActive(true);
 			_background.SetActive(true);
 			CameraController.PointCameraAtMapCenter();
 			_sun.SetActive(true);
@@ -119,6 +118,7 @@ namespace Assets.Scripts.Main {
 			_itemMaker.SetActive(true);
 			_jobManager.SetActive(true);
 			_weather.SetActive(true);
+			_architect.SetActive(true);
 			_ready = true;
 			Ready = true;
 		}
