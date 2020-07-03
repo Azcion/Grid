@@ -26,9 +26,23 @@ namespace Assets.Scripts.Graphics {
 			for (int i = 0; i < Name.ThingMaterial.Length; ++i) {
 				Materials.Add((ThingMaterial) i, Color.white);
 			}
+
+			Initialize();
 		}
 
-		public static void Initialize () {
+		public static Color Get (TileType type) {
+			return Tiles[type];
+		}
+
+		public static Color Get (LinkedType type) {
+			return Bases[type];
+		}
+
+		public static Color Get (ThingMaterial type) {
+			return Materials[type];
+		}
+
+		private static void Initialize () {
 			Tiles[TileType.DeepWater] = new Color32(100, 112, 145, 255);
 			Tiles[TileType.ShallowWater] = new Color32(120, 143, 155, 255);
 			Tiles[TileType.RoughStone] = new Color32(143, 148, 142, 255);
@@ -60,18 +74,6 @@ namespace Assets.Scripts.Graphics {
 			Materials[ThingMaterial.Marble] = new Color32(129, 135, 129, 255);
 			Materials[ThingMaterial.Sandstone] = new Color32(129, 102, 91, 255);
 			Materials[ThingMaterial.Wood] = new Color32(189, 126, 75, 255);
-		}
-
-		public static Color Get (TileType type) {
-			return Tiles[type];
-		}
-
-		public static Color Get (LinkedType type) {
-			return Bases[type];
-		}
-
-		public static Color Get (ThingMaterial type) {
-			return Materials[type];
 		}
 
 	}

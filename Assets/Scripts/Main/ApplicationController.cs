@@ -108,7 +108,6 @@ namespace Assets.Scripts.Main {
 			_background.SetActive(true);
 			CameraController.PointCameraAtMapCenter();
 			_sun.SetActive(true);
-			Tint.Initialize();
 			_waterAssembler.SetActive(true);
 			_tileMaker.SetActive(true);
 			_terrainController.SetActive(true);
