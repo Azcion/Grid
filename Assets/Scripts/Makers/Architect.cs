@@ -237,14 +237,6 @@ namespace Assets.Scripts.Makers {
 			}
 		}
 
-		private static void PlaceItem (int x, int y, string type) {
-			if (ItemMaker.TryMake(type, x, y)) {
-				//todo
-			} else {
-				Debug.Log($"Couldn't place {type} at xy: {x} {y}");
-			}
-		}
-
 	}
 
 }
