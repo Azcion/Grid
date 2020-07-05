@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Defs;
-using Assets.Scripts.Enums;
+﻿using Assets.Scripts.Enums;
 using Assets.Scripts.Things;
 
 namespace Assets.Scripts.Jobs {
@@ -22,14 +21,14 @@ namespace Assets.Scripts.Jobs {
 			if (target.Heir.Type == ThingType.Plant) {
 				switch (action) {
 					case Action.Harvest:
-						switch ((target.ThingDef as PlantDef)?.PlantSize) {
+						switch (target.Def.PlantSize) {
 							case PlantSize.Small: return 15;
 							case PlantSize.Medium: return 30;
 							case PlantSize.Large: return 60;
 							default: return 0;
 						}
 					case Action.ChopWood:
-						switch ((target.ThingDef as PlantDef)?.PlantSize) {
+						switch (target.Def.PlantSize) {
 							case PlantSize.Small: return 30;
 							case PlantSize.Medium: return 60;
 							case PlantSize.Large: return 120;

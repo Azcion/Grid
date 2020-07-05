@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Defs;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Things;
 using Assets.Scripts.Utils;
@@ -21,10 +20,9 @@ namespace Assets.Scripts.UI {
 
 		public static void Set (Thing thing) {
 			_thing = thing;
-			IThingDef def = thing.ThingDef;
-			string label = def.GetLabel;
+			string label = thing.Def.Label;
 
-			if ((def as ThingDef)?.ShowMaterial ?? false) {
+			if (thing.Def.ShowMaterial) {
 				string material = Name.Get(thing.Material);
 				label = string.IsNullOrEmpty(label) ? material : $"{material} {label}";
 			}
@@ -34,7 +32,7 @@ namespace Assets.Scripts.UI {
 			}
 
 			_name.text = Format.Capitalize(label);
-			_description.text = def.GetDescription.Replace("\\n", "\n");
+			_description.text = thing.Def.Description.Replace("\\n", "\n");
 			_scrollbar.value = 1;
 			SetActions(thing.ValidActions);
 		}

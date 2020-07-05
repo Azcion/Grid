@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0"?>
 <Defs>
-	<BuildingDef>
+	<Def>
 		<DefName>Mineral</DefName>
 		<Description></Description>
 		<TexPath>thing/building/linked</TexPath>
 		<LinkedType>Rock</LinkedType>
 		<Selectable>true</Selectable>
 		<ShowMaterial>true</ShowMaterial>
-	</BuildingDef>
+	</Def>
 </Defs>

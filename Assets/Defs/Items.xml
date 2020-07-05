@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Defs>
-	<ItemDef>
+	<Def>
 		<DefName>WoodLog</DefName>
 		<Label>wood</Label>
 		<Description>Wood from trees or other fibrous plants. Useful for building structures and weapons. It is a good fuel for campfires and generators, and can be refined into chemfuel. In a pinch, a piece of wood can be used as a weapon or a leg.</Description>
@@ -11,8 +11,8 @@
 		<TexPath>thing/item/resource/woodlog</TexPath>
 		<TexCount>3</TexCount>
 		<StackLimit>75</StackLimit>
-	</ItemDef>
-	<ItemDef>
+	</Def>
+	<Def>
 		<DefName>RawAgave</DefName>
 		<Label>agave fruit</Label>
 		<Description>Raw agave fruit.</Description>
@@ -23,8 +23,8 @@
 		<TexPath>thing/item/food/rawagave</TexPath>
 		<TexCount>1</TexCount>
 		<StackLimit>75</StackLimit>
-	</ItemDef>
-	<ItemDef>
+	</Def>
+	<Def>
 		<DefName>MedicineHerbal</DefName>
 		<Label>herbal medicine</Label>
 		<Description>A pack of herbal concoctions extracted from the healroot plant. It is less potent than industrial pharmaceuticals, but much better than nothing.</Description>
@@ -35,5 +35,5 @@
 		<TexPath>thing/item/manufactured/medicineherbal</TexPath>
 		<TexCount>3</TexCount>
 		<StackLimit>75</StackLimit>
-	</ItemDef>
+	</Def>
 </Defs>

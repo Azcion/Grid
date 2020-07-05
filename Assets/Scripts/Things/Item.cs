@@ -6,15 +6,13 @@ namespace Assets.Scripts.Things {
 
 	public class Item : Thing, IThing {
 
-		public ItemDef Def { get; private set; }
 		public int Count { get; private set; }
 
 		public GameObject Go => gameObject;
 		public ThingType Type => ThingType.Item;
 
-		public static Item Create (Item item, ItemDef def) {
+		public static Item Create (Item item, Def def) {
 			item.Def = def;
-			item.ThingDef = def;
 
 			return item;
 		}

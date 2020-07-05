@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Defs>
-	<PlantDef>
+	<Def>
 		<DefName>Grass</DefName>
 		<Label>grass</Label>
 		<StatBases>
@@ -14,8 +14,8 @@
 		<Selectable>false</Selectable>
 		<PlantSize>Small</PlantSize>
 		<CanBuildOver>true</CanBuildOver>
-	</PlantDef>
-	<PlantDef>
+	</Def>
+	<Def>
 		<DefName>Brambles</DefName>
 		<Label>brambles</Label>
 		<Description>Tangled, thorny, woody shoots covered with leaves. Brambles grow in clusters, and slow down anyone moving over them.</Description>
@@ -30,8 +30,8 @@
 		<Selectable>true</Selectable>
 		<PlantSize>Small</PlantSize>
 		<CanBuildOver>true</CanBuildOver>
-	</PlantDef>
-	<PlantDef>
+	</Def>
+	<Def>
 		<DefName>PincushionCactus</DefName>
 		<Label>pincushion cactus</Label>
 		<Description>A short cactus. It is so named because it resembles a pincushion.</Description>
@@ -45,8 +45,8 @@
 		<Selectable>true</Selectable>
 		<PlantSize>Small</PlantSize>
 		<CanBuildOver>true</CanBuildOver>
-	</PlantDef>
-	<PlantDef>
+	</Def>
+	<Def>
 		<DefName>Agave</DefName>
 		<Label>agave</Label>
 		<Description>A large-leafed desert plant with edible flowers and stalks.</Description>
@@ -62,8 +62,8 @@
 		<PlantSize>Large</PlantSize>
 		<Resource>RawAgave</Resource>
 		<ResourceYield>10</ResourceYield>
-	</PlantDef>
-	<PlantDef>
+	</Def>
+	<Def>
 		<DefName>Bush</DefName>
 		<Label>bush</Label>
 		<Description>A short shrub. Does not typically talk.</Description>
@@ -77,8 +77,8 @@
 		<Cluster>true</Cluster>
 		<Selectable>true</Selectable>
 		<PlantSize>Large</PlantSize>
-	</PlantDef>
-	<PlantDef>
+	</Def>
+	<Def>
 		<DefName>Healroot</DefName>
 		<Label>healroot</Label>
 		<Description>A slow-growing plant which yields herbal medicine when harvested.\n\nThis wild breed of healroot is hardier than domesticated healroot, but too difficult to cultivate. It is prized by tribespeople in colder climates.</Description>
@@ -93,8 +93,8 @@
 		<PlantSize>Large</PlantSize>
 		<Resource>MedicineHerbal</Resource>
 		<ResourceYield>1</ResourceYield>
-	</PlantDef>
-	<PlantDef>
+	</Def>
+	<Def>
 		<DefName>SaguaroCactus</DefName>
 		<Label>saguaro cactus</Label>
 		<Description>A large cactus native to arid Earth environments. Though it is not a tree, it yields a small amount of fibrous material that can be used like wood.</Description>
@@ -109,8 +109,8 @@
 		<PlantSize>Large</PlantSize>
 		<Resource>WoodLog</Resource>
 		<ResourceYield>15</ResourceYield>
-	</PlantDef>
-	<PlantDef>
+	</Def>
+	<Def>
 		<DefName>TreeDrago</DefName>
 		<Label>drago tree</Label>
 		<Description>A hardy desert tree topped with thick, pointed leaves.</Description>
@@ -125,8 +125,8 @@
 		<PlantSize>Large</PlantSize>
 		<Resource>WoodLog</Resource>
 		<ResourceYield>25</ResourceYield>
-	</PlantDef>
-	<PlantDef>
+	</Def>
+	<Def>
 		<DefName>TreePalm</DefName>
 		<Label>palm tree</Label>
 		<Description>A tropical tree with a tall, naked trunk topped by a cluster of very broad leaves. Unfortunately, this variety doesn't produce any edible coconuts.</Description>
@@ -140,5 +140,5 @@
 		<PlantSize>Large</PlantSize>
 		<Resource>WoodLog</Resource>
 		<ResourceYield>18</ResourceYield>
-	</PlantDef>
+	</Def>
 </Defs>

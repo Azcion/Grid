@@ -17,7 +17,7 @@ namespace Assets.Scripts.Makers {
 		private static bool[,] _isDesignated;
 		private static bool _didStartPlanningThisCycle;
 		private static Transform _designator;
-		private static BuildingDef _selectedDef;
+		private static Def _selectedDef;
 		private static ThingType _selectedType;
 
 		private int _oldMx;
@@ -32,7 +32,7 @@ namespace Assets.Scripts.Makers {
 			DragCellPoolUsed = new List<GameObject>();
 		}
 
-		public static void SelectThing (BuildingDef def) {
+		public static void SelectThing (Def def) {
 			StartSelect();
 			_selectedDef = def;
 			_selectedType = ThingType.Structure;
@@ -225,7 +225,7 @@ namespace Assets.Scripts.Makers {
 
 		private static void BuildWall (int x, int y) {
 			Vector3 pos = new Vector3(x, y, Order.SELECTOR);
-			BuildingDef def = DefLoader.GetBuilding("Wall");
+			Def def = DefLoader.GetBuilding("Wall");
 			Linked linked = WallMaker.Make(def, ThingMaterial.Wood, pos, true, null);
 			linked.Initialize();
 

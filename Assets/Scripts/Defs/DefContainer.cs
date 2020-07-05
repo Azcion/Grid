@@ -1,64 +1,50 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
-using UnityEngine;
-using UnityEngine.Assertions;
 
 namespace Assets.Scripts.Defs {
 
-	[SuppressMessage("ReSharper", "ConvertToUsingDeclaration")]
-	public class DefContainer<T> where T : ThingDef {
+	public class DefContainer  {
 
-		public readonly List<T> Defs;
+		public readonly List<Def> Defs;
 
-		private readonly Dictionary<string, T> _defs;
+		private readonly Dictionary<string, Def> _defs;
 
 		public DefContainer (string path) {
-			if (!typeof(IThingDef).IsAssignableFrom(typeof(T))) {
-				throw new AssertionException($"{typeof(T)} is not a valid def type.", "");
-			}
-
-			Defs = new List<T>();
-			_defs = new Dictionary<string, T>();
+			Defs = new List<Def>();
+			_defs = new Dictionary<string, Def>();
 			Add(path);
 		}
 
 		public void Add (string path) {
-			List<T> defs = Load(path);
+			List<Def> defs = Load(path);
 
-			foreach (T def in defs) {
-				if (!(def is ThingDef thingDef)) {
-					Debug.Log("Invalid def");
-					continue;
-				}
-
-				string defName = thingDef.DefName;
-				_defs.Add(defName, def);
+			foreach (Def def in defs) {
+				_defs.Add(def.DefName, def);
 			}
 
 			Defs.AddRange(defs);
 		}
 
-		public T Get (string defName) {
+		public Def Get (string defName) {
 			return _defs[defName];
 		}
 
 		public void Save (string path) {
-			XmlSerializer serializer = new XmlSerializer(typeof(ListWrapper<T>));
+			XmlSerializer serializer = new XmlSerializer(typeof(ListWrapper<Def>));
 			XmlSerializerNamespaces xns = new XmlSerializerNamespaces();
 			xns.Add(string.Empty, string.Empty);
 
 			using (FileStream stream = new FileStream(path, FileMode.Create)) {
-				serializer.Serialize(stream, new ListWrapper<T>(Defs), xns);
+				serializer.Serialize(stream, new ListWrapper<Def>(Defs), xns);
 			}
 		}
 
-		private List<T> Load (string path) {
-			XmlSerializer serializer = new XmlSerializer(typeof(ListWrapper<T>));
+		private List<Def> Load (string path) {
+			XmlSerializer serializer = new XmlSerializer(typeof(ListWrapper<Def>));
 
 			using (FileStream stream = new FileStream(path, FileMode.Open)) {
-				return serializer.Deserialize(stream) as ListWrapper<T>;
+				return serializer.Deserialize(stream) as ListWrapper<Def>;
 			}
 		}
 

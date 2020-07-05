@@ -10,7 +10,6 @@ namespace Assets.Scripts.Things {
 	[UsedImplicitly]
 	public class Plant : Thing, IThing {
 
-		public PlantDef Def;
 		public PlantSize Size;
 
 		private static readonly Vector3[] Nodes = {
@@ -36,9 +35,8 @@ namespace Assets.Scripts.Things {
 			}
 		}
 
-		public static Plant Create (Plant plant, PlantDef def) {
+		public static Plant Create (Plant plant, Def def) {
 			plant.Def = def;
-			plant.ThingDef = def;
 			plant.Heir = plant;
 
 			return plant;

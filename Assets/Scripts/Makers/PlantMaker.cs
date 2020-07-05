@@ -127,7 +127,7 @@ namespace Assets.Scripts.Makers {
 							Initialize(prefab, DefLoader.Grass, x, y);
 							break;
 						case Coverage.Random:
-							PlantDef def = DefLoader.GetRandomPlantDef();
+							Def def = DefLoader.GetRandomPlantDef();
 
 							if (def.Cluster) {
 								if (!IsLowFertility(type)) {
@@ -148,7 +148,7 @@ namespace Assets.Scripts.Makers {
 			ApplicationController.NotifyReady();
 		}
 
-		private void InitializeGroup (GameObject prefab, PlantDef def, int x, int y) {
+		private void InitializeGroup (GameObject prefab, Def def, int x, int y) {
 			int groupSize = Random.Range(1, 4);
 			float rv = Random.value;
 			groupSize += rv > .5f ? 2 : 1;
@@ -172,7 +172,7 @@ namespace Assets.Scripts.Makers {
 			}
 		}
 
-		private void Initialize (GameObject prefab, PlantDef def, int x, int y) {
+		private void Initialize (GameObject prefab, Def def, int x, int y) {
 			Vector3 pos = new Vector3(x, y, Order.PLANT + Map.SubY * y);
 			GameObject go = Instantiate(prefab, pos, Quaternion.identity, transform);
 			go.name = def.DefName;

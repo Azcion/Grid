@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0"?>
 <Defs>
-	<BuildingDef>
+	<Def>
 		<DefName>Wall</DefName>
 		<Label>wall</Label>
 		<Description>An impassable wall. Capable of holding up a roof.</Description>
@@ -9,5 +9,5 @@
 		<Category>Structure</Category>
 		<Selectable>true</Selectable>
 		<ShowMaterial>true</ShowMaterial>
-	</BuildingDef>
+	</Def>
 </Defs>

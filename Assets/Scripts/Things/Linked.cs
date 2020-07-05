@@ -10,8 +10,6 @@ namespace Assets.Scripts.Things {
 	[UsedImplicitly]
 	public class Linked : Thing, IThing {
 
-		public BuildingDef Def;
-
 		private int _x;
 		private int _y;
 		private LinkedType _type;
@@ -19,11 +17,9 @@ namespace Assets.Scripts.Things {
 		public GameObject Go => gameObject;
 		public ThingType Type => ThingType.Structure;
 
-		public static Linked Create (Linked linked, BuildingDef def, ThingMaterial material, bool blueprint) {
+		public static Linked Create (Linked linked, Def def, ThingMaterial material, bool blueprint) {
 			linked.Def = def;
-			linked.ThingDef = def;
 			linked._type = def.LinkedType;
-			linked.ShowMaterial = true;
 			linked.Material = material;
 			linked.IsBlueprint = blueprint;
 			linked.Heir = linked;

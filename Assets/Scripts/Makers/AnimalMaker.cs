@@ -64,7 +64,7 @@ namespace Assets.Scripts.Makers {
 						continue;
 					}
 
-					AnimalDef def = DefLoader.GetRandomAnimalDef();
+					Def def = DefLoader.GetRandomAnimalDef();
 
 					if (def.Solitary) {
 						Initialize(prefab, def, x, y);
@@ -75,7 +75,7 @@ namespace Assets.Scripts.Makers {
 			}
 		}
 
-		private void InitializeGroup (GameObject prefab, AnimalDef def, int x, int y) {
+		private void InitializeGroup (GameObject prefab, Def def, int x, int y) {
 			int groupSize = Random.Range(1, 4);
 			float rv = Random.value;
 			groupSize += rv > .5f ? 1 : 0;
@@ -100,7 +100,7 @@ namespace Assets.Scripts.Makers {
 			}
 		}
 
-		private void Initialize (GameObject prefab, AnimalDef def, int x, int y) {
+		private void Initialize (GameObject prefab, Def def, int x, int y) {
 			Vector3 pos = new Vector3(x, y, Order.ANIMAL);
 			GameObject go = Instantiate(prefab, pos, Quaternion.identity, transform);
 			go.name = def.DefName;

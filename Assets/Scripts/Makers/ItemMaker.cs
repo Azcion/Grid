@@ -15,7 +15,7 @@ namespace Assets.Scripts.Makers {
 			Vector3 pos = new Vector3(x, y, Order.ITEM);
 			GameObject go = Instantiate(_itemPrefab, pos, Quaternion.identity, _container);
 			go.name = type;
-			ItemDef def = DefLoader.GetItem(type);
+			Def def = DefLoader.GetItem(type);
 			Item item = Item.Create(go.GetComponent<Item>(), def);
 			item.Initialize(count);
 			_items[y, x] = item;

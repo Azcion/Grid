@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0"?>
 <Defs>
-	<AnimalDef>
+	<Def>
 		<DefName>Capybara</DefName>
 		<Label>capybara</Label>
 		<Description>The largest natural rodent, the capybara is well-adapted for steaming jungle environments.</Description>
@@ -18,8 +18,8 @@
 			<g>84</g>
 			<b>49</b>
 		</Tint>
-	</AnimalDef>
-	<AnimalDef>
+	</Def>
+	<Def>
 		<DefName>Megasloth</DefName>
 		<Label>megasloth</Label>
 		<Description>A giant, solitary herbivore with two giant claws for warding off threats. Long extinct after being wiped out by the natives of Earth's American continent, the megasloth was later brought back using advanced cloning and artificial gestators. Its thick hide is exceptionally strong and insulating, and makes a great leather for cold-weather clothing. It is peaceful if left alone, but will shred anyone who disturbs it with its giant claws.</Description>
@@ -32,8 +32,8 @@
 		<EcosystemWeight>2</EcosystemWeight>
 		<Solitary>true</Solitary>
 		<SpriteScale>3.8</SpriteScale>
-	</AnimalDef>
-	<AnimalDef>
+	</Def>
+	<Def>
 		<DefName>Tortoise</DefName>
 		<Label>tortoise</Label>
 		<Description>This heavily armored land-dwelling reptile is known for its slow moving speed and surprisingly vicious bite. Because of its natural armor, it is tough to kill and can do serious damage during drawn-out melee fights.</Description>
@@ -45,5 +45,5 @@
 		<TexPath>thing/creature/tortoise</TexPath>
 		<EcosystemWeight>0.40</EcosystemWeight>
 		<Solitary>true</Solitary>
-	</AnimalDef>
+	</Def>
 </Defs>

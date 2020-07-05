@@ -57,7 +57,7 @@ namespace Assets.Scripts.UI {
 			Transform actionPrefab = actionsContainer.transform.GetChild(0);
 			_actions = new Dictionary<string, GameObject>();
 
-			foreach (BuildingDef def in DefLoader.BuildingDefs.Defs) {
+			foreach (Def def in DefLoader.BuildingDefs.Defs) {
 				if (def.Category == ArchitectCategory.None) {
 					continue;
 				}
@@ -66,8 +66,7 @@ namespace Assets.Scripts.UI {
 				go.SetActive(false);
 				go.transform.SetParent(actionsContainer);
 				go.name = def.Label;
-				BuildingDef def1 = def;
-				go.GetComponent<Button>().onClick.AddListener(() => Action_OnClick(def1));
+				go.GetComponent<Button>().onClick.AddListener(() => Action_OnClick(def));
 				string text = Format.Capitalize(Format.SeparateAtCapitalLetters(def.Label));
 				go.transform.GetChild(0).GetComponent<Text>().text = text;
 				string asset;
@@ -110,7 +109,7 @@ namespace Assets.Scripts.UI {
 			_visibleButtons.Clear();
 		}
 
-		private static void Action_OnClick (BuildingDef def) {
+		private static void Action_OnClick (Def def) {
 			Architect.SelectThing(def);
 		}
 		

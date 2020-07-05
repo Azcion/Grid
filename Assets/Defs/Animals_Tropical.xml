@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0"?>
 <Defs>
-	<AnimalDef>
+	<Def>
 		<DefName>Cobra</DefName>
 		<Label>cobra</Label>
 		<Description>A large predatory snake. Cobras can be highly aggressive if provoked, and their bite injects toxic venom into the victim.</Description>
@@ -18,5 +18,5 @@
 			<g>170</g>
 			<b>158</b>
 		</Tint>
-	</AnimalDef>
+	</Def>
 </Defs>

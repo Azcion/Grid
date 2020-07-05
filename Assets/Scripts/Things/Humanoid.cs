@@ -9,8 +9,6 @@ namespace Assets.Scripts.Things {
 
 	public class Humanoid : Pathfinding, ICreature {
 
-		public HumanoidDef Def { get; private set; }
-
 		private static readonly string[] DirectionSuffix = { "_north", "_south", "_east", "_east" };
 
 		private bool _didInitialize;
@@ -35,7 +33,6 @@ namespace Assets.Scripts.Things {
 			if (_didInitialize == false) {
 				transform.position = new Vector3(transform.position.x, transform.position.y, Order.ANIMAL);
 				Def = DefLoader.GetRandomHumanoidDef();
-				ThingDef = Def;
 				Heir = this;
 				Initialize();
 			}

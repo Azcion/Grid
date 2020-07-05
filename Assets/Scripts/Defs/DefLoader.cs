@@ -7,31 +7,31 @@ namespace Assets.Scripts.Defs {
 	public class DefLoader : MonoBehaviour {
 
 		public static bool DidLoad;
-		public static DefContainer<AnimalDef> AnimalDefs;
-		public static DefContainer<PlantDef> PlantDefs;
-		public static DefContainer<HumanoidDef> HumanoidDefs;
-		public static DefContainer<BuildingDef> BuildingDefs;
-		public static DefContainer<ItemDef> ItemDefs;
-		public static PlantDef Grass;
-		public static HumanoidDef Human;
+		public static DefContainer AnimalDefs;
+		public static DefContainer PlantDefs;
+		public static DefContainer HumanoidDefs;
+		public static DefContainer BuildingDefs;
+		public static DefContainer ItemDefs;
+		public static Def Grass;
+		public static Def Human;
 
-		public static AnimalDef GetRandomAnimalDef () {
+		public static Def GetRandomAnimalDef () {
 			return AnimalDefs.Defs[Random.Range(0, AnimalDefs.Defs.Count)];
 		}
 
-		public static PlantDef GetRandomPlantDef () {
+		public static Def GetRandomPlantDef () {
 			return PlantDefs.Defs[Random.Range(0, PlantDefs.Defs.Count)];
 		}
 
-		public static HumanoidDef GetRandomHumanoidDef () {
+		public static Def GetRandomHumanoidDef () {
 			return HumanoidDefs.Defs[Random.Range(0, HumanoidDefs.Defs.Count)];
 		}
 
-		public static BuildingDef GetBuilding (string defName) {
+		public static Def GetBuilding (string defName) {
 			return BuildingDefs.Get(defName);
 		}
 
-		public static ItemDef GetItem (string defName) {
+		public static Def GetItem (string defName) {
 			return ItemDefs.Get(defName);
 		}
 
@@ -39,14 +39,14 @@ namespace Assets.Scripts.Defs {
 		private void Start () {
 			string path = Application.isEditor ? Application.dataPath : System.IO.Directory.GetCurrentDirectory();
 			path += "/Defs/";
-			AnimalDefs = new DefContainer<AnimalDef>(path + "Animals_Global.xml");
+			AnimalDefs = new DefContainer(path + "Animals_Global.xml");
 			AnimalDefs.Add(path + "Animals_Arid.xml");
 			AnimalDefs.Add(path + "Animals_Tropical.xml");
-			PlantDefs = new DefContainer<PlantDef>(path + "Plants.xml");
-			HumanoidDefs = new DefContainer<HumanoidDef>(path + "Humanoids.xml");
-			BuildingDefs = new DefContainer<BuildingDef>(path + "Buildings_Structure.xml");
+			PlantDefs = new DefContainer(path + "Plants.xml");
+			HumanoidDefs = new DefContainer(path + "Humanoids.xml");
+			BuildingDefs = new DefContainer(path + "Buildings_Structure.xml");
 			BuildingDefs.Add(path + "Buildings_Natural.xml");
-			ItemDefs = new DefContainer<ItemDef>(path + "Items.xml");
+			ItemDefs = new DefContainer(path + "Items.xml");
 
 			Grass = PlantDefs.Get("Grass");
 			Human = HumanoidDefs.Get("Scyther");
