@@ -46,7 +46,7 @@ namespace Assets.Scripts.UI {
 			_thing = null;
 			_container.SetActive(false);
 			HideButtons();
-			//GUI.Busy = false;
+			GUI.Busy = false;
 		}
 
 		[UsedImplicitly]
@@ -98,16 +98,14 @@ namespace Assets.Scripts.UI {
 		}
 
 		private static void Action_OnClick (Action action) {
-			switch (_thing.Heir.Type) {
+			switch (_thing.Type) {
 				case ThingType.Plant:
-					Plant plant = _thing.Heir as Plant;
-
 					switch (action) {
 						case Action.Harvest:
-							plant?.Action_Harvest();
+							_thing.AsPlant.Action_Harvest();
 							break;
 						case Action.ChopWood:
-							plant?.Action_ChopWood();
+							_thing.AsPlant.Action_ChopWood();
 							break;
 					}
 

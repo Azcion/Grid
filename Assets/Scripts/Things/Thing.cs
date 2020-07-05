@@ -8,8 +8,14 @@ namespace Assets.Scripts.Things {
 
 	public class Thing : MonoBehaviour {
 
-		public IThing Heir { get; protected set; }
 		public Def Def { get; protected set; }
+		public ThingType Type { get; protected set; }
+		public Animal AsAnimal { get; protected set; }
+		public Humanoid AsHumanoid { get; protected set; }
+		public Item AsItem { get; protected set; }
+		public Linked AsLinked { get; protected set; }
+		public Pathfinding AsPathfinding { get; protected set; }
+		public Plant AsPlant { get; protected set; }
 		public List<Action> ValidActions { get; private set; }
 		public ThingMaterial Material { get; protected set; }
 		public bool IsBlueprint { get; protected set; }
@@ -48,13 +54,12 @@ namespace Assets.Scripts.Things {
 				// select on left click
 				Selector.Select(this);
 				Selected = true;
-			} else if (ValidActions.Count > 0 && Selector.Active && Selector.Thing.Heir.Type == ThingType.Player && Input.GetMouseButtonUp(1)) {
+			} else if (ValidActions.Count > 0 && Selector.Active && Selector.Thing.Type == ThingType.Player && Input.GetMouseButtonUp(1)) {
 				// designate path and action on right click
-				Humanoid humanoid = Selector.Thing.Heir as Humanoid;
-				bool found = humanoid?.FindPath(this, ValidActions[0]) ?? false;
+				bool found = Selector.Thing.AsHumanoid.FindPath(this, ValidActions[0]);
 
 				if (found) {
-					humanoid.DidDesignateAction = true;
+					Selector.Thing.AsHumanoid.DidDesignateAction = true;
 				}
 			}
 		}

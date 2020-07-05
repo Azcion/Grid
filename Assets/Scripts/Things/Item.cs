@@ -4,15 +4,14 @@ using UnityEngine;
 
 namespace Assets.Scripts.Things {
 
-	public class Item : Thing, IThing {
+	public class Item : Thing {
 
 		public int Count { get; private set; }
 
-		public GameObject Go => gameObject;
-		public ThingType Type => ThingType.Item;
-
 		public static Item Create (Item item, Def def) {
 			item.Def = def;
+			item.AsItem = item;
+			item.Type = ThingType.Item;
 
 			return item;
 		}

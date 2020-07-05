@@ -17,7 +17,7 @@ namespace Assets.Scripts.Makers {
 		public int Penalty;
 
 		private int _groundPenalty;
-		private IThing _thingSlot;
+		private Thing _thingSlot;
 		private bool _originalWalkable;
 		private bool _originalBuildable;
 
@@ -33,7 +33,7 @@ namespace Assets.Scripts.Makers {
 			_groundPenalty = penalty;
 		}
 
-		public bool TryAddThing (IThing thing) {
+		public bool TryAddThing (Thing thing) {
 			if (ThingSlotVacant()) {
 				AddThing(thing);
 
@@ -56,7 +56,7 @@ namespace Assets.Scripts.Makers {
 			return _thingSlot.Type == ThingType.Plant && ((Plant) _thingSlot).Def.CanBuildOver;
 		}
 
-		private void AddThing (IThing thing) {
+		private void AddThing (Thing thing) {
 			if (thing.Type == ThingType.Structure) {
 				Walkable = false;
 				Buildable = false;
@@ -71,7 +71,7 @@ namespace Assets.Scripts.Makers {
 				return false;
 			}
 
-			Object.Destroy(_thingSlot.Go);
+			Object.Destroy(_thingSlot.gameObject);
 			_thingSlot = null;
 
 			return true;

@@ -7,18 +7,16 @@ using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.Things {
 
-	public class Animal : Pathfinding, ICreature {
+	public class Animal : Pathfinding {
 
 		private static readonly string[] DirectionSuffix = { "_north", "_south", "_east", "_east" };
 
 		private bool _didInitialize;
 
-		public GameObject Go => gameObject;
-		public ThingType Type => ThingType.Creature;
-
 		public static Animal Create (Animal animal, Def def) {
 			animal.Def = def;
-			animal.Heir = animal;
+			animal.AsAnimal = animal;
+			animal.Type = ThingType.Creature;
 
 			return animal;
 		}

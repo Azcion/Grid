@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 namespace Assets.Scripts.Things {
 
 	[UsedImplicitly]
-	public class Plant : Thing, IThing {
+	public class Plant : Thing {
 
 		public PlantSize Size;
 
@@ -25,9 +25,6 @@ namespace Assets.Scripts.Things {
 
 		private float _growth;
 
-		public GameObject Go => gameObject;
-		public ThingType Type => ThingType.Plant;
-
 		static Plant () {
 			for (int i = 0; i < Nodes.Length; i++) {
 				Vector3 v = Nodes[i];
@@ -37,24 +34,25 @@ namespace Assets.Scripts.Things {
 
 		public static Plant Create (Plant plant, Def def) {
 			plant.Def = def;
-			plant.Heir = plant;
+			plant.AsPlant = plant;
+			plant.Type = ThingType.Plant;
 
 			return plant;
 		}
 
 		public void Action_ChopWood () {
-			Go.SetActive(false);
+			gameObject.SetActive(false);
 			int count = (int) (Def.ResourceYield * _growth);
 			int x = (int) transform.position.x;
 			int y = (int) transform.position.y;
 			ItemMaker.Make(Def.Resource, count, x, y);
 
-			if (Selector.Thing.Heir as Plant == this) {
+			if (Selector.Thing.AsPlant == this) {
 				Selector.Deselect(true);
 			}
 
 			//todo disable and move to pool
-			Destroy(Go);
+			Destroy(gameObject);
 		}
 
 		public void Action_Harvest () {

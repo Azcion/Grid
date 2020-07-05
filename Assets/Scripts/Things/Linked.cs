@@ -8,21 +8,19 @@ using UnityEngine;
 namespace Assets.Scripts.Things {
 
 	[UsedImplicitly]
-	public class Linked : Thing, IThing {
+	public class Linked : Thing {
 
 		private int _x;
 		private int _y;
 		private LinkedType _type;
-
-		public GameObject Go => gameObject;
-		public ThingType Type => ThingType.Structure;
 
 		public static Linked Create (Linked linked, Def def, ThingMaterial material, bool blueprint) {
 			linked.Def = def;
 			linked._type = def.LinkedType;
 			linked.Material = material;
 			linked.IsBlueprint = blueprint;
-			linked.Heir = linked;
+			linked.AsLinked = linked;
+			linked.Type = ThingType.Structure;
 
 			return linked;
 		}

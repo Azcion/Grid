@@ -7,14 +7,11 @@ using UnityEngine;
 
 namespace Assets.Scripts.Things {
 
-	public class Humanoid : Pathfinding, ICreature {
+	public class Humanoid : Pathfinding {
 
 		private static readonly string[] DirectionSuffix = { "_north", "_south", "_east", "_east" };
 
 		private bool _didInitialize;
-
-		public GameObject Go => gameObject;
-		public ThingType Type => Selected ? ThingType.Player : ThingType.Creature;
 
 		public void Initialize () {
 			PrepareChild();
@@ -33,7 +30,8 @@ namespace Assets.Scripts.Things {
 			if (_didInitialize == false) {
 				transform.position = new Vector3(transform.position.x, transform.position.y, Order.ANIMAL);
 				Def = DefLoader.GetRandomHumanoidDef();
-				Heir = this;
+				AsPathfinding = this;
+				Type = ThingType.Creature;
 				Initialize();
 			}
 		}
@@ -50,6 +48,8 @@ namespace Assets.Scripts.Things {
 				SetSprite(Assets.GetSprite(Def.DefName + suffix), Facing == Direction.West);
 				DirectionChanged = false;
 			}
+
+			Type = Selected ? ThingType.Player : ThingType.Creature;
 		}
 
 		[UsedImplicitly]

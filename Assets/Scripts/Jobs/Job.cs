@@ -18,26 +18,27 @@ namespace Assets.Scripts.Jobs {
 		}
 
 		private static float GetWork (Thing target, Action action) {
-			if (target.Heir.Type == ThingType.Plant) {
-				switch (action) {
-					case Action.Harvest:
-						switch (target.Def.PlantSize) {
-							case PlantSize.Small: return 15;
-							case PlantSize.Medium: return 30;
-							case PlantSize.Large: return 60;
-							default: return 0;
-						}
-					case Action.ChopWood:
-						switch (target.Def.PlantSize) {
-							case PlantSize.Small: return 30;
-							case PlantSize.Medium: return 60;
-							case PlantSize.Large: return 120;
-							default: return 0;
-						}
-				}
+			if (target.Type != ThingType.Plant) {
+				return 0;
 			}
 
-			return 0;
+			switch (action) {
+				case Action.Harvest:
+					switch (target.Def.PlantSize) {
+						case PlantSize.Small: return 15;
+						case PlantSize.Medium: return 30;
+						case PlantSize.Large: return 60;
+						default: return 0;
+					}
+				case Action.ChopWood:
+					switch (target.Def.PlantSize) {
+						case PlantSize.Small: return 30;
+						case PlantSize.Medium: return 60;
+						case PlantSize.Large: return 120;
+						default: return 0;
+					}
+				default: return 0;
+			}
 		}
 
 	}

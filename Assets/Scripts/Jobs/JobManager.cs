@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Enums;
-using Assets.Scripts.Things;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -79,16 +78,14 @@ namespace Assets.Scripts.Jobs {
 			Retire(progress);
 			Remove(id);
 
-			switch (job.Target.Heir.Type) {
+			switch (job.Target.Type) {
 				case ThingType.Plant:
-					Plant plant = job.Target.Heir as Plant;
-
 					switch (job.Action) {
 						case Action.ChopWood:
-							plant?.Action_ChopWood();
+							job.Target.AsPlant.Action_ChopWood();
 							break;
 						case Action.Harvest:
-							plant?.Action_Harvest();
+							job.Target.AsPlant.Action_Harvest();
 							break;
 					}
 
