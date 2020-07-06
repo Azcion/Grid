@@ -11,8 +11,8 @@ namespace Assets.Scripts.Makers {
 
 		public static bool Planning;
 
-		private static readonly List<GameObject> DragCellPoolAvailable;
-		private static readonly List<GameObject> DragCellPoolUsed;
+		private static readonly List<GameObject> PoolFree;
+		private static readonly List<GameObject> PoolUsed;
 		
 		private static bool[,] _isDesignated;
 		private static bool _didStartPlanningThisCycle;
@@ -28,8 +28,8 @@ namespace Assets.Scripts.Makers {
 		[UsedImplicitly, SerializeField] private GameObject _dragCellsContainer = null;
 
 		static Architect () {
-			DragCellPoolAvailable = new List<GameObject>();
-			DragCellPoolUsed = new List<GameObject>();
+			PoolFree = new List<GameObject>();
+			PoolUsed = new List<GameObject>();
 		}
 
 		public static void SelectThing (Def def) {
@@ -185,9 +185,9 @@ namespace Assets.Scripts.Makers {
 
 			GameObject go;
 
-			if (DragCellPoolAvailable.Count > 0) {
-				go = DragCellPoolAvailable[0];
-				DragCellPoolAvailable.RemoveAt(0);
+			if (PoolFree.Count > 0) {
+				go = PoolFree[0];
+				PoolFree.RemoveAt(0);
 			} else {
 				go = Instantiate(_dragCellPrefab);
 				go.transform.SetParent(_dragCellsContainer.transform);
@@ -195,20 +195,20 @@ namespace Assets.Scripts.Makers {
 
 			go.transform.position = new Vector3(x + .5f, y + .5f, Order.SELECTOR);
 			go.SetActive(true);
-			DragCellPoolUsed.Add(go);
+			PoolUsed.Add(go);
 			_isDesignated[y, x] = true;
 		}
 
 		private void RetireDesignators () {
-			foreach (GameObject go in DragCellPoolUsed) {
+			foreach (GameObject go in PoolUsed) {
 				go.SetActive(false);
 				int x = (int) go.transform.position.x;
 				int y = (int) go.transform.position.y;
 				_isDesignated[y, x] = false;
 			}
 
-			DragCellPoolAvailable.AddRange(DragCellPoolUsed);
-			DragCellPoolUsed.Clear();
+			PoolFree.AddRange(PoolUsed);
+			PoolUsed.Clear();
 			_designator.gameObject.SetActive(false);
 		}
 

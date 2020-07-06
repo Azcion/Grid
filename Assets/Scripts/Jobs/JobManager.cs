@@ -11,8 +11,8 @@ namespace Assets.Scripts.Jobs {
 		private const float CYCLE = 1 / 20f;
 		private const float W = 7;
 
-		private static readonly List<GameObject> ProgressBarPoolAvailable;
-		private static readonly List<GameObject> ProgressBarPoolUsed;
+		private static readonly List<GameObject> PoolFree;
+		private static readonly List<GameObject> PoolUsed;
 		private static readonly Dictionary<uint, Coroutine> Coroutines;
 		private static readonly Dictionary<uint, Transform> ProgressBars;
 		private static readonly HashSet<uint> ActiveIDs;
@@ -22,8 +22,8 @@ namespace Assets.Scripts.Jobs {
 		private static uint _coroutineId;
 
 		static JobManager () {
-			ProgressBarPoolAvailable = new List<GameObject>();
-			ProgressBarPoolUsed = new List<GameObject>();
+			PoolFree = new List<GameObject>();
+			PoolUsed = new List<GameObject>();
 			Coroutines = new Dictionary<uint, Coroutine>();
 			ProgressBars = new Dictionary<uint, Transform>();
 			ActiveIDs = new HashSet<uint>();
@@ -96,9 +96,9 @@ namespace Assets.Scripts.Jobs {
 		private Transform Display (Vector2 a, Vector2 b) {
 			GameObject go;
 
-			if (ProgressBarPoolAvailable.Count > 0) {
-				go = ProgressBarPoolAvailable[0];
-				ProgressBarPoolAvailable.RemoveAt(0);
+			if (PoolFree.Count > 0) {
+				go = PoolFree[0];
+				PoolFree.RemoveAt(0);
 			} else {
 				go = Instantiate(_progressBarPrefab);
 				go.transform.SetParent(transform);
@@ -107,7 +107,7 @@ namespace Assets.Scripts.Jobs {
 			Vector2 xy = Vector2.Lerp(a, b, .5f);
 			go.transform.position = new Vector3(xy.x, xy.y, Order.SELECTOR);
 			go.SetActive(true);
-			ProgressBarPoolUsed.Add(go);
+			PoolUsed.Add(go);
 
 			return go.transform;
 		}
@@ -115,17 +115,17 @@ namespace Assets.Scripts.Jobs {
 		private static void Retire (Component progressBar) {
 			GameObject go = progressBar.gameObject;
 			go.SetActive(false);
-			ProgressBarPoolAvailable.Add(go);
-			ProgressBarPoolUsed.Remove(go);
+			PoolFree.Add(go);
+			PoolUsed.Remove(go);
 		}
 
 		private static void RetireAll () {
-			foreach (GameObject go in ProgressBarPoolUsed) {
+			foreach (GameObject go in PoolUsed) {
 				go.SetActive(false);
 			}
 
-			ProgressBarPoolAvailable.AddRange(ProgressBarPoolUsed);
-			ProgressBarPoolUsed.Clear();
+			PoolFree.AddRange(PoolUsed);
+			PoolUsed.Clear();
 		}
 
 		private static Transform MakeBar (string label, Vector3 scale, Vector3 pos) {
